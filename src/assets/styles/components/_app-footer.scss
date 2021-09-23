@@ -1,0 +1,37 @@
+.player-controls{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.playing-bar {
+    position: fixed;
+    bottom: 0;
+    background-color: #181818;
+    width: 100%;
+    box-shadow: 0px 1px 7px 5px #8080808f;
+    height: 90px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    .track-img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .player-controls-btn {
+        flex-flow: row;
+        gap: 8px;
+        margin: 12px 0;
+        width: 100%;
+        img {
+            height: 25px;
+            padding: 0px 10px;
+        }
+
+        & img:nth-of-type(2)  {
+            transform: rotate(180deg);
+        }
+    }
+}
