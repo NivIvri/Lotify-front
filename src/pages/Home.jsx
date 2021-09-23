@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { PlaylistPreview } from '../cmps/playlist.preview.jsx';
+import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
 
 class _Home extends Component {
@@ -17,7 +17,7 @@ class _Home extends Component {
         if (!stations) return <h1>loading...</h1>
         return (
             <section className='station-container'>
-                {stations.map((playlist => <PlaylistPreview key={playlist.id}playlist={playlist} />))}
+                {stations.map((station => <StationPreview key={station._id} station={station} />))}
             </section>
         )
     }

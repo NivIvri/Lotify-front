@@ -24,6 +24,5 @@ function getTimeFromDuration(duration){
                 time+=duration[i]
             }
     }
-    console.log(time);
     return time;
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { PlaylistPreview } from '../cmps/playlist.preview.jsx';
 import { TrackPreview } from '../cmps/track-preview.jsx';
 import { stationService } from '../services/async-storage.service.js';
 import { loadStations } from '../store/station.actions.js';
