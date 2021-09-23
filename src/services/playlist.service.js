@@ -1,4 +1,5 @@
-const fs = require('fs')
+import { storageService } from "./async-storage.service"
+const KEY='stations'
 
 
 const gPlaylists = require('../data/playlist.json')
@@ -36,25 +37,9 @@ function save(playlist) {
 
 module.exports = {
     query,
-    getById,
-    remove,
-    save
+
 }
 
-function _makeId(length = 5) {
-    var txt = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < length; i++) {
-        txt += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return txt;
-}
-
-function _savePlaylistsToFile() {
-    return new Promise((resolve, reject) => {
-        fs.writeFile('data/playlist.json', JSON.stringify(gPlaylists, null, 2), (err) => {
-            if (err) return reject(err)
-            resolve();
-        })
-    })
+async function query(){
+    return await storageService.query(KEY)
 }
