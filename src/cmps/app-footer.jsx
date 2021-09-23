@@ -10,6 +10,9 @@ import play from '../assets/img/play.svg';
 import shuffle from '../assets/img/shuffle.svg';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
+
+import { playNextTrack, playPrevTrack, shuffleQueue } from '../store/station.actions.js';
+
 //function SeekBar({ played, duration, setPlayed }) {
 
 //    const secToHHMMSS = (secs) => {
@@ -49,8 +52,6 @@ class _AppFooter extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.currTrack !== prevProps.currTrack) {
             this.setState({ isPlayedTrack: true, played: 0 })
-
-
         }
     }
 
@@ -79,15 +80,12 @@ class _AppFooter extends Component {
     }
 
     handleProgress = state => {
-        console.log('onProgress', state)
         // We only want to update time slider if we are not currently seeking
         if (!this.state.seeking) {
             this.setState(state)
         }
     }
 
-
-  
 
     handleDuration = (duration) => {
         console.log('onDuration', duration)
@@ -99,10 +97,25 @@ class _AppFooter extends Component {
         this.player = player
     }
 
+
+    goNext = () => {
+        this.props.playNextTrack()
+    }
+
+    goShuffle = () => {
+        this.props.shuffleQueue([...this.props.queue])
+    }
+
+    goPrev = () => {
+        this.props.playPrevTrack()
+    }
+
+
     render() {
         const { played, isPlayedTrack, volume } = this.state
         console.log(played, 'played');
         const track = this.props.currTrack
+        console.log(track,'track');
         return (
             <div className='playing-bar'>
                 {
@@ -132,8 +145,8 @@ class _AppFooter extends Component {
 
                 <div className="player-controls">
                     <div className="player-controls-btn flex">
-                        <img src={shuffle} />
-                        <img src={next} />
+                        <img src={shuffle} onClick={this.goShuffle} />
+                        <img src={next} onClick={this.goNext} />
                         {
                             isPlayedTrack &&
                             <img src={pause} onClick={this.togglePlay} />
@@ -142,7 +155,7 @@ class _AppFooter extends Component {
                             !isPlayedTrack &&
                             <img src={play} onClick={this.togglePlay} />
                         }
-                        <img src={next} />
+                        <img src={next} onClick={this.goPrev} />
                     </div>
                     <div className='played-input'>
                         <input
@@ -179,10 +192,14 @@ class _AppFooter extends Component {
 function mapStateToProps(state) {
     return {
         currTrack: state.stationMoudle.currTrack,
+        queue: state.stationMoudle.queue
+
     }
 }
 const mapDispatchToProps = {
-
+    playNextTrack,
+    playPrevTrack,
+    shuffleQueue
 }
 
 

@@ -28,13 +28,13 @@ export function stationReducer(state = initialState, action) {
         case 'NEXT_TRACK':
             // state.recentlyPlayed.unshift(state.currTrack);
             // newState = { ...state, queue: action.queue, currTrack: action.track };
+            //state.queue.splice(currIdx, 1, state.currTrack);
             state.currIdx++;
-            action.station.splice(currIdx, 1, state.currTrack);
             newState = { ...state, currTrack: state.queue[state.currIdx] };
             break
         case 'PREV_TRACK':
+            //state.queue.splice(currIdx, 1, state.currTrack);
             state.currIdx--;
-            action.station.splice(currIdx, 1, state.currTrack);
             newState = { ...state, currTrack: state.queue[state.currIdx] };
             // const track = state.recentlyPlayed.shift();
             // state.queue.unshift(state.currTrack)

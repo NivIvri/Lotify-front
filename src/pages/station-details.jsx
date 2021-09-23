@@ -21,15 +21,6 @@ class _StationDetails extends Component {
         this.props.addToQueue(songs)
     }
 
-    goNext = () => {
-        // this.props.playNextTrack()
-        this.props.shuffleQueue([...this.props.queue])
-    }
-
-    goPrev = () => {
-        this.props.playPrevTrack()
-    }
-
     componentDidUpdate() {
         console.log(this.props.currTrack, this.props.queue);
     }
