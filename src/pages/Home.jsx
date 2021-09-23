@@ -18,6 +18,8 @@ class _Home extends Component {
         return (
             <section className='station-container'>
                 {stations.map((playlist => <PlaylistPreview key={playlist.id}playlist={playlist} />))}
+                {stations.map((playlist => <PlaylistPreview key={playlist.id}playlist={playlist} />))}
+                {stations.map((playlist => <PlaylistPreview key={playlist.id}playlist={playlist} />))}
             </section>
         )
     }
