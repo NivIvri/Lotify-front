@@ -1,4 +1,4 @@
-
+import {stations} from "../data/playlist.js"
 export const storageService = {
     query,
     get,
@@ -9,7 +9,6 @@ export const storageService = {
 
 function query(entityType, delay = 1200) {
     var entities = JSON.parse(localStorage.getItem(entityType)) || []
-
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
             // reject('OOOOPs')
@@ -65,4 +64,11 @@ function _makeId(length = 5) {
         text += possible.charAt(Math.floor(Math.random() * possible.length))
     }
     return text
+}
+
+
+_firstSave();
+
+function _firstSave(){
+    _save('stations',stations)
 }

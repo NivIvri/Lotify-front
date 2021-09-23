@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { PlaylistPreview } from '../cmps/playlist.preview.jsx';
- const playlistService =require ('../services/playlist.service.js')
-
+import { stationService } from '../services/playlist.service.js';
 export class Home extends Component {
     state={
         playlists:null,
     }
 
     async componentDidMount() {
-        const res = await playlistService.query();
+        const res = await stationService.query();
         this.setState({playlists:res})
         console.log(res);
     }
+
 
     render() {
         const {playlists}=this.state
