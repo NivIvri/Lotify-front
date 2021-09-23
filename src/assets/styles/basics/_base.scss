@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Noto Sans", serif;
+    line-height: 1.40;
+    color: $clr2;
+}
+
+body {
+    background: $clr6;
+    margin: 0;
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 400;
+    font-family: "Glory", sans-serif;
+    text-transform: uppercase;
+    margin: 0 0;
+}
+
+a {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+//p {
+//    margin: 0 0 2rem;
+//    max-width: 46ch;
+//}
