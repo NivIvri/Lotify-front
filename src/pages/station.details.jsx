@@ -8,12 +8,13 @@ import { loadStations } from '../store/station.actions.js';
 
 class _StationDetails extends Component {
     state = {
-        station:null,
+        station: null,
     }
     async componentDidMount() {
         const { stationId } = this.props.match.params
-        const station=await stationService.getStationById(stationId)
-        this.setState({station})
+        const station = await stationService.getStationById(stationId)
+        console.log(station);
+        this.setState({ station })
     }
 
 
@@ -22,8 +23,9 @@ class _StationDetails extends Component {
         if (!station) return <h1>loading...</h1>
         return (
             <section className='station-details'>
+                <div className="station-head flex">
+                        <img src={station.songs[0].imgUrl} alt="" />
                     <div className="title-details">
-                    <img src={station.songs[0].imgUrl} alt="" />
                         <p>Playlist</p>
                         <h1>{station.name}</h1>
                         <ul className="clean-list flex">
@@ -31,16 +33,17 @@ class _StationDetails extends Component {
                             <li>{station.songs.length} songs</li>
                         </ul>
                     </div>
-                    <table>
-                        <tbody>
-                            <tr>
+                </div>
+                <table>
+                    <tbody>
+                        <tr>
                             <th>#</th>
                             <th>Title</th>
                             <th>◷</th>
-                            </tr>
-                            {station.songs.map((track,idx)=><TrackPreview track={track} idx={idx}/>)}
-                        </tbody>
-                    </table>
+                        </tr>
+                        {station.songs.map((track, idx) => <TrackPreview track={track} idx={idx} />)}
+                    </tbody>
+                </table>
             </section>
         )
     }
