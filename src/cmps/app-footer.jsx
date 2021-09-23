@@ -9,18 +9,16 @@ import pause from '../assets/img/pause.png';
 import play from '../assets/img/play.svg';
 import shuffle from '../assets/img/shuffle.svg';
 import ReactPlayer from 'react-player'
+import { connect } from 'react-redux'
 
-export class AppFooter extends Component {
+class _AppFooter extends Component {
     state = {
-        track: {
-            _id: "bpOSxM0rNPM",
-            title: "Arctic Monkeys - Do I Wanna Know?",
-            imgUrl: "https://i.ytimg.com/vi/bpOSxM0rNPM/default.jpg",
-            duration: "PT4M26S",
-        },
         volum: 30,
         isPlayedTrack: false
     }
+
+
+    
 
     handleChange = (event, newValue) => {
         this.setState({ volum: newValue });
@@ -31,19 +29,22 @@ export class AppFooter extends Component {
     }
 
     render() {
-        const { track, isPlayedTrack } = this.state
-        if (!track) return <div>loading
-        </div>
+        const { isPlayedTrack } = this.state
+        const { currIdx, queue } = this.props
+        const track = queue[currIdx]
         return (
             <div className='playing-bar'>
-                <ReactPlayer
-                    playing={isPlayedTrack}
-                    url={`https://www.youtube.com/watch?v=${track._id}`}
-                    onDuration={this.onDuration}
-                    onProgress={this.onProgress}
-                    width='0px'
-                    heigth='0px'
-                />
+                {
+                    track &&
+                    <ReactPlayer
+                        playing={isPlayedTrack}
+                        url={`https://www.youtube.com/watch?v=${track.id}`}
+                        onDuration={this.onDuration}
+                        onProgress={this.onProgress}
+                        width='0px'
+                        heigth='0px'
+                    />
+                }
                 <div className="volum">
                     <Box sx={{ width: 200 }}>
                         <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
@@ -75,13 +76,29 @@ export class AppFooter extends Component {
 
                 <div className='song-name-bar flex'>
                     <div>
-                        {track.title}
+                        {track ? track.title : ""}
                     </div>
                     <div>♥</div>
-                    <img className='track-img' src={track.imgUrl} />
+                    {
+                        track &&
+                        <img className='track-img' src={track.imgUrl} />
+                    }
                 </div>
             </div>
         )
     }
 }
 
+
+function mapStateToProps(state) {
+    return {
+        currIdx: state.stationMoudle.currIdx,
+        queue: state.stationMoudle.queue
+    }
+}
+const mapDispatchToProps = {
+
+}
+
+
+export const AppFooter = connect(mapStateToProps, mapDispatchToProps)(_AppFooter)
