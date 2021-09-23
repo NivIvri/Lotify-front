@@ -1,0 +1,52 @@
+.main-nav {
+  width           : 300px;
+  height          : 100vh;
+  background-color: #111;
+  color           : white;
+  padding-top     : 2rem;
+  padding-left    : 2rem;
+}
+
+.banner {
+  font-size: 3rem;
+  color    : white;
+}
+
+.main-nav ul {
+  color          : rgb(179, 179, 179);
+  list-style-type: none;
+
+}
+
+.main-nav {
+  ul {
+    &.stations {
+      overflow-y: scroll
+    }
+
+    li {
+      &.active {
+        background-color: #444;
+      }
+
+      a {
+        display   : block;
+        width     : 90%;
+        padding   : 0.5rem;
+        transition: 0.6s;
+
+        &.active {
+          // background-color: #444;
+        }
+
+        &:hover {
+          color: white
+        }
+      }
+    }
+  }
+}
+
+.stations-wrapper {
+  // overflow-y: scroll
+}

@@ -3,21 +3,22 @@
 }
 
 html {
+    height     : 100%;
+    width      : 100%;
+    color      : #fff;
     font-family: "Noto Sans", serif;
     line-height: 1.40;
-    color: #fff;
-    height: 100%;
-    width: 100%;
+
 }
 
 body {
-    background-image: linear-gradient(#0F2C43,#121212);
+    background-image : linear-gradient(#0F2C43, #121212);
     background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
+    background-size  : cover;
+    height           : 100%;
+    width            : 100%;
+    font-family      : Arial, Helvetica, sans-serif;
+    margin           : 0;
 
 }
 
@@ -27,23 +28,23 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 400;
-    font-family: "Glory", sans-serif;
+    font-weight   : 400;
+    font-family   : "Glory", sans-serif;
     text-transform: uppercase;
-    margin: 0 0;
+    margin        : 0 0;
 }
 
 a {
+
     &,
     &:hover,
     &:focus,
     &:active {
         text-decoration: none;
-        color: inherit;
+        color          : inherit;
     }
 }
 
-//p {
-//    margin: 0 0 2rem;
-//    max-width: 46ch;
-//}
+ul {
+    padding: 0
+}
