@@ -50,8 +50,9 @@ function _updateStation(stationToEdit) {
 
 
 function getStationById(stationId) {
+    console.log(gStations);
     var station = gStations.find(function (station) {
-        return stationId === station.id
+        return stationId === station._id
     })
     return Promise.resolve(station)
 }
@@ -64,14 +65,8 @@ function getNextStationId(stationId) {
     return gStations[nextStationIdx].id
 }
 
-function _createStation(vendor, speed) {
-    if (!speed) speed = utilService.getRandomIntInclusive(1, 200)
-    return {
-        id: utilService.makeId(),
-        vendor,
-        speed,
-        desc: utilService.makeLorem(),
-    }
+function _createStation() {
+
 }
 
 function _createStations() {
