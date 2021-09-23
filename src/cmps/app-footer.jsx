@@ -30,8 +30,8 @@ class _AppFooter extends Component {
 
     render() {
         const { isPlayedTrack } = this.state
-        const { currIdx, queue } = this.props
-        const track = queue[currIdx]
+        const { currTrack, queue } = this.props
+        const track = currTrack
         return (
             <div className='playing-bar'>
                 {
@@ -92,7 +92,7 @@ class _AppFooter extends Component {
 
 function mapStateToProps(state) {
     return {
-        currIdx: state.stationMoudle.currIdx,
+        currTrack: state.stationMoudle.currTrack,
         queue: state.stationMoudle.queue
     }
 }

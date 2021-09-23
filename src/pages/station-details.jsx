@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { TrackPreview } from '../cmps/track-preview.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack,addToQueue } from '../store/station.actions.js';
+import { setCurrTrack,addToQueue,playNextTrack,playPrevTrack } from '../store/station.actions.js';
 
 class _StationDetails extends Component {
     state = {
@@ -12,18 +12,25 @@ class _StationDetails extends Component {
     async componentDidMount() {
         const { stationId } = this.props.match.params
         const station = await stationService.getStationById(stationId)
-        console.log(station);
         this.setState({ station })
     }
 
-    playTrack=(track)=>{
-        console.log('here');
-        this.props.setCurrTrack(track);
-        this.props.addToQueue(this.state.station.songs)
+    playTrack=(track,idx)=>{
+        const {songs} =this.state.station;
+        this.props.setCurrTrack(track,idx);
+        this.props.addToQueue(songs) 
+    }
+
+    goNext=()=>{
+        this.props.playNextTrack()
+    }
+
+    goPrev=()=>{
+        this.props.playPrevTrack()
     }
 
     componentDidUpdate(){
-        console.log(this.props.currIdx,this.props.queue);
+        console.log(this.props.currTrack,this.props.queue);
     }
 
 
@@ -60,13 +67,15 @@ class _StationDetails extends Component {
 
 function mapStateToProps(state) {
     return {
-        currIdx: state.stationMoudle.currIdx,
+        currTrack: state.stationMoudle.currTrack,
         queue: state.stationMoudle.queue
     }
 }
 const mapDispatchToProps = {
     setCurrTrack,
-    addToQueue
+    addToQueue,
+    playNextTrack,
+    playPrevTrack
 }
 
 

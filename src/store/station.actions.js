@@ -17,11 +17,12 @@ export function loadStations() {
     }
 }
 
-export function setCurrTrack(track){
+export function setCurrTrack(track,idx){
     return async (dispatch) => {
                 dispatch({
                     type: 'SET_CURR_TRACK',
-                    track
+                    track,
+                    idx
                 })
     }
 }
@@ -34,4 +35,22 @@ export function addToQueue(station){
                 })
     }
 }
+
+export function playNextTrack(){
+    return async (dispatch) => {
+                dispatch({
+                    type: 'NEXT_TRACK',
+                })
+    }
+}
+
+export function playPrevTrack(){
+    return async (dispatch) => {
+                dispatch({
+                    type: 'PREV_TRACK',
+                })
+    }
+}
+
+
 
