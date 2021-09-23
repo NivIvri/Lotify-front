@@ -17,6 +17,9 @@ export class Home extends Component {
         return (
             <section className='station-container'>
                 {playlists.map((playlist => <PlaylistPreview playlist={playlist} />))}
+                {playlists.map((playlist => <PlaylistPreview playlist={playlist} />))}
+                {playlists.map((playlist => <PlaylistPreview playlist={playlist} />))}
+                {playlists.map((playlist => <PlaylistPreview playlist={playlist} />))}
             </section>
         )
     }

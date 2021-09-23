@@ -64,14 +64,8 @@ function getNextStationId(stationId) {
     return gStations[nextStationIdx].id
 }
 
-function _createStation(vendor, speed) {
-    if (!speed) speed = utilService.getRandomIntInclusive(1, 200)
-    return {
-        id: utilService.makeId(),
-        vendor,
-        speed,
-        desc: utilService.makeLorem(),
-    }
+function _createStation() {
+
 }
 
 function _createStations() {
