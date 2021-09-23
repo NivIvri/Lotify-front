@@ -1,7 +1,8 @@
 const initialState = {
     stations: [],
     queue:[],
-    currIdx:null,
+    playNextQueue:[],
+    currTrack:null,
 }
 export function stationReducer(state = initialState, action) {
     var newState = state
@@ -10,7 +11,7 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: action.stations }
             break
         case 'SET_CURR_TRACK':
-            newState = { ...state, currIdx:action.idx}
+            newState = { ...state, currTrack:action.track}
             break
         case 'ADD_TO_QUEUE':
             // const newQueue=state.queue.concat(action.station);

@@ -16,9 +16,9 @@ class _StationDetails extends Component {
         this.setState({ station })
     }
 
-    playTrack=(idx)=>{
+    playTrack=(track)=>{
         console.log('here');
-        this.props.setCurrTrack(idx);
+        this.props.setCurrTrack(track);
         this.props.addToQueue(this.state.station.songs)
     }
 
