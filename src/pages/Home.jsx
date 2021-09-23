@@ -1,24 +1,36 @@
 import React, { Component } from 'react'
-import { PlaylistPreview } from '../cmps/playlist.preview.jsx';
-import { stationService } from '../services/async-storage.service.js';
+import { connect } from 'react-redux'
 
-export class Home extends Component {
+import { PlaylistPreview } from '../cmps/playlist.preview.jsx';
+import { loadStations } from '../store/station.actions.js';
+
+class _Home extends Component {
     state = {
-        playlists: null,
     }
-    async componentDidMount() {
-        const playlists = await stationService.query();
-        this.setState({ playlists })         
+    componentDidMount() {
+       this.props.loadStations();
     }
 
 
     render() {
-        const { playlists } = this.state
-        if (!playlists) return <h1>loading...</h1>
+        const { stations } = this.props
+        if (!stations) return <h1>loading...</h1>
         return (
             <section className='station-container'>
-                {playlists.map((playlist => <PlaylistPreview playlist={playlist} />))}
+                {stations.map((playlist => <PlaylistPreview key={playlist.id}playlist={playlist} />))}
             </section>
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        stations: state.stationMoudle.stations
+    }
+}
+const mapDispatchToProps = {
+    loadStations,
+}
+
+
+export const Home = connect(mapStateToProps, mapDispatchToProps)(_Home)
