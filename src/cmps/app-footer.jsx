@@ -88,7 +88,7 @@ class _AppFooter extends Component {
 
 
     handleDuration = (duration) => {
-        console.log('onDuration', duration)
+        // console.log('onDuration', duration)
         this.setState({ duration })
     }
 
@@ -113,9 +113,9 @@ class _AppFooter extends Component {
 
     render() {
         const { played, isPlayedTrack, volume } = this.state
-        console.log(played, 'played');
+        // console.log(played, 'played');
         const track = this.props.currTrack
-        console.log(track,'track');
+        // console.log(track,'track');
         return (
             <div className='playing-bar'>
                 {
