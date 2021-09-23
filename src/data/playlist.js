@@ -1,4 +1,3 @@
-export const stations=
 [
   {
     "_id": "5c09",
