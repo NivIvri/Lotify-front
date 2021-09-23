@@ -1,68 +1,91 @@
+import  storageService from '../services/storage.service'
+import { utilService } from './util.service.js'
+import { gPlaylists } from "./data"
 
-export const storageService = {
+export const stationService = {
     query,
-    get,
-    post,
-    put,
-    remove,
+    saveStation,
+    deleteStation,
+    getStationById,
+    getNextStationId
+}
+const KEY = 'stations';
+var gStations;
+
+_createStations();
+
+function query(filterBy) {
+    return Promise.resolve(gStations)
 }
 
-function query(entityType, delay = 1200) {
-    var entities = JSON.parse(localStorage.getItem(entityType)) || []
-
-    return new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            // reject('OOOOPs')
-            resolve(entities)
-        }, delay)   
+function deleteStation(stationId) {
+    var stationIdx = gStations.findIndex(function (station) {
+        return stationId === station.id
     })
-    // return Promise.resolve(entities)
+    gStations.splice(stationIdx, 1)
+    _saveStationsToStorage();
+    return Promise.resolve()
+}
+
+function saveStation(stationToEdit) {
+    return stationToEdit.id ? _updateStation(stationToEdit) : _addStation(stationToEdit)
 }
 
 
-function get(entityType, entityId) {
-    return query(entityType)
-        .then(entities => entities.find(entity => entity._id === entityId))
-}
-function post(entityType, newEntity) {
-    newEntity._id = _makeId()
-    return query(entityType)
-        .then(entities => {
-            entities.push(newEntity)
-            _save(entityType, entities)
-            return newEntity
-        })
+function _addStation(stationToEdit) {
+    var station = _createStation(stationToEdit.vendor, stationToEdit.speed)
+    gStations.unshift(station)
+    _saveStationsToStorage();
+    return Promise.resolve()
 }
 
-function put(entityType, updatedEntity) {
-    return query(entityType)
-        .then(entities => {
-            const idx = entities.findIndex(entity => entity._id === updatedEntity._id)
-            entities.splice(idx, 1, updatedEntity)
-            _save(entityType, entities)
-            return updatedEntity
-        })
-}
-
-function remove(entityType, entityId) {
-    return query(entityType)
-        .then(entities => {
-            const idx = entities.findIndex(entity => entity._id === entityId)
-            entities.splice(idx, 1)
-            _save(entityType, entities)
-        })
+function _updateStation(stationToEdit) {
+    var stationIdx = gStations.findIndex(function (station) {
+        return station.id === stationToEdit.id;
+    })
+    gStations[stationIdx] = stationToEdit
+    _saveStationsToStorage();
+    return Promise.resolve()
 }
 
 
-function _save(entityType, entities) {
-    localStorage.setItem(entityType, JSON.stringify(entities))
+function getStationById(stationId) {
+    var station = gStations.find(function (station) {
+        return stationId === station.id
+    })
+    return Promise.resolve(station)
 }
 
-function _makeId(length = 5) {
-    var text = ''
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    for (var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length))
+
+function getNextStationId(stationId) {
+    const stationIdx = gStations.findIndex(station => station.id === stationId)
+    let nextStationIdx = stationIdx + 1
+    if (nextStationIdx === gStations.length) nextStationIdx = 0
+    return gStations[nextStationIdx].id
+}
+
+function _createStation(vendor, speed) {
+    if (!speed) speed = utilService.getRandomIntInclusive(1, 200)
+    return {
+        id: utilService.makeId(),
+        vendor,
+        speed,
+        desc: utilService.makeLorem(),
     }
-    return text
+}
+
+function _createStations() {
+    var stations = storageService.loadFromStorage(KEY)
+    if (!stations || !stations.length) {
+        stations = []
+        gPlaylists.map(playlist=>{
+         stations.push(playlist)
+        })
+    }
+    gStations = stations;
+    _saveStationsToStorage();
+}
+
+function _saveStationsToStorage() {
+    storageService.saveToStorage(KEY, gStations)
 }

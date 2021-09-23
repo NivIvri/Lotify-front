@@ -8,6 +8,7 @@ function query() {
 }
 
 function getById(playlistId) {
+    debugger
     const playlist = gPlaylists.find(playlist => playlist._id === playlistId)
     return Promise.resolve(playlist)
 }
