@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { TrackPreview } from '../cmps/track-preview.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack,addToQueue } from '../store/station.actions.js';
+import { setCurrTrack, addToQueue, playNextTrack, playPrevTrack, shuffleQueue } from '../store/station.actions.js';
 
 class _StationDetails extends Component {
     state = {
@@ -12,18 +12,26 @@ class _StationDetails extends Component {
     async componentDidMount() {
         const { stationId } = this.props.match.params
         const station = await stationService.getStationById(stationId)
-        console.log(station);
         this.setState({ station })
     }
 
-    playTrack=(track)=>{
-        console.log('here');
-        this.props.setCurrTrack(track);
-        this.props.addToQueue(this.state.station.songs)
+    playTrack = async (track, idx) => {
+        const songs = [...this.state.station.songs];
+        this.props.setCurrTrack(track, idx);
+        this.props.addToQueue(songs)
     }
 
-    componentDidUpdate(){
-        console.log(this.props.currIdx,this.props.queue);
+    goNext = () => {
+        // this.props.playNextTrack()
+        this.props.shuffleQueue([...this.props.queue])
+    }
+
+    goPrev = () => {
+        this.props.playPrevTrack()
+    }
+
+    componentDidUpdate() {
+        console.log(this.props.currTrack, this.props.queue);
     }
 
 
@@ -33,7 +41,7 @@ class _StationDetails extends Component {
         return (
             <section className='station-details'>
                 <div className="station-head flex">
-                        <img src={station.songs[0].imgUrl} alt="" />
+                    <img src={station.songs[0].imgUrl} alt="" />
                     <div className="title-details">
                         <p>Playlist</p>
                         <h1>{station.name}</h1>
@@ -50,9 +58,10 @@ class _StationDetails extends Component {
                             <th>Title</th>
                             <th>◷</th>
                         </tr>
-                        {station.songs.map((track, idx) => <TrackPreview track={track} idx={idx} playTrack={this.playTrack}/>)}
+                        {station.songs.map((track, idx) => <TrackPreview track={track} idx={idx} playTrack={this.playTrack} />)}
                     </tbody>
                 </table>
+                <button onClick={this.goNext}>Shuffle</button>
             </section>
         )
     }
@@ -60,13 +69,16 @@ class _StationDetails extends Component {
 
 function mapStateToProps(state) {
     return {
-        currIdx: state.stationMoudle.currIdx,
+        currTrack: state.stationMoudle.currTrack,
         queue: state.stationMoudle.queue
     }
 }
 const mapDispatchToProps = {
     setCurrTrack,
-    addToQueue
+    addToQueue,
+    playNextTrack,
+    playPrevTrack,
+    shuffleQueue
 }
 
 

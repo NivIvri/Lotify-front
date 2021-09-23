@@ -179,6 +179,10 @@ class _AppFooter extends Component {
 function mapStateToProps(state) {
     return {
         currTrack: state.stationMoudle.currTrack,
+<<<<<<< HEAD
+=======
+        queue: state.stationMoudle.queue
+>>>>>>> d4471928ab4264e94fe80832f4d08d61a0fd1427
     }
 }
 const mapDispatchToProps = {
