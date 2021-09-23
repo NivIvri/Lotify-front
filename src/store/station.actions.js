@@ -26,3 +26,12 @@ export function setCurrTrack(idx){
     }
 }
 
+export function addToQueue(station){
+    return async (dispatch) => {
+                dispatch({
+                    type: 'ADD_TO_QUEUE',
+                    station
+                })
+    }
+}
+

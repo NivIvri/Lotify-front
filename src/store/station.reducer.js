@@ -10,9 +10,11 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: action.stations }
             break
         case 'SET_CURR_TRACK':
-            debugger;
             newState = { ...state, currIdx:action.idx}
             break
+        case 'ADD_TO_QUEUE':
+            // const newQueue=state.queue.concat(action.station);
+            newState={...state,queue:action.station};
         default:
     }
     return newState

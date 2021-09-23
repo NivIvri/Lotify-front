@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { TrackPreview } from '../cmps/track-preview.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack } from '../store/station.actions.js';
+import { setCurrTrack,addToQueue } from '../store/station.actions.js';
 
 class _StationDetails extends Component {
     state = {
@@ -19,10 +19,11 @@ class _StationDetails extends Component {
     playTrack=(idx)=>{
         console.log('here');
         this.props.setCurrTrack(idx);
+        this.props.addToQueue(this.state.station.songs)
     }
 
     componentDidUpdate(){
-        console.log(this.props.currIdx);
+        console.log(this.props.currIdx,this.props.queue);
     }
 
 
@@ -59,11 +60,13 @@ class _StationDetails extends Component {
 
 function mapStateToProps(state) {
     return {
-        currIdx: state.stationMoudle.currIdx
+        currIdx: state.stationMoudle.currIdx,
+        queue: state.stationMoudle.queue
     }
 }
 const mapDispatchToProps = {
-    setCurrTrack
+    setCurrTrack,
+    addToQueue
 }
 
 
