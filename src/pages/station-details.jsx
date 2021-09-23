@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { TrackPreview } from '../cmps/track-preview.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { loadStations } from '../store/station.actions.js';
+import { setCurrTrack } from '../store/station.actions.js';
 
 class _StationDetails extends Component {
     state = {
@@ -14,6 +14,15 @@ class _StationDetails extends Component {
         const station = await stationService.getStationById(stationId)
         console.log(station);
         this.setState({ station })
+    }
+
+    playTrack=(idx)=>{
+        console.log('here');
+        this.props.setCurrTrack(idx);
+    }
+
+    componentDidUpdate(){
+        console.log(this.props.currIdx);
     }
 
 
@@ -40,7 +49,7 @@ class _StationDetails extends Component {
                             <th>Title</th>
                             <th>◷</th>
                         </tr>
-                        {station.songs.map((track, idx) => <TrackPreview track={track} idx={idx} />)}
+                        {station.songs.map((track, idx) => <TrackPreview track={track} idx={idx} playTrack={this.playTrack}/>)}
                     </tbody>
                 </table>
             </section>
@@ -50,11 +59,11 @@ class _StationDetails extends Component {
 
 function mapStateToProps(state) {
     return {
-        stations: state.stationMoudle.stations
+        currIdx: state.stationMoudle.currIdx
     }
 }
 const mapDispatchToProps = {
-    loadStations,
+    setCurrTrack
 }
 
 

@@ -1,6 +1,7 @@
 const initialState = {
     stations: [],
-    currTrack:null,
+    queue:[],
+    currIdx:null,
 }
 export function stationReducer(state = initialState, action) {
     var newState = state
@@ -8,8 +9,9 @@ export function stationReducer(state = initialState, action) {
         case 'SET_STATIONS':
             newState = { ...state, stations: action.stations }
             break
-        case 'SET_TRACK':
-            newState = { ...state, currTrack:action.track}
+        case 'SET_CURR_TRACK':
+            debugger;
+            newState = { ...state, currIdx:action.idx}
             break
         default:
     }

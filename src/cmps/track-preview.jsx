@@ -1,6 +1,6 @@
-export function TrackPreview({track,idx}){
+export function TrackPreview({track,idx,playTrack}){
     return (
-        <tr className="song-container">
+        <tr className="song-container" onClick={()=>playTrack(idx)}>
             <td>{idx+1}</td>
             <td><img src={track.imgUrl} alt="" />{track.title}</td>
             <td>{getTimeFromDuration(track.duration)}</td>
