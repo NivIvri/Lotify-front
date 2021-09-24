@@ -10,11 +10,17 @@ class _Queue extends React.Component {
         const songs = this.props.queue
         if (!songs.length) return <div>queue is empty</div>
         return (
-            <div>
-                <div>Now Playing </div>
-                <TrackPreview track={this.props.currTrack} idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
-                <div>Next in QUEUE </div>
-                <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
+            <div className='queue-contaier'>
+                <table>
+                    <thead></thead>
+                    <tbody>
+                        <tr><td>Now Playing</td> </tr>
+                        <TrackPreview track={this.props.currTrack} idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
+                        <tr><td>Next in QUEUE</td> </tr>
+                        <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
+                    </tbody>
+                </table>
+
             </div >
         )
     }

@@ -28,6 +28,7 @@ class _AppFooter extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        debugger
         if (this.props.currTrack !== prevProps.currTrack) {
             this.setState({ isPlayedTrack: true, played: 0, duration: 0 })
         }
@@ -99,7 +100,6 @@ class _AppFooter extends Component {
 
     inQueue = async () => {
         await this.setState({ inQueue: !this.state.inQueue })
-        const queueId = 'p201'
         if (this.state.inQueue)
             this.props.history.push(`/queue`)
         else {
