@@ -36,18 +36,7 @@ class _MainNav extends React.Component {
             <li><NavLink to="/">station1</NavLink></li>
             <li><NavLink to="/">station1</NavLink></li>
             <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
+
           </ul>
         </div>
       </nav>
