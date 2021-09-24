@@ -15,21 +15,20 @@ class _MainNav extends React.Component {
         <div className="banner">Lotify</div>
         <ul>
           <li className="active">
+            <span className="fas fa-home nav-icon"></span>
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/">search</NavLink>
+            <span className="fas fa-search nav-icon"></span>
+            <NavLink to="/">Search</NavLink>
           </li>
           <li>
-            <NavLink to="/">your library</NavLink>
+            <span className="fas fa-library nav-icon"></span>
+            <NavLink to="/">Your library</NavLink>
           </li>
         </ul>
         <div className="stations-wrapper">
           <ul className="stations">
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
             <li><NavLink to="/">station1</NavLink></li>
             <li><NavLink to="/">station1</NavLink></li>
             <li><NavLink to="/">station1</NavLink></li>

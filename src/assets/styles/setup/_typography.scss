@@ -6,3 +6,27 @@
 //    font-family: montserrat;
 //    src: url(../../fonts/Montserrat/Montserrat-Regular.ttf);
 //}
+
+
+@font-face {
+  font-family: fas;
+  src        : url(../../fonts/fa-solid-900.ttf);
+}
+
+.fas {
+  font-family: fas;
+}
+
+.fa-home::before {
+  content: '\f015';
+}
+
+.fa-search::before {
+  content: '\f002';
+}
+
+.fa-library::before {
+  content: '\f02d';
+}
+
+// f02d
