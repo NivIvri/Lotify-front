@@ -12,7 +12,8 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: action.stations }
             break
         case 'SET_CURR_TRACK':
-            newState = { ...state, currTrack: action.track }
+            if (state.currTrack) newQueue.splice(action.idx, 1, state.currTrack)
+            newState = { ...state, currTrack: action.track, queue: newQueue }
             break
         case 'ADD_TO_QUEUE':
             action.queue.splice(action.idx, 1);

@@ -8,12 +8,13 @@ import { setCurrTrack, addToQueue, playNextTrack, playPrevTrack, shuffleQueue } 
 
 class _StationDetails extends Component {
     state = {
+        stationId: null,
         station: null,
     }
     async componentDidMount() {
         const stationId = this.props.match.params.stationId
         const station = await stationService.getStationById(stationId)
-        this.setState({ station })
+        this.setState({ station, stationId })
     }
 
     playTrack = async (track, idx) => {
@@ -22,8 +23,12 @@ class _StationDetails extends Component {
         this.props.addToQueue(songs, idx)
     }
 
-    componentDidUpdate() {
-        console.log(this.props.currTrack, this.props.queue);
+    async componentDidUpdate() {
+        const stationId = this.props.match.params.stationId
+        if (stationId !== this.state.stationId) {
+            const station = await stationService.getStationById(stationId)
+            this.setState({ station, stationId })
+        }
     }
 
 
@@ -53,10 +58,8 @@ class _StationDetails extends Component {
                             <th>◷</th>
                         </tr>
                         <TrackList songs={station.songs} playTrack={this.playTrack} />
-                        {/*{station.songs.map((track, idx) => <TrackPreview track={track} idx={idx} playTrack={this.playTrack} />)}*/}
                     </tbody>
                 </table>
-                <button onClick={this.goNext}>Shuffle</button>
             </section>
         )
     }
