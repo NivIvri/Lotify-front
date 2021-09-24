@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { TrackPreview } from '../cmps/track-preview.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack, addToQueue, playNextTrack, playPrevTrack, shuffleQueue } from '../store/station.actions.js';
+import { setCurrTrack, addToQueue, setQueue, playNextTrack } from '../store/station.actions.js';
 
 class _StationDetails extends Component {
     state = {
@@ -20,7 +20,11 @@ class _StationDetails extends Component {
     playTrack = async (track, idx) => {
         const songs = [...this.state.station.songs];
         this.props.setCurrTrack(track, idx);
-        this.props.addToQueue(songs, idx)
+        this.props.setQueue(songs, idx)
+    }
+
+    onAddToQueue=(track)=>{
+        this.props.addToQueue(track)
     }
 
     async componentDidUpdate() {
@@ -29,6 +33,7 @@ class _StationDetails extends Component {
             const station = await stationService.getStationById(stationId)
             this.setState({ station, stationId })
         }
+        console.log(this.props.playNextQueue);
     }
 
 
@@ -57,7 +62,7 @@ class _StationDetails extends Component {
                             <th>Title</th>
                             <th>◷</th>
                         </tr>
-                        <TrackList songs={station.songs} playTrack={this.playTrack} />
+                        <TrackList songs={station.songs} playTrack={this.playTrack} onAddToQueue={this.onAddToQueue}/>
                     </tbody>
                 </table>
             </section>
@@ -68,15 +73,14 @@ class _StationDetails extends Component {
 function mapStateToProps(state) {
     return {
         currTrack: state.stationMoudle.currTrack,
-        queue: state.stationMoudle.queue
+        queue: state.stationMoudle.queue,
+        playNextQueue: state.stationMoudle.playNextQueue
     }
 }
 const mapDispatchToProps = {
     setCurrTrack,
     addToQueue,
-    playNextTrack,
-    playPrevTrack,
-    shuffleQueue
+    setQueue
 }
 
 

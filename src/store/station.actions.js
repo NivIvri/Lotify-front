@@ -27,12 +27,21 @@ export function setCurrTrack(track,idx) {
     }
 }
 
-export function addToQueue(queue,idx) {
+export function setQueue(queue,idx) {
+    return async (dispatch) => {
+        dispatch({
+            type: 'SET_QUEUE',
+            queue,
+            idx
+        })
+    }
+}
+
+export function addToQueue(track) {
     return async (dispatch) => {
         dispatch({
             type: 'ADD_TO_QUEUE',
-            queue,
-            idx
+            track
         })
     }
 }

@@ -1,13 +1,27 @@
-export function TrackPreview({ track, idx, playTrack }) {
+import {
+    Menu,
+    MenuItem,
+    MenuButton
+} from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
+
+export function TrackPreview({ track, idx, playTrack,onAddToQueue }) {
     return (
-        <tr className="song-container" onClick={() => playTrack(track,idx)}>
+        <tr className="song-container" onClick={() => playTrack(track, idx)}>
             <td>{idx + 1}</td>
             <td><img src={track.imgUrl} alt="" /></td>
             <td>{track.title}</td>
             <td>{getTimeFromDuration(track.duration)}</td>
+            <td onClick={(ev) => { ev.stopPropagation() }}>
+                <Menu menuButton={<MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
+                    <MenuItem onClick={()=>onAddToQueue(track)}>Add To queue</MenuItem>
+                </Menu>
+            </td>
         </tr>
     )
 }
+
 
 function getTimeFromDuration(duration) {
     let time = '';
