@@ -29,6 +29,7 @@ export function stationReducer(state = initialState, action) {
         case 'NEXT_TRACK':
             // state.recentlyPlayed.unshift(state.currTrack);
             // newState = { ...state, queue: action.queue, currTrack: action.track };
+
             newQueue.splice(currIdx+1, 1, state.currTrack);
             newState = { ...state,
                 currTrack: state.queue[state.currIdx+1],

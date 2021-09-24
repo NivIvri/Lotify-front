@@ -3,16 +3,21 @@
 //import {CarApp} from './pages/car-app.jsx'
 
 import { Home } from "./pages/home";
+import {Queue} from "./pages/queue";
 import { StationDetails } from "./pages/station-details";
 
 const routes = [
     {
-        path:'/',
+        path: '/',
         component: Home,
     },
     {
-       path:'/station/:stationId',
-       component: StationDetails,
+        path: '/station/:stationId',
+        component: StationDetails,
+    },
+    {
+        path: '/queue',
+        component: Queue,
     }
     //{
     //    path:'/about',

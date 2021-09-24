@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { TrackPreview } from '../cmps/track-preview.jsx';
+import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
 import { setCurrTrack, addToQueue, playNextTrack, playPrevTrack, shuffleQueue } from '../store/station.actions.js';
 
@@ -10,7 +11,14 @@ class _StationDetails extends Component {
         station: null,
     }
     async componentDidMount() {
-        const { stationId } = this.props.match.params
+        const stationId = this.props.match?.params ? this.props.match.params.stationId : this.props.queueId
+
+        //if (this.props.match.params) {
+        //    var { stationId } = this.props.match.params
+        //}
+        //else {
+        //    var stationId = this.props.queueId
+        //}
         const station = await stationService.getStationById(stationId)
         this.setState({ station })
     }
@@ -31,17 +39,19 @@ class _StationDetails extends Component {
         if (!station) return <h1>loading...</h1>
         return (
             <section className='station-details'>
-                <div className="station-head flex">
-                    <img src={station.songs[0].imgUrl} alt="" />
-                    <div className="title-details">
-                        <p>Playlist</p>
-                        <h1>{station.name}</h1>
-                        <ul className="clean-list flex">
-                            <li>{station.createdBy.fullname}</li>,
-                            <li>{station.songs.length} songs</li>
-                        </ul>
+
+
+                    <div className="station-head flex">
+                        <img src={station.songs[0].imgUrl} alt="" />
+                        <div className="title-details">
+                            <p>Playlist</p>
+                            <h1>{station.name}</h1>
+                            <ul className="clean-list flex">
+                                <li>{station.createdBy.fullname}</li>,
+                                <li>{station.songs.length} songs</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
                 <table>
                     <tbody>
                         <tr>
@@ -49,7 +59,8 @@ class _StationDetails extends Component {
                             <th>Title</th>
                             <th>◷</th>
                         </tr>
-                        {station.songs.map((track, idx) => <TrackPreview track={track} idx={idx} playTrack={this.playTrack} />)}
+                        <TrackList songs={station.songs} playTrack={this.playTrack} />
+                        {/*{station.songs.map((track, idx) => <TrackPreview track={track} idx={idx} playTrack={this.playTrack} />)}*/}
                     </tbody>
                 </table>
                 <button onClick={this.goNext}>Shuffle</button>
