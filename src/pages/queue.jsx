@@ -6,17 +6,25 @@ import { setCurrTrack } from '../store/station.actions.js';
 import { TrackPreview } from '../cmps/track-preview';
 
 class _Queue extends React.Component {
+    componentDidMount() {
+        console.log('hererer');
+        document.body.style.backgroundImage=' linear-gradient(#03080d, #121212)'
+    }
+
+
     render() {
         const songs = this.props.queue
         if (!songs.length) return <div>queue is empty</div>
         return (
             <div className='queue-contaier'>
                 <table>
-                    <thead></thead>
+                    <thead>
+                        <th colSpan='3'>Queue</th>
+                    </thead>
                     <tbody>
-                        <tr><td>Now Playing</td> </tr>
-                        <TrackPreview track={this.props.currTrack} idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
-                        <tr><td>Next in QUEUE</td> </tr>
+                        <tr><td colSpan='3'>Now Playing</td> </tr>
+                        <TrackPreview track={this.props.currTrack} idx={0} playTrack={() => { }} />
+                        <tr><td colSpan='3'>Next in QUEUE</td> </tr>
                         <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
                     </tbody>
                 </table>

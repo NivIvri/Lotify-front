@@ -1,6 +1,10 @@
 .station-details {
     td {
         vertical-align: middle;
+        &.song-num{
+            width: 15px;
+            font-variant: tabular-nums;
+        }
       }
     tr {
         border: 1px solid transparent;

@@ -28,7 +28,6 @@ class _AppFooter extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        debugger
         if (this.props.currTrack !== prevProps.currTrack) {
             this.setState({ isPlayedTrack: true, played: 0, duration: 0 })
         }
