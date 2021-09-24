@@ -11,14 +11,7 @@ class _StationDetails extends Component {
         station: null,
     }
     async componentDidMount() {
-        const stationId = this.props.match?.params ? this.props.match.params.stationId : this.props.queueId
-
-        //if (this.props.match.params) {
-        //    var { stationId } = this.props.match.params
-        //}
-        //else {
-        //    var stationId = this.props.queueId
-        //}
+        const stationId = this.props.match.params.stationId
         const station = await stationService.getStationById(stationId)
         this.setState({ station })
     }
@@ -26,7 +19,7 @@ class _StationDetails extends Component {
     playTrack = async (track, idx) => {
         const songs = [...this.state.station.songs];
         this.props.setCurrTrack(track, idx);
-        this.props.addToQueue(songs)
+        this.props.addToQueue(songs, idx)
     }
 
     componentDidUpdate() {
@@ -42,8 +35,7 @@ class _StationDetails extends Component {
 
 
                 <div className="station-head flex">
-
-                        <img src={station.songs[0].imgUrl} alt="" />
+                    <img src={station.songs[0].imgUrl} alt="" />
                     <div className="title-details">
                         <p>Playlist</p>
                         <h1>{station.name}</h1>
