@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
 
 class _AppFooter extends Component {
     state = {
-        volume: 40,
+        volume: 30,
         isPlayedTrack: false,
         played: 0,
         loaded: 0,

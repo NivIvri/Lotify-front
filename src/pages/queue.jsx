@@ -8,13 +8,16 @@ import { TrackPreview } from '../cmps/track-preview';
 class _Queue extends React.Component {
     componentDidMount() {
         console.log('hererer');
-        document.body.style.backgroundImage=' linear-gradient(#03080d, #121212)'
+        document.body.style.backgroundImage = ' linear-gradient(#03080d, #121212)'
     }
 
-
+    onAddToQueue=(track)=>{
+        this.props.addToQueue(track)
+    }
     render() {
         const songs = this.props.queue
         if (!songs.length) return <div>queue is empty</div>
+        console.log(this.props.playNextQueue,'playNextQueue');
         return (
             <div className='queue-contaier'>
                 <table>
@@ -24,8 +27,10 @@ class _Queue extends React.Component {
                     <tbody>
                         <tr><td colSpan='3'>Now Playing</td> </tr>
                         <TrackPreview track={this.props.currTrack} idx={0} playTrack={() => { }} />
-                        <tr><td colSpan='3'>Next in QUEUE</td> </tr>
-                        <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
+                        <tr><td colSpan='3'>Play Next Queue</td> </tr>
+                        <TrackList songs={this.props.playNextQueue} onAddToQueue={this.onAddToQueue}  idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx,true) }} />
+                        <tr><td colSpan='3'>QUEUE</td> </tr>
+                        <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToQueue={this.onAddToQueue} />
                     </tbody>
                 </table>
 
@@ -37,7 +42,8 @@ class _Queue extends React.Component {
 function mapStateToProps(state) {
     return {
         currTrack: state.stationMoudle.currTrack,
-        queue: state.stationMoudle.queue
+        queue: state.stationMoudle.queue,
+        playNextQueue: state.stationMoudle.playNextQueue
     }
 }
 const mapDispatchToProps = {

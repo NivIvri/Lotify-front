@@ -9,14 +9,20 @@ export function stationReducer(state = initialState, action) {
     const newQueue = [...state.queue]
     const newPlayNextQueue = [...state.playNextQueue]
     let nextTrack = {}
-    console.log('heres');
     switch (action.type) {
         case 'SET_STATIONS':
             newState = { ...state, stations: action.stations }
             break
         case 'SET_CURR_TRACK':
-            if (state.currTrack) newQueue.splice(action.idx, 1, state.currTrack)
-            newState = { ...state, currTrack: action.track, queue: newQueue }
+            if (action.isNextQueue) {
+                if (state.currTrack) newPlayNextQueue.splice(action.idx, 1)
+                newQueue.push(state.currTrack)
+            }
+
+            else {
+                if (state.currTrack) newQueue.splice(action.idx, 1, state.currTrack)
+            }
+            newState = { ...state, currTrack: action.track, queue: newQueue, playNextQueue: newPlayNextQueue }
             break
         case 'SET_QUEUE':
             action.queue.splice(action.idx, 1);

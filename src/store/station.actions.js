@@ -17,12 +17,13 @@ export function loadStations() {
     }
 }
 
-export function setCurrTrack(track,idx) {
+export function setCurrTrack(track,idx,isNextQueue=false) {
     return async (dispatch) => {
         dispatch({
             type: 'SET_CURR_TRACK',
             track,
-            idx
+            idx,
+            isNextQueue
         })
     }
 }
