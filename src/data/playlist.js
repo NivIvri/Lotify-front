@@ -89,10 +89,10 @@
     "likedByUsers": [],
     "songs": [
       {
-        "id": "HXxd_DW0k1Y",
-        "title": "שלמה ארצי - מיטב השירים האהובים ברצף (90 דקות) - Shlomo Artzi",
-        "imgUrl": "https://i.ytimg.com/vi/HXxd_DW0k1Y/default.jpg",
-        "duration": "PT1H37M42S"
+        "id": "fNThHjoimrY",
+        "title": "שלמה ארצי - אבסורד",
+        "imgUrl":"https://i.ytimg.com/vi/fNThHjoimrY/default.jpg",
+        "duration": "PT4M2S"
       },
       {
         "id": "TWtbHxQMTqc",

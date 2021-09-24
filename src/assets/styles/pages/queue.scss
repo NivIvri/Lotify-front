@@ -1,15 +1,23 @@
 .queue-contaier {
     td {
         vertical-align: middle;
+        line-height: 28px;
+        &.song-num {
+            width: 15px;
+            font-variant: tabular-nums;
+        }
     }
     tr {
         border: 1px solid transparent;
         border-radius: 4px;
         height: 56px;
         position: relative;
-     
     }
     table img {
         height: 56px;
+    }
+    th {
+        font-size: 24px;
+        letter-spacing: -0.04em;
     }
 }
