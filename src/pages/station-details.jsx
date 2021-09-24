@@ -41,17 +41,18 @@ class _StationDetails extends Component {
             <section className='station-details'>
 
 
-                    <div className="station-head flex">
+                <div className="station-head flex">
+
                         <img src={station.songs[0].imgUrl} alt="" />
-                        <div className="title-details">
-                            <p>Playlist</p>
-                            <h1>{station.name}</h1>
-                            <ul className="clean-list flex">
-                                <li>{station.createdBy.fullname}</li>,
-                                <li>{station.songs.length} songs</li>
-                            </ul>
-                        </div>
+                    <div className="title-details">
+                        <p>Playlist</p>
+                        <h1>{station.name}</h1>
+                        <ul className="clean-list flex">
+                            <li>{station.createdBy.fullname}</li>,
+                            <li>{station.songs.length} songs</li>
+                        </ul>
                     </div>
+                </div>
                 <table>
                     <tbody>
                         <tr>
