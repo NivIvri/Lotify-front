@@ -23,6 +23,16 @@ const routes = [
     //    path:'/about',
     //    component: AboutUs,
     //}
+    ,{
+        path: '/search',
+        component: StationDetails,
+    },
+    {
+        path: '/stations',
+        component: StationDetails,
+    },
+
+
 ]
 
 export default routes;
