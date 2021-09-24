@@ -7,17 +7,23 @@ import { StationDetails } from "./pages/station-details";
 
 const routes = [
     {
-        path:'/',
+        path: '/',
         component: Home,
     },
     {
-       path:'/station/:stationId',
-       component: StationDetails,
-    }
-    //{
-    //    path:'/about',
-    //    component: AboutUs,
-    //}
+        path: '/station/:stationId',
+        component: StationDetails,
+    },
+    {
+        path: '/search',
+        component: StationDetails,
+    },
+    {
+        path: '/stations',
+        component: StationDetails,
+    },
+
+
 ]
 
 export default routes;
