@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { TrackPreview } from '../cmps/track-preview.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack, addToQueue, setQueue, playNextTrack } from '../store/station.actions.js';
+import { setCurrTrack, addToNextQueue, setQueue, playNextTrack } from '../store/station.actions.js';
 
 class _StationDetails extends Component {
     state = {
@@ -44,8 +44,8 @@ class _StationDetails extends Component {
     //     console.log(this.props.playNextQueue);
     // }
 
-    onAddToQueue = (track) => {
-        this.props.addToQueue(track)
+    onAddToNextQueue = (track) => {
+        this.props.addToNextQueue(track)
     }
 
     render() {
@@ -73,7 +73,7 @@ class _StationDetails extends Component {
                             <th>Title</th>
                             <th>◷</th>
                         </tr>
-                        <TrackList songs={station.songs} playTrack={this.playTrack} onAddToQueue={this.onAddToQueue} />
+                        <TrackList songs={station.songs} playTrack={this.playTrack} onAddToNextQueue={this.onAddToNextQueue} />
                     </tbody>
                 </table>
             </section>
@@ -90,7 +90,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
     setCurrTrack,
-    addToQueue,
+    addToNextQueue,
     setQueue
 }
 

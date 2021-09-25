@@ -6,7 +6,7 @@ import {
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 
-export function TrackPreview({ track, idx, playTrack,onAddToQueue }) {
+export function TrackPreview({ track, idx, playTrack,onAddToNextQueue}) {
     return (
         <tr className="song-container"  onClick={() => playTrack(track,idx)}>
             <td className='song-num'>{idx + 1}</td>
@@ -15,7 +15,7 @@ export function TrackPreview({ track, idx, playTrack,onAddToQueue }) {
             <td>{getTimeFromDuration(track.duration)}</td>
             <td onClick={(ev) => { ev.stopPropagation() }}>
                 <Menu menuButton={<MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
-                    <MenuItem onClick={()=>onAddToQueue(track)}>Add To queue</MenuItem>
+                    <MenuItem onClick={()=>onAddToNextQueue(track)}>Add To queue</MenuItem>
                 </Menu>
             </td>
         </tr>
