@@ -10,6 +10,10 @@ class _StationDetails extends Component {
         station: null,
     }
     async componentDidMount() {
+        this.loadStation()
+    }
+
+    loadStation = async () => {
         const { stationId } = this.props.match.params
         const station = await stationService.getStationById(stationId)
         this.setState({ station })
@@ -22,7 +26,11 @@ class _StationDetails extends Component {
     }
 
     componentDidUpdate() {
-        console.log(this.props.currTrack, this.props.queue);
+        const { stationId } = this.props.match.params
+        if (stationId !== this.state.station._id)
+            this.loadStation()
+        // console.log(this.props.currTrack, this.props.queue);
+
     }
 
 

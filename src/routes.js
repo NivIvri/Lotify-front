@@ -4,6 +4,7 @@
 
 import { Home } from "./pages/home";
 import { StationDetails } from "./pages/station-details";
+import { Stations } from "./pages/stations";
 
 const routes = [
     {
@@ -20,7 +21,7 @@ const routes = [
     },
     {
         path: '/stations',
-        component: StationDetails,
+        component: Stations
     },
 
 
