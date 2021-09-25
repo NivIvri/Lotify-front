@@ -41,7 +41,9 @@ class _MainNav extends React.Component {
     }
     return (
       <nav className="main-nav">
-        <div className="banner">Lotify</div>
+        <Link to='/'>
+          <div className="banner">Lotify</div>
+        </Link>
         <ul className="primary-nav">
           {links.map(link => {
             return <li key={link.id} onClick={() => this.handleClick(link.id)} className={link.id === activLink ? 'active' : ''}>
