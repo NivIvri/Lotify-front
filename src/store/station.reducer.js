@@ -2,48 +2,62 @@ const initialState = {
     stations: [],
     queue: [],
     playNextQueue: [],
-    recentlyPlayed: [],
     currTrack: null,
-    currIdx: null
 }
 export function stationReducer(state = initialState, action) {
     var newState = state
-    const { currIdx } = state
-    const newQueue=[...state.queue]
+    const newQueue = [...state.queue]
+    const newPlayNextQueue = [...state.playNextQueue]
+    let nextTrack = {}
     switch (action.type) {
         case 'SET_STATIONS':
             newState = { ...state, stations: action.stations }
             break
         case 'SET_CURR_TRACK':
-            newState = { ...state, currTrack: action.track, currIdx: action.idx-1 }
+            if (action.isNextQueue) {
+                if (state.currTrack) newPlayNextQueue.splice(action.idx, 1)
+                newQueue.push(state.currTrack)
+            }
+
+            else {
+                if (state.currTrack) newQueue.splice(action.idx, 1, state.currTrack)
+            }
+            newState = { ...state, currTrack: action.track, queue: newQueue, playNextQueue: newPlayNextQueue }
             break
-        case 'ADD_TO_QUEUE':
-            // const newQueue=state.queue.concat(action.station);
-            action.queue.splice(currIdx+1, 1);
+        case 'SET_QUEUE':
+            action.queue.splice(action.idx, 1);
             newState = { ...state, queue: action.queue };
             break
+        case 'ADD_TO_QUEUE':
+
+            newPlayNextQueue.push(action.track)
+            newState = { ...state, playNextQueue: newPlayNextQueue };
+            break
         case 'SHUFFLE_QUEUE':
-            // const newQueue=state.queue.concat(action.station);
             newState = { ...state, queue: action.queue };
             break
         case 'NEXT_TRACK':
-            // state.recentlyPlayed.unshift(state.currTrack);
-            // newState = { ...state, queue: action.queue, currTrack: action.track };
-            newQueue.splice(currIdx+1, 1, state.currTrack);
-            newState = { ...state,
-                currTrack: state.queue[state.currIdx+1],
-                currIdx:state.currIdx+1,
-                queue:newQueue };
+            if (newPlayNextQueue.length > 0) {
+                nextTrack = newPlayNextQueue.shift();
+            } else {
+                nextTrack = newQueue.shift();
+                newQueue.push(state.currTrack)
+            }
+            newState = {
+                ...state,
+                currTrack: nextTrack,
+                queue: newQueue,
+                playNextQueue: newPlayNextQueue
+            };
             break
         case 'PREV_TRACK':
-            newQueue.splice(currIdx, 1, state.currTrack);
-            newState = { ...state,
-                currTrack: state.queue[state.currIdx-1],
-                currIdx:state.currIdx-1,
-                queue:newQueue };
-            // const track = state.recentlyPlayed.shift();
-            // state.queue.unshift(state.currTrack)
-            // newState = { ...state, currTrack: track };
+            nextTrack = newQueue.pop();
+            newQueue.unshift(state.currTrack)
+            newState = {
+                ...state,
+                currTrack: nextTrack,
+                queue: newQueue,
+            };
             break
 
         default:

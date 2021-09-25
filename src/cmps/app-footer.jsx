@@ -12,46 +12,24 @@ import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 
 import { playNextTrack, playPrevTrack, shuffleQueue } from '../store/station.actions.js';
-
-//function SeekBar({ played, duration, setPlayed }) {
-
-//    const secToHHMMSS = (secs) => {
-//        const pad = (num) => {
-//            return ("0" + num).slice(-2);
-//        }
-//        var minutes = Math.floor(secs / 60);
-//        secs = secs % 60;
-//        var hours = Math.floor(minutes / 60)
-//        minutes = minutes % 60;
-//        if (hours === 0) { return `${pad(minutes)}:${pad(secs)}`; }
-//        else if (hours !== 0) { return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`; }
-//    }
-//    var newPlayed = secToHHMMSS(Math.round(played));
-//    var newDuration = secToHHMMSS(duration);
-//    return (
-//        <div style={{ marginBottom: '10vh' }}>
-//            <input style={{ width: '90%', margin: '0 5% 0 5%', height: '2px', borderRadius: '10%' }} className="slider"
-//                type='range' min={0} value={Math.round(played)} max={duration}
-//                onChange={e => setPlayed(e.target.value)} />
-//            <span style={{ float: 'left', marginLeft: '5%', marginTop: '3%' }}>{newPlayed}</span>
-//            <span style={{ float: 'right', marginRight: '5%', marginTop: '3%' }}>{newDuration}</span>
-//        </div>
-//    )
-//}
+import { Duration } from '../services/util.service';
+import { withRouter } from "react-router";
+import { Link } from 'react-router-dom';
 
 
 class _AppFooter extends Component {
     state = {
-        volume: 50,
+        volume: 30,
         isPlayedTrack: false,
         played: 0,
         loaded: 0,
         duration: 0,
+        inQueue: false
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.currTrack !== prevProps.currTrack) {
-            this.setState({ isPlayedTrack: true, played: 0 })
+            this.setState({ isPlayedTrack: true, played: 0, duration: 0 })
         }
     }
 
@@ -65,16 +43,21 @@ class _AppFooter extends Component {
 
 
     handleSeekMouseDown = e => {
+        if (!this.props.currTrack) return
         this.setState({ seeking: true })
     }
 
     handleSeekChange = e => {
+        if (!this.props.currTrack) return
+
         this.setState({ played: parseFloat(e.target.value) },
             console.log(this.state.played, 'played')
         )
     }
 
     handleSeekMouseUp = e => {
+        if (!this.props.currTrack) return
+
         this.setState({ seeking: false })
         this.player.seekTo(parseFloat(e.target.value))
     }
@@ -88,7 +71,6 @@ class _AppFooter extends Component {
 
 
     handleDuration = (duration) => {
-        // console.log('onDuration', duration)
         this.setState({ duration })
     }
 
@@ -109,81 +91,109 @@ class _AppFooter extends Component {
     goPrev = () => {
         this.props.playPrevTrack()
     }
+    handleDuration = (duration) => {
+        console.log('onDuration', duration)
+        this.setState({ duration })
+    }
 
+
+    inQueue = async () => {
+        await this.setState({ inQueue: !this.state.inQueue })
+        if (this.state.inQueue)
+            this.props.history.push(`/queue`)
+        else {
+            this.props.history.goBack()
+        }
+    }
 
     render() {
-        const { played, isPlayedTrack, volume } = this.state
-        // console.log(played, 'played');
+        const { played, isPlayedTrack, duration, volume } = this.state
         const track = this.props.currTrack
-        // console.log(track,'track');
         return (
-            <div className='playing-bar'>
+            <>
                 {
                     track &&
-                    <ReactPlayer
-                        ref={this.ref}
-                        playing={isPlayedTrack}
-                        url={`https://www.youtube.com/watch?v=${track.id}`}
-                        onDuration={this.onDuration}
-                        onProgress={this.onProgress}
-                        width='0px'
-                        heigth='0px'
-                        volume={volume / 100}
-                        onSeek={e => console.log('onSeek', e)}
-                        onProgress={this.handleProgress}
+                    <div className='player'>
 
-                    />
+                        <ReactPlayer
+                            ref={this.ref}
+                            playing={isPlayedTrack}
+                            url={`https://www.youtube.com/watch?v=${track.id}`}
+                            onDuration={this.onDuration}
+                            onProgress={this.onProgress}
+                            width='0px'
+                            heigth='0px'
+                            volume={volume / 100}
+                            onSeek={e => console.log('onSeek', e)}
+                            onProgress={this.handleProgress}
+                            onDuration={this.handleDuration}
+                            controls='false'
+                        />
+                    </div>
                 }
-                <div className="volume">
-                    <Box sx={{ width: 200 }}>
-                        <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                            {/*<VolumeDown />*/}
-                            <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
-                            {/*<VolumeUp />*/}
-                        </Stack>
-                    </Box> </div>
+                <div className='playing-bar'>
 
-                <div className="player-controls">
-                    <div className="player-controls-btn flex">
-                        <img src={shuffle} onClick={this.goShuffle} />
-                        <img src={next} onClick={this.goNext} />
-                        {
-                            isPlayedTrack &&
-                            <img src={pause} onClick={this.togglePlay} />
-                        }
-                        {
-                            !isPlayedTrack &&
-                            <img src={play} onClick={this.togglePlay} />
-                        }
-                        <img src={next} onClick={this.goPrev} />
+                    <div className="volume">
+                        <Box sx={{ width: 200 }}>
+                            <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                                {/*<VolumeDown />*/}
+                                <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
+                                {/*<VolumeUp />*/}
+                            </Stack>
+                        </Box>
+                        <div>
+                            <span onClick={this.inQueue} class="fas fa-outdent"></span>
+                        </div>
                     </div>
-                    <div className='played-input'>
-                        <input
-                            type='range' min={0} max={0.999999} step='any'
-                            value={played}
-                            onMouseDown={this.handleSeekMouseDown}
-                            onChange={(ev) => this.handleSeekChange(ev)}
-                            onMouseUp={this.handleSeekMouseUp}
-                        /></div>
 
-                </div>
+                    <div className="player-controls">
+                        <div className="player-controls-btn flex">
+                            <span class="fas fa-random" onClick={this.goShuffle}></span>
 
+                            {/*<img src={shuffle} onClick={this.goShuffle} />*/}
+                            <span class="fas fa-step-forward" onClick={this.goPrev}></span>
 
-                <div className='song-name-bar flex'>
-                    <div>
-                        {track ? track.title : ""}
+                            {/*<img src={next} onClick={this.goPrev} />*/}
+                            {
+                                isPlayedTrack &&
+                                <span class="fas fa-pause" onClick={this.togglePlay}></span>
+                                //<img src={pause} onClick={this.togglePlay} />
+                            }
+                            {
+                                !isPlayedTrack &&
+                                <span class="fas fa-play" onClick={this.togglePlay}></span>
+                                //<img src={play} onClick={this.togglePlay} />
+                            }
+                            <span class="fas fa-step-forward" onClick={this.goNext}></span>
+                            {/*<img src={next} onClick={this.goNext} />*/}
+                        </div>
+                        <div className='played-input flex'>
+                            <Duration seconds={duration * played} />
+                            <input
+                                type='range' min={0} max={0.999999} step='any'
+                                value={played}
+                                onMouseDown={this.handleSeekMouseDown}
+                                onChange={(ev) => this.handleSeekChange(ev)}
+                                onMouseUp={this.handleSeekMouseUp}
+                            />
+                            <Duration seconds={duration} />
+                        </div>
                     </div>
-                    <div>♥</div>
-                    {
-                        track &&
-                        <img className='track-img' src={track.imgUrl} />
-                    }
-                </div>
-                <div>
-                    <progress max={1} value={played} />
+
+
+                    <div className='song-name-bar'>
+                        <div>
+                            {track ? track.title : ""}
+                        </div>
+                        <div>♥</div>
+                        {
+                            track &&
+                            <img className='track-img' src={track.imgUrl} />
+                        }
+                    </div>
 
                 </div>
-            </div>
+            </>
         )
     }
 }
@@ -203,4 +213,5 @@ const mapDispatchToProps = {
 }
 
 
-export const AppFooter = connect(mapStateToProps, mapDispatchToProps)(_AppFooter)
+const __AppFooter = connect(mapStateToProps, mapDispatchToProps)(_AppFooter)
+export const AppFooter = withRouter(__AppFooter);

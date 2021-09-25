@@ -2,43 +2,59 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { TrackPreview } from '../cmps/track-preview.jsx';
+import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack, addToQueue, playNextTrack, playPrevTrack, shuffleQueue } from '../store/station.actions.js';
+import { setCurrTrack, addToQueue, setQueue, playNextTrack } from '../store/station.actions.js';
 
 class _StationDetails extends Component {
     state = {
+        stationId: null,
         station: null,
     }
     async componentDidMount() {
+        document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
         this.loadStation()
     }
 
     loadStation = async () => {
         const { stationId } = this.props.match.params
         const station = await stationService.getStationById(stationId)
-        this.setState({ station })
+        this.setState({ station, stationId })
     }
 
     playTrack = async (track, idx) => {
         const songs = [...this.state.station.songs];
         this.props.setCurrTrack(track, idx);
-        this.props.addToQueue(songs)
+        this.props.setQueue(songs, idx)
     }
 
     componentDidUpdate() {
         const { stationId } = this.props.match.params
         if (stationId !== this.state.station._id)
             this.loadStation()
-        // console.log(this.props.currTrack, this.props.queue);
-
     }
 
+
+    // async componentDidUpdate() {
+    //     const stationId = this.props.match.params.stationId
+    //     if (stationId !== this.state.stationId) {
+    //         const station = await stationService.getStationById(stationId)
+    //         this.setState({ station, stationId })
+    //     }
+    //     console.log(this.props.playNextQueue);
+    // }
+
+    onAddToQueue = (track) => {
+        this.props.addToQueue(track)
+    }
 
     render() {
         const { station } = this.state
         if (!station) return <h1>loading...</h1>
         return (
             <section className='station-details'>
+
+
                 <div className="station-head flex">
                     <img src={station.songs[0].imgUrl} alt="" />
                     <div className="title-details">
@@ -57,10 +73,9 @@ class _StationDetails extends Component {
                             <th>Title</th>
                             <th>◷</th>
                         </tr>
-                        {station.songs.map((track, idx) => <TrackPreview track={track} idx={idx} playTrack={this.playTrack} />)}
+                        <TrackList songs={station.songs} playTrack={this.playTrack} onAddToQueue={this.onAddToQueue} />
                     </tbody>
                 </table>
-                <button onClick={this.goNext}>Shuffle</button>
             </section>
         )
     }
@@ -69,15 +84,14 @@ class _StationDetails extends Component {
 function mapStateToProps(state) {
     return {
         currTrack: state.stationMoudle.currTrack,
-        queue: state.stationMoudle.queue
+        queue: state.stationMoudle.queue,
+        playNextQueue: state.stationMoudle.playNextQueue
     }
 }
 const mapDispatchToProps = {
     setCurrTrack,
     addToQueue,
-    playNextTrack,
-    playPrevTrack,
-    shuffleQueue
+    setQueue
 }
 
 

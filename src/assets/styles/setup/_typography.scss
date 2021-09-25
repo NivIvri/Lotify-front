@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: fas;
-  src        : url(../../fonts/fa-solid-900.ttf);
+  src : url(../../fonts/fa-solid-900.ttf);
 }
 
 .fas {
@@ -28,5 +28,22 @@
 .fa-library::before {
   content: '\f02d';
 }
+.fa-outdent::before {
+  content: '\f03b';
+}
+.fa-step-forward::before {
+  content: '\f051';
+}
+.fa-random::before {
+  content: '\f074';
+}
+.fa-play::before {
+  content: '\f04b';
+}
+.fa-pause::before {
+  content: '\f04c';
+}
+.fa-ellipsis-h::before {
+  content: '\f141';
+}
 
-// f02d
