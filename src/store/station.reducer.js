@@ -14,22 +14,17 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: action.stations }
             break
         case 'SET_CURR_TRACK':
-            if (action.isNextQueue) {
-                if (state.currTrack) newPlayNextQueue.splice(action.idx, 1)
-                newQueue.push(state.currTrack)
-            }
-
-            else {
+            if(action.isNextQueue){
                 if (state.currTrack) newQueue.splice(action.idx, 1, state.currTrack)
             }
-            newState = { ...state, currTrack: action.track, queue: newQueue, playNextQueue: newPlayNextQueue }
+            if (state.currTrack) newQueue.splice(action.idx, 1, state.currTrack)
+            newState = { ...state, currTrack: action.track, queue: newQueue }
             break
         case 'SET_QUEUE':
             action.queue.splice(action.idx, 1);
             newState = { ...state, queue: action.queue };
             break
         case 'ADD_TO_QUEUE':
-
             newPlayNextQueue.push(action.track)
             newState = { ...state, playNextQueue: newPlayNextQueue };
             break
@@ -37,8 +32,9 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, queue: action.queue };
             break
         case 'NEXT_TRACK':
-            if (newPlayNextQueue.length > 0) {
+            if (state.playNextQueue.length>0) {
                 nextTrack = newPlayNextQueue.shift();
+                
             } else {
                 nextTrack = newQueue.shift();
                 newQueue.push(state.currTrack)

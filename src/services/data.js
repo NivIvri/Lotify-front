@@ -80,7 +80,45 @@ export const gPlaylists =
                 }
             ]
         },
-
+        {
+           
+            "_id": "5n250",
+            "name": "Rap",
+            "tags": ["rap", "beat"],
+            "createdAt": 1541652422,
+            "createdBy": {
+                "_id": "u102",
+                "fullname": "app",
+                "imgUrl": "http://some-photo/"
+            },
+            "likedByUsers": [],
+            "songs": [
+                {
+                    "id": "Yhyp-_hX2s",
+                    "title": "Eminem - Lose Yourself",
+                    "imgUrl": "https://i.ytimg.com/vi/_Yhyp-_hX2s/default.jpg",
+                    "duration": "PT5M24S"
+                },
+                {
+                    "id": "YVkUvmDQ3HY",
+                    "title": "Eminem - Without Me",
+                    "imgUrl": "https://i.ytimg.com/vi/YVkUvmDQ3HY/default.jpg",
+                    "duration": "PT4M58S"
+                },
+                {
+                    "id": "j5-yKhDd64s",
+                    "title": "Eminem - Not Afraid",
+                    "imgUrl": "https://i.ytimg.com/vi/j5-yKhDd64s/default.jpg",
+                    "duration": "PT4M19S"
+                },
+                {
+                    "id": "XbGs_qK2PQA",
+                    "title": "Eminem - Rap God ",
+                    "imgUrl": "https://i.ytimg.com/vi/XbGs_qK2PQA/default.jpg",
+                    "duration": "PT6M10S"
+                }
+            ]
+        },
         {
             "_id": "p201",
             "name": "shlomo artzi",
