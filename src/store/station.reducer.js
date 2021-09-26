@@ -14,22 +14,25 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, stations: action.stations }
             break
         case 'SET_CURR_TRACK':
-            if (action.isNextQueue) {
+            if (action.track.nextQueue) {
                 if (state.currTrack) newPlayNextQueue.splice(action.idx, 1)
+            }
+            else {
+                if (state.currTrack) {
+                    newQueue.splice(action.idx, 1)
+                }
+            }
+            if (!state.currTrack?.nextQueue) {
                 newQueue.push(state.currTrack)
             }
-
-            else {
-                if (state.currTrack) newQueue.splice(action.idx, 1, state.currTrack)
-            }
             newState = { ...state, currTrack: action.track, queue: newQueue, playNextQueue: newPlayNextQueue }
+
             break
         case 'SET_QUEUE':
             action.queue.splice(action.idx, 1);
             newState = { ...state, queue: action.queue };
             break
-        case 'ADD_TO_QUEUE':
-
+        case 'ADD_TO_NEXT_QUEUE':
             newPlayNextQueue.push(action.track)
             newState = { ...state, playNextQueue: newPlayNextQueue };
             break
@@ -37,18 +40,20 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, queue: action.queue };
             break
         case 'NEXT_TRACK':
-            if (newPlayNextQueue.length > 0) {
+            if (state.playNextQueue.length>0) {
                 nextTrack = newPlayNextQueue.shift();
+                
             } else {
                 nextTrack = newQueue.shift();
-                newQueue.push(state.currTrack)
             }
+            if (!state.currTrack.nextQueue) newQueue.push(state.currTrack)
             newState = {
                 ...state,
                 currTrack: nextTrack,
                 queue: newQueue,
                 playNextQueue: newPlayNextQueue
             };
+
             break
         case 'PREV_TRACK':
             nextTrack = newQueue.pop();

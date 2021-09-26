@@ -17,18 +17,17 @@ export function loadStations() {
     }
 }
 
-export function setCurrTrack(track,idx,isNextQueue=false) {
+export function setCurrTrack(track, idx) {
     return async (dispatch) => {
         dispatch({
             type: 'SET_CURR_TRACK',
             track,
             idx,
-            isNextQueue
         })
     }
 }
 
-export function setQueue(queue,idx) {
+export function setQueue(queue, idx) {
     return async (dispatch) => {
         dispatch({
             type: 'SET_QUEUE',
@@ -38,11 +37,13 @@ export function setQueue(queue,idx) {
     }
 }
 
-export function addToQueue(track) {
+export function addToNextQueue(track) {
     return async (dispatch) => {
+        let newTrack = {...track}
+        newTrack.nextQueue = true
         dispatch({
-            type: 'ADD_TO_QUEUE',
-            track
+            type: 'ADD_TO_NEXT_QUEUE',
+            track:newTrack
         })
     }
 }

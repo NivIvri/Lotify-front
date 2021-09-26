@@ -23,16 +23,16 @@ export class RootCmp extends React.Component {
         return (
             <div>
                 {/*<AppHeader />*/}
-                <main className="main flex">
-                    <LoginNav>
-                        {/* <NavItem icon={<ArrowIcon />}></NavItem>
+                <main className="flex">
+                    {/* <LoginNav> */}
+                    {/* <NavItem icon={<ArrowIcon />}></NavItem>
                         <NavItem icon={<ChevronIcon />}></NavItem> */}
-                        <NavItem icon={<CaretIcon />}>
+                    {/* <NavItem icon={<CaretIcon />}>
                             <DropdownMenu></DropdownMenu>
-                        </NavItem>
-                        {/* <NavItem icon={<CogIcon />}></NavItem> */}
-                        {/* <NavItem icon="😀"></NavItem> */}
-                    </LoginNav>
+                        </NavItem> */}
+                    {/* <NavItem icon={<CogIcon />}></NavItem> */}
+                    {/* <NavItem icon="😀"></NavItem> */}
+                    {/* </LoginNav> */}
                     <MainNav />
 
                     <Switch>

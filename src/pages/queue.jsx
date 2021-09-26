@@ -2,7 +2,7 @@ import React from 'react'
 import { StationDetails } from './station-details'
 import { connect } from 'react-redux'
 import { TrackList } from '../cmps/trackList'
-import { setCurrTrack } from '../store/station.actions.js';
+import { setCurrTrack,addToNextQueue } from '../store/station.actions.js';
 import { TrackPreview } from '../cmps/track-preview';
 
 class _Queue extends React.Component {
@@ -11,8 +11,8 @@ class _Queue extends React.Component {
         document.body.style.backgroundImage = ' linear-gradient(#03080d, #121212)'
     }
 
-    onAddToQueue=(track)=>{
-        this.props.addToQueue(track)
+    onAddToNextQueue=(track)=>{
+        this.props.addToNextQueue(track)
     }
     render() {
         const songs = this.props.queue
@@ -26,11 +26,11 @@ class _Queue extends React.Component {
                     </thead>
                     <tbody>
                         <tr><td colSpan='3'>Now Playing</td> </tr>
-                        <TrackPreview track={this.props.currTrack} idx={0} playTrack={() => { }} />
+                        <TrackPreview track={this.props.currTrack} idx={0} playTrack={() => { } } onAddToNextQueue={this.onAddToNextQueue}/>
                         <tr><td colSpan='3'>Play Next Queue</td> </tr>
-                        <TrackList songs={this.props.playNextQueue} onAddToQueue={this.onAddToQueue}  idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx,true) }} />
+                        <TrackList songs={this.props.playNextQueue} onAddToNextQueue={this.onAddToNextQueue}  idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
                         <tr><td colSpan='3'>QUEUE</td> </tr>
-                        <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToQueue={this.onAddToQueue} />
+                        <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={this.onAddToNextQueue} />
                     </tbody>
                 </table>
 
@@ -47,7 +47,8 @@ function mapStateToProps(state) {
     }
 }
 const mapDispatchToProps = {
-    setCurrTrack
+    setCurrTrack,
+    addToNextQueue
 }
 
 

@@ -4,6 +4,7 @@
 
 import { Home } from "./pages/home";
 import {Queue} from "./pages/queue";
+import Search from "./pages/search";
 import { StationDetails } from "./pages/station-details";
 import { Stations } from "./pages/stations";
 
@@ -26,7 +27,7 @@ const routes = [
     //}
     ,{
         path: '/search',
-        component: StationDetails,
+        component: Search,
     },
     {
         path: '/stations',
