@@ -18,9 +18,9 @@ class _Stations extends Component {
     return (
       <div className="stations-container">
         <header>
-          <h2>Playlists</h2>
+          <h1>Playlists</h1>
         </header>
-        <section className='station-container flex'>
+        <section className='stationss-container card-grid'>
           {stations.map((station => <StationPreview key={station._id} station={station} />))}
         </section>
 

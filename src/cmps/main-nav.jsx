@@ -40,22 +40,21 @@ class _MainNav extends React.Component {
       return <div>loading.</div>
     }
     return (
-      <nav className="main-nav">
-        <Link to='/'>
+      <>
+        <nav className="main-nav">
           <div className="banner">Lotify</div>
-        </Link>
-        <ul className="primary-nav">
-          {links.map(link => {
-            return <li key={link.id} onClick={() => this.handleClick(link.id)} className={link.id === activLink ? 'active' : ''}>
-              <span className={`nav-icon fas ${link.fa}`}></span>
-              <NavLink to={link.to}>{link.name}</NavLink>
-            </li>
-          })}
+          <ul className="primary-nav">
+            {links.map(link => {
+              return <li key={link.id} onClick={() => this.handleClick(link.id)} className={link.id === activLink ? 'active' : ''}>
+                <span className={`nav-icon fas ${link.fa}`}></span>
+                <NavLink to={link.to}>{link.name}</NavLink>
+              </li>
+            })}
 
 
 
 
-          {/* <li key="0" onClick={(e) => this.setState({ activeIdx: e.key })} className={this.key === activeIdx ? 'active' : ''}>
+            {/* <li key="0" onClick={(e) => this.setState({ activeIdx: e.key })} className={this.key === activeIdx ? 'active' : ''}>
             <span className="fas fa-home nav-icon"></span>
             <NavLink to="/">Home</NavLink>
           </li>
@@ -67,32 +66,34 @@ class _MainNav extends React.Component {
             <span className="fas fa-library nav-icon"></span>
             <NavLink to="/stations">Your library</NavLink>
           </li> */}
-        </ul>
-        <div className="stations-wrapper">
-          <ul className="stations">
-            {
-              stations.map(station => {
-                return <li key={station._id}><NavLink to={`/station/${station._id}`}>{station.name}</NavLink></li>
-              })
-            }
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-            <li><NavLink to="/">station1</NavLink></li>
-
           </ul>
-        </div>
-      </nav>
+          <div className="stations-wrapper">
+            <ul className="stations">
+              {
+                stations.map(station => {
+                  return <li key={station._id}><NavLink to={`/station/${station._id}`}>{station.name}</NavLink></li>
+                })
+              }
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+              <li><NavLink to="/">station1</NavLink></li>
+
+            </ul>
+          </div>
+        </nav>
+        <div className="offset-main"></div>
+      </>
     )
   }
 }

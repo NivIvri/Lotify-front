@@ -30,6 +30,26 @@ class _Home extends Component {
         const { stations } = this.props
         if (!stations) return <h1>loading...</h1>
         return (
+            // <section className='station-container'>
+            //<div className="stations-container">
+            //    <section className='stationss-container card-grid'>
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //    </section>
             <div className="home-page">
                 <div className="hero">
                     <h1>Listen to your favorite music in <span className="logo"><span>Loti</span>fy</span></h1>

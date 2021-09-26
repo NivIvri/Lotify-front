@@ -25,18 +25,20 @@ export class RootCmp extends React.Component {
                 {/*<AppHeader />*/}
                 <main className="flex">
                     {/* <LoginNav> */}
-                        {/* <NavItem icon={<ArrowIcon />}></NavItem>
+                    {/* <NavItem icon={<ArrowIcon />}></NavItem>
                         <NavItem icon={<ChevronIcon />}></NavItem> */}
-                        {/* <NavItem icon={<CaretIcon />}>
+                    {/* <NavItem icon={<CaretIcon />}>
                             <DropdownMenu></DropdownMenu>
                         </NavItem> */}
-                        {/* <NavItem icon={<CogIcon />}></NavItem> */}
-                        {/* <NavItem icon="😀"></NavItem> */}
+                    {/* <NavItem icon={<CogIcon />}></NavItem> */}
+                    {/* <NavItem icon="😀"></NavItem> */}
                     {/* </LoginNav> */}
                     <MainNav />
+
                     <Switch>
                         {routes.map(route => <Route key={route.path} exact component={route.component} path={route.path} />)}
                     </Switch>
+
                 </main>
                 <AppFooter />
             </div>
