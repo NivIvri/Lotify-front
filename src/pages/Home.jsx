@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 
 import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
@@ -30,22 +31,24 @@ class _Home extends Component {
         if (!stations) return <h1>loading...</h1>
         return (
             <div className="home-page">
-            <div className="hero">
-                    <h1>Listen to your favorite music in <span className="logo"><span>Music</span>fy</span></h1>
+                <div className="hero">
+                    <h1>Listen to your favorite music in <span className="logo"><span>Loti</span>fy</span></h1>
                 </div>
-                    <section className='station-container'>
-                    <h3>{this.getTime()}</h3>
-                <div className="home-recently flex">
-                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
-                </div>
-                    <h3>Rock Music</h3>
-                <div className="rock flex">
-                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
-                </div>
-                <div className="flex">
-                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
-                </div>
-            </section>
+                <section className='station-container'>
+                    <MainLayout>
+                        <h3>{this.getTime()}</h3>
+                        <div className="home-recently flex">
+                            {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                        </div>
+                        <h3>Rock Music</h3>
+                        <div className="rock flex">
+                            {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                        </div>
+                        <div className="flex">
+                            {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                        </div>
+                    </MainLayout>
+                </section>
             </div>
         )
     }

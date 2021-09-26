@@ -4,7 +4,6 @@ import { MainLayout } from '../cmps/layout/MainLayout'
 export default function Search() {
     return (
         <MainLayout>
-
             <section className='search'>
                 <form>
                     <input type='text' />
