@@ -11,12 +11,14 @@ $mobile-breakpoint: 460px;
 $narrow-breakpoint: 720px;
 $normal-breakpoint: 960px;
 
-
+// main-nav:
+$main-nav-bg   : #111;
+$main-nav-hover: #444;
 // login-nav:
-$bg           : #242526;
-$bg-accent    : #484a4d;
-$txt-color    : #dadce1;
-$nav-size     : 60px;
-$border       : 1px solid #474a1d;
-$border-radius: 8px;
-$speed        : 500ms;
+$bg            : #242526;
+$bg-accent     : #484a4d;
+$txt-color     : #dadce1;
+$nav-size      : 60px;
+$border        : 1px solid #474a1d;
+$border-radius : 8px;
+$speed         : 500ms;

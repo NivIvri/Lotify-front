@@ -1,8 +1,18 @@
 .stations-container {
-  margin-top : 2rem;
-  margin-left: 2rem;
+  width           : 100%;
+  // padding-top  : 3rem;
+  margin-top      : 6rem;
+  padding-left    : 1.5rem;
+  padding-right   : 1.5rem;
 
   header {
     margin-bottom: 1rem;
   }
+
+}
+
+.stationss-container {
+  padding-bottom: 1.5rem;
+  width         : 100%;
+
 }

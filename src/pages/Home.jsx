@@ -8,7 +8,7 @@ class _Home extends Component {
     state = {
     }
     componentDidMount() {
-       this.props.loadStations();
+        this.props.loadStations();
     }
 
 
@@ -16,9 +16,27 @@ class _Home extends Component {
         const { stations } = this.props
         if (!stations) return <h1>loading...</h1>
         return (
-            <section className='station-container'>
-                {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            </section>
+            // <section className='station-container'>
+            <div className="stations-container">
+                <section className='stationss-container card-grid'>
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                    {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                </section>
+            </div>
         )
     }
 }
