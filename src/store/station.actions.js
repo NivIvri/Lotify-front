@@ -39,11 +39,11 @@ export function setQueue(queue, idx) {
 
 export function addToNextQueue(track) {
     return async (dispatch) => {
-        let newTrack = {...track}
-        newTrack.nextQueue = true
+        let newTrack = { ...track }
+            newTrack.nextQueue = true
         dispatch({
             type: 'ADD_TO_NEXT_QUEUE',
-            track:newTrack
+            track: newTrack
         })
     }
 }

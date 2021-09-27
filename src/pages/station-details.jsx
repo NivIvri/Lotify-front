@@ -11,6 +11,7 @@ class _StationDetails extends Component {
     state = {
         stationId: null,
         station: null,
+        isPlaying: false
     }
     async componentDidMount() {
         this.loadStation()
@@ -27,14 +28,18 @@ class _StationDetails extends Component {
         this.props.setCurrTrack(track, idx);
         this.props.setQueue(songs, idx)
     }
-    
-    playRandTrack=()=>{
-        const songs = [...this.state.station.songs];
-        const idx=Math.floor(Math.random() * (songs.length))
-        const track=songs[idx]
-        this.props.setCurrTrack(track, idx);
-        this.props.setQueue(songs, idx)
-        
+
+    playRandTrack = () => {
+        if(this.state.isPlaying){
+            this.props.setCurrTrack({}, 0);
+        }else{
+            const songs = [...this.state.station.songs];
+            const idx = Math.floor(Math.random() * (songs.length))
+            const track = songs[idx]
+            this.props.setCurrTrack(track, idx);
+            this.props.setQueue(songs, idx);
+        }
+        this.setState({ isPlaying: !this.state.isPlaying })
     }
 
     componentDidUpdate() {
@@ -52,19 +57,21 @@ class _StationDetails extends Component {
         if (!station) return <h1>loading...</h1>
         return (
             <section className='station-details'>
-                    <div className="station-head flex">
-                        <img src={station.songs[0].imgUrl} alt="" />
-                        <div className="title-details">
-                            <p>Playlist</p>
-                            <h1>{station.name}</h1>
-                            <ul className="clean-list flex">
-                                <li>{station.createdBy.fullname}</li>,
-                                <li>{station.songs.length} songs</li>
-                            </ul>
-                        </div>
+                <div className="station-head flex">
+                    <img src={station.songs[0].imgUrl} alt="" />
+                    <div className="title-details">
+                        <p>Playlist</p>
+                        <h1>{station.name}</h1>
+                        <ul className="clean-list flex">
+                            <li>{station.createdBy.fullname}</li>,
+                            <li>{station.songs.length} songs</li>
+                        </ul>
                     </div>
+                </div>
                 <MainLayout>
-                    <button className="play-rand" onClick={this.playRandTrack}><i class="fas fa-play"></i></button>
+                    <button className="play-rand" onClick={this.playRandTrack}>
+                        <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
+                    </button>
                     <table>
                         <tbody>
                             <tr>
