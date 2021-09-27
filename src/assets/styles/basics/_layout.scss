@@ -3,6 +3,8 @@
     column-gap           : 1.6rem;
     grid-template-columns: 0px 1fr 0px;
 
+    // width: 100%;
+
     >* {
         grid-column: 2;
     }
