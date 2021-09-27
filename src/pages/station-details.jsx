@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 
 import { TrackPreview } from '../cmps/track-preview.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
@@ -53,29 +54,32 @@ class _StationDetails extends Component {
         if (!station) return <h1>loading...</h1>
         return (
             <section className='station-details'>
-
-
-                <div className="station-head flex">
-                    <img src={station.songs[0].imgUrl} alt="" />
-                    <div className="title-details">
-                        <p>Playlist</p>
-                        <h1>{station.name}</h1>
-                        <ul className="clean-list flex">
-                            <li>{station.createdBy.fullname}</li>,
-                            <li>{station.songs.length} songs</li>
-                        </ul>
+                    <div className="station-head flex">
+                        <img src={station.songs[0].imgUrl} alt="" />
+                        <div className="title-details">
+                            <p>Playlist</p>
+                            <h1>{station.name}</h1>
+                            <ul className="clean-list flex">
+                                <li>{station.createdBy.fullname}</li>,
+                                <li>{station.songs.length} songs</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>◷</th>
-                        </tr>
-                        <TrackList songs={station.songs} playTrack={this.playTrack} onAddToNextQueue={this.onAddToNextQueue} />
-                    </tbody>
-                </table>
+                <MainLayout>
+                    <button className="play-rand"><i class="fas fa-play"></i></button>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>#</th>
+                                <th></th>
+                                <th>Title</th>
+                                <th>◷</th>
+                                <th></th>
+                            </tr>
+                            <TrackList songs={station.songs} playTrack={this.playTrack} onAddToNextQueue={this.onAddToNextQueue} />
+                        </tbody>
+                    </table>
+                </MainLayout>
             </section>
         )
     }

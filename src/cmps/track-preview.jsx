@@ -13,7 +13,7 @@ export function TrackPreview({ track, idx, playTrack, onAddToNextQueue }) {
             <td><img src={track.imgUrl} alt="" /></td>
             <td>{track.title}</td>
             <td>{getTimeFromDuration(track.duration)}</td>
-            <td onClick={(ev) => { ev.stopPropagation() }}>
+            <td className="button-cell" onClick={(ev) => { ev.stopPropagation() }}>
                 <Menu menuButton={<MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
                     <MenuItem onClick={() => onAddToNextQueue(track)}>Add To queue</MenuItem>
                 </Menu>
