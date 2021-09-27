@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
+import { RecentlyPlayed } from '../cmps/recently-played.jsx';
 
 import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
@@ -59,14 +60,14 @@ class _Home extends Component {
                 <section className='station-container'>
                     <MainLayout>
                         <h3>{this.getTime()}</h3>
-                        <div className="home-recently flex">
-                            {stations.map((station => <StationPreview key={station._id} station={station} />))}
-                        </div>
+                        <RecentlyPlayed stations={stations} />
                         <h3>Rock Music</h3>
-                        <div className="rock flex">
+                        <div className="flex genre">
                             {stations.map((station => <StationPreview key={station._id} station={station} />))}
                         </div>
-                        <div className="flex">
+                        <h3>Alternative Music</h3>
+                        <div className="flex genre">
+
                             {stations.map((station => <StationPreview key={station._id} station={station} />))}
                         </div>
                     </MainLayout>

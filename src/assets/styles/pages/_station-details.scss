@@ -1,17 +1,98 @@
-.station-container {
-    // gap: 10px
-}
 
 .station-details {
+    height: 100%;
+    .station-head{
+        padding: 15px;
+        padding-top: 30px;
+        img{
+            height: 120px;
+            margin-right: 15px;
+        }
+        p{
+            margin: 0;
+        }
+        h1{
+            font-size: 2.8rem;
+            line-height: normal;
+            font-weight: bolder;
+            margin: 0;
+        }
+        ul{
+            :first-child{
+                font-weight: bold;
+            }
+            :not(:first-child){
+                opacity: 0.6;
+            }
+        }
+        .title-details{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+        margin-bottom: 20px;
+    }
+    .main-container{
+        background-color: rgba(0, 0, 0, 0.397);
+        padding-top: 15px;
+        height: 100%;
+    }
+    .play-rand{
+        i{
+            position: relative;
+            left: 3px;
+            font-style:normal;
+        }
+        &:hover{
+            cursor: pointer;
+            transform: scale(1.05,1.05);
+        }
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #1DB954;
+        color: white;
+        font-size: 1.5rem;
+        border:none;
+        margin-bottom: 10px;
+    }
+    table{
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+    }
+    tbody{
+        margin: 0;
+        tr:first-child{
+            border-bottom:1px solid rgba(0, 0, 0, 0.479);
+            height: 1rem;
+        }
+        th{
+            text-align: left;
+            border-bottom:1px solid rgba(0, 0, 0, 0.479);
+            font-size: 1rem;
+            font-weight: normal;
+            color: rgb(173, 173, 173);
+            line-height: 1rem;
+        }
+        >:hover:not(:first-child){
+                background-color: rgba(0, 0, 0, 0.294);
+                cursor: pointer;
+                button{
+                    opacity: 1;
+                }
+        }
+    }
     td {
         vertical-align: middle;
-
         &.song-num {
             width       : 15px;
             font-variant: tabular-nums;
         }
     }
-
     tr {
         border       : 1px solid transparent;
         border-radius: 4px;
@@ -19,6 +100,18 @@
         position     : relative;
     }
 
+    .button-cell{
+        button{
+            padding: 0;
+            height: 50px;
+            width: 50px;
+            color: white;
+            background-color: rgba(255, 255, 255, 0);
+            border: none;
+            opacity: 0;
+        }
+        
+    }
     table img {
         height: 56px;
     }

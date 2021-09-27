@@ -1,6 +1,8 @@
 .station-container {}
 
-.home-page {}
+.home-page {
+  width: 100%;
+}
 
 .hero {
   background-image : url("../../img/hero.jpg");
@@ -16,7 +18,6 @@
   h1 {
     font-size: 3rem;
   }
-
   .logo {
     font-family: 'Lobster', cursive;
     font-size  : 3.5rem;
@@ -27,34 +28,43 @@
   }
 }
 
-.home-recently {
-  display  : flex;
+.recently-played {
+  display: flex;
   flex-wrap: wrap;
-
-  .station-preview {
-    height       : 60px;
-    width        : 30vw;
-    margin-bottom: 10px;
-    margin-left  : 10px;
-    padding      : 5px;
-
-    text-align: center;
-
+  justify-content: space-around;
+  gap: 10px;
     a {
+      width: 47%;
+      padding-left: 5px;
+      height: 70px;
       display         : flex;
-      gap             : 10px;
+      gap             : 20px;
       align-items     : center;
       background-color: rgba(163, 162, 162, 0.239);
       border-radius   : 4px;
     }
-
     img {
       height: 60px;
-      ;
+      width: 60px;
     }
-  }
+  
 }
 
 .station-container {
-  padding-left: 8px;
+  .genre{
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    overflow: hidden;
+    h4{
+      font-weight: bolder;
+    }
+    p{
+      font-size: 0.8rem;
+    }
+    .station-preview{
+      min-width: 150px;
+      padding: 0.8rem;
+    }
+  }
 }
