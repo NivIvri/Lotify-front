@@ -12,7 +12,6 @@ class _StationDetails extends Component {
         station: null,
     }
     async componentDidMount() {
-        document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
         this.loadStation()
     }
 
