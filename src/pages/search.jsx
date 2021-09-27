@@ -102,12 +102,14 @@ export default class search extends React.Component {
 
 
     handleChange = async ({ target }) => {
-        await this.setState({ keySearch: target.value })
-        if (!this.state.keySearch || this.state.keySearch === '') {
-            this.setState({ isOnSearch: false })
-            return
-        }
-        this.delayedHandleChange(this.state.keySearch)
+        this.setState({ keySearch: target.value }, () => {
+            debugger
+            if (this.state.keySearch === '' || this.state.keySearch === ' ') {
+                this.setState({ isOnSearch: false })
+                return
+            }
+            this.delayedHandleChange(this.state.keySearch)
+        })
     }
 
 

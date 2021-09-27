@@ -87,8 +87,6 @@ function _saveStationsToStorage() {
 }
 
 
-
-
 async function searchSong(keySerch) {
     console.log('service:', keySerch)
     //keySerch = keySerch.trim()
@@ -111,7 +109,6 @@ async function searchSong(keySerch) {
     catch (err) {
         console.log('Cannot reach server:', err);
     }
-
 }
 
 
