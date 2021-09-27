@@ -24,21 +24,6 @@ export function TrackPreview({ track, idx, playTrack, onAddToNextQueue }) {
 
 
 function getTimeFromDuration(duration) {
-    // let time = '';
-    // for (var i = 0; i < duration.length; i++) {
-    //     switch (duration[i]) {
-    //         case 'M':
-    //         case 'H':
-    //             time += ':'
-    //             break;
-    //         case 'S':
-    //         case 'T':
-    //         case 'P':
-    //             break;
-    //         default:
-    //             time += duration[i]
-    //     }
-    // }
     var hours = 0;
     var minutes = 0;
     var seconds = 0;
@@ -70,5 +55,4 @@ function getTimeFromDuration(duration) {
     else if (seconds == 0) { str += "00" }
 
     return str;
-    // return time;
 }
