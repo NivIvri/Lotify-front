@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 
 import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
@@ -25,15 +26,25 @@ class _Stations extends Component {
     const { stations } = this.props
     if (!stations) return <h1>loading...</h1>
     return (
-      <div className="stations-container">
-
+      //<div className="stations-container">
+      //<div className="main-container">
+      <MainLayout>
         <header>
           <h1>Playlists</h1>
         </header>
         <section className='stationss-container card-grid'>
           {stations.map((station => <StationPreview key={station._id} station={station} />))}
+          {stations.map((station => <StationPreview key={station._id} station={station} />))}
+          {stations.map((station => <StationPreview key={station._id} station={station} />))}
+          {stations.map((station => <StationPreview key={station._id} station={station} />))}
+          {stations.map((station => <StationPreview key={station._id} station={station} />))}
+          {stations.map((station => <StationPreview key={station._id} station={station} />))}
+          {stations.map((station => <StationPreview key={station._id} station={station} />))}
+          {stations.map((station => <StationPreview key={station._id} station={station} />))}
+          {stations.map((station => <StationPreview key={station._id} station={station} />))}
         </section>
-      </div>
+      </MainLayout>
+      //</div>
     )
   }
 }
