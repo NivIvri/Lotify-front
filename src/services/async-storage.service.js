@@ -1,17 +1,18 @@
-import  storageService from '../services/storage.service'
+import storageService from '../services/storage.service'
 import { utilService } from './util.service.js'
-import { gPlaylists } from "./data"
-
+import { gPlaylists } from "./data";
+import axios from 'axios'
 export const stationService = {
     query,
     saveStation,
     deleteStation,
     getStationById,
-    getNextStationId
+    getNextStationId,
+    searchSong
 }
 const KEY = 'stations';
 var gStations;
-
+let songCache = []
 _createStations();
 
 function query(filterBy) {
@@ -73,8 +74,8 @@ function _createStations() {
     var stations = storageService.loadFromStorage(KEY)
     if (!stations || !stations.length) {
         stations = []
-        gPlaylists.map(playlist=>{
-         stations.push(playlist)
+        gPlaylists.map(playlist => {
+            stations.push(playlist)
         })
     }
     gStations = stations;
@@ -84,3 +85,33 @@ function _createStations() {
 function _saveStationsToStorage() {
     storageService.saveToStorage(KEY, gStations)
 }
+
+
+
+
+async function searchSong(keySerch) {
+    console.log('service:', keySerch)
+    //keySerch = keySerch.trim()
+    songCache = storageService.loadFromStorage([keySerch])
+    if (songCache) {
+        console.log('No need to fetch, retrieving from Cache');
+        return (songCache)
+    }
+
+    //debugger
+    try {
+        const res = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${keySerch}&type=video&videoCategoryId=10&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)
+        console.log('Axios RES:', res);
+        songCache = res.data
+        await storageService.saveToStorage([keySerch], res.data)
+        console.log(res.data, 'res.data');
+        return res.data
+    }
+
+    catch (err) {
+        console.log('Cannot reach server:', err);
+    }
+
+}
+
+
