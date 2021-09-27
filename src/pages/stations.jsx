@@ -12,18 +12,27 @@ class _Stations extends Component {
   }
 
 
+  /**
+   * 
+   *  <div className="stations-container">
+   *    <section className='stationss-container card-grid'>
+   *  </section>
+   * </div>
+   * 
+   */
+
   render() {
     const { stations } = this.props
     if (!stations) return <h1>loading...</h1>
     return (
       <div className="stations-container">
+
         <header>
           <h1>Playlists</h1>
         </header>
         <section className='stationss-container card-grid'>
           {stations.map((station => <StationPreview key={station._id} station={station} />))}
         </section>
-
       </div>
     )
   }

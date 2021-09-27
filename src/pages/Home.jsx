@@ -30,26 +30,28 @@ class _Home extends Component {
         const { stations } = this.props
         if (!stations) return <h1>loading...</h1>
         return (
-            // <section className='station-container'>
-            //<div className="stations-container">
-            //    <section className='stationss-container card-grid'>
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //        {stations.map((station => <StationPreview key={station._id} station={station} />))}
-            //    </section>
+
+            // <div className="home-page">
+            //     <div className="hero">
+            //         <h1>Listen to your favorite music in <span className="logo"><span>Music</span>fy</span></h1>
+            //     </div>
+            //     <section className='station-container'>
+            //         <h3>{this.getTime()}</h3>
+            //         <div className="home-recently flex">
+
+            //             {stations.map((station => <StationPreview key={station._id} station={station} />))}
+
+            //         </div>
+            //         <h3>Rock Music</h3>
+            //         <div className="rock flex">
+            //             <section className='stationss-container card-grid'>
+            //                 {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //             </section>
+            //         </div>
+            //         <div className="flex">
+            //             {stations.map((station => <StationPreview key={station._id} station={station} />))}
+            //         </div>
+
             <div className="home-page">
                 <div className="hero">
                     <h1>Listen to your favorite music in <span className="logo"><span>Loti</span>fy</span></h1>
