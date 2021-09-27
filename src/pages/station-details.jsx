@@ -28,22 +28,21 @@ class _StationDetails extends Component {
         this.props.setCurrTrack(track, idx);
         this.props.setQueue(songs, idx)
     }
+    
+    playRandTrack=()=>{
+        const songs = [...this.state.station.songs];
+        const idx=Math.floor(Math.random() * (songs.length))
+        const track=songs[idx]
+        this.props.setCurrTrack(track, idx);
+        this.props.setQueue(songs, idx)
+        
+    }
 
     componentDidUpdate() {
         const { stationId } = this.props.match.params
         if (stationId !== this.state.station._id)
             this.loadStation()
     }
-
-
-    // async componentDidUpdate() {
-    //     const stationId = this.props.match.params.stationId
-    //     if (stationId !== this.state.stationId) {
-    //         const station = await stationService.getStationById(stationId)
-    //         this.setState({ station, stationId })
-    //     }
-    //     console.log(this.props.playNextQueue);
-    // }
 
     onAddToNextQueue = (track) => {
         this.props.addToNextQueue(track)
@@ -66,7 +65,7 @@ class _StationDetails extends Component {
                         </div>
                     </div>
                 <MainLayout>
-                    <button className="play-rand"><i class="fas fa-play"></i></button>
+                    <button className="play-rand" onClick={this.playRandTrack}><i class="fas fa-play"></i></button>
                     <table>
                         <tbody>
                             <tr>
