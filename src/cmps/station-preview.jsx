@@ -7,7 +7,12 @@ export function StationPreview({ station }) {
                     <img src={`${station.songs[0].imgUrl}`} />
                 </div>
                 <h4>{station.name}</h4>
-                <p>num of songs</p>
+                <p>
+                    {station.songs.reduce((songStr,song)=>{
+                        songStr+=','+song.title
+                        return songStr;
+                    },'').slice(0,30)+'...'}
+                </p>
                 {/* liked? num of songs */}
             </Link>
         </div>
