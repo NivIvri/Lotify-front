@@ -50,14 +50,15 @@ export class SearchResult extends React.Component {
             <section className='search-result-container'>
 
                 <div className='grid-search-result-container'>
-                    <div className='title'>Top Result</div>
-                    <div className='title'>songs</div>
+                    <span className='title'>top Result</span>
+                    <span className='title'>songs</span>
                     <div className='grid-element-1'>
                         <div className='img-container'>
                             <img className='img-top-result' src={trackResult[0].imgUrl} />
                         </div>
-                        {
-                            trackResult[0].title}
+                        <span>
+                            {trackResult[0].title}</span>
+                        
                     </div>
                     {trackResult.length > 1 &&
                         <TrackList songs={trackResult.slice(1, 5)} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={() => { console.log('hi'); }} />
