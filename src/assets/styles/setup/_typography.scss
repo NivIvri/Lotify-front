@@ -7,18 +7,35 @@
 //    src: url(../../fonts/Montserrat/Montserrat-Regular.ttf);
 //}
 
-
+// Lobster, permMa
 @font-face {
   font-family: 'Lobster';
-  src : url(../../fonts/Lobster-Regular.ttf);
+  src        : url(../../fonts/Lobster-Regular.ttf);
 }
+
 @font-face {
   font-family: 'permMa';
-  src : url(../../fonts/Lobster-Regular.ttf);
+  src        : url(../../fonts/Lobster-Regular.ttf);
 }
+
 @font-face {
   font-family: fas;
-  src : url(../../fonts/fa-solid-900.ttf);
+  src        : url(../../fonts/fa-solid-900.ttf);
+}
+
+@font-face {
+  font-family: 'Roboto-light';
+  src        : url(../../fonts/Roboto-Light.ttf);
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src        : url(../../fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Roboto-bold';
+  src        : url(../../fonts/Roboto-Bold.ttf);
 }
 
 .fas {
@@ -36,21 +53,27 @@
 .fa-library::before {
   content: '\f02d';
 }
+
 .fa-outdent::before {
   content: '\f03b';
 }
+
 .fa-step-forward::before {
   content: '\f051';
 }
+
 .fa-random::before {
   content: '\f074';
 }
+
 .fa-play::before {
   content: '\f04b';
 }
+
 .fa-pause::before {
   content: '\f04c';
 }
+
 .fa-ellipsis-h::before {
   content: '\f141';
 }
@@ -58,3 +81,7 @@
   content: '\f053';
 }
 
+
+.fa-play::before {
+  content: '\f04b';
+}
