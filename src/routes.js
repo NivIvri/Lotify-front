@@ -5,7 +5,7 @@
 import { CreateStation } from "./pages/createStationPage";
 import { Home } from "./pages/home";
 import {Queue} from "./pages/queue";
-import Search from "./pages/search";
+import {Search} from "./pages/search";
 import { StationDetails } from "./pages/station-details";
 import { Stations } from "./pages/stations";
 

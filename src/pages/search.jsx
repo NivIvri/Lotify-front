@@ -23,6 +23,8 @@ import blues from '../assets/img/blues-search.jpg';
 //import { debounce, throttle } from 'lodash';
 import { stationService } from "../services/async-storage.service.js";
 import { TrackList } from '../cmps/trackList';
+import { connect } from 'react-redux'
+import { setCurrTrack, addToNextQueue, setQueue, playNextTrack } from '../store/station.actions.js';
 var _ = require('lodash');
 
 export class SearchResult extends React.Component {
@@ -41,6 +43,8 @@ export class SearchResult extends React.Component {
             this.setState({ trackResult })
         }
     }
+
+
 
     render() {
         const { trackResult } = this.state
@@ -64,7 +68,7 @@ export class SearchResult extends React.Component {
                         <table>
                             <thead></thead>
                             <tbody>
-                                <TrackList songs={trackResult.slice(1, 5)} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={() => { console.log('hi'); }} />
+                                <TrackList songs={trackResult.slice(1, 5)} playTrack={this.props.playTrack} onAddToNextQueue={() => { console.log('hi'); }} />
                             </tbody>
                         </table>
 
@@ -76,7 +80,7 @@ export class SearchResult extends React.Component {
     }
 }
 
-export default class search extends React.Component {
+class _Search extends React.Component {
     state = {
         keySearch: null,
         isOnSearch: false,
@@ -113,6 +117,16 @@ export default class search extends React.Component {
         })
     }
 
+    onPlayTrack = async (track = null, idx = null) => {
+        if (!track && !idx) {
+            this.setState(prevState => ({ ...prevState }))
+            return
+        }
+        this.props.setCurrTrack(track, idx);
+        this.props.setQueue([track], idx)
+
+    }
+
 
     render() {
         const { trackResult, isOnSearch } = this.state
@@ -124,7 +138,7 @@ export default class search extends React.Component {
                     </form>
                     {
                         isOnSearch &&
-                        <SearchResult trackResult={trackResult} />
+                        <SearchResult trackResult={trackResult} playTrack={this.onPlayTrack}/>
                     }
                     <div className='title'>Browser all</div>
                     <div className='grid-container-search'>
@@ -161,3 +175,16 @@ export default class search extends React.Component {
 }
 
 
+function mapStateToProps(state) {
+    return {
+        stations: state.stationMoudle.stations
+    }
+}
+const mapDispatchToProps = {
+    setCurrTrack,
+    addToNextQueue,
+    setQueue
+}
+
+
+export const Search = connect(mapStateToProps, mapDispatchToProps)(_Search)
