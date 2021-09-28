@@ -8,7 +8,8 @@ export const stationService = {
     deleteStation,
     getStationById,
     getNextStationId,
-    searchSong
+    searchSong,
+    addToStation
 }
 const KEY = 'stations';
 var gStations;
@@ -109,6 +110,12 @@ async function searchSong(keySerch) {
     catch (err) {
         console.log('Cannot reach server:', err);
     }
+}
+
+async function addToStation(track,stationId){
+    const currStation=gStations.find((station)=>station._id===stationId)
+    currStation.songs.push(track)
+    _saveStationsToStorage()
 }
 
 
