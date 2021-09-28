@@ -7,7 +7,7 @@ import { TrackPreview } from '../cmps/track-preview.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
 import { setCurrTrack, addToNextQueue, setQueue, playNextTrack } from '../store/station.actions.js';
-import  stationImg from '../assets/img/stationImg.jpg'
+import stationImg from '../assets/img/stationImg.jpg'
 
 class _StationDetails extends Component {
     state = {
@@ -71,12 +71,12 @@ class _StationDetails extends Component {
             <MainLayout>
                 <section className='station-details'>
                     <div className="station-head flex">
-                    {station.songs.length>0 &&
-                        <img src={`${station.songs[0].imgUrl}`} />
-                    }
-                    {!station.songs.length &&
-                        <img src={stationImg} />
-                    }
+                        {station.songs.length > 0 &&
+                            <img src={`${station.songs[0].imgUrl}`} />
+                        }
+                        {!station.songs.length &&
+                            <img src={stationImg} />
+                        }
                         <div className="title-details">
                             <p>Playlist</p>
                             <h1>{station.name}</h1>

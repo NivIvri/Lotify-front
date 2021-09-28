@@ -2,6 +2,7 @@
 //import {AboutUs} from './pages/about-us.jsx'
 //import {CarApp} from './pages/car-app.jsx'
 
+import { CreateStation } from "./pages/createStationPage";
 import { Home } from "./pages/home";
 import {Queue} from "./pages/queue";
 import Search from "./pages/search";
@@ -33,6 +34,10 @@ const routes = [
         path: '/stations',
         component: Stations
     },
+    //{
+    //    path: '/createStation',
+    //    component: CreateStation
+    //},
 
 
 ]

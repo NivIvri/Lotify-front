@@ -80,7 +80,7 @@ class _TrackPreview extends Component {
                                 return (<MenuItem onClick={() => { this.onAddToStation(track, station._id) }}>{station.name}</MenuItem>)
                             })
                             }
-                            {/*<MenuItem onClick={() => eventBusService.emit("create-playlist")}>Create playlist</MenuItem>*/}
+                            <MenuItem onClick={() => eventBusService.emit("create-playlist")}>Create playlist</MenuItem>
                         </SubMenu>
                     </Menu>
                 </td>
