@@ -118,6 +118,7 @@ async function addToStation(track,stationId){
     currStation.songs.push(track)
     _saveStationsToStorage()
 }
+
 async function removeFromStation(track,stationId){
     const currStation=gStations.find((station)=>station._id===stationId)
     const idx=currStation.songs.findIndex(currTrack=>track.id===currTrack.id)
