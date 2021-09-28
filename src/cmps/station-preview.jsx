@@ -7,7 +7,7 @@ export function StationPreview({ station }) {
     const theme = createTheme({
         palette: {
             primary: {
-                main: '#04d10b'
+                main: '#1db954'
             }
         }
     });
