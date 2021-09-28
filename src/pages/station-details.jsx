@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 
@@ -69,6 +70,7 @@ class _StationDetails extends Component {
                             </ul>
                         </div>
                     </div>
+                    <Link className="fas back fa-chevron-left" to="/"></Link>
                     <button className="play-rand" onClick={this.playRandTrack}>
                         <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>

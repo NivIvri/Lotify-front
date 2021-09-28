@@ -8,7 +8,9 @@ export const stationService = {
     deleteStation,
     getStationById,
     getNextStationId,
-    searchSong
+    searchSong,
+    addToStation,
+    removeFromStation
 }
 const KEY = 'stations';
 var gStations;
@@ -126,6 +128,21 @@ async function searchSong(keySerch) {
         console.log('Cannot reach server:', err);
     }
 }
+
+async function addToStation(track,stationId){
+    const currStation=gStations.find((station)=>station._id===stationId)
+    currStation.songs.push(track)
+    _saveStationsToStorage()
+}
+
+async function removeFromStation(track,stationId){
+    const currStation=gStations.find((station)=>station._id===stationId)
+    const idx=currStation.songs.findIndex(currTrack=>track.id===currTrack.id)
+    currStation.songs.splice(idx,1)
+    _saveStationsToStorage()
+}
+
+
 
 
 //try {
