@@ -15,10 +15,10 @@ class _Stations extends Component {
 
   }
 
-componentWillUnmount(){
+  componentWillUnmount() {
     document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
 
-}
+  }
 
 
   /**
@@ -36,39 +36,24 @@ componentWillUnmount(){
     return (
       //<div className="stations-container">
       //<div className="main-container">
-      <MainLayout>
-        {/* <div className="stations-wrapper"> */}
+      <div className="stations-wrapper">
+        <MainLayout>
+          <header>
+            <h1>Playlists</h1>
+          </header>
+          <section className='stationss-container card-grid'>
 
-        <header>
-          <h1>Playlists</h1>
-        </header>
-        <section className='stationss-container card-grid'>
+            {stations.map((station, idx) => {
+              return idx === 0 ?
+                <LikedSongs key={station._id} station={station} /> :
+                <StationPreview key={station._id} station={station} />
 
-          {stations.map((station, idx) => {
-            return idx === 0 ?
-              <LikedSongs key={station._id} station={station} /> :
-              <StationPreview key={station._id} station={station} />
-
-          })
-          }
-
-
-
-
-
-          {/* {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))} */}
-        </section>
-        {/* </div> */}
-      </MainLayout >
-      //</div>
+            })
+            }
+          </section>
+          {/* </div> */}
+        </MainLayout >
+      </div>
     )
   }
 }
