@@ -94,10 +94,7 @@ export default class search extends React.Component {
         document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
     }
     delayedHandleChange = _.debounce(async () => {
-        let trackResult = await stationService.searchSong(this.state.keySearch)
-        //if (!res.length && !duration.length) return
-        //res = res.items
-        //if (!res?.items.length) return
+        let trackResult = await stationService.searchSong(this.state.keySearch);
         if (trackResult.length === 0) return
         else {
             this.setState({ trackResult }, () => {
@@ -123,7 +120,7 @@ export default class search extends React.Component {
         return (
             <section className='search'>
                 <MainLayout>
-                    <form>
+                    <form onSubmit={(ev) => ev.stopPropagation()}>
                         <input type='text' placeholder='Artists, songs or podcasts ' onChange={this.handleChange} />
                     </form>
                     {

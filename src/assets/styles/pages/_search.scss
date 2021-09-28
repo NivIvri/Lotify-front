@@ -31,8 +31,6 @@
     padding: 16px;
     font-size: 30px;
   }
-
-
 }
 
 section.search {
@@ -58,6 +56,7 @@ section.search {
     width: 100%;
     height: 100%;
     font-size: 14px;
+    outline: none;
   }
 }
 .search-result-container {
@@ -116,7 +115,7 @@ section.search {
     padding: 20px;
     height: 100%;
     border-radius: 4px;
-    transition: background-color .3s ease;
+    transition: background-color 0.3s ease;
     &:hover {
       background: #282828;
     }
