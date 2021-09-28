@@ -11,6 +11,15 @@
   }
 }
 
+.station-name-header {
+  font-family  : 'Roboto-bold';
+  font-size    : 1.25rem;
+  margin-bottom: 0.3rem;
+}
+
+.station-desc {
+  font-family: 'Roboto';
+}
 
 .img-card {
   display : block;
@@ -18,6 +27,6 @@
 }
 
 .img-container {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   border-radius: 8px;
 }
