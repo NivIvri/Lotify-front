@@ -1,32 +1,31 @@
 .station-preview {
   // width: 200px;
-  background-color: #343434;
-  padding         : 1rem;
-  border-radius   : 8px;
-  transition      : background 0.6s;
+  background-color: #181818;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #454545;
-
+    background-color: #282828;
   }
 }
 
 .station-name-header {
-  font-family  : 'Roboto-bold';
-  font-size    : 1.25rem;
+  font-family: "Roboto-bold";
+  font-size: 1.25rem;
   margin-bottom: 0.3rem;
 }
 
 .station-desc {
-  font-family: 'Roboto';
+  font-family: "Roboto";
 }
 
 .img-card {
-  display : block;
+  display: block;
   position: relative;
 }
 
 .img-container {
   margin-bottom: 1rem;
-  border-radius: 8px;
+  border-radius: 4px;
 }

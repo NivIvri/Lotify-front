@@ -121,8 +121,8 @@ class _AppFooter extends Component {
                             url={`https://www.youtube.com/watch?v=${track.id}`}
                             onDuration={this.onDuration}
                             onProgress={this.onProgress}
-                            width='0px'
-                            heigth='0px'
+                            width='1000px'
+                            heigth='1000px'
                             volume={volume / 100}
                             onSeek={e => console.log('onSeek', e)}
                             onProgress={this.handleProgress}

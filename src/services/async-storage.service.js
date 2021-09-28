@@ -91,7 +91,7 @@ function _saveStationsToStorage() {
 
 async function searchSong(keySerch) {
     debugger
-    if (!keySerch) return [[], []]
+    if (!keySerch) return []
     console.log('service:', keySerch)
     //keySerch = keySerch.trim()
     songCache = storageService.loadFromStorage([keySerch])
