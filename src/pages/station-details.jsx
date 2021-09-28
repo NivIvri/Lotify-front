@@ -30,9 +30,9 @@ class _StationDetails extends Component {
     }
 
     playRandTrack = () => {
-        if(this.state.isPlaying){
+        if (this.state.isPlaying) {
             this.props.setCurrTrack({}, 0);
-        }else{
+        } else {
             const songs = [...this.state.station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
@@ -56,19 +56,19 @@ class _StationDetails extends Component {
         const { station } = this.state
         if (!station) return <h1>loading...</h1>
         return (
-            <section className='station-details'>
-                <div className="station-head flex">
-                    <img src={station.songs[0].imgUrl} alt="" />
-                    <div className="title-details">
-                        <p>Playlist</p>
-                        <h1>{station.name}</h1>
-                        <ul className="clean-list flex">
-                            <li>{station.createdBy.fullname}</li>,
-                            <li>{station.songs.length} songs</li>
-                        </ul>
+            <MainLayout>
+                <section className='station-details'>
+                    <div className="station-head flex">
+                        <img src={station.songs[0].imgUrl} alt="" />
+                        <div className="title-details">
+                            <p>Playlist</p>
+                            <h1>{station.name}</h1>
+                            <ul className="clean-list flex">
+                                <li>{station.createdBy.fullname}</li>,
+                                <li>{station.songs.length} songs</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <MainLayout>
                     <button className="play-rand" onClick={this.playRandTrack}>
                         <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
@@ -84,8 +84,8 @@ class _StationDetails extends Component {
                             <TrackList songs={station.songs} playTrack={this.playTrack} onAddToNextQueue={this.onAddToNextQueue} />
                         </tbody>
                     </table>
-                </MainLayout>
-            </section>
+                </section>
+            </MainLayout>
         )
     }
 }

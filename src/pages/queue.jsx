@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 
 class _Queue extends React.Component {
     componentDidMount() {
-        console.log('hererer');
         document.body.style.backgroundImage = ' linear-gradient(#03080d, #121212)'
     }
 

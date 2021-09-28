@@ -58,7 +58,7 @@ export class SearchResult extends React.Component {
                         </div>
                         <span>
                             {trackResult[0].title}</span>
-                        
+
                     </div>
                     {trackResult.length > 1 &&
                         <TrackList songs={trackResult.slice(1, 5)} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={() => { console.log('hi'); }} />
@@ -80,19 +80,18 @@ export default class search extends React.Component {
 
     //delayedHandleChange = _.debounce(eventData => stationService.searchSong(eventData), 700);
 
+    componentDidMount() {
+        document.body.style.backgroundImage = ' linear-gradient(#03080d, #121212)'
 
+    }
+    componentWillUnmount() {
+        document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
+    }
     delayedHandleChange = _.debounce(async () => {
-        let res = await stationService.searchSong(this.state.keySearch)
+        let trackResult = await stationService.searchSong(this.state.keySearch)
+        //if (!res.length && !duration.length) return
         //res = res.items
-        if (!res?.items.length) return
-        let trackResult = res.items.map(track => {
-            return {
-                id: track.id.videoId,
-                title: track.snippet.title,
-                imgUrl: track.snippet.thumbnails.high.url,
-                duration: "PT4M26S"
-            }
-        })
+        //if (!res?.items.length) return
         if (trackResult.length === 0) return
         else {
             this.setState({ trackResult }, () => {
