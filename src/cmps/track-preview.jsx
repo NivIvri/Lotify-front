@@ -10,7 +10,8 @@ import { stationService } from '../services/async-storage.service';
 
 
 
-export function TrackPreview({ track, idx, playTrack, onAddToNextQueue }) {
+export function TrackPreview({ track, idx, playTrack, onAddToNextQueue,stations,currStation,onAddToStation }) {
+    console.log(currStation);
     return (
         <tr className="song-container" onClick={() => playTrack(track, idx)}>
             <td className='song-num'>{idx + 1}</td>
@@ -20,9 +21,11 @@ export function TrackPreview({ track, idx, playTrack, onAddToNextQueue }) {
             <td className="button-cell" onClick={(ev) => { ev.stopPropagation() }}>
                 <Menu menuButton={<MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
                     <MenuItem onClick={() => onAddToNextQueue(track)}>Add To queue</MenuItem>
-                    <MenuItem onClick={() => stationService.removeFromStation(track,'5c10')}>Remove from station</MenuItem>
+                    <MenuItem onClick={() => onAddToStation(track,currStation._id,true)}>Remove from station</MenuItem>
                     <SubMenu label="Add to playlist">
-                        <MenuItem onClick={() => stationService.addToStation(track, '5c10')}>Chill</MenuItem>
+                        {stations.map((station)=>{
+                        return (<MenuItem onClick={()=>{onAddToStation(track,station._id)}}>{station.name}</MenuItem>)})
+                        }
                     </SubMenu>
                 </Menu>
             </td>
