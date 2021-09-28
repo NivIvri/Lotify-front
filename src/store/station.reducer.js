@@ -40,9 +40,9 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, queue: action.queue };
             break
         case 'NEXT_TRACK':
-            if (state.playNextQueue.length>0) {
+            if (state.playNextQueue.length > 0) {
                 nextTrack = newPlayNextQueue.shift();
-                
+
             } else {
                 nextTrack = newQueue.shift();
             }
@@ -64,7 +64,9 @@ export function stationReducer(state = initialState, action) {
                 queue: newQueue,
             };
             break
-
+        case 'ADD_STATION':
+            newState = { ...state, stations: [...state.stations, action.newStation] };
+            break
         default:
     }
     return newState

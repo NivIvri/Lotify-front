@@ -53,11 +53,12 @@ class _TrackPreview extends Component {
     }
     onAddToStation = async (track, stationId, isRemove = false) => {
         if (!isRemove) {
+            debugger
             await stationService.addToStation(track, stationId)
-            this.loadStation();
+           this.props.loadStations()
         } else {
             await stationService.removeFromStation(track, stationId)
-            this.loadStation();
+           this.props.loadStations()
         }
     }
     // ({ track, idx, playTrack, onAddToNextQueue, stations, currStation, onAddToStation })
@@ -75,10 +76,11 @@ class _TrackPreview extends Component {
                         {currStation && <MenuItem onClick={() => this.onAddToStation(track, currStation._id, true)}>Remove from station</MenuItem>}
                         <SubMenu label="Add to playlist">
                             {stations.map((station) => {
+                                debugger
                                 return (<MenuItem onClick={() => { this.onAddToStation(track, station._id) }}>{station.name}</MenuItem>)
                             })
                             }
-                            <MenuItem onClick={() => eventBusService.emit("create-playlist")}>Create playlist</MenuItem>
+                            {/*<MenuItem onClick={() => eventBusService.emit("create-playlist")}>Create playlist</MenuItem>*/}
                         </SubMenu>
                     </Menu>
                 </td>

@@ -64,7 +64,6 @@ export class SearchResult extends React.Component {
                         <table>
                             <thead></thead>
                             <tbody>
-
                                 <TrackList songs={trackResult.slice(1, 5)} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={() => { console.log('hi'); }} />
                             </tbody>
                         </table>

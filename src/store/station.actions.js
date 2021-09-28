@@ -40,7 +40,7 @@ export function setQueue(queue, idx) {
 export function addToNextQueue(track) {
     return async (dispatch) => {
         let newTrack = { ...track }
-            newTrack.nextQueue = true
+        newTrack.nextQueue = true
         dispatch({
             type: 'ADD_TO_NEXT_QUEUE',
             track: newTrack
@@ -60,6 +60,16 @@ export function playPrevTrack() {
     return async (dispatch) => {
         dispatch({
             type: 'PREV_TRACK',
+        })
+    }
+}
+
+export function addStation(newStation) {
+    return async (dispatch) => {
+        stationService.saveStation(newStation)
+        dispatch({
+            type: 'ADD_STATION',
+            newStation
         })
     }
 }

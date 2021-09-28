@@ -2,11 +2,14 @@
     z-index: 5;
     display: block;
     position: absolute;
-    width: 60vw;
-    height: 26vh;
+    width: 500Px;
+    padding: 30px;
     background-color: #272727;
-    left: 20vw;
-    top: 37vh;
+    transform: translate(-50%, -50%);
+    
+    top: 50%;
+    left: 50%;
+
     .header{
         display: flex;
         justify-content: space-between;
@@ -39,6 +42,8 @@
             font-size: 1.5rem;
             background-color: rgba(0, 0, 0, 0.678);
             border: none;
+            outline: none;
+            color: white;
         }
         .select{
             background-color: rgba(0, 0, 0, 0.678);

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import { createMuiTheme, createTheme, ThemeProvider } from '@material-ui/core/styles';
-
+import  stationImg from '../assets/img/stationImg.jpg'
 // import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 export function StationPreview({ station }) {
     const theme = createTheme({
@@ -15,7 +15,13 @@ export function StationPreview({ station }) {
         <div className="station-preview">
             <Link className="img-card" to={`/station/${station._id}`}>
                 <div className="square-ratio img-container">
-                    <img src={`${station.songs[0].imgUrl}`} />
+                    {station.songs.length>0 &&
+                        <img src={`${station.songs[0].imgUrl}`} />
+                    }
+                    {!station.songs.length &&
+                        <img src={stationImg} />
+                    }
+
                     <div className="play-icon">
                         <ThemeProvider theme={theme}>
                             <PlayCircleFilledIcon color="primary" fontSize="large"></PlayCircleFilledIcon>

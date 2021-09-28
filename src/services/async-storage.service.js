@@ -36,7 +36,7 @@ function saveStation(stationToEdit) {
 
 
 function _addStation(stationToEdit) {
-    var station = _createStation(stationToEdit.vendor, stationToEdit.speed)
+    var station = _createStation(stationToEdit)
     gStations.unshift(station)
     _saveStationsToStorage();
     return Promise.resolve()
@@ -68,8 +68,9 @@ function getNextStationId(stationId) {
     return gStations[nextStationIdx].id
 }
 
-function _createStation() {
-
+function _createStation(stationToEdit) {
+    stationToEdit._id = utilService.makeId()
+    return stationToEdit
 }
 
 function _createStations() {
@@ -129,16 +130,16 @@ async function searchSong(keySerch) {
     }
 }
 
-async function addToStation(track,stationId){
-    const currStation=gStations.find((station)=>station._id===stationId)
+async function addToStation(track, stationId) {
+    const currStation = gStations.find((station) => station._id === stationId)
     currStation.songs.push(track)
     _saveStationsToStorage()
 }
 
-async function removeFromStation(track,stationId){
-    const currStation=gStations.find((station)=>station._id===stationId)
-    const idx=currStation.songs.findIndex(currTrack=>track.id===currTrack.id)
-    currStation.songs.splice(idx,1)
+async function removeFromStation(track, stationId) {
+    const currStation = gStations.find((station) => station._id === stationId)
+    const idx = currStation.songs.findIndex(currTrack => track.id === currTrack.id)
+    currStation.songs.splice(idx, 1)
     _saveStationsToStorage()
 }
 

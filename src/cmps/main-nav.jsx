@@ -21,6 +21,12 @@ class _MainNav extends React.Component {
         name: "Your Library",
         to: "/stations",
         fa: 'fa-library'
+      },
+      {
+        id: 4,
+        name: "Create Playlist",
+        to: "/stations",
+        fa: 'fa-library'
       }
 
     ],
@@ -74,16 +80,6 @@ class _MainNav extends React.Component {
                   return <li key={station._id}><NavLink to={`/station/${station._id}`}>{station.name}</NavLink></li>
                 })
               }
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
               <li><NavLink to="/">station1</NavLink></li>
               <li><NavLink to="/">station1</NavLink></li>
               <li><NavLink to="/">station1</NavLink></li>
