@@ -61,14 +61,21 @@ class _Home extends Component {
                     <MainLayout>
                         <h3>{this.getTime()}</h3>
                         <RecentlyPlayed stations={stations} />
-                        <h3>Rock Music</h3>
-                        <div className="flex genre">
-                            {stations.map((station => <StationPreview key={station._id} station={station} />))}
-                        </div>
-                        <h3>Alternative Music</h3>
-                        <div className="flex genre">
+                        <div className='playlist-container flex'>
 
-                            {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                            <h1>Rock Music</h1>
+                            <div className="flex genre">
+                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                            </div>
+                        </div>
+
+                        <div className='playlist-container flex'>
+                            <h1>Alternative Music</h1>
+                            <div className="flex genre">
+
+                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                            </div>
                         </div>
                     </MainLayout>
                 </section>
