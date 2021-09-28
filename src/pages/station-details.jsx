@@ -47,8 +47,8 @@ class _StationDetails extends Component {
         if (!isRemove) {
             await stationService.addToStation(track, stationId)
             this.loadStation();
-        }else{
-            await stationService.removeFromStation(track,stationId)
+        } else {
+            await stationService.removeFromStation(track, stationId)
             this.loadStation();
         }
     }
