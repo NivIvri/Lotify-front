@@ -22,11 +22,11 @@ export function TrackPreview({ track, idx, playTrack, onAddToNextQueue,stations,
                 <Menu menuButton={<MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
                     <MenuItem onClick={() => onAddToNextQueue(track)}>Add To queue</MenuItem>
                     <MenuItem onClick={() => onAddToStation(track,currStation._id,true)}>Remove from station</MenuItem>
-                    <SubMenu label="Add to playlist">
+                    {/*<SubMenu label="Add to playlist">
                         {stations.map((station)=>{
                         return (<MenuItem onClick={()=>{onAddToStation(track,station._id)}}>{station.name}</MenuItem>)})
                         }
-                    </SubMenu>
+                    </SubMenu>*/}
                 </Menu>
             </td>
         </tr>

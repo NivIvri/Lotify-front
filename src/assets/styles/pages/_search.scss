@@ -40,6 +40,7 @@ section.search {
   .title {
     color: #fff;
     font-size: 29px;
+    padding: 15px 0px;
   }
   form {
     height: 48px;
@@ -66,7 +67,7 @@ section.search {
   .grid-search-result-container {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.1fr 1fr;
     justify-content: start;
     align-content: center;
     align-items: center;
@@ -116,6 +117,7 @@ section.search {
     height: 100%;
     border-radius: 4px;
     transition: background-color 0.3s ease;
+    gap: 20px;
     &:hover {
       background: #282828;
     }
