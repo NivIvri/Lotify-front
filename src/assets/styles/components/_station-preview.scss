@@ -9,6 +9,12 @@
     background-color: #454545;
 
   }
+
+  &.liked-songs {
+    grid-column     : 1 / span 2;
+    background-color: yellowgreen;
+
+  }
 }
 
 .station-name-header {

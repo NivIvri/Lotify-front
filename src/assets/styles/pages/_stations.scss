@@ -1,9 +1,9 @@
 .stations-container {
-  width           : 100%;
-   padding-top  : 3rem;
-  margin-top      : 6rem;
-  padding-left    : 1.5rem;
-  padding-right   : 1.5rem;
+  width        : 100%;
+  padding-top  : 3rem;
+  margin-top   : 6rem;
+  padding-left : 1.5rem;
+  padding-right: 1.5rem;
 
   header {
     margin-bottom: 1rem;
@@ -12,6 +12,14 @@
 }
 
 .stationss-container {
-  width         : 100%;
+  width: 100%;
 
+}
+
+.stations-wrapper {
+  width         : 100%;
+  padding-left  : 2rem;
+  padding-right : 2rem;
+  padding-top   : 3rem;
+  padding-bottom: 120px;
 }

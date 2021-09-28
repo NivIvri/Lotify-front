@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 
 import { StationPreview } from '../cmps/station-preview.jsx';
+import { LikedSongs } from '../cmps/liked-songs-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
 
 class _Stations extends Component {
@@ -29,10 +30,26 @@ class _Stations extends Component {
       //<div className="stations-container">
       //<div className="main-container">
       <MainLayout>
+        {/* <div className="stations-wrapper"> */}
+
         <header>
           <h1>Playlists</h1>
         </header>
         <section className='stationss-container card-grid'>
+
+          {stations.map((station, idx) => {
+            return idx === 0 ?
+              <LikedSongs key={station._id} station={station} /> :
+              <StationPreview key={station._id} station={station} />
+
+          })
+          }
+
+
+
+
+
+          {/* {stations.map((station => <StationPreview key={station._id} station={station} />))}
           {stations.map((station => <StationPreview key={station._id} station={station} />))}
           {stations.map((station => <StationPreview key={station._id} station={station} />))}
           {stations.map((station => <StationPreview key={station._id} station={station} />))}
@@ -40,10 +57,10 @@ class _Stations extends Component {
           {stations.map((station => <StationPreview key={station._id} station={station} />))}
           {stations.map((station => <StationPreview key={station._id} station={station} />))}
           {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))}
-          {stations.map((station => <StationPreview key={station._id} station={station} />))}
+          {stations.map((station => <StationPreview key={station._id} station={station} />))} */}
         </section>
-      </MainLayout>
+        {/* </div> */}
+      </MainLayout >
       //</div>
     )
   }
