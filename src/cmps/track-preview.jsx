@@ -20,9 +20,9 @@ export function TrackPreview({ track, idx, playTrack, onAddToNextQueue }) {
             <td className="button-cell" onClick={(ev) => { ev.stopPropagation() }}>
                 <Menu menuButton={<MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
                     <MenuItem onClick={() => onAddToNextQueue(track)}>Add To queue</MenuItem>
+                    <MenuItem onClick={() => stationService.removeFromStation(track,'5c10')}>Remove from station</MenuItem>
                     <SubMenu label="Add to playlist">
                         <MenuItem onClick={() => stationService.addToStation(track, '5c10')}>Chill</MenuItem>
-
                     </SubMenu>
                 </Menu>
             </td>
