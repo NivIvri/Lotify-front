@@ -58,7 +58,7 @@ export class SearchResult extends React.Component {
                         </div>
                         <span>
                             {trackResult[0].title}</span>
-                        
+
                     </div>
                     {trackResult.length > 1 &&
                         <TrackList songs={trackResult.slice(1, 5)} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={() => { console.log('hi'); }} />
@@ -102,7 +102,7 @@ export default class search extends React.Component {
     }, 700);
 
 
-    handleChange = async ({ target }) => {``
+    handleChange = async ({ target }) => {
         this.setState({ keySearch: target.value }, () => {
             if (this.state.keySearch === '' || this.state.keySearch === ' ') {
                 this.setState({ isOnSearch: false })
