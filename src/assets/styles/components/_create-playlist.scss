@@ -1,0 +1,70 @@
+.create-playlist.on{
+    z-index: 5;
+    display: block;
+    position: absolute;
+    width: 60vw;
+    height: 26vh;
+    background-color: #272727;
+    left: 20vw;
+    top: 37vh;
+    .header{
+        display: flex;
+        justify-content: space-between;
+        button{
+            background-color: rgba(255, 255, 255, 0);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+        background-color: rgba(0, 0, 0, 0.76);
+        padding: 5px;
+    }
+    .body{
+        padding: 10px;
+    }
+    img{
+        width: 100px;
+        height: 150px;
+    }
+    form{
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 80%;
+        color: white;
+        input{
+            width: 100%;
+            height: 2rem;
+            font-size: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.678);
+            border: none;
+        }
+        .select{
+            background-color: rgba(0, 0, 0, 0.678);
+            .css-1s2u09g-control{
+                background-color: rgba(0, 0, 0, 0);
+                border: none;
+            }
+            .css-1pahdxg-control{
+                background-color: rgba(0, 0, 0, 0);
+            }
+            .css-2613qy-menu{
+                background-color: rgba(0, 0, 0, 0);
+            }
+        }
+        button{
+            background-color: rgba(0, 0, 0, 0.678);
+            width: 100%;
+            height: 25%;
+            color: white;
+            font-size: 1.5rem;
+            border-radius: 25px;
+            box-shadow: none;
+            border: none;
+        }
+    }
+}
+.create-playlist.off{
+    display: none;
+}

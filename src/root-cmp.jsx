@@ -14,6 +14,7 @@ import { ReactComponent as ChevronIcon } from './icons/chevron.svg'
 import { ReactComponent as CaretIcon } from './icons/caret.svg'
 import { ReactComponent as CogIcon } from './icons/cog.svg'
 import { DropdownMenu } from './cmps/dropdown-menu.jsx'
+import { CreateStation } from './cmps/create-playlist.jsx'
 // import { ReactComponent as ArrowIcon } from './icons/arrow.svg'
 // import { ReactComponent as ArrowIcon } from './icons/arrow.svg'
 
@@ -24,6 +25,7 @@ export class RootCmp extends React.Component {
             <div>
                 {/*<AppHeader />*/}
                 <main className="flex">
+                    <CreateStation />
                     {/* <LoginNav> */}
                     {/* <NavItem icon={<ArrowIcon />}></NavItem>
                         <NavItem icon={<ChevronIcon />}></NavItem> */}
