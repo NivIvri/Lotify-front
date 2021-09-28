@@ -1,10 +1,14 @@
 import {
     Menu,
     MenuItem,
-    MenuButton
+    MenuButton,
+    SubMenu
 } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
+import { stationService } from '../services/async-storage.service';
+
+
 
 export function TrackPreview({ track, idx, playTrack, onAddToNextQueue }) {
     return (
@@ -16,6 +20,10 @@ export function TrackPreview({ track, idx, playTrack, onAddToNextQueue }) {
             <td className="button-cell" onClick={(ev) => { ev.stopPropagation() }}>
                 <Menu menuButton={<MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
                     <MenuItem onClick={() => onAddToNextQueue(track)}>Add To queue</MenuItem>
+                    <SubMenu label="Add to playlist">
+                        <MenuItem onClick={() => stationService.addToStation(track, '5c10')}>Chill</MenuItem>
+
+                    </SubMenu>
                 </Menu>
             </td>
         </tr>

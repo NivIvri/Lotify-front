@@ -115,4 +115,22 @@
     table img {
         height: 56px;
     }
+    .back{
+        background-color:#000000a6 ;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .back:hover{
+        cursor: pointer;
+        background-color:#000000 ;
+    
+    }
 }
