@@ -74,6 +74,11 @@
     }
 
     li {
+      // shahar
+      display: flex;
+
+
+      //
       padding-top   : 0.8rem;
       padding-bottom: 0.8rem;
       padding-left  : 1rem;
@@ -91,8 +96,12 @@
       }
 
       a {
-        width  : 90%;
-        padding: 0.5rem;
+        // shahar
+        flex-grow : 1;
+        //
+        // width  : %;
+        display   : inline-block;
+        padding   : 0.5rem;
 
         // transition: 0.6s;
 
