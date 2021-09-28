@@ -58,6 +58,7 @@ class _CreateStation extends Component {
             ]
         }
         this.props.addStation(newStation)
+        this.create()
     }
 
 
