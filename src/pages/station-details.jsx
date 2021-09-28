@@ -43,6 +43,16 @@ class _StationDetails extends Component {
         this.setState({ isPlaying: !this.state.isPlaying })
     }
 
+    onAddToStation = async (track, stationId, isRemove = false) => {
+        if (!isRemove) {
+            await stationService.addToStation(track, stationId)
+            this.loadStation();
+        }else{
+            await stationService.removeFromStation(track,stationId)
+            this.loadStation();
+        }
+    }
+
     componentDidUpdate() {
         const { stationId } = this.props.match.params
         if (stationId !== this.state.station._id)
@@ -83,7 +93,7 @@ class _StationDetails extends Component {
                                 <th>◷</th>
                                 <th></th>
                             </tr>
-                            <TrackList songs={station.songs} playTrack={this.playTrack} onAddToNextQueue={this.onAddToNextQueue} />
+                            <TrackList songs={station.songs} playTrack={this.playTrack} onAddToNextQueue={this.onAddToNextQueue} stations={this.props.stations} currStation={station} onAddToStation={this.onAddToStation} />
                         </tbody>
                     </table>
                 </section>
@@ -95,6 +105,7 @@ class _StationDetails extends Component {
 function mapStateToProps(state) {
     return {
         currTrack: state.stationMoudle.currTrack,
+        stations: state.stationMoudle.stations,
         queue: state.stationMoudle.queue,
         playNextQueue: state.stationMoudle.playNextQueue
     }
