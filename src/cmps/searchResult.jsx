@@ -30,7 +30,13 @@ export class SearchResult extends React.Component {
                     <span className='title'>top Result</span>
                     <span className='title'>songs</span>
                     <div className='grid-element-1'>
+                        <table>
+                            <thead></thead>
+                            <tbody>
+
                                 <TrackPreview track={trackResult[0]} idx={0} playTrack={this.props.playTrack} onAddToNextQueue={this.props.onAddToNextQueue} />
+                            </tbody>
+                        </table>
                         {/*<div className='img-container'>
                             <img className='img-top-result' src={trackResult[0].imgUrl} />
                         </div>

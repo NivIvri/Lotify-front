@@ -20,13 +20,16 @@ class _StationDetails extends Component {
     }
 
     loadStation = async () => {
-        debugger
         const { stationId } = this.props.match.params
         const station = await stationService.getStationById(stationId)
         this.setState({ station, stationId })
     }
 
-    playTrack = async (track, idx) => {
+    playTrack = async (track = null, idx = null) => {
+        if (!track && !idx) {
+            this.setState(prevState => ({ ...prevState }))
+            return
+        }
         const songs = [...this.state.station.songs];
         this.props.setCurrTrack(track, idx);
         this.props.setQueue(songs, idx)
