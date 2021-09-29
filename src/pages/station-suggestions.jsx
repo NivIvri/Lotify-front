@@ -9,12 +9,13 @@ import { loadStations } from '../store/station.actions.js';
 
 class _StationSuggestion extends Component {
     state = {
-        stations=[]
+        stations: []
     }
     async componentDidMount() {
         const { tagName } = this.props.match.params
-        const stations = await stationService.getStationsByTag(tagName)
-        this.props.setState({stations})
+        const stations = await Promise.all(await stationService.getStationByTag(tagName))
+        console.log(stations);
+        this.setState({ stations })
     }
 
     getTime = () => {
@@ -33,7 +34,7 @@ class _StationSuggestion extends Component {
 
     render() {
         const { stations } = this.state
-        if (!stations) return <h1>loading...</h1>
+        if (!stations.length) return <h1>loading...</h1>
         return (
             <div className="home-page">
                 <div className="hero">
@@ -41,21 +42,9 @@ class _StationSuggestion extends Component {
                 </div>
                 <section className='station-container'>
                     <MainLayout>
-                        <h3>{this.getTime()}</h3>
-                        <RecentlyPlayed stations={stations} />
-                        <div className='playlist-container flex'>
-
-                            <h1>Rock Music</h1>
-                            <div className="flex genre">
-                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
-                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
-                            </div>
-                        </div>
-
                         <div className='playlist-container flex'>
                             <h1>Alternative Music</h1>
                             <div className="flex genre">
-
                                 {stations.map((station => <StationPreview key={station._id} station={station} />))}
                             </div>
                         </div>
@@ -76,4 +65,4 @@ const mapDispatchToProps = {
 }
 
 
-export const   StationSuggestion = connect(mapStateToProps, mapDispatchToProps)(_StationSuggestion)
+export const StationSuggestion = connect(mapStateToProps, mapDispatchToProps)(_StationSuggestion)

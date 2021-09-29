@@ -10,7 +10,8 @@ export const stationService = {
     getNextStationId,
     searchSong,
     addToStation,
-    removeFromStation
+    removeFromStation,
+    getStationByTag
 }
 const KEY = 'stations';
 var gStations;
@@ -141,41 +142,40 @@ async function removeFromStation(track, stationId) {
     _saveStationsToStorage()
 }
 
-// async function getStationByTag(tagName) {
-//     if (!keySerch) return []
-//     console.log('service:', keySerch)
-//     songCache = storageService.loadFromStorage(tagName)
-//     if (songCache) {
-//         console.log('No need to fetch, retrieving from Cache');
-//         return (songCache)
-//     }
-//     try {
-//         const res = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${tagName+" playlist"}&type=playlist&videoCategoryId=10&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)
-//         let idxs = res.data.items.map(track => track.id.videoId)
-//         idxs = idxs.join()
+async function getStationByTag(tagName) {
+    songCache = storageService.loadFromStorage(tagName)
+    if (songCache) {
+        console.log('No need to fetch, retrieving from Cache');
+        return (songCache)
+    }
+    try {
+        const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${tagName}&type=playlist&key=AIzaSyBM9DnPair7lsEiaBpo0qeE55Ok8ncDkks`)
+        let stations = await res.data.items.map(async (station) => {
+            const songs = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${station.id.playlistId}&key=AIzaSyBM9DnPair7lsEiaBpo0qeE55Ok8ncDkks`)
+            return {
+                id: station.id.playlistId,
+                name: station.snippet.title,
+                createdBy: {
+                    _id: "u101",
+                    fullname: "app",
+                    imgUrl: "http://some-photo"
+                },
+                songs: songs.data.items.map((track) => ({
+                    id: track.snippet.resourceId.videoId,
+                    title: track.snippet.title,
+                    imgUrl: track.snippet.thumbnails.high.url,
+                    duration: "PT4M26S"
+                }))
 
+            }
+        })
 
-//         let duration = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${idxs}&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
-//         duration = duration.data.items.map(track => track.contentDetails.duration)
-//         songCache = res.data
-//         if (!res.data?.items.length) return []
-//         const trackResult = res.data.items.map((track, idx) => {
-//             return {
-//                 id: track.id.videoId,
-//                 title: track.snippet.title,
-//                 imgUrl: track.snippet.thumbnails.high.url,
-//                 duration: duration[idx]
-//             }
-//         })
-
-//         await storageService.saveToStorage([keySerch], trackResult)
-//         console.log(trackResult, 'trackResult');
-
-//         return trackResult
-//     }
-//     catch (err) {
-//         console.log('Cannot reach server:', err);
-//     }
+        return stations
+    }
+    catch (err) {
+        console.log('Cannot reach server:', err);
+    }
+}
 
 
 
