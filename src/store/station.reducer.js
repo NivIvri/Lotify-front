@@ -33,6 +33,10 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, queue: action.queue };
             break
         case 'ADD_TO_NEXT_QUEUE':
+            if(!state.currTrack){
+                newState = { ...state,currTrack:action.track};
+                break
+            }
             newPlayNextQueue.push(action.track)
             newState = { ...state, playNextQueue: newPlayNextQueue };
             break

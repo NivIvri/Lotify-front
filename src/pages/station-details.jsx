@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
-
-import { TrackPreview } from '../cmps/track-preview.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack, addToNextQueue, setQueue,loadStations } from '../store/station.actions.js';
+import { setCurrTrack, addToNextQueue, setQueue, loadStations } from '../store/station.actions.js';
 import stationImg from '../assets/img/stationImg.jpg'
 
 class _StationDetails extends Component {
@@ -19,24 +17,21 @@ class _StationDetails extends Component {
         this.loadStation()
     }
 
+    componentDidUpdate() {
+        const { stationId } = this.props.match.params
+        if (stationId !== this.state.station._id)
+            this.loadStation()
+    }
+
     loadStation = async () => {
         const { stationId } = this.props.match.params
         const station = await stationService.getStationById(stationId)
         this.setState({ station, stationId })
     }
 
-    playTrack = async (track = null, idx = null) => {
-        if (!track && !idx) {
-            this.setState(prevState => ({ ...prevState }))
-            return
-        }
-        const songs = [...this.state.station.songs];
-        this.props.setCurrTrack(track, idx);
-        this.props.setQueue(songs, idx)
-    }
-
     playRandTrack = () => {
         if (this.state.isPlaying) {
+            //pause -possible eventBus
             this.props.setCurrTrack({}, 0);
         } else {
             const songs = [...this.state.station.songs];
@@ -46,26 +41,6 @@ class _StationDetails extends Component {
             this.props.setQueue(songs, idx);
         }
         this.setState({ isPlaying: !this.state.isPlaying })
-    }
-
-    onAddToStation = async (track, stationId, isRemove = false) => {
-        if (!isRemove) {
-            await stationService.addToStation(track, stationId)
-            this.loadStation();
-        } else {
-            await stationService.removeFromStation(track, stationId)
-            this.loadStation();
-        }
-    }
-
-    componentDidUpdate() {
-        const { stationId } = this.props.match.params
-        if (stationId !== this.state.station._id)
-            this.loadStation()
-    }
-
-    onAddToNextQueue = (track) => {
-        this.props.addToNextQueue(track)
     }
 
     render() {
@@ -103,7 +78,7 @@ class _StationDetails extends Component {
                                 <th>◷</th>
                                 <th></th>
                             </tr>
-                            <TrackList songs={station.songs} playTrack={this.playTrack} onAddToNextQueue={this.onAddToNextQueue} stations={this.props.stations} currStation={station} onAddToStation={this.onAddToStation} />
+                            <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} />
                         </tbody>
                     </table>
                 </section>
@@ -114,17 +89,12 @@ class _StationDetails extends Component {
 
 function mapStateToProps(state) {
     return {
-        currTrack: state.stationMoudle.currTrack,
-        stations: state.stationMoudle.stations,
-        queue: state.stationMoudle.queue,
-        playNextQueue: state.stationMoudle.playNextQueue
+        stations: state.stationMoudle.stations
     }
 }
 const mapDispatchToProps = {
     setCurrTrack,
-    addToNextQueue,
     setQueue,
-    loadStations
 }
 
 

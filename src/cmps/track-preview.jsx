@@ -1,21 +1,16 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import {
-    Menu,
-    MenuItem,
-    MenuButton,
-    SubMenu
-} from '@szhsin/react-menu';
+import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import { stationService } from '../services/async-storage.service';
 import { eventBusService } from '../services/event-bus.service';
-import { render } from '@testing-library/react';
-import { loadStations, addToNextQueue } from '../store/station.actions.js';
+import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
 
 
 class _TrackPreview extends Component {
     componentDidMount = () => {
+        //to get Stations from store to the AddToPlaylist render
         this.props.loadStations()
     }
 
@@ -23,7 +18,6 @@ class _TrackPreview extends Component {
         var hours = 0;
         var minutes = 0;
         var seconds = 0;
-
         duration = duration.replace('PT', '');
         if (duration.indexOf('H') > -1) {
             var hours_split = duration.split('H');
@@ -53,25 +47,46 @@ class _TrackPreview extends Component {
     }
 
     onAddToStation = async (track, stationId) => {
-            await stationService.addToStation(track, stationId)
-            this.props.loadStations()
+        await stationService.addToStation(track, stationId)
+        if (this.props.currStation) {
+            this.props.loadStation()
+        }
     }
 
     onRemoveFromStation = async (track, stationId) => {
         await stationService.removeFromStation(track, stationId)
-        this.props.loadStations()
+        if (this.props.currStation) {
+            this.props.loadStation()
+        }
     }
-    // ({ track, idx, playTrack, onAddToNextQueue, stations, currStation, onAddToStation })
+
+    playTrack = async (track, idx) => {
+        const { currStation, queue, currTrack } = this.props
+        let songs
+        if (currStation) {//from station
+            songs = [...currStation.songs];
+        } else {
+            if (queue.length && queue.some(trackFromQueue => track.id === trackFromQueue.id)) {//From Queue
+                songs = [...queue, currTrack]
+            } else {//from search
+                songs = [track]
+            }
+        }
+        this.props.setCurrTrack(track, idx);
+        this.props.setQueue(songs, idx)
+    }
+
     render() {
-        const { track, idx, playTrack, currStation, stations } = this.props
+        const { track, idx, currStation, stations } = this.props
         return (
-            <tr className="song-container" onClick={() => playTrack(track, idx)}>
+            <tr className="song-container" onClick={() => this.playTrack(track, idx)}>
                 <td className='song-num'>{idx + 1}</td>
                 <td><img src={track.imgUrl} alt="" /></td>
                 <td>{track.title}</td>
                 <td>{this.getTimeFromDuration(track.duration)}</td>
                 <td className="button-cell" onClick={(ev) => { ev.stopPropagation() }}>
-                    <Menu menuButton={<MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
+                    <Menu menuButton={
+                        <MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
                         <MenuItem onClick={() => this.props.addToNextQueue(track)}>Add To queue</MenuItem>
                         {currStation && <MenuItem onClick={() => {
                             this.onRemoveFromStation(track, currStation._id)
@@ -95,12 +110,16 @@ class _TrackPreview extends Component {
 
 function mapStateToProps(state) {
     return {
-        stations: state.stationMoudle.stations
+        stations: state.stationMoudle.stations,
+        queue: state.stationMoudle.queue,
+        currTrack: state.stationMoudle.currTrack
     }
 }
 const mapDispatchToProps = {
     loadStations,
-    addToNextQueue
+    addToNextQueue,
+    setCurrTrack,
+    setQueue
 }
 
 

@@ -2,19 +2,12 @@ import React, { Component } from 'react'
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
-//import VolumeDown from '@mui/icons-material/VolumeDown';
-//import VolumeUp from '@mui/icons-material/VolumeUp';
-import next from '../assets/img/next.svg';
-import pause from '../assets/img/pause.png';
-import play from '../assets/img/play.svg';
-import shuffle from '../assets/img/shuffle.svg';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 
 import { playNextTrack, playPrevTrack, shuffleQueue } from '../store/station.actions.js';
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
-import { Link } from 'react-router-dom';
 
 
 class _AppFooter extends Component {
@@ -39,7 +32,6 @@ class _AppFooter extends Component {
         this.setState({ volume: newValue });
     };
     togglePlay = () => {
-        debugger
         if (this.state.isLoaded)
             this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
     }
@@ -152,7 +144,7 @@ class _AppFooter extends Component {
                             </Stack>
                         </Box>
                         <div>
-                            <span onClick={this.inQueue} class="fas fa-outdent"></span>
+                            <span onClick={this.inQueue} className="fas fa-outdent"></span>
                         </div>
                     </div>
 
@@ -161,7 +153,7 @@ class _AppFooter extends Component {
                             <span className={isShuffle ? "fas fa-random" : "fas fa-random green"} onClick={this.goShuffle}></span>
 
                             {/*<img src={shuffle} onClick={this.goShuffle} />*/}
-                            <span class="fas fa-step-forward" onClick={this.goPrev}></span>
+                            <span className="fas fa-step-forward" onClick={this.goPrev}></span>
 
                             {/*<img src={next} onClick={this.goPrev} />*/}
                             {
@@ -171,10 +163,10 @@ class _AppFooter extends Component {
                             }
                             {
                                 !isPlayedTrack &&
-                                <span class="fas fa-play" onClick={this.togglePlay}></span>
+                                <span className="fas fa-play" onClick={this.togglePlay}></span>
                                 //<img src={play} onClick={this.togglePlay} />
                             }
-                            <span class="fas fa-step-forward" onClick={this.goNext}></span>
+                            <span className="fas fa-step-forward" onClick={this.goNext}></span>
                             {/*<img src={next} onClick={this.goNext} />*/}
                         </div>
                         <div className='played-input flex'>
