@@ -11,7 +11,8 @@ export const stationService = {
     searchSong,
     addToStation,
     removeFromStation,
-    getStationByTag
+    getStationByTag,
+    searchStation
 }
 const KEY = 'stations';
 var gStations;
@@ -91,6 +92,9 @@ function _saveStationsToStorage() {
 }
 
 
+
+
+//api 
 async function searchSong(keySerch) {
     if (!keySerch) return []
     console.log('service:', keySerch)
@@ -141,7 +145,7 @@ async function removeFromStation(track, stationId) {
 }
 
 async function getStationByTag(tagName) {
-    songCache = storageService.loadFromStorage(tagName+"playlist")
+    songCache = storageService.loadFromStorage(tagName + "playlist")
     if (songCache) {
         console.log('No need to fetch, retrieving from Cache');
         return (songCache)
@@ -166,8 +170,8 @@ async function getStationByTag(tagName) {
                 }))
             }
         })
-        stations=await Promise.all(stations)
-        await storageService.saveToStorage(tagName+'playlist', stations)
+        stations = await Promise.all(stations)
+        await storageService.saveToStorage(tagName + 'playlist', stations)
         return stations
     }
     catch (err) {
@@ -177,6 +181,19 @@ async function getStationByTag(tagName) {
 
 
 
+function searchStation(keySerch) {
+    debugger
+    return gStations.filter((station) => {
+        if (station.name.includes(keySerch) || station.tags.includes(keySerch)) {
+            return station
+        }
+    })
+
+}
+
+
+//"name": "chill",
+//"tags": ["Chill", "Happy"],
 
 //try {
 //    const res = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${keySerch}&type=video&videoCategoryId=10&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)

@@ -25,7 +25,8 @@ import { Link } from 'react-router-dom'
 import { stationService } from "../services/async-storage.service.js";
 import { connect } from 'react-redux'
 import { setCurrTrack, addToNextQueue, setQueue, playNextTrack } from '../store/station.actions.js';
-import { SearchResult } from '../cmps/searchResult';
+import { SearchResultTrack } from '../cmps/searchResultTrack';
+import { SearchResultStation } from '../cmps/searchResultStation';
 var _ = require('lodash');
 
 
@@ -33,7 +34,8 @@ class _Search extends React.Component {
     state = {
         keySearch: null,
         isOnSearch: false,
-        trackResult: null
+        trackResult: null,
+        stationResult: null
     }
 
     //delayedHandleChange = _.debounce(eventData => stationService.searchSong(eventData), 700);
@@ -46,10 +48,12 @@ class _Search extends React.Component {
         document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
     }
     delayedHandleChange = _.debounce(async () => {
+        debugger
         let trackResult = await stationService.searchSong(this.state.keySearch);
+        let stationResult = await stationService.searchStation(this.state.keySearch);
         if (trackResult.length === 0) return
         else {
-            this.setState({ trackResult }, () => {
+            this.setState({ trackResult, stationResult }, () => {
                 this.setState({ isOnSearch: true })
             })
         }
@@ -76,7 +80,7 @@ class _Search extends React.Component {
 
 
     render() {
-        const { trackResult, isOnSearch } = this.state
+        const { trackResult, isOnSearch, stationResult } = this.state
         return (
             <section className='search'>
                 <MainLayout>
@@ -85,9 +89,13 @@ class _Search extends React.Component {
                     </form>
                     {
                         isOnSearch &&
-                        <SearchResult trackResult={trackResult} playTrack={this.onPlayTrack} />
+                        <SearchResultTrack trackResult={trackResult} playTrack={this.onPlayTrack} />
                     }
-                    <div className='title'>Browser all</div>
+                    {
+                        isOnSearch &&
+                        <SearchResultStation stationResult={stationResult} playTrack={this.onPlayTrack} />
+                    }
+                    <div className='title'>Browse all</div>
                     <div className='grid-container-search'>
                         <Link to="searchs/pop">
                             <div className="grid-element-1" style={{ backgroundColor: 'rgb(141, 103, 171)' }}><span>pop</span>
@@ -95,10 +103,10 @@ class _Search extends React.Component {
                             </div>
                         </Link>
                         <Link to="searchs/chill">
-                        <div className="div3" style={{ backgroundColor: 'rgb(71, 125, 149)' }}><span>chill</span> <img src={chill} /></div>
+                            <div className="div3" style={{ backgroundColor: 'rgb(71, 125, 149)' }}><span>chill</span> <img src={chill} /></div>
                         </Link>
                         <Link to="searchs/party">
-                        <div className="div4" style={{ backgroundColor: 'rgb(175, 40, 150)' }} ><span>party</span><img src={party} /></div>
+                            <div className="div4" style={{ backgroundColor: 'rgb(175, 40, 150)' }} ><span>party</span><img src={party} /></div>
                         </Link>
                         <div className="div5" style={{ backgroundColor: 'rgb(80, 55, 80)' }}><span>focus</span><img src={focus} /></div>
                         <div className="div6" style={{ backgroundColor: 'rgb(180, 155, 200)' }}><span>alternativ</span><img src={alternativ} /></div>

@@ -1,8 +1,8 @@
-import { TrackList } from '../cmps/trackList';
+import { TrackList } from './trackList';
 import React from 'react'
 import { TrackPreview } from './track-preview';
 
-export class SearchResult extends React.Component {
+export class SearchResultTrack extends React.Component {
     state = {
         trackResult: null,
     }
@@ -51,7 +51,6 @@ export class SearchResult extends React.Component {
                                 <TrackList songs={trackResult.slice(1, 5)} playTrack={this.props.playTrack} onAddToNextQueue={this.props.onAddToNextQueue} />
                             </tbody>
                         </table>
-
                     }
 
                 </div>
