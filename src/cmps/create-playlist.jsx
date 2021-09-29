@@ -48,7 +48,6 @@ class _CreateStation extends Component {
 
 
     onAddStation = (ev) => {
-        debugger
         ev.preventDefault()
         const newStation = {
             name: this.state.station.name,
