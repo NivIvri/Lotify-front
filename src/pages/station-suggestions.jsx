@@ -4,13 +4,18 @@ import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 import { RecentlyPlayed } from '../cmps/recently-played.jsx';
 
 import { StationPreview } from '../cmps/station-preview.jsx';
+import { stationService } from '../services/async-storage.service';
 import { loadStations } from '../store/station.actions.js';
 
-class _Home extends Component {
+class _StationSuggestion extends Component {
     state = {
+        stations: []
     }
-    componentDidMount() {
-        this.props.loadStations();
+    async componentDidMount() {
+        const { tagName } = this.props.match.params
+        const stations = await stationService.getStationByTag(tagName)
+        console.log(stations);
+        this.setState({ stations })
     }
 
     getTime = () => {
@@ -28,36 +33,19 @@ class _Home extends Component {
 
 
     render() {
-        const { stations } = this.props
-        if (!stations) return <h1>loading...</h1>
+        const { stations } = this.state
+        if (!stations.length) return <h1>loading...</h1>
         return (
-
-            <div className="home-page">
-                <div className="hero">
-                    <h1>Listen to your favorite music in <span className="logo"><span>Loti</span>fy</span></h1>
-                </div>
                 <section className='station-container'>
                     <MainLayout>
-                        <h3>{this.getTime()}</h3>
-                        <RecentlyPlayed stations={stations.slice(0, 4)} />
                         <div className='playlist-container flex'>
-
-                            <h1>Rock Music</h1>
+                            <h1> Stations</h1>
                             <div className="flex genre">
-                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
-                            </div>
-                        </div>
-
-                        <div className='playlist-container flex'>
-                            <h1>Alternative Music</h1>
-                            <div className="flex genre">
-
                                 {stations.map((station => <StationPreview key={station._id} station={station} />))}
                             </div>
                         </div>
                     </MainLayout>
                 </section>
-            </div>
         )
     }
 }
@@ -72,4 +60,4 @@ const mapDispatchToProps = {
 }
 
 
-export const Home = connect(mapStateToProps, mapDispatchToProps)(_Home)
+export const StationSuggestion = connect(mapStateToProps, mapDispatchToProps)(_StationSuggestion)

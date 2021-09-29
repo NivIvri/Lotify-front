@@ -1,5 +1,12 @@
 .home-page {
   width: 100%;
+  h1,
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    padding-bottom: 4px;
+  }
 }
 
 .hero {
@@ -29,7 +36,6 @@
 .recently-played {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   gap: 10px;
   margin-bottom: 20px;
   a {
@@ -70,11 +76,5 @@
   .playlist-container {
     flex-direction: column;
     margin-bottom: 16px;
-    h1 {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      padding-bottom: 4px;
-    }
   }
 }

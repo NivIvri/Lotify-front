@@ -6,7 +6,7 @@ import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 import { TrackPreview } from '../cmps/track-preview.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack, addToNextQueue, setQueue, playNextTrack } from '../store/station.actions.js';
+import { setCurrTrack, addToNextQueue, setQueue,loadStations } from '../store/station.actions.js';
 import stationImg from '../assets/img/stationImg.jpg'
 
 class _StationDetails extends Component {
@@ -20,13 +20,16 @@ class _StationDetails extends Component {
     }
 
     loadStation = async () => {
-        debugger
         const { stationId } = this.props.match.params
         const station = await stationService.getStationById(stationId)
         this.setState({ station, stationId })
     }
 
-    playTrack = async (track, idx) => {
+    playTrack = async (track = null, idx = null) => {
+        if (!track && !idx) {
+            this.setState(prevState => ({ ...prevState }))
+            return
+        }
         const songs = [...this.state.station.songs];
         this.props.setCurrTrack(track, idx);
         this.props.setQueue(songs, idx)
@@ -120,7 +123,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     setCurrTrack,
     addToNextQueue,
-    setQueue
+    setQueue,
+    loadStations
 }
 
 

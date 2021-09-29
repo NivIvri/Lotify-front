@@ -11,7 +11,7 @@ class _Queue extends React.Component {
         document.body.style.backgroundImage = ' linear-gradient(#03080d, #121212)'
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
 
     }
@@ -22,7 +22,7 @@ class _Queue extends React.Component {
     render() {
 
         const songs = this.props.queue
-        if (!songs.length) return <div><span>Add to your queue</span>
+        if (!songs.length && !this.props.playNextQueue) return <div><span>Add to your queue</span>
             <span>Tap "Add to queue" from a trackws menu to see it here</span>
             <Link to='/search'>
                 <button>FIND SOMETHING TO PLAY</button>
@@ -37,11 +37,19 @@ class _Queue extends React.Component {
                     </thead>
                     <tbody>
                         <tr><td colSpan='3'>Now Playing</td> </tr>
-                        <TrackPreview track={this.props.currTrack} idx={0} playTrack={() => { }} onAddToNextQueue={this.onAddToNextQueue} />
+                        {
+                            this.props.currTrack &&
+                            <TrackPreview track={this.props.currTrack} idx={0} playTrack={() => { }} onAddToNextQueue={this.onAddToNextQueue} />
+                        }
                         <tr><td colSpan='3'>Play Next Queue</td> </tr>
-                        <TrackList songs={this.props.playNextQueue} onAddToNextQueue={this.onAddToNextQueue} idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
+                        {
+                            this.props.playNextQueue &&
+                            <TrackList songs={this.props.playNextQueue} onAddToNextQueue={this.onAddToNextQueue} idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
+                        }
                         <tr><td colSpan='3'>QUEUE</td> </tr>
-                        <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={this.onAddToNextQueue} />
+                        {songs &&
+                            <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={this.onAddToNextQueue} />
+                        }
                     </tbody>
                 </table>
 

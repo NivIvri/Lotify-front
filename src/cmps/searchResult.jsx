@@ -1,5 +1,6 @@
 import { TrackList } from '../cmps/trackList';
 import React from 'react'
+import { TrackPreview } from './track-preview';
 
 export class SearchResult extends React.Component {
     state = {
@@ -29,11 +30,18 @@ export class SearchResult extends React.Component {
                     <span className='title'>top Result</span>
                     <span className='title'>songs</span>
                     <div className='grid-element-1'>
-                        <div className='img-container'>
+                        <table>
+                            <thead></thead>
+                            <tbody>
+
+                                <TrackPreview track={trackResult[0]} idx={0} playTrack={this.props.playTrack} onAddToNextQueue={this.props.onAddToNextQueue} />
+                            </tbody>
+                        </table>
+                        {/*<div className='img-container'>
                             <img className='img-top-result' src={trackResult[0].imgUrl} />
                         </div>
                         <span>
-                            {trackResult[0].title}</span>
+                            {trackResult[0].title}</span>*/}
 
                     </div>
                     {trackResult.length > 1 &&

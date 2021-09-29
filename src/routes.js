@@ -2,11 +2,11 @@
 //import {AboutUs} from './pages/about-us.jsx'
 //import {CarApp} from './pages/car-app.jsx'
 
-import { CreateStation } from "./pages/createStationPage";
 import { Home } from "./pages/Home";
 import { Queue } from "./pages/queue";
 import { Search } from "./pages/search";
 import { StationDetails } from "./pages/station-details";
+import { StationSuggestion } from "./pages/station-suggestions";
 import { Stations } from "./pages/stations";
 
 const routes = [
@@ -21,23 +21,23 @@ const routes = [
     {
         path: '/queue',
         component: Queue,
-    }
+    },
     //{
     //    path:'/about',
     //    component: AboutUs,
     //}
-    , {
+    {
         path: '/search',
-        component: Search,
+        component: Search
+    },
+    {
+        path: '/searchs/:tagName',
+        component: StationSuggestion
     },
     {
         path: '/stations',
         component: Stations
-    },
-    //{
-    //    path: '/createStation',
-    //    component: CreateStation
-    //},
+    }
 
 
 ]

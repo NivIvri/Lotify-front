@@ -10,7 +10,8 @@ export const stationService = {
     getNextStationId,
     searchSong,
     addToStation,
-    removeFromStation
+    removeFromStation,
+    getStationByTag
 }
 const KEY = 'stations';
 var gStations;
@@ -39,7 +40,7 @@ function _addStation(stationToEdit) {
     var station = _createStation(stationToEdit)
     gStations.unshift(station)
     _saveStationsToStorage();
-    return Promise.resolve()
+    return Promise.resolve(station)
 }
 
 function _updateStation(stationToEdit) {
@@ -104,7 +105,6 @@ async function searchSong(keySerch) {
         let idxs = res.data.items.map(track => track.id.videoId)
         idxs = idxs.join()
 
-
         let duration = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${idxs}&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
         duration = duration.data.items.map(track => track.contentDetails.duration)
         songCache = res.data
@@ -120,7 +120,6 @@ async function searchSong(keySerch) {
 
         await storageService.saveToStorage([keySerch], trackResult)
         console.log(trackResult, 'trackResult');
-
         return trackResult
     }
     catch (err) {
@@ -139,6 +138,41 @@ async function removeFromStation(track, stationId) {
     const idx = currStation.songs.findIndex(currTrack => track.id === currTrack.id)
     currStation.songs.splice(idx, 1)
     _saveStationsToStorage()
+}
+
+async function getStationByTag(tagName) {
+    songCache = storageService.loadFromStorage(tagName+"playlist")
+    if (songCache) {
+        console.log('No need to fetch, retrieving from Cache');
+        return (songCache)
+    }
+    try {
+        const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${tagName}&type=playlist&key=AIzaSyBM9DnPair7lsEiaBpo0qeE55Ok8ncDkks`)
+        let stations = await res.data.items.map(async (station) => {
+            const songs = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${station.id.playlistId}&key=AIzaSyBM9DnPair7lsEiaBpo0qeE55Ok8ncDkks`)
+            return {
+                _id: station.id.playlistId,
+                name: station.snippet.title,
+                createdBy: {
+                    _id: "u101",
+                    fullname: "app",
+                    imgUrl: "http://some-photo"
+                },
+                songs: songs.data.items.map((track) => ({
+                    id: track.snippet.resourceId.videoId,
+                    title: track.snippet.title,
+                    imgUrl: track.snippet.thumbnails.high.url,
+                    duration: "PT4M26S"
+                }))
+            }
+        })
+        stations=await Promise.all(stations)
+        await storageService.saveToStorage(tagName+'playlist', stations)
+        return stations
+    }
+    catch (err) {
+        console.log('Cannot reach server:', err);
+    }
 }
 
 
