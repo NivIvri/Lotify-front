@@ -11,19 +11,19 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { stationService } from '../services/async-storage.service';
 import { eventBusService } from '../services/event-bus.service';
 import { render } from '@testing-library/react';
-import { loadStations,addToNextQueue } from '../store/station.actions.js';
+import { loadStations, addToNextQueue } from '../store/station.actions.js';
 
 
 class _TrackPreview extends Component {
-    componentDidMount=()=>{
+    componentDidMount = () => {
         this.props.loadStations()
     }
-    
+
     getTimeFromDuration = (duration) => {
         var hours = 0;
         var minutes = 0;
         var seconds = 0;
-        
+
         duration = duration.replace('PT', '');
         if (duration.indexOf('H') > -1) {
             var hours_split = duration.split('H');
@@ -51,19 +51,19 @@ class _TrackPreview extends Component {
         else if (seconds == 0) { str += "00" }
         return str;
     }
-    onAddToStation = async (track, stationId, isRemove = false) => {
-        if (!isRemove) {
+
+    onAddToStation = async (track, stationId) => {
             await stationService.addToStation(track, stationId)
-           this.props.loadStations()
-        } else {
-            await stationService.removeFromStation(track, stationId)
-           this.props.loadStations()
-        }
-        this.props.playTrack();
+            this.props.loadStations()
+    }
+
+    onRemoveFromStation = async (track, stationId) => {
+        await stationService.removeFromStation(track, stationId)
+        this.props.loadStations()
     }
     // ({ track, idx, playTrack, onAddToNextQueue, stations, currStation, onAddToStation })
     render() {
-        const {track,idx,playTrack,currStation,stations}=this.props
+        const { track, idx, playTrack, currStation, stations } = this.props
         return (
             <tr className="song-container" onClick={() => playTrack(track, idx)}>
                 <td className='song-num'>{idx + 1}</td>
@@ -73,7 +73,10 @@ class _TrackPreview extends Component {
                 <td className="button-cell" onClick={(ev) => { ev.stopPropagation() }}>
                     <Menu menuButton={<MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
                         <MenuItem onClick={() => this.props.addToNextQueue(track)}>Add To queue</MenuItem>
-                        {currStation && <MenuItem onClick={() => this.onAddToStation(track, currStation._id, true)}>Remove from station</MenuItem>}
+                        {currStation && <MenuItem onClick={() => {
+                            this.onRemoveFromStation(track, currStation._id)
+                        }
+                        }>Remove from station</MenuItem>}
                         <SubMenu label="Add to playlist">
                             {stations.map((station) => {
                                 return (<MenuItem onClick={() => { this.onAddToStation(track, station._id) }}>{station.name}</MenuItem>)

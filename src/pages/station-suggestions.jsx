@@ -13,7 +13,7 @@ class _StationSuggestion extends Component {
     }
     async componentDidMount() {
         const { tagName } = this.props.match.params
-        const stations = await Promise.all(await stationService.getStationByTag(tagName))
+        const stations = await stationService.getStationByTag(tagName)
         console.log(stations);
         this.setState({ stations })
     }
@@ -36,21 +36,16 @@ class _StationSuggestion extends Component {
         const { stations } = this.state
         if (!stations.length) return <h1>loading...</h1>
         return (
-            <div className="home-page">
-                <div className="hero">
-                    <h1>Listen to your favorite music in <span className="logo"><span>Loti</span>fy</span></h1>
-                </div>
                 <section className='station-container'>
                     <MainLayout>
                         <div className='playlist-container flex'>
-                            <h1>Alternative Music</h1>
+                            <h1> Stations</h1>
                             <div className="flex genre">
                                 {stations.map((station => <StationPreview key={station._id} station={station} />))}
                             </div>
                         </div>
                     </MainLayout>
                 </section>
-            </div>
         )
     }
 }
