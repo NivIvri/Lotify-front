@@ -21,12 +21,6 @@ class _MainNav extends React.Component {
         name: "Your Library",
         to: "/stations",
         fa: 'fa-library'
-      },
-      {
-        id: 4,
-        name: "Create Playlist",
-        to: "/stations",
-        fa: 'fa-library'
       }
 
     ],

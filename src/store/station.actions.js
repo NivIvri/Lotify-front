@@ -66,7 +66,7 @@ export function playPrevTrack() {
 
 export function addStation(newStation) {
     return async (dispatch) => {
-        stationService.saveStation(newStation)
+        await stationService.saveStation(newStation)
         dispatch({
             type: 'ADD_STATION',
             newStation

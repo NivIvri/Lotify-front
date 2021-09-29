@@ -12,7 +12,8 @@ class _CreateStation extends Component {
         station: {
             name: "",
             tags: [],
-        }
+        },
+        isCreate: false
     }
 
     labelOptions = [
@@ -26,9 +27,12 @@ class _CreateStation extends Component {
     componentDidMount() {
         // const { stationId } = this.props.match.params
         // console.log(this.props.match)
-        //eventBusService.on("create-playlist", this.create)
+        eventBusService.on("create-playlist", this.create)
     }
 
+    create = () => {
+        this.setState({ isCreate: !this.state.isCreate })
+    }
 
     handleChange = ({ target }) => {
         if (Array.isArray(target)) {
@@ -44,7 +48,6 @@ class _CreateStation extends Component {
 
 
     onAddStation = (ev) => {
-        debugger
         ev.preventDefault()
         const newStation = {
             name: this.state.station.name,
@@ -54,13 +57,14 @@ class _CreateStation extends Component {
             ]
         }
         this.props.addStation(newStation)
+        this.create()
     }
 
 
     render() {
         const { isCreate, station } = this.state
         return (
-            <div className={`create-playlist off`} onSubmit={(ev) => { this.onAddStation(ev) }}>
+            <div className={`create-playlist ${isCreate ? "on" : "off"}`} onSubmit={(ev) => { this.onAddStation(ev) }}>
                 <div className="header">
                     <h1>Create station</h1>
                     <button onClick={this.create}>X</button>

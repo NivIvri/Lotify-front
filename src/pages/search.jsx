@@ -22,63 +22,11 @@ import classical from '../assets/img/classical-search.jpg';
 import blues from '../assets/img/blues-search.jpg';
 //import { debounce, throttle } from 'lodash';
 import { stationService } from "../services/async-storage.service.js";
-import { TrackList } from '../cmps/trackList';
 import { connect } from 'react-redux'
 import { setCurrTrack, addToNextQueue, setQueue, playNextTrack } from '../store/station.actions.js';
+import { SearchResult } from '../cmps/searchResult';
 var _ = require('lodash');
 
-export class SearchResult extends React.Component {
-    state = {
-        trackResult: null,
-    }
-    componentDidMount() {
-        const { trackResult } = this.props
-        this.setState({ trackResult })
-        console.log(trackResult.slice(1), 'slice');
-
-    }
-    componentDidUpdate(prevProps) {
-        if (this.props.trackResult !== prevProps.trackResult) {
-            const { trackResult } = this.props
-            this.setState({ trackResult })
-        }
-    }
-
-
-
-    render() {
-        const { trackResult } = this.state
-        console.log(trackResult, 'trackResult');
-        if (!trackResult || !trackResult.length) return <div>No track found</div>
-        return (
-            <section className='search-result-container'>
-
-                <div className='grid-search-result-container'>
-                    <span className='title'>top Result</span>
-                    <span className='title'>songs</span>
-                    <div className='grid-element-1'>
-                        <div className='img-container'>
-                            <img className='img-top-result' src={trackResult[0].imgUrl} />
-                        </div>
-                        <span>
-                            {trackResult[0].title}</span>
-
-                    </div>
-                    {trackResult.length > 1 &&
-                        <table>
-                            <thead></thead>
-                            <tbody>
-                                <TrackList songs={trackResult.slice(1, 5)} playTrack={this.props.playTrack} onAddToNextQueue={() => { console.log('hi'); }} />
-                            </tbody>
-                        </table>
-
-                    }
-
-                </div>
-            </section>
-        )
-    }
-}
 
 class _Search extends React.Component {
     state = {
@@ -106,7 +54,6 @@ class _Search extends React.Component {
         }
     }, 700);
 
-
     handleChange = async ({ target }) => {
         this.setState({ keySearch: target.value }, () => {
             if (this.state.keySearch === '' || this.state.keySearch === ' ') {
@@ -124,7 +71,6 @@ class _Search extends React.Component {
         }
         this.props.setCurrTrack(track, idx);
         this.props.setQueue([track], idx)
-
     }
 
 
@@ -138,7 +84,7 @@ class _Search extends React.Component {
                     </form>
                     {
                         isOnSearch &&
-                        <SearchResult trackResult={trackResult} playTrack={this.onPlayTrack}/>
+                        <SearchResult trackResult={trackResult} playTrack={this.onPlayTrack} />
                     }
                     <div className='title'>Browser all</div>
                     <div className='grid-container-search'>
