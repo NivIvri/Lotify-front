@@ -24,7 +24,8 @@ class _AppFooter extends Component {
         played: 0,
         loaded: 0,
         duration: 0,
-        inQueue: false
+        inQueue: false,
+        isShuffle: false
     }
 
     componentDidUpdate(prevProps) {
@@ -38,7 +39,9 @@ class _AppFooter extends Component {
         this.setState({ volume: newValue });
     };
     togglePlay = () => {
-        this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
+        debugger
+        if (this.state.isLoaded)
+            this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
     }
 
 
@@ -85,6 +88,7 @@ class _AppFooter extends Component {
     }
 
     goShuffle = () => {
+        this.setState({ isShuffle: !this.state.isShuffle })
         this.props.shuffleQueue([...this.props.queue])
     }
 
@@ -96,6 +100,9 @@ class _AppFooter extends Component {
         this.setState({ duration })
     }
 
+    handleEnded = () => {
+        this.props.playNextTrack()
+    }
 
     inQueue = async () => {
         await this.setState({ inQueue: !this.state.inQueue })
@@ -107,7 +114,7 @@ class _AppFooter extends Component {
     }
 
     render() {
-        const { played, isPlayedTrack, duration, volume } = this.state
+        const { played, isPlayedTrack, duration, volume, isShuffle } = this.state
         const track = this.props.currTrack
         return (
             <>
@@ -127,7 +134,10 @@ class _AppFooter extends Component {
                             onSeek={e => console.log('onSeek', e)}
                             onProgress={this.handleProgress}
                             onDuration={this.handleDuration}
+                            onReady={() => { this.setState({ isLoaded: true }) }}
                             controls='false'
+                            onEnded={this.handleEnded}
+
                         />
                     </div>
                 }
@@ -148,7 +158,7 @@ class _AppFooter extends Component {
 
                     <div className="player-controls">
                         <div className="player-controls-btn flex">
-                            <span class="fas fa-random" onClick={this.goShuffle}></span>
+                            <span className={isShuffle ? "fas fa-random" : "fas fa-random green"} onClick={this.goShuffle}></span>
 
                             {/*<img src={shuffle} onClick={this.goShuffle} />*/}
                             <span class="fas fa-step-forward" onClick={this.goPrev}></span>

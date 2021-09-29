@@ -40,7 +40,7 @@ function _addStation(stationToEdit) {
     var station = _createStation(stationToEdit)
     gStations.unshift(station)
     _saveStationsToStorage();
-    return Promise.resolve()
+    return Promise.resolve(station)
 }
 
 function _updateStation(stationToEdit) {
