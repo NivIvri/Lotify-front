@@ -158,7 +158,7 @@ class _AppFooter extends Component {
 
                     <div className="player-controls">
                         <div className="player-controls-btn flex">
-                            <span className={isShuffle ? "fas fa-random" : "fas fa-random green"} onClick={this.goShuffle}></span>
+                            <span className={isShuffle ? "fas fa-random green" : "fas fa-random"} onClick={this.goShuffle}></span>
 
                             {/*<img src={shuffle} onClick={this.goShuffle} />*/}
                             <span class="fas fa-step-forward" onClick={this.goPrev}></span>

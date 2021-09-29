@@ -33,7 +33,8 @@
   }
 }
 
-section.search {
+section.search,
+.search-result-container {
   //width: 75vw;
   width: 100%;
 
@@ -95,6 +96,7 @@ section.search {
     img {
       height: 56px;
       width: 56px;
+      object-fit: cover;
     }
     .title {
       font-size: 24px;
@@ -127,11 +129,24 @@ section.search {
         display: none;
       }
     }
+
+    .song-container {
+      & td:nth-child(3) {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        line-height: 36px;
+        text-transform: none;
+      }
+      .button-cell {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
   }
 
-  &:hover {
-    background: #282828;
-  }
+ 
   span {
     font-size: 25px;
     font-weight: 700;
@@ -143,4 +158,18 @@ section.search {
 
 span::first-letter {
   text-transform: uppercase;
+}
+
+.search-result-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #121212;
+  padding: 20px;
+
+  
+  .title {
+    color: #fff;
+    font-size: 29px;
+    padding: 15px 0px;
+  }
 }
