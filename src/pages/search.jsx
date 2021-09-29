@@ -108,25 +108,60 @@ class _Search extends React.Component {
                         <Link to="searchs/party">
                             <div className="div4" style={{ backgroundColor: 'rgb(175, 40, 150)' }} ><span>party</span><img src={party} /></div>
                         </Link>
+                        <Link to="searchs/focus">
                         <div className="div5" style={{ backgroundColor: 'rgb(80, 55, 80)' }}><span>focus</span><img src={focus} /></div>
+                        </Link>
+                        <Link to="searchs/alternative">
                         <div className="div6" style={{ backgroundColor: 'rgb(180, 155, 200)' }}><span>alternativ</span><img src={alternativ} /></div>
+                        </Link>
+                        <Link to="searchs/summer">
                         <div className="div14" style={{ backgroundColor: 'rgb(255, 200, 100)' }}><span>summer</span><img src={summer} /></div>
+                        </Link>
+                        <Link to="searchs/indie">
                         <div className="div7" style={{ backgroundColor: 'rgb(96, 129, 8)' }}><span>indie</span><img src={indie} /></div>
+                        </Link>
+                        <Link to="searchs/latin">
                         <div className="div19" style={{ backgroundColor: 'rgb(225, 51, 0)' }}><span>latin</span><img src={latin} /></div>
+                        </Link>
+                        <Link to="searchs/wellness">
                         <div className="div8" style={{ backgroundColor: 'rgb(71, 125, 149)' }}><span>wellness</span><img src={wellness} /></div>
+                        </Link>
+                        <Link to="searchs/sleep">
                         <div className="div9" style={{ backgroundColor: 'rgb(30, 50, 100)' }}><span>sleep</span><img src={sleep} /></div>
+                        </Link>
+                        <Link to="searchs/decades">
                         <div className="div10" style={{ backgroundColor: 'rgb(186, 93, 7)' }}><span>decades</span><img src={decades} /></div>
+                        </Link>
+                        <Link to="searchs/workout">
                         <div className="div11" style={{ backgroundColor: 'rgb(119, 119, 119)' }}><span>workOut</span><img src={workout} /></div>
+                        </Link>
+                        <Link to="searchs/at-home">
                         <div className="div12" style={{ backgroundColor: 'rgb(30, 50, 100)' }}><span>at Home</span><img src={wellness} /></div>
+                        </Link>
+                        <Link to="searchs/travel">
                         <div className="div13" style={{ backgroundColor: 'rgb(45, 70, 185)' }}><span>travel</span><img src={travel} /></div>
+                        </Link>
+                        <Link to="searchs/soul">
                         <div className="div15" style={{ backgroundColor: 'rgb(220, 20, 140)' }}><span>soul</span><img src={soul} /></div>
+                        </Link>
+                        <Link to="searchs/jazz">
                         <div className="div16" style={{ backgroundColor: 'rgb(30, 50, 100)' }}><span>jazz</span><img src={jazz} /></div>
+                        </Link>
+                        <Link to="searchs/funk">
                         <div className="div17" style={{ backgroundColor: 'rgb(230, 30, 50)' }}><span>funk</span><img src={funk} /></div>
-                        <div className="grid-element-2" style={{ backgroundColor: 'rgb(141, 103, 171)' }}><span>mood</span>
-                            <img src={mood} /></div>
+                        </Link>
+                        <Link to="searchs/mood">
+                        <div className="grid-element-2" style={{ backgroundColor: 'rgb(141, 103, 171)' }}><span>mood</span><img src={mood} /></div>
+                        </Link>
+                        <Link to="searchs/metal">
                         <div className="div18" style={{ backgroundColor: 'rgb(119, 119, 119)' }}><span>metal</span><img src={metal} /></div>
+                        </Link>
+                        <Link to="searchs/classical">
                         <div className="div20" style={{ backgroundColor: 'rgb(225, 51, 0)' }}><span>classical</span><img src={classical} /></div>
+                        </Link>
+                        <Link to="searchs/blues">
                         <div className="div21" style={{ backgroundColor: 'rgb(13, 115, 236)' }}><span>blues</span><img src={blues} /></div>
+                        </Link>
                         <span></span>
                     </div>
                 </MainLayout>

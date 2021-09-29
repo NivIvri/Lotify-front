@@ -145,13 +145,14 @@ async function removeFromStation(track, stationId) {
 }
 
 async function getStationByTag(tagName) {
+    console.log(tagName);
     songCache = storageService.loadFromStorage(tagName + "playlist")
     if (songCache) {
         console.log('No need to fetch, retrieving from Cache');
         return (songCache)
     }
     try {
-        const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&q=${tagName}&type=playlist&key=AIzaSyBM9DnPair7lsEiaBpo0qeE55Ok8ncDkks`)
+        const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${tagName}&type=playlist&key=AIzaSyBM9DnPair7lsEiaBpo0qeE55Ok8ncDkks`)
         let stations = await res.data.items.map(async (station) => {
             const songs = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${station.id.playlistId}&key=AIzaSyBM9DnPair7lsEiaBpo0qeE55Ok8ncDkks`)
             return {
@@ -191,26 +192,5 @@ function searchStation(keySerch) {
 
 }
 
-
-//"name": "chill",
-//"tags": ["Chill", "Happy"],
-
-//try {
-//    const res = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${keySerch}&type=video&videoCategoryId=10&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)
-//    const prmDuration = axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=ma9I9VBKPiw,bpOSxM0rNPM&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)
-//    debugger
-//    const [res, duration] = await Promise.all([prmRes, prmDuration])
-//    console.log('Axios RES:', res);
-//    //console.log('Axios RES:', duration);
-//    songCache = res.data
-//    await storageService.saveToStorage([keySerch], res.data)
-//    console.log(res.data, 'res.data');
-//    return [res.data, duration.items.contentDetails.duration]
-//}
-
-//catch (err) {
-//    console.log('Cannot reach server:', err);
-//}
-//}
 
 

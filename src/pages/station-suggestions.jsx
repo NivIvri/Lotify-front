@@ -1,51 +1,82 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
-import { RecentlyPlayed } from '../cmps/recently-played.jsx';
-
-import { StationPreview } from '../cmps/station-preview.jsx';
-import { stationService } from '../services/async-storage.service';
-import { loadStations } from '../store/station.actions.js';
+import { TrackList } from '../cmps/trackList.jsx';
+import { stationService } from '../services/async-storage.service.js';
+import { setCurrTrack, addToNextQueue, setQueue, loadStations } from '../store/station.actions.js';
+import stationImg from '../assets/img/stationImg.jpg'
 
 class _StationSuggestion extends Component {
     state = {
-        stations: []
+        station: null,
+        isPlaying: false
     }
     async componentDidMount() {
+        this.loadStation()
+    }
+
+    loadStation = async () => {
         const { tagName } = this.props.match.params
-        const stations = await stationService.getStationByTag(tagName)
-        console.log(stations);
-        this.setState({ stations })
+        const station = await stationService.getStationByTag(tagName)
+        console.log(station);
+        this.setState({ station:station[0] })
     }
 
-    getTime = () => {
-        var today = new Date()
-        var curHr = today.getHours()
-
-        if (curHr < 12) {
-            return 'Good morning'
-        } else if (curHr < 18) {
-            return 'Good afternoon'
+    playRandTrack = () => {
+        if (this.state.isPlaying) {
+            //pause -possible eventBus
+            this.props.setCurrTrack({}, 0);
         } else {
-            return 'Good evening'
+            const songs = [...this.state.station.songs];
+            const idx = Math.floor(Math.random() * (songs.length))
+            const track = songs[idx]
+            this.props.setCurrTrack(track, idx);
+            this.props.setQueue(songs, idx);
         }
+        this.setState({ isPlaying: !this.state.isPlaying })
     }
-
 
     render() {
-        const { stations } = this.state
-        if (!stations.length) return <h1>loading...</h1>
+        const { station } = this.state
+        if (!station) return <h1>loading...</h1>
         return (
-                <section className='station-container'>
-                    <MainLayout>
-                        <div className='playlist-container flex'>
-                            <h1> Stations</h1>
-                            <div className="flex genre">
-                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
-                            </div>
+            <MainLayout>
+                <section className='station-details'>
+                    <div className="station-head flex">
+                        {station.songs.length > 0 &&
+                            <img src={`${station.songs[0].imgUrl}`} />
+                        }
+                        {!station.songs.length &&
+                            <img src={stationImg} />
+                        }
+                        <div className="title-details">
+                            <p>Playlist</p>
+                            <h1>{station.name}</h1>
+                            <ul className="clean-list flex">
+                                <li>{station.createdBy?.fullname}</li>
+                                <li>{station.songs.length} songs</li>
+                            </ul>
                         </div>
-                    </MainLayout>
+                    </div>
+                    <Link className="fas back fa-chevron-left" to="/"></Link>
+                    <button className="play-rand" onClick={this.playRandTrack}>
+                        <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
+                    </button>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>#</th>
+                                <th></th>
+                                <th>Title</th>
+                                <th>◷</th>
+                                <th></th>
+                            </tr>
+                            <TrackList songs={station.songs} loadStation={this.loadStation} />
+                        </tbody>
+                    </table>
                 </section>
+            </MainLayout>
         )
     }
 }
@@ -56,7 +87,8 @@ function mapStateToProps(state) {
     }
 }
 const mapDispatchToProps = {
-    loadStations,
+    setCurrTrack,
+    setQueue,
 }
 
 
