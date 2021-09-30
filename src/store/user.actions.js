@@ -96,3 +96,14 @@ export function removeLikeFromTrack(userId) {
     }
 }
 
+
+export function setUserPref(userPref) {
+    return async dispatch => {
+        try {
+            await userService.setUserPref(userPref)
+            dispatch({ type: 'SET_USERֹ_PREF', userPref })
+        } catch (err) {
+            console.log('UserActions: err in removeUser', err)
+        }
+    }
+}
