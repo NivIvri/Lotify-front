@@ -9,6 +9,7 @@ import stationImg from '../assets/img/stationImg.jpg'
 import { arrayMove } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
 import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
+//import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 
 class _StationDetails extends Component {
     state = {
@@ -91,6 +92,7 @@ class _StationDetails extends Component {
                                 <th>#</th>
                                 <th></th>
                                 <th>Title</th>
+                                <th>♥</th>
                                 <th>◷</th>
                                 <th></th>
                             </tr> */}

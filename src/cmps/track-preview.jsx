@@ -1,3 +1,14 @@
+// import { connect } from 'react-redux'
+// import React, { Component } from 'react'
+// import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
+// import '@szhsin/react-menu/dist/index.css';
+// import '@szhsin/react-menu/dist/transitions/slide.css';
+// import { stationService } from '../services/async-storage.service';
+// import { eventBusService } from '../services/event-bus.service';
+// import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
+// import heartChecked from '../assets/img/heart-checked.png';
+// import heartNotChecked from '../assets/img/heart-notCheck.png';
+
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
@@ -6,12 +17,45 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { stationService } from '../services/async-storage.service';
 import { eventBusService } from '../services/event-bus.service';
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
+import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
+import heartChecked from '../assets/img/heart-checked.png';
+import heartNotChecked from '../assets/img/heart-notCheck.png';
 
 
 class _TrackPreview extends Component {
-    componentDidMount = () => {
+    state = {
+        isLike: false
+    }
+
+    componentDidMount = async () => {
         //to get Stations from store to the AddToPlaylist render
-        this.props.loadStations()
+        await this.props.loadStations()
+        let user = await this.props.user
+        if (!user) {
+            await this.props.loadUser();
+            user = await this.props.user
+        }
+        if (user.likedTracks.includes(this.props.track.id)) {
+            this.setState({ isLike: true })
+        }
+        else this.setState({ isLike: false })
+
+    }
+
+    async componentDidUpdate(prevProps) {
+        if (prevProps.track.id !== this.props.track.id) {
+            await this.props.loadStations()
+            let user = await this.props.user
+            if (!user) {
+                await this.props.loadUser();
+                user = await this.props.user
+            }
+            if (user.likedTracks.includes(this.props.track.id)) {
+                this.setState({ isLike: true })
+            }
+            else this.setState({ isLike: false })
+
+        }
     }
 
     getTimeFromDuration = (duration) => {
@@ -76,8 +120,21 @@ class _TrackPreview extends Component {
         this.props.setQueue(songs, idx)
     }
 
+    toggleLike = async (ev) => {
+        ev.stopPropagation()
+        this.setState({ isLike: !this.state.isLike }, () => {
+            if (this.state.isLike)
+                this.props.addLikeToTrack(this.props.track.id)
+            else {
+                this.props.removeLikeFromTrack(this.props.track.id)
+            }
+        })
+    }
+
     render() {
-        const { track, idx, currStation, stations } = this.props
+        // const { track, idx, currStation, stations } = this.props
+        const { track, idx, currStation, stations, user } = this.props
+
 
         return (
             // onClick={this.playTrack(track, idx)}
@@ -87,7 +144,15 @@ class _TrackPreview extends Component {
                 <div className="track-img"><img src={track.imgUrl} alt="" /></div>
                 <div className="track-title">{track.title}</div>
                 <div className="track-duration">{this.getTimeFromDuration(track.duration)}</div>
-                <div className="likes">likes..</div>
+                <div className="likes">
+                    {
+                        this.state.isLike && <img src={heartChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                    }
+                    {
+                        !this.state.isLike && <img src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                    }
+
+                </div>
                 <div className="button-cell track-actions" onClick={(ev) => { ev.stopPropagation() }}>
                     <Menu menuButton={
                         <MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
@@ -143,15 +208,18 @@ function mapStateToProps(state) {
     return {
         stations: state.stationMoudle.stations,
         queue: state.stationMoudle.queue,
-        currTrack: state.stationMoudle.currTrack
+        currTrack: state.stationMoudle.currTrack,
+        user: state.userMoudle.user,
     }
 }
 const mapDispatchToProps = {
     loadStations,
     addToNextQueue,
     setCurrTrack,
-    setQueue
+    setQueue,
+    addLikeToTrack,
+    loadUser,
+    removeLikeFromTrack
 }
-
 
 export const TrackPreview = connect(mapStateToProps, mapDispatchToProps)(_TrackPreview)

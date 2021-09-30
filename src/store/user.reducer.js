@@ -1,29 +1,21 @@
 import { userService } from '../services/user.service.js'
 
-
 const initialState = {
-    count: 10,
-    user: userService.getLoggedinUser(),
+    //user: userService.getLoggedinUser(),
+    user: '',
     users: [],
-    watchedUser : null
 }
+
+
 export function userReducer(state = initialState, action) {
     var newState = state;
     switch (action.type) {
-        case 'INCREMENT':
-            newState = { ...state, count: state.count + 1 }
-            break;
-        case 'DECREMENT':
-            newState = { ...state, count: state.count - 1 }
-            break;
         case 'CHANGE_COUNT':
             newState = { ...state, count: state.count + action.diff }
             break;
         case 'SET_USER':
+            debugger
             newState = { ...state, user: action.user }
-            break;
-        case 'SET_WATCHED_USER':
-            newState = { ...state, watchedUser: action.user }
             break;
         case 'REMOVE_USER':
             newState = {
@@ -34,10 +26,15 @@ export function userReducer(state = initialState, action) {
         case 'SET_USERS':
             newState = { ...state, users: action.users }
             break;
-        case 'SET_SCORE':
-            newState = { ...state, user: { ...state.user, score: action.score } }
+        case 'ADD_LIKE_TO_TRACK':
+            debugger
+            newState = { ...state, user: { ...state.user, likedTracks: [...state.likedTracks, action.trackId] } }
+            break;
+        case 'SET_USERֹ_PREF':
+            newState = { ...state, user: { ...state.user, prefArtists: action.userPref } }
             break;
         default:
+
     }
     // For debug:
     // window.userState = newState;
@@ -45,3 +42,4 @@ export function userReducer(state = initialState, action) {
     return newState;
 
 }
+
