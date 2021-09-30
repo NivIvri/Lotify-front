@@ -28,8 +28,9 @@ class _Home extends Component {
 
 
     render() {
-        const { stations } = this.props
-        if (!stations) return <h1>loading...</h1>
+        debugger
+        const { stations, user } = this.props
+        if (!stations || !this.props.user) return <h1>loading...</h1>
         return (
 
             <div className="home-page">
@@ -38,7 +39,7 @@ class _Home extends Component {
                 </div>
                 <section className='station-container'>
                     <MainLayout>
-                        <h1>{this.getTime()}</h1>
+                        <h1>{this.getTime()}, {this.props.user.username}</h1>
                         <h3>Your favorite artists</h3>
                         <RecentlyPlayed stations={stations.slice(0, 4)} />
                         <div className='playlist-container flex'>
@@ -65,7 +66,9 @@ class _Home extends Component {
 
 function mapStateToProps(state) {
     return {
-        stations: state.stationMoudle.stations
+        stations: state.stationMoudle.stations,
+        user: state.userMoudle.user,
+
     }
 }
 const mapDispatchToProps = {
