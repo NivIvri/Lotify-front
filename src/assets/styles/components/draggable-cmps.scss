@@ -48,6 +48,16 @@
   width: 70px;
 }
 
+.likes {
+  display              : flex;
+  // justify-content   : center;
+  // align-items    : center;
+
+  img {
+    height: 25px;
+  }
+}
+
 .track-container {
   width        : 100%;
   align-items  : center;
