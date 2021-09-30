@@ -1,0 +1,12 @@
+{
+  fullname,
+  username,
+  // password,
+  likedTracks: [],  // songs that marked with 'like'
+  preferableGaners: [],
+  likedStations: [],
+  recentlyPlayedStations: [],
+  recentlyPlayedSongs??: []
+  
+
+}
