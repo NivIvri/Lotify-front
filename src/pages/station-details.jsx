@@ -54,9 +54,14 @@ class _StationDetails extends Component {
         this.setState((prevState) => ({ ...prevState, station }))
 
     }
+
+
+
+
     render() {
         const { station } = this.state
         if (!station) return <h1>loading...</h1>
+        const { loadStations, addToNextQueue, stations } = this.props;
         return (
             <MainLayout>
                 <section className='station-details'>
@@ -80,7 +85,7 @@ class _StationDetails extends Component {
                     <button className="play-rand" onClick={this.playRandTrack}>
                         <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
-                    <table>
+                    {/* <table>
                         <tbody>
                             <tr>
                                 <th>#</th>
@@ -88,27 +93,52 @@ class _StationDetails extends Component {
                                 <th>Title</th>
                                 <th>◷</th>
                                 <th></th>
-                            </tr>
-                            <DraggableTrackList songs={station.songs} currStation={station}
-                                axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd} />
+                            </tr> */}
 
-                            {/* <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} /> */}
-                        </tbody>
-                    </table>
+                    {/* <DraggableTrackList songs={station.songs} currStation={station}
+                                axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
+                                getTimeFromDuration={this.getTimeFromDuration} onAddToStation={this.onAddToStation}
+                                onRemoveFromStation={this.onRemoveFromStation} playTrack={this.playTrack}
+                                loadStations={loadStations} addToNextQueue={addToNextQueue} stations={stations}
+                                distance="20" /> */}
+
+
+
+                    {/* <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} /> */}
+
+
+
+                    {/* ({ songs, currStation, loadStation,
+      getTimeFromDuration, onAddToStation, onRemoveFromStation, playTrack,
+      loadStations, addToNextQueue, stations }) */}
+                    {/* </tbody>
+                    </table> */}
+                    <DraggableTrackList songs={station.songs} currStation={station}
+                        axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
+                        distance='20' />
+
+
                 </section>
             </MainLayout>
         )
     }
+
 }
 
 function mapStateToProps(state) {
     return {
-        stations: state.stationMoudle.stations
+        stations: state.stationMoudle.stations,
+        queue: state.stationMoudle.queue,
+        currTrack: state.stationMoudle.currTrack
     }
 }
 const mapDispatchToProps = {
     setCurrTrack,
     setQueue,
+
+    loadStations,
+    addToNextQueue
+
 }
 
 

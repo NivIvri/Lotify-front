@@ -1,0 +1,77 @@
+.station-track-list {
+  width: 100%;
+}
+
+.list-headers {
+  flex-basis    : 50px;
+  align-items   : center;
+  color         : #888;
+  border-bottom : 1px solid #888;
+  margin-bottom : 10px;
+  // gap        : 10px;
+}
+
+.track-num-header,
+.track-num {
+  // padding-top   : 3px;
+  // padding-bottom: 3px;
+  width: 25px;
+}
+
+.track-img-header,
+.track-img {
+  width: 120px;
+}
+
+.track-img {
+  &>img {
+    display   : block;
+    width     : 80%;
+    object-fit: cover;
+  }
+}
+
+
+.track-title-header,
+.track-title {
+  width    : 120px;
+  flex-grow: 1;
+}
+
+
+.duration-header,
+.track-duration,
+.likes,
+.likes-header,
+.track-actions,
+.actions-header {
+  width: 70px;
+}
+
+.track-container {
+  width        : 100%;
+  align-items  : center;
+  margin-bottom: 5px;
+
+  &:hover {
+    // filter: brightness(0.85);
+    background-color: rgb(54, 52, 52);
+
+  }
+}
+
+.track-actions {
+
+  &>* {
+    opacity: 1 !important;
+  }
+
+}
+
+// <div className="list-headers flex">
+// <div className="track-num-header">#</div>
+// <div className="track-img-header">img</div>
+// <div className="track-title-header">Title</div>
+// <div className="duration-header">◷</div>
+// <div className="likes-header">likes</div>
+// <div className="actions-header">actions</div>
