@@ -6,7 +6,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { stationService } from '../services/async-storage.service';
 import { eventBusService } from '../services/event-bus.service';
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
-import { Heart } from './heart';
+import  heartChecked  from '../assets/img/heart-checked.png';
 
 
 class _TrackPreview extends Component {
@@ -86,7 +86,7 @@ class _TrackPreview extends Component {
                 <td>{track.title}</td>
                 {/*<td><Heart id='checkbox-item' /></td>*/}
                 <td>
-                    <img src={}/>
+                    <img src={heartChecked}/>
                 
                 
                 </td>
