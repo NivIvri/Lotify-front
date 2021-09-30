@@ -6,7 +6,7 @@ import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
 import { setCurrTrack, addToNextQueue, setQueue, loadStations } from '../store/station.actions.js';
 import stationImg from '../assets/img/stationImg.jpg'
-
+import { Heart } from '../cmps/heart.jsx';
 class _StationDetails extends Component {
     state = {
         stationId: null,
@@ -66,9 +66,14 @@ class _StationDetails extends Component {
                         </div>
                     </div>
                     <Link className="fas back fa-chevron-left" to="/"></Link>
-                    <button className="play-rand" onClick={this.playRandTrack}>
-                        <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
-                    </button>
+                    <div className='flex action-bar'>
+
+                        <button className="play-rand" onClick={this.playRandTrack}>
+                            <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
+                        </button>
+                        {/*<span class="fas fa-heart"></span>*/}
+                        <Heart />
+                    </div>
                     <table>
                         <tbody>
                             <tr>
@@ -76,6 +81,7 @@ class _StationDetails extends Component {
                                 <th></th>
                                 <th>Title</th>
                                 <th>◷</th>
+                                <th>♥</th>
                                 <th></th>
                             </tr>
                             <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} />
@@ -89,7 +95,9 @@ class _StationDetails extends Component {
 
 function mapStateToProps(state) {
     return {
-        stations: state.stationMoudle.stations
+        stations: state.stationMoudle.stations,
+        likedTracks: state.userMoudle.likedTracks,
+
     }
 }
 const mapDispatchToProps = {
