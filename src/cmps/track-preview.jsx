@@ -6,7 +6,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { stationService } from '../services/async-storage.service';
 import { eventBusService } from '../services/event-bus.service';
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
-import { addLikeToTrack, loadUser } from '../store/user.actions';
+import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import heartChecked from '../assets/img/heart-checked.png';
 import heartNotChecked from '../assets/img/heart-notCheck.png';
 
@@ -27,16 +27,20 @@ class _TrackPreview extends Component {
         if (user.likedTracks.includes(this.props.track.id)) {
             this.setState({ isLike: true })
         }
+        else this.setState({ isLike: false })
 
     }
 
 
 
     async componentDidUpdate(prevProps) {
-        debugger
         if (prevProps.track.id !== this.props.track.id) {
             await this.props.loadStations()
             let user = await this.props.user
+            if (!user) {
+                await this.props.loadUser();
+                user = await this.props.user
+            }
             if (user.likedTracks.includes(this.props.track.id)) {
                 this.setState({ isLike: true })
             }
@@ -173,7 +177,8 @@ const mapDispatchToProps = {
     setCurrTrack,
     setQueue,
     addLikeToTrack,
-    loadUser
+    loadUser,
+    removeLikeFromTrack
 }
 
 

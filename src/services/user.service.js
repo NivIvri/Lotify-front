@@ -9,7 +9,9 @@ export const userService = {
     getStationById,
     getNextStationId,
     getLoggedinUser,
-    addLikeToTrack
+    addLikeToTrack,
+    removeLikeFromTrack,
+    setUserPref
 }
 
 
@@ -29,15 +31,32 @@ async function addLikeToTrack(trackId) {
     return Promise.resolve()
 }
 
-async function removeLikeFromTrack(trackId) {
-    //gUser.likedTracks.push(trackId)
-    //_saveStationsToStorage()
-    //return Promise.resolve()
+async function removeLikeFromTrack(currTrackId) {
+    gUser = gUser.likedTracks.filter(trackId => trackId !== currTrackId)
+    _saveStationsToStorage()
+    return Promise.resolve()
 }
 
 async function getLoggedinUser() {
     return Promise.resolve(gUser)
 }
+
+
+
+async function setUserPref(userPref) {
+    gUser.userPref = userPref
+    _saveStationsToStorage()
+}
+
+
+
+
+
+
+
+
+
+
 
 function deleteStation(userId) {
     var userIdx = gUser.findIndex(function (user) {
@@ -104,7 +123,7 @@ function _createUser() {
             recentlyPlayedStations: [],
             recentlyPlayedSongs: [],
             prefArtists: [],
-            
+
         }
     }
     gUser = user;

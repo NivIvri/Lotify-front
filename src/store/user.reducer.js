@@ -30,10 +30,11 @@ export function userReducer(state = initialState, action) {
             debugger
             newState = { ...state, user: { ...state.user, likedTracks: [...state.likedTracks, action.trackId] } }
             break;
-        default:
-        case 'ADD_TOֹֹ_USERֹ_PREF':
-            newState = { ...state, user: { ...state.user, prefArtists: [...state.prefArtists, action.prefArtist] } }
+        case 'SET_USERֹ_PREF':
+            newState = { ...state, user: { ...state.user, prefArtists: action.userPref } }
             break;
+        default:
+
     }
     // For debug:
     // window.userState = newState;
