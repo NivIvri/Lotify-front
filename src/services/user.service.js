@@ -23,9 +23,16 @@ function query(filterBy) {
 
 
 async function addLikeToTrack(trackId) {
-    gUser.likedTracks.push(trackId)
-    _saveStationsToStorage();
+    debugger
+    await gUser.likedTracks.push(trackId)
+    _saveStationsToStorage()
     return Promise.resolve()
+}
+
+async function removeLikeFromTrack(trackId) {
+    //gUser.likedTracks.push(trackId)
+    //_saveStationsToStorage()
+    //return Promise.resolve()
 }
 
 async function getLoggedinUser() {
@@ -85,8 +92,9 @@ function _createStation(userToEdit) {
 }
 
 function _createUser() {
+    debugger
     var user = storageService.loadFromStorage(KEY)
-    if (!user || !user.length) {
+    if (!user) {
         user =
         {
             username: 'gust123',
@@ -96,6 +104,7 @@ function _createUser() {
             recentlyPlayedStations: [],
             recentlyPlayedSongs: [],
             prefArtists: [],
+            
         }
     }
     gUser = user;

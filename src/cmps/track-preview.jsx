@@ -6,7 +6,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { stationService } from '../services/async-storage.service';
 import { eventBusService } from '../services/event-bus.service';
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
-import { addLikeToTrack } from '../store/user.actions';
+import { addLikeToTrack, loadUser } from '../store/user.actions';
 import heartChecked from '../assets/img/heart-checked.png';
 import heartNotChecked from '../assets/img/heart-notCheck.png';
 
@@ -17,12 +17,31 @@ class _TrackPreview extends Component {
         isLike: false
     }
     componentDidMount = async () => {
-        debugger
         //to get Stations from store to the AddToPlaylist render
         await this.props.loadStations()
-        const user = await this.props.user
+        let user = await this.props.user
+        if (!user) {
+            await this.props.loadUser();
+            user = await this.props.user
+        }
         if (user.likedTracks.includes(this.props.track.id)) {
             this.setState({ isLike: true })
+        }
+
+    }
+
+
+
+    async componentDidUpdate(prevProps) {
+        debugger
+        if (prevProps.track.id !== this.props.track.id) {
+            await this.props.loadStations()
+            let user = await this.props.user
+            if (user.likedTracks.includes(this.props.track.id)) {
+                this.setState({ isLike: true })
+            }
+            else this.setState({ isLike: false })
+
         }
     }
 
@@ -89,12 +108,18 @@ class _TrackPreview extends Component {
     }
 
     toggleLike = async (ev) => {
-        await this.props.addLikeToTrack(this.props.track.id)
         ev.stopPropagation()
-        this.setState({ isLike: !this.state.isLike })
+        this.setState({ isLike: !this.state.isLike }, () => {
+            if (this.state.isLike)
+                this.props.addLikeToTrack(this.props.track.id)
+            else {
+                this.props.removeLikeFromTrack(this.props.track.id)
+            }
+        })
     }
     render() {
-        const { track, idx, currStation, stations } = this.props
+        const { track, idx, currStation, stations, user } = this.props
+        console.log(this.state.isLike, 'this.state.isLike', track, 'track');
         return (
             <tr className="song-container" onClick={() => this.playTrack(track, idx)}>
                 <td className='song-num'>{idx + 1}</td>
@@ -140,7 +165,6 @@ function mapStateToProps(state) {
         queue: state.stationMoudle.queue,
         currTrack: state.stationMoudle.currTrack,
         user: state.userMoudle.user,
-
     }
 }
 const mapDispatchToProps = {
@@ -148,7 +172,8 @@ const mapDispatchToProps = {
     addToNextQueue,
     setCurrTrack,
     setQueue,
-    addLikeToTrack
+    addLikeToTrack,
+    loadUser
 }
 
 
