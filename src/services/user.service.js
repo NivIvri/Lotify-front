@@ -1,63 +1,108 @@
-import Axios from 'axios'
-import { httpService } from './http.service';
-const axios = Axios.create({
-    withCredentials: true
-});
-
-const BASE_URL = (process.env.NODE_ENV == 'production')
-    ? '/api/auth'
-    : 'http://localhost:3030/api/auth';
-
-
-const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
-
+import storageService from '../services/storage.service'
+import { utilService } from './util.service.js'
+import { gPlaylists } from "./data";
+import axios from 'axios'
 export const userService = {
-    login,
-    logout,
-    signup,
+    query,
+    saveStation,
+    deleteStation,
+    getStationById,
+    getNextStationId,
     getLoggedinUser,
-    getById
+    addLikeToTrack
 }
 
 
+const KEY = 'user';
+var gUser;
+_createUser();
 
-
-window.userService = userService;
-
-async function login(credentials) {
-    let res = await axios.post(`${BASE_URL}/login`, credentials)
-    let user = res.data
-    if (user) {
-        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-    }
-    return user;
-}
-async function signup(userInfo) {
-    let res = await axios.post(`${BASE_URL}/signup`, userInfo)
-    //let res = await axios.post('http://localhost:3030/api/auth/signup', userInfo)
-    let user = res.data
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-    return user;
+function query(filterBy) {
+    return Promise.resolve(gUser)
 }
 
 
-async function logout() {
-    await httpService.get('auth/logout')
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, null)
+async function addLikeToTrack(trackId) {
+    gUser.likedTracks.push(trackId)
+    _saveStationsToStorage();
     return Promise.resolve()
 }
 
 async function getLoggedinUser() {
-    const user = {
-        username: 'a',
-        fullname: 'b',
+    return Promise.resolve(gUser)
+}
+
+function deleteStation(userId) {
+    var userIdx = gUser.findIndex(function (user) {
+        return userId === user.id
+    })
+    gUser.splice(userIdx, 1)
+    _saveStationsToStorage();
+    return Promise.resolve()
+}
+
+function saveStation(userToEdit) {
+    return userToEdit.id ? _updateStation(userToEdit) : _addStation(userToEdit)
+}
+
+
+function _addStation(userToEdit) {
+    var user = _createStation(userToEdit)
+    gUser.unshift(user)
+    _saveStationsToStorage();
+    return Promise.resolve(user)
+}
+
+function _updateStation(userToEdit) {
+    var userIdx = gUser.findIndex(function (user) {
+        return user.id === userToEdit.id;
+    })
+    gUser[userIdx] = userToEdit
+    _saveStationsToStorage();
+    return Promise.resolve()
+}
+
+
+function getStationById(userId) {
+    console.log(gUser);
+    var user = gUser.find(function (user) {
+        return userId === user._id
+    })
+    return Promise.resolve(user)
+}
+
+
+function getNextStationId(userId) {
+    const userIdx = gUser.findIndex(user => user.id === userId)
+    let nextStationIdx = userIdx + 1
+    if (nextStationIdx === gUser.length) nextStationIdx = 0
+    return gUser[nextStationIdx].id
+}
+
+function _createStation(userToEdit) {
+    userToEdit._id = utilService.makeId()
+    return userToEdit
+}
+
+function _createUser() {
+    var user = storageService.loadFromStorage(KEY)
+    if (!user || !user.length) {
+        user =
+        {
+            username: 'gust123',
+            fullname: 'b',
+            likedTracks: ['bpOSxM0rNPM'],  // songs that marked with 'like'
+            likedStations: [],
+            recentlyPlayedStations: [],
+            recentlyPlayedSongs: [],
+            prefArtists: [],
+        }
     }
-    await sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-
-    return await JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN))
+    gUser = user;
+    _saveStationsToStorage();
 }
 
-async function getById(userId) {
-    const user = await httpService.get(`user/${userId}`)
-    return user;
+function _saveStationsToStorage() {
+    storageService.saveToStorage(KEY, gUser)
 }
+

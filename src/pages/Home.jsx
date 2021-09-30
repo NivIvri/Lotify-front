@@ -5,12 +5,14 @@ import { RecentlyPlayed } from '../cmps/recently-played.jsx';
 
 import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
+import { loadUser } from '../store/user.actions';
 
 class _Home extends Component {
     state = {
     }
     componentDidMount() {
         this.props.loadStations();
+        this.props.loadUser();
     }
 
     getTime = () => {
@@ -30,7 +32,7 @@ class _Home extends Component {
     render() {
         debugger
         const { stations, user } = this.props
-        if (!stations || !this.props.user) return <h1>loading...</h1>
+        if (!stations && !this.props.user) return <h1>loading...</h1>
         return (
 
             <div className="home-page">
@@ -73,6 +75,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
     loadStations,
+    loadUser
 }
 
 

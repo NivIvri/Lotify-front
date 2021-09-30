@@ -6,13 +6,24 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { stationService } from '../services/async-storage.service';
 import { eventBusService } from '../services/event-bus.service';
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
-import  heartChecked  from '../assets/img/heart-checked.png';
+import { addLikeToTrack } from '../store/user.actions';
+import heartChecked from '../assets/img/heart-checked.png';
+import heartNotChecked from '../assets/img/heart-notCheck.png';
 
 
 class _TrackPreview extends Component {
-    componentDidMount = () => {
+
+    state = {
+        isLike: false
+    }
+    componentDidMount = async () => {
+        debugger
         //to get Stations from store to the AddToPlaylist render
-        this.props.loadStations()
+        await this.props.loadStations()
+        const user = await this.props.user
+        if (user.likedTracks.includes(this.props.track.id)) {
+            this.setState({ isLike: true })
+        }
     }
 
     getTimeFromDuration = (duration) => {
@@ -77,8 +88,13 @@ class _TrackPreview extends Component {
         this.props.setQueue(songs, idx)
     }
 
+    toggleLike = async (ev) => {
+        await this.props.addLikeToTrack(this.props.track.id)
+        ev.stopPropagation()
+        this.setState({ isLike: !this.state.isLike })
+    }
     render() {
-        const { track, idx, currStation, stations} = this.props
+        const { track, idx, currStation, stations } = this.props
         return (
             <tr className="song-container" onClick={() => this.playTrack(track, idx)}>
                 <td className='song-num'>{idx + 1}</td>
@@ -86,9 +102,12 @@ class _TrackPreview extends Component {
                 <td>{track.title}</td>
                 {/*<td><Heart id='checkbox-item' /></td>*/}
                 <td>
-                    <img src={heartChecked}/>
-                
-                
+                    {
+                        this.state.isLike && <img src={heartChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                    }
+                    {
+                        !this.state.isLike && <img src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                    }
                 </td>
                 <td>{this.getTimeFromDuration(track.duration)}</td>
                 <td className="button-cell" onClick={(ev) => { ev.stopPropagation() }}>
@@ -120,13 +139,16 @@ function mapStateToProps(state) {
         stations: state.stationMoudle.stations,
         queue: state.stationMoudle.queue,
         currTrack: state.stationMoudle.currTrack,
+        user: state.userMoudle.user,
+
     }
 }
 const mapDispatchToProps = {
     loadStations,
     addToNextQueue,
     setCurrTrack,
-    setQueue
+    setQueue,
+    addLikeToTrack
 }
 
 

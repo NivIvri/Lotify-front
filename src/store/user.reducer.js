@@ -2,16 +2,8 @@ import { userService } from '../services/user.service.js'
 
 const initialState = {
     //user: userService.getLoggedinUser(),
-    user: {
-        username: 'gust123',
-        fullname: 'b',
-    },
+    user: '',
     users: [],
-    likedTracks: [],  // songs that marked with 'like'
-    likedStations: [],
-    recentlyPlayedStations: [],
-    recentlyPlayedSongs: [],
-    preferableGaners: [],
 }
 
 
@@ -22,6 +14,7 @@ export function userReducer(state = initialState, action) {
             newState = { ...state, count: state.count + action.diff }
             break;
         case 'SET_USER':
+            debugger
             newState = { ...state, user: action.user }
             break;
         case 'REMOVE_USER':
@@ -33,8 +26,9 @@ export function userReducer(state = initialState, action) {
         case 'SET_USERS':
             newState = { ...state, users: action.users }
             break;
-        case 'SET_SCORE':
-            newState = { ...state, user: { ...state.user, score: action.score } }
+        case 'ADD_LIKE_TO_TRACK':
+            debugger
+            newState = { ...state, likedTracks: [...state.likedTracks, action.trackId] }
             break;
         default:
     }
@@ -44,3 +38,4 @@ export function userReducer(state = initialState, action) {
     return newState;
 
 }
+

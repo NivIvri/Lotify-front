@@ -6,10 +6,9 @@ import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
 import { setCurrTrack, addToNextQueue, setQueue, loadStations } from '../store/station.actions.js';
 import stationImg from '../assets/img/stationImg.jpg'
-import { Heart } from '../cmps/heart.jsx';
 import { arrayMove } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
-import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
+//import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 
 class _StationDetails extends Component {
     state = {
@@ -83,8 +82,7 @@ class _StationDetails extends Component {
                         <button className="play-rand" onClick={this.playRandTrack}>
                             <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
                         </button>
-                        {/*<span class="fas fa-heart"></span>*/}
-                        <Heart />
+                        <span class="fas fa-heart"></span>
                     </div>
                     <table>
                         <tbody>
@@ -92,14 +90,14 @@ class _StationDetails extends Component {
                                 <th>#</th>
                                 <th></th>
                                 <th>Title</th>
-                                <th>◷</th>
                                 <th>♥</th>
+                                <th>◷</th>
                                 <th></th>
                             </tr>
-                            <DraggableTrackList songs={station.songs} currStation={station}
-                                axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd} />
+                            {/*<DraggableTrackList songs={station.songs} currStation={station}*/}
+                                {/*axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd} />*/}
 
-                            {/* <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} /> */}
+                            <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} />
                         </tbody>
                     </table>
                 </section>
@@ -111,7 +109,6 @@ class _StationDetails extends Component {
 function mapStateToProps(state) {
     return {
         stations: state.stationMoudle.stations,
-        likedTracks: state.userMoudle.likedTracks,
 
     }
 }
