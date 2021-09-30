@@ -183,7 +183,7 @@ async function getStationByTag(tagName) {
 
 
 function searchStation(keySerch) {
-    debugger
+    
     return gStations.filter((station) => {
         if (station.name.includes(keySerch) || station.tags.includes(keySerch)) {
             return station
