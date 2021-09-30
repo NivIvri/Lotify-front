@@ -96,10 +96,10 @@ class _StationDetails extends Component {
                                 <th>♥</th>
                                 <th></th>
                             </tr>
-                            <DraggableTrackList songs={station.songs} currStation={station}
-                                axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd} />
+                            {/* <DraggableTrackList songs={station.songs} currStation={station}
+                                axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd} /> */}
 
-                            {/* <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} /> */}
+                            <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} />
                         </tbody>
                     </table>
                 </section>

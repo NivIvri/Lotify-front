@@ -8,11 +8,16 @@ import { Search } from "./pages/search";
 import { StationDetails } from "./pages/station-details";
 import { StationSuggestion } from "./pages/station-suggestions";
 import { Stations } from "./pages/stations";
+import { UserPref } from "./pages/user-pref";
 
 const routes = [
     {
         path: '/',
         component: Home,
+    },
+    {
+        path: '/preff',
+        component: UserPref,
     },
     {
         path: '/station/:stationId',
