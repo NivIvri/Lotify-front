@@ -7,11 +7,16 @@ import { stationService } from '../services/async-storage.service.js';
 import { setCurrTrack, addToNextQueue, setQueue, loadStations } from '../store/station.actions.js';
 import stationImg from '../assets/img/stationImg.jpg'
 import { Heart } from '../cmps/heart.jsx';
+import { arrayMove } from 'react-sortable-hoc';
+import { arrayMoveImmutable } from 'array-move';
+import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
+
 class _StationDetails extends Component {
     state = {
         stationId: null,
         station: null,
-        isPlaying: false
+        isPlaying: false,
+        songs: null,
     }
     async componentDidMount() {
         this.loadStation()
@@ -26,7 +31,7 @@ class _StationDetails extends Component {
     loadStation = async () => {
         const { stationId } = this.props.match.params
         const station = await stationService.getStationById(stationId)
-        this.setState({ station, stationId })
+        this.setState({ station, stationId, songs: station.songs })
     }
 
     playRandTrack = () => {
@@ -43,6 +48,13 @@ class _StationDetails extends Component {
         this.setState({ isPlaying: !this.state.isPlaying })
     }
 
+
+    onSortEnd = ({ oldIndex, newIndex }) => {
+        const { station } = this.state
+        station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
+        this.setState((prevState) => ({ ...prevState, station }))
+
+    }
     render() {
         const { station } = this.state
         if (!station) return <h1>loading...</h1>
@@ -84,7 +96,10 @@ class _StationDetails extends Component {
                                 <th>♥</th>
                                 <th></th>
                             </tr>
-                            <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} />
+                            <DraggableTrackList songs={station.songs} currStation={station}
+                                axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd} />
+
+                            {/* <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} /> */}
                         </tbody>
                     </table>
                 </section>
