@@ -5,9 +5,9 @@ import { showErrorMsg } from '../services/event-bus.service.js'
 export function loadUser() {
     return async dispatch => {
         try {
-            debugger
             console.log('action user');
             const user = await userService.getLoggedinUser()
+            
             dispatch({ type: 'SET_USER', user })
         } catch (err) {
             console.log('UserActions: err in loadUsers', err)
@@ -73,23 +73,7 @@ export function onLogout() {
     }
 }
 
-//export function loadAndWatchUser(userId) {
-//    return async (dispatch) => {
-//        try {
-//            const user = await userService.getById(userId);
-//            dispatch({ type: 'SET_WATCHED_USER', user })
-//            socketService.emit(SOCKET_EMIT_USER_WATCH, userId)
-//            socketService.off(SOCKET_EVENT_USER_UPDATED)
-//            socketService.on(SOCKET_EVENT_USER_UPDATED, user => {
-//                console.log('USER UPADTED FROM SOCKET');
-//                dispatch({ type: 'SET_WATCHED_USER', user })
-//            })
-//        } catch (err) {
-//            showErrorMsg('Cannot load user')
-//            console.log('Cannot load user', err)
-//        }
-//    }
-//}
+
 
 export function addLikeToTrack(trackId, userId) {
     return async dispatch => {
@@ -104,7 +88,7 @@ export function addLikeToTrack(trackId, userId) {
 export function removeLikeFromTrack(userId) {
     return async dispatch => {
         try {
-            await userService.remove(userId)
+            await userService.removeLikeFromTrack(userId)
             dispatch({ type: 'REMOVE_LIKE_TO_TRACK', userId })
         } catch (err) {
             console.log('UserActions: err in removeUser', err)
