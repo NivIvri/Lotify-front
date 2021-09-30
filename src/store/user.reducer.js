@@ -32,10 +32,8 @@ export function userReducer(state = initialState, action) {
             break;
         default:
         case 'ADD_TOֹֹ_USERֹ_PREF':
-            debugger
             newState = { ...state, user: { ...state.user, prefArtists: [...state.prefArtists, action.prefArtist] } }
             break;
-        default:
     }
     // For debug:
     // window.userState = newState;
