@@ -5,10 +5,13 @@ import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
 import { setCurrTrack, addToNextQueue, setQueue, loadStations } from '../store/station.actions.js';
+import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import stationImg from '../assets/img/stationImg.jpg'
 import { arrayMove } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
 //import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
+import heartChecked from '../assets/img/heart-checked.png';
+import heartNotChecked from '../assets/img/heart-notCheck.png';
 
 class _StationDetails extends Component {
     state = {
@@ -16,6 +19,7 @@ class _StationDetails extends Component {
         station: null,
         isPlaying: false,
         songs: null,
+        isLike:false
     }
     async componentDidMount() {
         this.loadStation()
@@ -54,6 +58,17 @@ class _StationDetails extends Component {
         this.setState((prevState) => ({ ...prevState, station }))
 
     }
+
+    toggleLike = async (ev) => {
+        ev.stopPropagation()
+        this.setState({ isLike: !this.state.isLike }, () => {
+            if (this.state.isLike)
+                this.props.addLikeToTrack(this.state.station._id,)
+            else {
+                this.props.removeLikeFromTrack(this.state.station._id)
+            }
+        })
+    }
     render() {
         const { station } = this.state
         if (!station) return <h1>loading...</h1>
@@ -82,8 +97,12 @@ class _StationDetails extends Component {
                         <button className="play-rand" onClick={this.playRandTrack}>
                             <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
                         </button>
-                        <span class="fas fa-heart"></span>
-                    </div>
+                        {
+                            this.state.isLike && <img src={heartChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                        }
+                        {
+                            !this.state.isLike && <img src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                        }                    </div>
                     <table>
                         <tbody>
                             <tr>
@@ -95,7 +114,7 @@ class _StationDetails extends Component {
                                 <th></th>
                             </tr>
                             {/*<DraggableTrackList songs={station.songs} currStation={station}*/}
-                                {/*axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd} />*/}
+                            {/*axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd} />*/}
 
                             <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} />
                         </tbody>
@@ -109,12 +128,16 @@ class _StationDetails extends Component {
 function mapStateToProps(state) {
     return {
         stations: state.stationMoudle.stations,
+        user: state.userMoudle.user,
 
     }
 }
 const mapDispatchToProps = {
     setCurrTrack,
     setQueue,
+    addLikeToTrack,
+    loadUser,
+    removeLikeFromTrack,
 }
 
 

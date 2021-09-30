@@ -25,14 +25,15 @@ function query(filterBy) {
 
 
 async function addLikeToTrack(trackId) {
-    debugger
     await gUser.likedTracks.push(trackId)
     _saveStationsToStorage()
     return Promise.resolve()
 }
 
 async function removeLikeFromTrack(currTrackId) {
-    gUser = gUser.likedTracks.filter(trackId => trackId !== currTrackId)
+    debugger
+    let likedTracks = gUser.likedTracks.filter(trackId => trackId !== currTrackId)
+    gUser.likedTracks = likedTracks
     _saveStationsToStorage()
     return Promise.resolve()
 }
@@ -113,6 +114,7 @@ function _createStation(userToEdit) {
 function _createUser() {
     debugger
     var user = storageService.loadFromStorage(KEY)
+    //user = user ? storageService.loadFromStorage(KEY) : []
     if (!user) {
         user =
         {
@@ -123,7 +125,6 @@ function _createUser() {
             recentlyPlayedStations: [],
             recentlyPlayedSongs: [],
             prefArtists: [],
-
         }
     }
     gUser = user;

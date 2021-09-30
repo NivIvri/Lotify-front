@@ -28,7 +28,12 @@ export function userReducer(state = initialState, action) {
             break;
         case 'ADD_LIKE_TO_TRACK':
             debugger
-            newState = { ...state, user: { ...state.user, likedTracks: [...state.likedTracks, action.trackId] } }
+            newState = { ...state, user: { ...state.user, likedTracks: [...state.user.likedTracks, action.trackId] } }
+            break;
+        case 'REMOVE_LIKE_FROM_TRACK':
+            debugger
+            var likedTracks = state.user.likedTracks.filter(currTrackId => currTrackId !== action.trackId);
+            newState = { ...state, user: { ...state.user, likedTracks: likedTracks } }
             break;
         case 'SET_USERֹ_PREF':
             newState = { ...state, user: { ...state.user, prefArtists: action.userPref } }

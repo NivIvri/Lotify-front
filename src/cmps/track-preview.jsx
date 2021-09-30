@@ -31,8 +31,6 @@ class _TrackPreview extends Component {
 
     }
 
-
-
     async componentDidUpdate(prevProps) {
         if (prevProps.track.id !== this.props.track.id) {
             await this.props.loadStations()
