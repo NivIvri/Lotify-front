@@ -40,9 +40,14 @@ class _Home extends Component {
                 </div>
                 <section className='station-container'>
                     <MainLayout>
-                        <h1>{this.getTime()}, {this.props.user.username}</h1>
-                        <h3>Your favorite artists</h3>
-                        <RecentlyPlayed stations={stations.slice(0, 4)} />
+                        <div className='card'>
+                            <div className='card-header'>
+
+                                <h1>{this.getTime()}, {this.props.user.username}</h1>
+                                <h3>Your favorite artists</h3>
+                            </div>
+                            <RecentlyPlayed stations={stations.slice(0, 4)} />
+                        </div>
                         <div className='playlist-container flex'>
 
                             <h3>Rock Music</h3>

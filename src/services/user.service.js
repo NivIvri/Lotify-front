@@ -129,7 +129,7 @@ function _createUser() {
     if (!user) {
         user =
         {
-            username: 'gust123',
+            username: 'guest123',
             fullname: 'b',
             likedTracks: [],  // songs that marked with 'like'
             likedStations: [],

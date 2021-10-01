@@ -6,12 +6,16 @@ export function RecentlyPlayed({ stations }) {
         <div className="recently-played">
             {stations.map(station => {
                 return (<Link to={`/station/${station._id}`} className="station-container" key={station._id}>
-                    {station.songs.length > 0 &&
-                        <img src={`${station.songs[0].imgUrl}`} />
-                    }
-                    {!station.songs.length &&
-                        <img src={stationImg} />
-                    }                    <h3>{station.name}</h3>
+                    <div className='img-container'>
+
+                        {station.songs.length > 0 &&
+                            <img src={`${station.songs[0].imgUrl}`} />
+                        }
+                        {!station.songs.length &&
+                            <img src={stationImg} />
+                        }
+                    </div>
+                    <h3>{station.name}</h3>
                 </Link >
                 )
             })}
