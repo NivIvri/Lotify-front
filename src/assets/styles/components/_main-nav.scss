@@ -90,7 +90,6 @@
 
         &:hover {
           background-color: $main-nav-hover;
-
         }
       }
     }
@@ -112,6 +111,7 @@
       &:hover {
         color      : white;
         font-weight: bold;
+        cursor: pointer;
       }
 
       &.active {
@@ -129,7 +129,6 @@
         width  : 90%;
         display: inline-block;
         padding: 0.5rem 0;
-
         &.selected-station {
           color      : white;
           font-weight: bold;
@@ -138,7 +137,10 @@
         // transition: 0.6s;
 
       }
-
+      &.nav-create:active{
+        background-color: $main-nav-hover;
+        
+      }
       // ::-webkit-scrollbar {
       //   width        : 12px;
       //   // transition: all 0.6s ease-in-out;
