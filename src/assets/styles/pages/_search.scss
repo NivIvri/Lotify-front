@@ -64,6 +64,16 @@ section.search,
 .search-result-container {
   margin-bottom: 32px;
   //height: 300px;
+  .track-container {
+    .likes {
+      width: 0;
+      height: 0;
+    }
+    &:hover .likes img {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
 
   .grid-search-result-container {
     display: grid;
@@ -146,7 +156,6 @@ section.search,
     }
   }
 
- 
   span {
     font-size: 25px;
     font-weight: 700;
@@ -166,7 +175,6 @@ span::first-letter {
   background-color: #121212;
   padding: 20px;
 
-  
   .title {
     color: #fff;
     font-size: 29px;

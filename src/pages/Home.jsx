@@ -30,7 +30,6 @@ class _Home extends Component {
 
 
     render() {
-        debugger
         const { stations, user } = this.props
         if (!stations && !this.props.user) return <h1>loading...</h1>
         return (

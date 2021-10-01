@@ -18,8 +18,7 @@ import { stationService } from '../services/async-storage.service';
 import { eventBusService } from '../services/event-bus.service';
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
 import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
-import heartChecked from '../assets/img/heart-checked.png';
-import heartNotChecked from '../assets/img/heart-notCheck.png';
+import heartNotChecked from '../assets/img/heart-regular.svg';
 
 
 class _TrackPreview extends Component {
@@ -124,18 +123,16 @@ class _TrackPreview extends Component {
         ev.stopPropagation()
         this.setState({ isLike: !this.state.isLike }, () => {
             if (this.state.isLike)
-                this.props.addLikeToTrack(this.props.track.id)
+                this.props.addLikeToTrack(this.props.track.id, 'track')
             else {
-                this.props.removeLikeFromTrack(this.props.track.id)
+                this.props.removeLikeFromTrack(this.props.track.id, 'track')
             }
         })
     }
 
     render() {
-        // const { track, idx, currStation, stations } = this.props
         const { track, idx, currStation, stations, user } = this.props
-
-
+        console.log(this.state.isLike,'this.stste.isLike');
         return (
             // onClick={this.playTrack(track, idx)}
             //button-cell
@@ -144,14 +141,14 @@ class _TrackPreview extends Component {
                 <div className="track-img"><img src={track.imgUrl} alt="" /></div>
                 <div className="track-title">{track.title}</div>
                 <div className="track-duration">{this.getTimeFromDuration(track.duration)}</div>
-                <div className="likes">
+                <div className='likes'>
                     {
-                        this.state.isLike && <img src={heartChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                        //this.state.isLike && <img className='islike' src={heartChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                        this.state.isLike && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} class="fas fa-heart"></span>
                     }
                     {
-                        !this.state.isLike && <img src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                        !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
                     }
-
                 </div>
                 <div className="button-cell track-actions" onClick={(ev) => { ev.stopPropagation() }}>
                     <Menu menuButton={
@@ -174,34 +171,6 @@ class _TrackPreview extends Component {
         )
     }
 }
-// return (
-//     <tr className="song-container" onClick={() => this.playTrack(track, idx)}>
-//         <td className='song-num'>{idx + 1}</td>
-//         <td><img src={track.imgUrl} alt="" /></td>
-//         <td>{track.title}</td>
-//         <td>{this.getTimeFromDuration(track.duration)}</td>
-//         <td className="button-cell" onClick={(ev) => { ev.stopPropagation() }}>
-//             <Menu menuButton={
-//                 <MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
-//                 <MenuItem onClick={() => this.props.addToNextQueue(track)}>Add To queue</MenuItem>
-//                 {currStation && <MenuItem onClick={() => {
-//                     this.onRemoveFromStation(track, currStation._id)
-//                 }
-//                 }>Remove from station</MenuItem>}
-//                 <SubMenu label="Add to playlist">
-//                     {stations.map((station) => {
-//                         return (<MenuItem onClick={() => { this.onAddToStation(track, station._id) }}>{station.name}</MenuItem>)
-//                     })
-//                     }
-//                     <MenuItem onClick={() => eventBusService.emit("create-playlist")}>Create playlist</MenuItem>
-//                 </SubMenu>
-//             </Menu>
-//         </td>
-//     </tr>
-// )
-//     }
-// }
-
 
 
 function mapStateToProps(state) {

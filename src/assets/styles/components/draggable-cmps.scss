@@ -3,11 +3,11 @@
 }
 
 .list-headers {
-  flex-basis    : 50px;
-  align-items   : center;
-  color         : #888;
-  border-bottom : 1px solid #888;
-  margin-bottom : 10px;
+  flex-basis: 50px;
+  align-items: center;
+  color: #888;
+  border-bottom: 1px solid #888;
+  margin-bottom: 10px;
   // gap        : 10px;
 }
 
@@ -24,20 +24,18 @@
 }
 
 .track-img {
-  &>img {
-    display   : block;
-    width     : 80%;
+  & > img {
+    display: block;
+    width: 80%;
     object-fit: cover;
   }
 }
 
-
 .track-title-header,
 .track-title {
-  width    : 120px;
+  width: 120px;
   flex-grow: 1;
 }
-
 
 .duration-header,
 .track-duration,
@@ -49,39 +47,41 @@
 }
 
 .likes {
-  display              : flex;
-  // justify-content   : center;
-  // align-items    : center;
-
-  img {
-    height: 25px;
+  display: flex;
+   justify-content   : center;
+   align-items    : center;
+ & img {
+    height: 16px;
   }
 }
 
 .track-container {
-  width        : 100%;
-  align-items  : center;
+  width: 100%;
+  align-items: center;
   margin-bottom: 5px;
 
   &:hover {
     // filter: brightness(0.85);
     background-color: rgb(54, 52, 52);
 
+     .likes img {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }
+
 
 .track-actions {
-
-  &>* {
+  & > * {
     opacity: 1 !important;
   }
-
 }
 
-// <div className="list-headers flex">
-// <div className="track-num-header">#</div>
-// <div className="track-img-header">img</div>
-// <div className="track-title-header">Title</div>
-// <div className="duration-header">◷</div>
-// <div className="likes-header">likes</div>
-// <div className="actions-header">actions</div>
+.likes img.isnotLike {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  transition: visibility 0.2s, opacity 0.1s linear;
+  // cursor    : default;
+}

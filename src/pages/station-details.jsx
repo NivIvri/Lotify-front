@@ -11,8 +11,7 @@ import { arrayMove } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
 import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 //import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
-import heartChecked from '../assets/img/heart-checked.png';
-import heartNotChecked from '../assets/img/heart-notCheck.png';
+import heartNotChecked from '../assets/img/heart-regular.svg';
 
 class _StationDetails extends Component {
     state = {
@@ -23,14 +22,35 @@ class _StationDetails extends Component {
         isLike: false
     }
     async componentDidMount() {
-        this.loadStation()
+        await this.loadStation()
+        await this.loadStation()
+        let user = await this.props.user
+        if (!user) {
+            await this.props.loadUser();
+            user = await this.props.user
+        }
+        if (user.likedStations.includes(this.state.station._id)) {
+            this.setState({ isLike: true })
+        }
+        else this.setState({ isLike: false })
     }
 
-    componentDidUpdate() {
+    async componentDidUpdate() {
         const { stationId } = this.props.match.params
-        if (stationId !== this.state.station._id)
-            this.loadStation()
+        if (stationId !== this.state.station._id) {
+            await this.loadStation()
+            let user = await this.props.user
+            if (!user) {
+                await this.props.loadUser();
+                user = await this.props.user
+            }
+            if (user.likedStations.includes(this.state.station._id)) {
+                this.setState({ isLike: true })
+            }
+            else this.setState({ isLike: false })
+        }
     }
+
 
     loadStation = async () => {
         const { stationId } = this.props.match.params
@@ -60,13 +80,13 @@ class _StationDetails extends Component {
 
     }
 
-    toggleLike = async (ev) => {
+    toggleLike = async (ev, stationOrTrack) => {
         ev.stopPropagation()
         this.setState({ isLike: !this.state.isLike }, () => {
             if (this.state.isLike)
-                this.props.addLikeToTrack(this.state.station._id,)
+                this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
             else {
-                this.props.removeLikeFromTrack(this.state.station._id)
+                this.props.removeLikeFromTrack(this.state.station._id, stationOrTrack)
             }
         })
     }
@@ -94,50 +114,17 @@ class _StationDetails extends Component {
                         </div>
                     </div>
                     <Link className="fas back fa-chevron-left" to="/"></Link>
-                    <button className="play-rand" onClick={this.playRandTrack}>
-                        <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
-                    </button>
-                    {/* <table>
-                    <div className='flex action-bar'>
-
+                    <div className='bar-action flex'>
                         <button className="play-rand" onClick={this.playRandTrack}>
                             <i class={this.state.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
                         </button>
                         {
-                            this.state.isLike && <img src={heartChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                            this.state.isLike && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
                         }
                         {
-                            !this.state.isLike && <img src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
-                        }                    </div>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>#</th>
-                                <th></th>
-                                <th>Title</th>
-                                <th>♥</th>
-                                <th>◷</th>
-                                <th></th>
-                            </tr> */}
-
-                    {/* <DraggableTrackList songs={station.songs} currStation={station}
-                                axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
-                                getTimeFromDuration={this.getTimeFromDuration} onAddToStation={this.onAddToStation}
-                                onRemoveFromStation={this.onRemoveFromStation} playTrack={this.playTrack}
-                                loadStations={loadStations} addToNextQueue={addToNextQueue} stations={stations}
-                                distance="20" /> */}
-
-
-
-                    {/* <TrackList songs={station.songs} currStation={station} loadStation={this.loadStation} /> */}
-
-
-
-                    {/* ({ songs, currStation, loadStation,
-      getTimeFromDuration, onAddToStation, onRemoveFromStation, playTrack,
-      loadStations, addToNextQueue, stations }) */}
-                    {/* </tbody>
-                    </table> */}
+                            !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
+                        }
+                    </div>
                     <DraggableTrackList songs={station.songs} currStation={station}
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
                         distance='20' />

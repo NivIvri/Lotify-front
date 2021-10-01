@@ -1,6 +1,18 @@
 .station-details {
     height: 100%;
 
+    .bar-action {
+        gap: 24px;
+        align-items: center;
+
+        img {
+            height: 40px;
+        }
+        .fa-heart::before{
+            font-size: 40px;
+        }
+    }
+
     .station-head {
         padding: 15px;
         padding-top: 30px;
@@ -104,8 +116,6 @@
                 opacity: 1;
             }
         }
-
-      
     }
 
     td {
@@ -136,7 +146,7 @@
         }
     }
 
-    table img {
+    table img:nth-child(2) {
         height: 56px;
     }
 

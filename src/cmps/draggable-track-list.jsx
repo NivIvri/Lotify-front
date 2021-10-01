@@ -23,7 +23,7 @@ export const DraggableTrackList = SortableContainer(({ songs, currStation, loadS
         <div className="track-img-header"></div>
         <div className="track-title-header">Title</div>
         <div className="duration-header">◷</div>
-        <div className="likes-header">likes</div>
+        <div className="likes-header"></div>
         <div className="actions-header">actions</div>
       </div>
       {
