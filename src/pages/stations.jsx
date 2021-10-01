@@ -15,10 +15,6 @@ class _Stations extends Component {
 
   }
 
-  componentWillUnmount() {
-    document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
-
-  }
 
 
   /**
