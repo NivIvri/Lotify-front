@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import logoImg from '../assets/img/logo.jpg'
-import logo from '../assets/img/gramophone.png'
+import logo from '../assets/img/gramophone-svgrepo-com.svg'
 class _MainNav extends React.Component {
   state = {
     links: [

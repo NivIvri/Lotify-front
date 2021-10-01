@@ -6,6 +6,23 @@ import { FavoriteArtists, RecentlyPlayed } from '../cmps/recently-played.jsx';
 import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
 import { loadUser } from '../store/user.actions';
+import Carousel from 'react-material-ui-carousel'
+import { Paper } from '@material-ui/core'
+import {
+    Card,
+    CardContent,
+    CardMedia,
+    Typography,
+    Grid,
+    Button,
+    Checkbox,
+    FormControlLabel,
+    Radio,
+    RadioGroup,
+    FormLabel,
+    Slider,
+} from '@material-ui/core';
+import autoBind from "auto-bind"
 
 class _Home extends Component {
     state = {
@@ -52,7 +69,6 @@ class _Home extends Component {
                                     <FavoriteArtists artists={[{ artist: 'justin bieber', img: 'https://yt3.ggpht.com/ytc/AKedOLTKwkiuIDMtT7w-C55QJm3-FxExhi3So7EWofYGuQ=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'ed sheeran', img: 'https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'billie eilish', img: 'https://yt3.ggpht.com/ytc/AKedOLTAirqzFYUbcrpr8K0Bh8iDCZvBopbEb3K9klVNBA=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'michael jackson', img: 'https://yt3.ggpht.com/ytc/AKedOLRKkpURBGspdclOcPs6lr2Ds0S6VEIWIImSCQ63iA=s800-c-k-c0xffffffff-no-rj-mo' }]} />
                             }                        </div>
                         <div className='playlist-container flex'>
-
                             <h3>Rock Music</h3>
                             <div className="flex genre">
                                 {stations.map((station => <StationPreview key={station._id} station={station} />))}
@@ -87,4 +103,5 @@ const mapDispatchToProps = {
 
 
 export const Home = connect(mapStateToProps, mapDispatchToProps)(_Home)
+
 
