@@ -5,7 +5,7 @@ export function FavoriteArtists({ artists }) {
     return (
         <div className="favorite-artists">
             {artists.map((artist, idx) => {
-                return (<Link to={`/searchs/${artist.artist}`} className="station-container" key={idx}>
+                return (<Link to={`/station/${artist.artist}`} className="station-container" key={idx}>
                     <div className='img-container'>
                         <img src={artist.img} />
                     </div>
