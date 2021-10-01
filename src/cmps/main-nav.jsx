@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import logoImg from '../assets/img/logo.jpg'
 import logo from '../assets/img/gramophone-svgrepo-com.svg'
+//import logo from '../assets/img/gramophone.png'
+import { eventBusService } from '../services/event-bus.service'
 class _MainNav extends React.Component {
   state = {
     links: [
@@ -65,7 +67,10 @@ class _MainNav extends React.Component {
                 <NavLink to={link.to}>{link.name}</NavLink>
               </li>
             })}
-
+          <li onClick={()=>{eventBusService.emit("create-playlist")}} className="nav-create">
+            <span  className="nav-icon fas fa-plus-square"></span>
+            <a>Create Playlist</a>
+            </li>
 
 
 
