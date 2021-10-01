@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
-import { RecentlyPlayed } from '../cmps/recently-played.jsx';
+import { FavoriteArtists, RecentlyPlayed } from '../cmps/recently-played.jsx';
 
 import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
@@ -40,9 +40,17 @@ class _Home extends Component {
                 </div>
                 <section className='station-container'>
                     <MainLayout>
-                        <h1>{this.getTime()}, {this.props.user.username}</h1>
-                        <h3>Your favorite artists</h3>
-                        <RecentlyPlayed stations={stations.slice(0, 4)} />
+                        <div className='card'>
+                            <div className='card-header'>
+
+                                <h1>{this.getTime()}, {this.props.user.username}</h1>
+                                <h3>Your favorite artists</h3>
+                            </div>
+                            {
+                                user.userPref ?
+                                    <FavoriteArtists artists={user.userPref.slice(0, 4)} /> :
+                                    <FavoriteArtists artists={[{ artist: 'justin bieber', img: 'https://yt3.ggpht.com/ytc/AKedOLTKwkiuIDMtT7w-C55QJm3-FxExhi3So7EWofYGuQ=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'ed sheeran', img: 'https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'billie eilish', img: 'https://yt3.ggpht.com/ytc/AKedOLTAirqzFYUbcrpr8K0Bh8iDCZvBopbEb3K9klVNBA=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'michael jackson', img: 'https://yt3.ggpht.com/ytc/AKedOLRKkpURBGspdclOcPs6lr2Ds0S6VEIWIImSCQ63iA=s800-c-k-c0xffffffff-no-rj-mo' }]} />
+                            }                        </div>
                         <div className='playlist-container flex'>
 
                             <h3>Rock Music</h3>
@@ -79,3 +87,4 @@ const mapDispatchToProps = {
 
 
 export const Home = connect(mapStateToProps, mapDispatchToProps)(_Home)
+

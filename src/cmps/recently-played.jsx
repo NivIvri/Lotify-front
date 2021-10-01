@@ -1,17 +1,15 @@
 import { Link } from 'react-router-dom';
 import stationImg from '../assets/img/stationImg.jpg';
 
-export function RecentlyPlayed({ stations }) {
+export function FavoriteArtists({ artists }) {
     return (
-        <div className="recently-played">
-            {stations.map(station => {
-                return (<Link to={`/station/${station._id}`} className="station-container" key={station._id}>
-                    {station.songs.length > 0 &&
-                        <img src={`${station.songs[0].imgUrl}`} />
-                    }
-                    {!station.songs.length &&
-                        <img src={stationImg} />
-                    }                    <h3>{station.name}</h3>
+        <div className="favorite-artists">
+            {artists.map((artist, idx) => {
+                return (<Link to={`/searchs/${artist.artist}`} className="station-container" key={idx}>
+                    <div className='img-container'>
+                        <img src={artist.img} />
+                    </div>
+                    <h3>{artist.artist}</h3>
                 </Link >
                 )
             })}

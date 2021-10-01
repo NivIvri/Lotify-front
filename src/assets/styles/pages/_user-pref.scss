@@ -1,0 +1,53 @@
+.user-pref{
+    display: flex;
+    flex-direction: column;
+    header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .artists{
+        display: grid;
+        row-gap: 50px;
+        grid-template-columns: repeat( auto-fit, minmax(20%, 1fr) );
+        .circle-container{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+            width: 100%;
+            :hover{
+                cursor: pointer;
+            }
+            img:hover{
+                transform: scale(1.2,1.2);
+            }
+            img{
+                height:75%;
+                width: 75%;
+                border-radius: 50%;
+            }
+        }
+        .selected{
+            display: none;
+        }
+    }
+    a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        position: fixed;
+        bottom: 20vh;
+        width: 20vw;
+        left: 40vw;
+        height: 50px;
+        background: rgb(57, 55, 185);
+        border-radius: 25px;
+    }
+    
+}

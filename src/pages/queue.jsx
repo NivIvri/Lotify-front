@@ -11,10 +11,7 @@ class _Queue extends React.Component {
         document.body.style.backgroundImage = ' linear-gradient(#03080d, #121212)'
     }
 
-    componentWillUnmount() {
-        document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
-
-    }
+  
 
     onAddToNextQueue = (track) => {
         this.props.addToNextQueue(track)

@@ -44,9 +44,7 @@ class _Search extends React.Component {
         document.body.style.backgroundImage = ' linear-gradient(#03080d, #121212)'
 
     }
-    componentWillUnmount() {
-        document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
-    }
+
     delayedHandleChange = _.debounce(async () => {
         let trackResult = await stationService.searchSong(this.state.keySearch);
         let stationResult = await stationService.searchStation(this.state.keySearch);

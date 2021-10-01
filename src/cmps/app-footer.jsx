@@ -36,7 +36,7 @@ class _AppFooter extends Component {
             this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
     }
 
-
+    
     handleSeekMouseDown = e => {
         if (!this.props.currTrack) return
         this.setState({ seeking: true })
