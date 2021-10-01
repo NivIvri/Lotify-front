@@ -56,6 +56,7 @@ class _StationDetails extends Component {
         const { stationId } = this.props.match.params
         const station = await stationService.getStationById(stationId)
         this.setState({ station, stationId, songs: station.songs })
+        // console.log('songs', station.songs);
     }
 
     playRandTrack = () => {
@@ -66,6 +67,7 @@ class _StationDetails extends Component {
             const songs = [...this.state.station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
+            console.log('track', track);
             this.props.setCurrTrack(track, idx);
             this.props.setQueue(songs, idx);
         }
