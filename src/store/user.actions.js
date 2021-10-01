@@ -7,7 +7,7 @@ export function loadUser() {
         try {
             console.log('action user');
             const user = await userService.getLoggedinUser()
-            
+
             dispatch({ type: 'SET_USER', user })
         } catch (err) {
             console.log('UserActions: err in loadUsers', err)
@@ -16,11 +16,12 @@ export function loadUser() {
 }
 
 
-export function addLikeToTrack(trackId, userId) {
+export function addLikeToTrack(trackId, stationOrTrack) {
     return async dispatch => {
         try {
-            await userService.addLikeToTrack(trackId)
-            dispatch({ type: 'ADD_LIKE_TO_TRACK', trackId })
+            await userService.addLikeToTrack(trackId, stationOrTrack)
+            dispatch({ type: 'ADD_LIKE_TO_TRACK', trackId, stationOrTrack })
+
         } catch (err) {
             console.log('UserActions: err in removeUser', err)
         }
@@ -28,11 +29,11 @@ export function addLikeToTrack(trackId, userId) {
 }
 
 
-export function removeLikeFromTrack(trackId) {
+export function removeLikeFromTrack(trackId, stationOrTrack) {
     return async dispatch => {
         try {
-            await userService.removeLikeFromTrack(trackId)
-            dispatch({ type: 'REMOVE_LIKE_FROM_TRACK', trackId })
+            await userService.removeLikeFromTrack(trackId,stationOrTrack)
+            dispatch({ type: 'REMOVE_LIKE_FROM_TRACK', trackId, stationOrTrack })
         } catch (err) {
             console.log('UserActions: err in removeUser', err)
         }
@@ -70,31 +71,31 @@ export function onLogin(credentials) {
 export function onSignup(credentials) {
     return (dispatch) => {
         userService.signup(credentials)
-        .then(user => {
-            dispatch({
-                type: 'SET_USER',
-                user
+            .then(user => {
+                dispatch({
+                    type: 'SET_USER',
+                    user
+                })
             })
-        })
-        .catch(err => {
-            showErrorMsg('Cannot signup')
-            console.log('Cannot signup', err)
-        })
-        
+            .catch(err => {
+                showErrorMsg('Cannot signup')
+                console.log('Cannot signup', err)
+            })
+
     }
 }
 
 export function onLogout() {
     return (dispatch) => {
         userService.logout()
-        .then(() => dispatch({
-            type: 'SET_USER',
-            user: null
-        }))
-        .catch(err => {
-            showErrorMsg('Cannot logout')
-            console.log('Cannot logout', err)
-        })
+            .then(() => dispatch({
+                type: 'SET_USER',
+                user: null
+            }))
+            .catch(err => {
+                showErrorMsg('Cannot logout')
+                console.log('Cannot logout', err)
+            })
     }
 }
 

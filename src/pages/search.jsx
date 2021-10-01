@@ -48,7 +48,6 @@ class _Search extends React.Component {
         document.body.style.backgroundImage = 'linear-gradient(#0F2C43, #121212)';
     }
     delayedHandleChange = _.debounce(async () => {
-        debugger
         let trackResult = await stationService.searchSong(this.state.keySearch);
         let stationResult = await stationService.searchStation(this.state.keySearch);
         if (trackResult.length === 0) return
