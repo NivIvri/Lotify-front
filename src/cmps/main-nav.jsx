@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import logoImg from '../assets/img/logo.jpg'
+import logo from '../assets/img/gramophone.png'
 class _MainNav extends React.Component {
   state = {
     links: [
@@ -52,9 +53,10 @@ class _MainNav extends React.Component {
           <div className="banner">
             {/* src\assets\img */}
             <div className="logo-img-container">
-              <img src={logoImg} alt="" />
+              <img src={logo} alt="" />
             </div>
-            <h4>Lotify</h4>
+            <h4>Lotify
+            </h4>
           </div>
           <ul className="primary-nav">
             {links.map(link => {
