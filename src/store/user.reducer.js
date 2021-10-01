@@ -14,7 +14,6 @@ export function userReducer(state = initialState, action) {
             newState = { ...state, count: state.count + action.diff }
             break;
         case 'SET_USER':
-            debugger
             newState = { ...state, user: action.user }
             break;
         case 'REMOVE_USER':
@@ -27,7 +26,6 @@ export function userReducer(state = initialState, action) {
             newState = { ...state, users: action.users }
             break;
         case 'ADD_LIKE_TO_TRACK':
-            debugger
             newState = { ...state, user: { ...state.user, likedTracks: [...state.likedTracks, action.trackId] } }
             break;
         case 'SET_USERֹ_PREF':

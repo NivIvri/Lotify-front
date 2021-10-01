@@ -2,26 +2,26 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
+import { setUserPref } from '../store/user.actions'
+import { userService } from '../services/user.service.js';
 
-import { StationPreview } from '../cmps/station-preview.jsx';
-import { LikedSongs } from '../cmps/liked-songs-preview.jsx';
-import { loadStations } from '../store/station.actions.js';
+
 
 class _UserPref extends Component {
     state = {
         artists: []
     }
 
-    //   componentDidMount() {
-    //     this.props.loadStations();
-    //     document.body.style.backgroundImage = ' linear-gradient(#03080d, #121212)'
-
-    //   }
 
     selectArtist = ({ target }, artist) => {
         target.parentElement.classList.add('selected')
         const img = target.parentElement.children[0].src;
         this.setState((prevState) => ({ artists: [...prevState.artists, { artist, img }] }))
+        if (this.state.artists.length === 3) {
+            this.props.setUserPref([...this.state.artists, { artist, img }])
+        }
+    }
+    componentDidUpdate() {
     }
 
 
@@ -191,11 +191,12 @@ class _UserPref extends Component {
 
 function mapStateToProps(state) {
     return {
-        stations: state.stationMoudle.stations
+        stations: state.stationMoudle.stations,
+        user: state.userMoudle.user
     }
 }
 const mapDispatchToProps = {
-    loadStations,
+    setUserPref
 }
 
 

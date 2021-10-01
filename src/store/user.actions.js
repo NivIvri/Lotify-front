@@ -7,7 +7,7 @@ export function loadUser() {
         try {
             console.log('action user');
             const user = await userService.getLoggedinUser()
-            
+
             dispatch({ type: 'SET_USER', user })
         } catch (err) {
             console.log('UserActions: err in loadUsers', err)
@@ -99,6 +99,7 @@ export function removeLikeFromTrack(userId) {
 
 export function setUserPref(userPref) {
     return async dispatch => {
+        console.log('there',  userPref);
         try {
             await userService.setUserPref(userPref)
             dispatch({ type: 'SET_USERֹ_PREF', userPref })
