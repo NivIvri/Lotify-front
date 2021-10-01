@@ -31,9 +31,22 @@
                 width: 75%;
                 border-radius: 50%;
             }
+            i{
+                display: none;
+            }
         }
         .selected{
-            display: none;
+            img{
+            position: relative;
+            filter: grayscale(100%);
+            display: flex;
+            }
+            i{
+                display: block;
+                position: absolute;
+                font-size: 3rem;
+                color: white;
+            }
         }
     }
     a{
