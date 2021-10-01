@@ -65,13 +65,14 @@
     }
   }
   img {
-    margin: -20px -19px -20px -1px;
-    height: 117px;
-    width: 115px;
+    margin: -10px -10px -18px -5px;
+    height: 105px;
+    width: 102px;
     object-fit: cover;
   }
-  .img-container{
+  .img-container {
     float: left;
+    margin: 0.5em 10px 0.5em 0;
     overflow: hidden;
     border-radius: 2px;
   }
