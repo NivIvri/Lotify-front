@@ -23,18 +23,19 @@ class _StationDetails extends Component {
     }
     async componentDidMount() {
         await this.loadStation()
-        await this.loadStation()
         let user = await this.props.user
         if (!user) {
             await this.props.loadUser();
             user = await this.props.user
         }
-        if (user.likedStations.includes(this.state.station._id)) {
-            this.setState({ isLike: true })
+        if (this.state.station) {
+            if (user.likedStations.includes(this.state.station._id)) {
+                this.setState({ isLike: true })
+            }
+            else this.setState({ isLike: false })
         }
-        else this.setState({ isLike: false })
     }
-
+    
     async componentDidUpdate() {
         const { stationId } = this.props.match.params
         if (stationId !== this.state.station._id) {
@@ -44,19 +45,27 @@ class _StationDetails extends Component {
                 await this.props.loadUser();
                 user = await this.props.user
             }
-            if (user.likedStations.includes(this.state.station._id)) {
-                this.setState({ isLike: true })
+            if (this.state.station) {
+                if (user.likedStations.includes(this.state.station._id)) {
+                    this.setState({ isLike: true })
+                }
+                else this.setState({ isLike: false })
             }
-            else this.setState({ isLike: false })
         }
     }
 
 
     loadStation = async () => {
         const { stationId } = this.props.match.params
-        const station = await stationService.getStationById(stationId)
-        this.setState({ station, stationId, songs: station.songs })
-        // console.log('songs', station.songs);
+        let station = await stationService.getStationById(stationId)
+        if (!station) {
+            station = await stationService.getStationByTag(stationId)
+
+        }
+        if (station) {
+            station = station[0]
+            this.setState({ station, stationId: station._id, songs: station.songs })
+        }
     }
 
     playRandTrack = () => {

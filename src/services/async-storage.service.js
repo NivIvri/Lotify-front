@@ -156,8 +156,9 @@ async function getStationByTag(tagName) {
         let stations = await res.data.items.map(async (station) => {
             const songs = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${station.id.playlistId}&key=AIzaSyBM9DnPair7lsEiaBpo0qeE55Ok8ncDkks`)
             return {
-                _id: station.id.playlistId,
+                _id: tagName,
                 name: station.snippet.title,
+                tags:[tagName],
                 createdBy: {
                     _id: "u101",
                     fullname: "app",
