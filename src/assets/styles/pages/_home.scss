@@ -44,8 +44,9 @@
 }
 
 .favorite-artists {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 10px;
   margin-bottom: 20px;
 
@@ -65,17 +66,20 @@
   }
   img {
     margin: -10px -10px -18px -5px;
-    height: 105px;
+    height: 102px;
     width: 102px;
     object-fit: cover;
   }
-  .img-container {
+  .img-container{
     float: left;
-    margin: 0.5em 10px 0.5em 0;
+     margin: .5em 10px .5em 0; 
     overflow: hidden;
     border-radius: 2px;
   }
 }
+
+
+
 
 .station-container {
   .genre {
