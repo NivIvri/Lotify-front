@@ -25,7 +25,6 @@ function query(filterBy) {
 
 
 async function addLikeToTrack(trackId, stationOrTrack) {
-    debugger
     if (stationOrTrack === 'station') {
         await gUser.likedStations.push(trackId)
     }

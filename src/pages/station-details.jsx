@@ -22,7 +22,6 @@ class _StationDetails extends Component {
         isLike: false
     }
     async componentDidMount() {
-        debugger
         await this.loadStation()
         let user = await this.props.user
         if (!user) {
@@ -39,7 +38,6 @@ class _StationDetails extends Component {
 
     async componentDidUpdate() {
         const { stationId } = this.props.match.params
-        debugger
         if (stationId !== this.state.station._id && stationId !== this.state.station.ganer) {
             await this.loadStation()
             let user = await this.props.user
@@ -58,7 +56,6 @@ class _StationDetails extends Component {
 
 
     loadStation = async () => {
-
         const { stationId } = this.props.match.params
         let station = await stationService.getStationById(stationId)
         if (!station) {

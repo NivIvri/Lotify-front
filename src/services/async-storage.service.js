@@ -71,7 +71,6 @@ function getNextStationId(stationId) {
 }
 
 function _createStation(stationToEdit) {
-    debugger
     stationToEdit._id = utilService.makeId()
     return stationToEdit
 }
@@ -145,12 +144,16 @@ async function removeFromStation(track, stationId) {
 }
 
 async function getStationByTag(tagName) {
-    console.log(tagName);
-    songCache = storageService.loadFromStorage(tagName + "playlist")
+    let songCache = gStations.find(station => station.ganer === tagName)
     if (songCache) {
-        console.log('No need to fetch, retrieving from Cache');
-        return (songCache)
+        console.log('No need to fetch, retrieving from Cache', songCache);
+        return [songCache]
     }
+    //songCache = storageService.loadFromStorage(tagName + "playlist")
+    //if (songCache) {
+    //    console.log('No need to fetch, retrieving from Cache');
+    //    return (songCache)
+    //}
     try {
         const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${tagName}&type=playlist&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
         let stations = await res.data.items.map(async (station) => {
@@ -185,7 +188,6 @@ async function getStationByTag(tagName) {
 
 
 function searchStation(keySerch) {
-    debugger
     return gStations.filter((station) => {
         if (station.name.includes(keySerch) || station.tags.includes(keySerch)) {
             return station

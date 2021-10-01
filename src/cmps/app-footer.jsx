@@ -138,19 +138,17 @@ class _AppFooter extends Component {
                     </div>
                 }
                 <div className='playing-bar'>
-
-                    <div className="volume">
-                        <Box sx={{ width: 200 }}>
-                            <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                                {/*<VolumeDown />*/}
-                                <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
-                                {/*<VolumeUp />*/}
-                            </Stack>
-                        </Box>
+                    <div className='song-name-bar'>
                         <div>
-                            <span onClick={this.inQueue} className="fas fa-outdent"></span>
+                            {track ? track.title : ""}
                         </div>
+                        <div>♥</div>
+                        {
+                            track &&
+                            <img className='track-img' src={track.imgUrl} />
+                        }
                     </div>
+
 
                     <div className="player-controls">
                         <div className="player-controls-btn flex">
@@ -182,17 +180,20 @@ class _AppFooter extends Component {
                     </div>
 
 
-                    <div className='song-name-bar'>
-                        <div>
-                            {track ? track.title : ""}
-                        </div>
-                        <div>♥</div>
-                        {
-                            track &&
-                            <img className='track-img' src={track.imgUrl} />
-                        }
-                    </div>
 
+                    <div className="volume">
+                        <div>
+                            <span onClick={this.inQueue} className="fas fa-outdent"></span>
+                        </div>
+                        <Box sx={{ width: 200 }}>
+                            <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                                {/*<VolumeDown />*/}
+                                <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
+                                {/*<VolumeUp />*/}
+                            </Stack>
+                        </Box>
+
+                    </div>
                 </div>
             </>
         )
