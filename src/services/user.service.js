@@ -24,15 +24,28 @@ function query(filterBy) {
 }
 
 
-async function addLikeToTrack(trackId) {
+async function addLikeToTrack(trackId, stationOrTrack) {
     debugger
-    await gUser.likedTracks.push(trackId)
+    if (stationOrTrack === 'station') {
+        await gUser.likedStations.push(trackId)
+    }
+    else {
+        await gUser.likedTracks.push(trackId)
+    }
     _saveStationsToStorage()
     return Promise.resolve()
 }
 
-async function removeLikeFromTrack(currTrackId) {
-    gUser = gUser.likedTracks.filter(trackId => trackId !== currTrackId)
+async function removeLikeFromTrack(currTrackId, stationOrTrack) {
+    if (stationOrTrack === 'station') {
+        let likedStations = gUser.likedStations.filter(trackId => trackId !== currTrackId)
+        gUser.likedStations = likedStations
+    }
+    else {
+        let likedTracks = gUser.likedTracks.filter(trackId => trackId !== currTrackId)
+        gUser.likedTracks = likedTracks
+    }
+
     _saveStationsToStorage()
     return Promise.resolve()
 }
@@ -111,19 +124,18 @@ function _createStation(userToEdit) {
 }
 
 function _createUser() {
-    debugger
     var user = storageService.loadFromStorage(KEY)
+    //user = user ? storageService.loadFromStorage(KEY) : []
     if (!user) {
         user =
         {
             username: 'gust123',
             fullname: 'b',
-            likedTracks: ['bpOSxM0rNPM'],  // songs that marked with 'like'
+            likedTracks: [],  // songs that marked with 'like'
             likedStations: [],
             recentlyPlayedStations: [],
             recentlyPlayedSongs: [],
             prefArtists: [],
-
         }
     }
     gUser = user;

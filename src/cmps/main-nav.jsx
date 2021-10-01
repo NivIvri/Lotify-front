@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
+import logoImg from '../assets/img/logo.jpg'
 class _MainNav extends React.Component {
   state = {
     links: [
@@ -24,7 +25,9 @@ class _MainNav extends React.Component {
       }
 
     ],
-    activLink: 1
+    activLink: 1,
+    selectedStationId: null
+
   }
 
 
@@ -32,9 +35,13 @@ class _MainNav extends React.Component {
     this.setState({ activLink: linkId })
   }
 
+  setSelectedStationId = (stationId) => {
+    this.setState(prevState => ({ ...prevState, selectedStationId: stationId }))
+  }
+
   render() {
     const { stations } = this.props
-    const { activLink, links } = this.state
+    const { activLink, links, selectedStationId } = this.state
     if (!links) {
       console.log('not links');
       return <div>loading.</div>
@@ -42,7 +49,13 @@ class _MainNav extends React.Component {
     return (
       <>
         <nav className="main-nav">
-          <div className="banner">Lotify</div>
+          <div className="banner">
+            {/* src\assets\img */}
+            <div className="logo-img-container">
+              <img src={logoImg} alt="" />
+            </div>
+            <h4>Lotify</h4>
+          </div>
           <ul className="primary-nav">
             {links.map(link => {
               return <li key={link.id} onClick={() => this.handleClick(link.id)} className={link.id === activLink ? 'active' : ''}>
@@ -71,13 +84,10 @@ class _MainNav extends React.Component {
             <ul className="stations">
               {
                 stations.map(station => {
-                  return <li key={station._id}><NavLink to={`/station/${station._id}`}>{station.name}</NavLink></li>
+                  return <li key={station._id} onClick={() => this.setSelectedStationId(station._id)}><NavLink to={`/station/${station._id}`}
+                    className={selectedStationId === station._id ? 'selected-station' : ''}>{station.name}</NavLink></li>
                 })
               }
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
-              <li><NavLink to="/">station1</NavLink></li>
 
             </ul>
           </div>

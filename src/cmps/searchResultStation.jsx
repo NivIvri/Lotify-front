@@ -8,7 +8,6 @@ export class SearchResultStation extends React.Component {
         stationResult: null,
     }
     componentDidMount() {
-        debugger
         const { stationResult } = this.props
         this.setState({ stationResult })
     }
@@ -28,7 +27,6 @@ export class SearchResultStation extends React.Component {
             <section className='search-result-container'>
                 <h1 className='title'>Station</h1>
                 <div className='playlist-container flex'>
-
                     <div className="flex genre">
                         {stationResult.map((station => <StationPreview key={station._id} station={station} />))}
                     </div>

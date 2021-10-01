@@ -15,11 +15,37 @@ export function loadUser() {
     }
 }
 
-export function removeUser(userId) {
+
+export function addLikeToTrack(trackId, stationOrTrack) {
     return async dispatch => {
         try {
-            await userService.remove(userId)
-            dispatch({ type: 'REMOVE_USER', userId })
+            await userService.addLikeToTrack(trackId, stationOrTrack)
+            dispatch({ type: 'ADD_LIKE_TO_TRACK', trackId, stationOrTrack })
+
+        } catch (err) {
+            console.log('UserActions: err in removeUser', err)
+        }
+    }
+}
+
+
+export function removeLikeFromTrack(trackId, stationOrTrack) {
+    return async dispatch => {
+        try {
+            await userService.removeLikeFromTrack(trackId,stationOrTrack)
+            dispatch({ type: 'REMOVE_LIKE_FROM_TRACK', trackId, stationOrTrack })
+        } catch (err) {
+            console.log('UserActions: err in removeUser', err)
+        }
+    }
+}
+
+
+export function setUserPref(userPref) {
+    return async dispatch => {
+        try {
+            await userService.setUserPref(userPref)
+            dispatch({ type: 'SET_USERֹ_PREF', userPref })
         } catch (err) {
             console.log('UserActions: err in removeUser', err)
         }
@@ -74,35 +100,12 @@ export function onLogout() {
 }
 
 
-
-export function addLikeToTrack(trackId, userId) {
-    return async dispatch => {
-        try {
-            await userService.addLikeToTrack(trackId)
-            dispatch({ type: 'ADD_LIKE_TO_TRACK', trackId })
-        } catch (err) {
-            console.log('UserActions: err in removeUser', err)
-        }
-    }
-}
-export function removeLikeFromTrack(userId) {
-    return async dispatch => {
-        try {
-            await userService.removeLikeFromTrack(userId)
-            dispatch({ type: 'REMOVE_LIKE_TO_TRACK', userId })
-        } catch (err) {
-            console.log('UserActions: err in removeUser', err)
-        }
-    }
-}
-
-
-export function setUserPref(userPref) {
+export function removeUser(userId) {
     return async dispatch => {
         console.log('there',  userPref);
         try {
-            await userService.setUserPref(userPref)
-            dispatch({ type: 'SET_USERֹ_PREF', userPref })
+            await userService.remove(userId)
+            dispatch({ type: 'REMOVE_USER', userId })
         } catch (err) {
             console.log('UserActions: err in removeUser', err)
         }

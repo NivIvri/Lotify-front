@@ -26,7 +26,22 @@ export function userReducer(state = initialState, action) {
             newState = { ...state, users: action.users }
             break;
         case 'ADD_LIKE_TO_TRACK':
-            newState = { ...state, user: { ...state.user, likedTracks: [...state.likedTracks, action.trackId] } }
+            if (action.stationOrTrack === 'station')
+                newState = { ...state, user: { ...state.user, likedStations: [...state.user.likedStations, action.trackId] } }
+            else {
+                newState = { ...state, user: { ...state.user, likedTracks: [...state.user.likedTracks, action.trackId] } }
+            }
+            break;
+        case 'REMOVE_LIKE_FROM_TRACK':
+
+            if (action.stationOrTrack === 'station') {
+                var likedStations = state.user.likedStations.filter(currStationId => currStationId !== action.trackId);
+                newState = { ...state, user: { ...state.user, likedStations: likedStations } }
+            }
+            else {
+                var likedTracks = state.user.likedTracks.filter(currTrackId => currTrackId !== action.trackId);
+                newState = { ...state, user: { ...state.user, likedTracks: likedTracks } }
+            }
             break;
         case 'SET_USERֹ_PREF':
             newState = { ...state, user: { ...state.user, prefArtists: action.userPref } }
