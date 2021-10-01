@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
-import { setUserPref } from '../store/user.actions'
+import { setUserPref, loadUser } from '../store/user.actions'
 import { userService } from '../services/user.service.js';
 
 
@@ -10,6 +10,10 @@ import { userService } from '../services/user.service.js';
 class _UserPref extends Component {
     state = {
         artists: []
+    }
+
+    componentDidMount() {
+        this.props.loadUser()
     }
 
 
@@ -21,14 +25,16 @@ class _UserPref extends Component {
             this.props.setUserPref([...this.state.artists, { artist, img }])
         }
     }
-    componentDidUpdate() {
-    }
 
 
     render() {
         console.log(this.state.artists);
-        const { stations } = this.props
-        if (!stations) return <h1>loading...</h1>
+        const { stations, user } = this.props
+        if (!stations || !user) return <h1>loading...</h1>
+        console.log(user);
+        if (user.userPref.length >= 4) {
+            return <Redirect to='/home' />
+        }
         return (
             <div className="user-pref">
                 <header>
@@ -182,7 +188,6 @@ class _UserPref extends Component {
                             <h3>Milky Chance</h3>
                         </div>
                     </div>
-                    {this.state.artists.length >= 4 && <Link to="/">Continue</Link>}
                 </MainLayout >
             </div>
         )
@@ -196,7 +201,8 @@ function mapStateToProps(state) {
     }
 }
 const mapDispatchToProps = {
-    setUserPref
+    setUserPref,
+    loadUser
 }
 
 

@@ -135,7 +135,7 @@ function _createUser() {
             likedStations: [],
             recentlyPlayedStations: [],
             recentlyPlayedSongs: [],
-            prefArtists: [],
+            userPref: [],
         }
     }
     gUser = user;
