@@ -46,13 +46,15 @@
   position     : absolute;
   width        : 2.1875rem;
   height       : 2.1875rem;
-  bottom       : 5px;
-  right        : 5px;
+  bottom       : 8px;
+  right        : 8px;
   transition   : visibility 0s, opacity 0.3s linear;
   // cursor    : default;
 }
 
 .play-icon {
+  font-size : 40px;
+  color     : '#00ff00';
   transition: transform 0.3s ease-in-out;
 
   &:hover {
