@@ -22,7 +22,6 @@ import {
     FormLabel,
     Slider,
 } from '@material-ui/core';
-import autoBind from "auto-bind"
 
 class _Home extends Component {
     state = {
