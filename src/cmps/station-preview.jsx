@@ -13,6 +13,7 @@ import React from 'react'
 import { ThreeSixtySharp } from '@material-ui/icons';
 import { connect } from 'react-redux'
 import { typography } from '@mui/system';
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles({
     playIcon: {
@@ -51,8 +52,8 @@ class _StationPreview extends React.Component {
     }
 
     navigateToStation = (stationId) => {
-        window.location.href = `http://localhost:3000/station/${stationId}`;
-        // this.props.history.push(`/station/${stationId}`)
+        // window.location.href = `http://localhost:3000/station/${stationId}`;
+        this.props.history.push(`/station/${stationId}`)
     }
 
     render() {
@@ -60,11 +61,11 @@ class _StationPreview extends React.Component {
         const theme = createTheme({
             palette: {
                 primary: {
-                    main: '#1db954'
+                    main: '#22EE44'
                 }
             },
             typography: {
-                fontSize: '10px'
+                fontSize: '24'
             }
         });
 
@@ -84,6 +85,7 @@ class _StationPreview extends React.Component {
                             e.stopPropagation()
                             this.playRandTrack()
                         }}>
+                            {/* color="primary" */}
                             <ThemeProvider theme={theme}>
                                 <PlayCircleFilledWhiteIcon className='play-icon' color="primary" />
                             </ThemeProvider>
@@ -124,4 +126,5 @@ const mapDispatchToProps = {
 }
 
 
-export const StationPreview = connect(mapStateToProps, mapDispatchToProps)(_StationPreview)
+const __StationPreview = connect(mapStateToProps, mapDispatchToProps)(_StationPreview)
+export const StationPreview = withRouter(__StationPreview);
