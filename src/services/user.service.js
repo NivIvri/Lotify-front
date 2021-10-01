@@ -65,12 +65,6 @@ async function setUserPref(userPref) {
 
 
 
-
-
-
-
-
-
 function deleteStation(userId) {
     var userIdx = gUser.findIndex(function (user) {
         return userId === user.id

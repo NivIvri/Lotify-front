@@ -70,22 +70,21 @@
     width: 102px;
     object-fit: cover;
   }
-  .img-container{
+  .img-container {
     float: left;
-     margin: .5em 10px .5em 0; 
+    margin: 0.5em 10px 0.5em 0;
     overflow: hidden;
     border-radius: 2px;
   }
 }
-
-
-
 
 .station-container {
   .genre {
     gap: 10px;
     margin-bottom: 20px;
     width: 100%;
+    flex-wrap: wrap;
+
     overflow: hidden;
     h4 {
       font-weight: bolder;
@@ -95,13 +94,27 @@
       font-size: 0.8rem;
     }
     .station-preview {
-      min-width: 150px;
+      max-width: 200px;
       padding: 0.8rem;
       margin-bottom: 16px;
+      .img-container {
+        margin: 0.5em 10px 0.5em 0;
+        overflow: hidden;
+        border-radius: 2px;
+        img {
+          margin: -64px -64px -64px -64px;
+          height: 293px;
+          width: 269px;
+          object-fit: cover;
+        }
+      }
+      h3 {
+        padding-top: 10px;
+      }
     }
   }
-  .playlist-container {
-    flex-direction: column;
-    margin-bottom: 16px;
-  }
+  //.playlist-container {
+  //  flex-direction: column;
+  //  margin-bottom: 16px;
+  //}
 }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack, addToNextQueue, setQueue, loadStations,toggleIsPlaying } from '../store/station.actions.js';
+import { setCurrTrack, addToNextQueue, setQueue, loadStations, toggleIsPlaying } from '../store/station.actions.js';
 import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import stationImg from '../assets/img/stationImg.jpg'
 import { arrayMove } from 'react-sortable-hoc';
@@ -22,6 +22,7 @@ class _StationDetails extends Component {
         isLike: false
     }
     async componentDidMount() {
+        debugger
         await this.loadStation()
         let user = await this.props.user
         if (!user) {
@@ -35,10 +36,11 @@ class _StationDetails extends Component {
             else this.setState({ isLike: false })
         }
     }
-    
+
     async componentDidUpdate() {
         const { stationId } = this.props.match.params
-        if (stationId !== this.state.station._id) {
+        debugger
+        if (stationId !== this.state.station._id && stationId !== this.state.station.ganer) {
             await this.loadStation()
             let user = await this.props.user
             if (!user) {
@@ -56,16 +58,19 @@ class _StationDetails extends Component {
 
 
     loadStation = async () => {
+
         const { stationId } = this.props.match.params
         let station = await stationService.getStationById(stationId)
         if (!station) {
             station = await stationService.getStationByTag(stationId)
-
+            if (station)
+                station = station[0]
+            //<Redirect> </Redirect>
         }
         if (station) {
-            station = station[0]
             this.setState({ station, stationId: station._id, songs: station.songs })
         }
+        else this.setState({ station: [] })
     }
 
     playRandTrack = () => {
@@ -99,7 +104,7 @@ class _StationDetails extends Component {
     }
     render() {
         const { station } = this.state
-        if (!station) return <h1>loading...</h1>
+        if (!station) return <h1>not found</h1>
         const { loadStations, addToNextQueue, stations } = this.props;
         return (
             <MainLayout>

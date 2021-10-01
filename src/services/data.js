@@ -77,7 +77,7 @@ export const gPlaylists =
             ]
         },
         {
-           
+
             "_id": "5n250",
             "name": "Rap",
             "tags": ["rap", "beat"],
@@ -129,16 +129,16 @@ export const gPlaylists =
             "songs": [
 
                 {
-                    "id": "fNThHjoimrY",
-                    "title": "שלמה ארצי - אבסורד",
-                    "imgUrl": "https://i.ytimg.com/vi/fNThHjoimrY/hqdefault.jpg",
-                    "duration": "PT4M2S"
-                },
-                {
                     "id": "TWtbHxQMTqc",
                     "title": "Shlomo Artzi - Menagev Lach Et Hadmaot (with subtitle)",
                     "imgUrl": "https://i.ytimg.com/vi/TWtbHxQMTqc/hqdefault.jpg",
                     "duration": "PT3M9S"
+                },
+                {
+                    "id": "fNThHjoimrY",
+                    "title": "שלמה ארצי - אבסורד",
+                    "imgUrl": "https://i.ytimg.com/vi/fNThHjoimrY/hqdefault.jpg",
+                    "duration": "PT4M2S"
                 },
                 {
                     "id": "sDRSs2rrZ8o",
@@ -147,5 +147,23 @@ export const gPlaylists =
                     "duration": "PT5M30S"
                 }
             ]
+        },
+        {
+            "_id": "pop",
+            "name": "Top POP Hits 2021 – Biggest Pop Music Videos - Vevo",
+            "tags": ["pop"],
+            "createdBy": { "_id": "u101", "fullname": "app", "imgUrl": "http://some-photo" },
+            "songs": [{ "id": "XXYlFuWEuKI", "title": "The Weeknd - Save Your Tears (Official Music Video)", "imgUrl": "https://i.ytimg.com/vi/XXYlFuWEuKI/hqdefault.jpg", "duration": "PT4M26S" },
+            { "id": "RsEZmictANA", "title": "Taylor Swift - willow (Official Music Video)", "imgUrl": "https://i.ytimg.com/vi/RsEZmictANA/hqdefault.jpg", "duration": "PT4M26S" },
+            { "id": "l0U7SxXHkPY", "title": "Future - Life Is Good (Official Music Video) ft. Drake", "imgUrl": "https://i.ytimg.com/vi/l0U7SxXHkPY/hqdefault.jpg", "duration": "PT4M26S" },
+            { "id": "BSzSn-PRdtI", "title": "Maroon 5 - Beautiful Mistakes ft. Megan Thee Stallion (Official Music Video)", "imgUrl": "https://i.ytimg.com/vi/BSzSn-PRdtI/hqdefault.jpg", "duration": "PT4M26S" },
+            { "id": "TUVcZfQe-Kw", "title": "Dua Lipa - Levitating Featuring DaBaby (Official Music Video)", "imgUrl": "https://i.ytimg.com/vi/TUVcZfQe-Kw/hqdefault.jpg", "duration": "PT4M26S" },
+            { "id": "6swmTBVI83k", "title": "Lil Nas X - MONTERO (Call Me By Your Name) (Official Video)", "imgUrl": "https://i.ytimg.com/vi/6swmTBVI83k/hqdefault.jpg", "duration": "PT4M26S" },
+            { "id": "ssq6X6alZ3w", "title": "Ariana Grande - 34+35 (Remix) ft. Doja Cat, Megan Thee Stallion", "imgUrl": "https://i.ytimg.com/vi/ssq6X6alZ3w/hqdefault.jpg", "duration": "PT4M26S" },
+            { "id": "r4P-WOOUPk4", "title": "Little Mix - Sweet Melody (Official Video)", "imgUrl": "https://i.ytimg.com/vi/r4P-WOOUPk4/hqdefault.jpg", "duration": "PT4M26S" },
+            { "id": "tQ0yjYUFKAE", "title": "Justin Bieber - Peaches ft. Daniel Caesar, Giveon", "imgUrl": "https://i.ytimg.com/vi/tQ0yjYUFKAE/hqdefault.jpg", "duration": "PT4M26S" },
+            { "id": "vMLk_T0PPbk", "title": "Black Eyed Peas, Shakira - GIRL LIKE ME (Official Music Video)", "imgUrl": "https://i.ytimg.com/vi/vMLk_T0PPbk/hqdefault.jpg", "duration": "PT4M26S" }]
         }
     ]
+
+

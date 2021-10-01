@@ -5,7 +5,7 @@ import Slider from '@mui/material/Slider';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 
-import { playNextTrack, playPrevTrack, shuffleQueue,toggleIsPlaying } from '../store/station.actions.js';
+import { setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying } from '../store/station.actions.js';
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
 
@@ -23,7 +23,9 @@ class _AppFooter extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.currTrack !== prevProps.currTrack) {
-            this.setState({ isPlayedTrack: true, played: 0, duration: 0 })
+            //this.props.toggleIsPlaying();
+            this.props.setPlay()
+            this.setState({ played: 0, duration: 0 })
         }
     }
 
@@ -34,7 +36,7 @@ class _AppFooter extends Component {
     togglePlay = () => {
         if (this.state.isLoaded)
             this.props.toggleIsPlaying();
-            // this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
+        // this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
     }
 
 
@@ -107,8 +109,8 @@ class _AppFooter extends Component {
     }
 
     render() {
-        const { played,  duration, volume, isShuffle } = this.state
-        const {isPlaying}=this.props
+        const { played, duration, volume, isShuffle } = this.state
+        const { isPlaying } = this.props
         const track = this.props.currTrack
         return (
             <>
@@ -154,22 +156,17 @@ class _AppFooter extends Component {
                         <div className="player-controls-btn flex">
                             <span className={isShuffle ? "fas fa-random green" : "fas fa-random"} onClick={this.goShuffle}></span>
 
-                            {/*<img src={shuffle} onClick={this.goShuffle} />*/}
                             <span className="fas fa-step-forward" onClick={this.goPrev}></span>
 
-                            {/*<img src={next} onClick={this.goPrev} />*/}
                             {
                                 isPlaying &&
                                 <span class="fas fa-pause" onClick={this.togglePlay}></span>
-                                //<img src={pause} onClick={this.togglePlay} />
                             }
                             {
                                 !isPlaying &&
                                 <span className="fas fa-play" onClick={this.togglePlay}></span>
-                                //<img src={play} onClick={this.togglePlay} />
                             }
                             <span className="fas fa-step-forward" onClick={this.goNext}></span>
-                            {/*<img src={next} onClick={this.goNext} />*/}
                         </div>
                         <div className='played-input flex'>
                             <Duration seconds={duration * played} />
@@ -215,7 +212,8 @@ const mapDispatchToProps = {
     playNextTrack,
     playPrevTrack,
     shuffleQueue,
-    toggleIsPlaying
+    toggleIsPlaying,
+    setPlay
 }
 
 
