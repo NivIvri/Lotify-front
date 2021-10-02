@@ -62,39 +62,43 @@ class _CreateStation extends Component {
     render() {
         const { isCreate, station } = this.state
         return (
-            <div className={`create-playlist ${isCreate ? "on" : "off"}`} onSubmit={(ev) => { this.onAddStation(ev) }}>
-                <div className="header">
-                    <h1>Create station</h1>
-                    <button onClick={this.create}>X</button>
-                </div>
-                <div className="body flex">
-                    <div>
-
-                        <img src={createStationImg} alt="" />
+            <>
+                <div className={`create-playlist ${isCreate ? "on" : "off"}`} onSubmit={(ev) => { this.onAddStation(ev) }}>
+                    <div className="header">
+                        <h1>Create station</h1>
+                        <button onClick={this.create}>X</button>
                     </div>
-                    <form onSubmit={(ev) => ev.preventDefault()}>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Station's name"
-                            value={station.name}
-                            onChange={this.handleChange}
-                        />
+                    <div className="body flex">
+                        <div>
 
-                        <CreatableSelect
-                            onChange={(e) => this.handleChange({ 'target': e })}
-                            name='label'
-                            closeMenuOnSelect={false}
-                            options={this.labelOptions}
-                            isMulti
-                            placeholder="Tags..."
-                        />
+                            <img src={createStationImg} alt="" />
+                        </div>
+                        <form onSubmit={(ev) => ev.preventDefault()}>
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Station's name"
+                                value={station.name}
+                                onChange={this.handleChange}
+                                autoComplete="off"
+                            />
 
-                        <button type='submit'>Create</button>
-                    </form>
+                            <CreatableSelect
+                                onChange={(e) => this.handleChange({ 'target': e })}
+                                name='label'
+                                className="select"
+                                closeMenuOnSelect={false}
+                                options={this.labelOptions}
+                                isMulti
+                                placeholder="Tags..."
+                            />
+
+                            <button type='submit'>Create</button>
+                        </form>
+                    </div>
                 </div>
-
-            </div>
+                <div className={`body-modal ${isCreate ? "on" : "off"}`} onClick={this.create}></div>
+            </>
         );
     }
 }
