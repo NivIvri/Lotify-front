@@ -42,7 +42,6 @@ class _TrackPreview extends Component {
 
             this.setState({ isLike: true })
         }
-        else this.setState({ isLike: false })
 
     }
 

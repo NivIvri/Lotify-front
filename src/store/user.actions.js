@@ -102,7 +102,6 @@ export function onLogout() {
 
 export function removeUser(userId) {
     return async dispatch => {
-        //console.log('there',  userPref);
         try {
             await userService.remove(userId)
             dispatch({ type: 'REMOVE_USER', userId })

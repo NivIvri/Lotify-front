@@ -12,6 +12,7 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 //import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import heartNotChecked from '../assets/img/heart-regular.svg';
+import { addLikeToTrack, removeLikeFromTrack } from '../store/user.actions';
 
 
 class _AppFooter extends Component {
@@ -34,12 +35,18 @@ class _AppFooter extends Component {
             this.props.setPlay()
             this.setState({ played: 0, duration: 0 })
         }
+        if (!this.props.user || !prevProps.user) return
+        if (this.props.user.likedTracks.length !== prevProps.user.likedTracks.length) {
+            this.isTrackLiked()
+        }
     }
 
     isTrackLiked = () => {
+        if (!this.props.currTrack) return
         const trackIdxs = this.props.user.likedTracks.map(track => track.id)
         const isLiked = trackIdxs.includes(this.props.currTrack.id)
         this.setState({ isLiked })
+        return isLiked
     }
 
 
@@ -120,6 +127,17 @@ class _AppFooter extends Component {
         else {
             this.props.history.goBack()
         }
+    }
+
+    toggleLike = async (ev) => {
+        ev.stopPropagation()
+        this.setState({ isLiked: !this.state.isLiked }, () => {
+            if (this.state.isLiked)
+                this.props.addLikeToTrack(this.props.currTrack, 'track')
+            else {
+                this.props.removeLikeFromTrack(this.props.currTrack.id, 'track')
+            }
+        })
     }
 
     render() {
@@ -243,7 +261,9 @@ const mapDispatchToProps = {
     playPrevTrack,
     shuffleQueue,
     toggleIsPlaying,
-    setPlay
+    setPlay,
+    addLikeToTrack,
+    removeLikeFromTrack
 }
 
 

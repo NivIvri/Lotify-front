@@ -25,8 +25,6 @@ class _CreateStation extends Component {
         { value: "rap", label: "Rap" },]
 
     componentDidMount() {
-        // const { stationId } = this.props.match.params
-        // console.log(this.props.match)
         eventBusService.on("create-playlist", this.create)
     }
 
