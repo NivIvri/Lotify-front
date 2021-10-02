@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
-import { FavoriteArtists, RecentlyPlayed } from '../cmps/recently-played.jsx';
+import { FavoriteArtists } from '../cmps/favorite-artists.jsx';
 
 import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';

@@ -1,4 +1,3 @@
-import { userService } from '../services/user.service.js'
 
 const initialState = {
     //user: userService.getLoggedinUser(),
@@ -39,8 +38,6 @@ export function userReducer(state = initialState, action) {
                 newState = { ...state, user: { ...state.user, likedStations: likedStations } }
             }
             else {
-                // old code
-                // var likedTracks = state.user.likedTracks.filter(currTrackId => currTrackId !== action.trackId);
                 var likedTracks = state.user.likedTracks.filter(currTrack => currTrack.id !== action.trackId);
                 newState = { ...state, user: { ...state.user, likedTracks: likedTracks } }
             }
@@ -51,9 +48,6 @@ export function userReducer(state = initialState, action) {
         default:
 
     }
-    // For debug:
-    // window.userState = newState;
-    // console.log('State:', newState);
     return newState;
 
 }
