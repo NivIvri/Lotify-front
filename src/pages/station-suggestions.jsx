@@ -40,6 +40,7 @@ class _StationSuggestion extends Component {
     render() {
         const { station } = this.state
         if (!station) return <h1>loading...</h1>
+        console.log(station);
         return (
             <MainLayout>
                 <section className='station-details'>

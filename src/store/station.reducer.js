@@ -3,6 +3,7 @@ const initialState = {
     queue: [],
     playNextQueue: [],
     currTrack: null,
+    isPlaying: false
 }
 export function stationReducer(state = initialState, action) {
     var newState = state
@@ -33,8 +34,8 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, queue: action.queue };
             break
         case 'ADD_TO_NEXT_QUEUE':
-            if(!state.currTrack){
-                newState = { ...state,currTrack:action.track};
+            if (!state.currTrack) {
+                newState = { ...state, currTrack: action.track };
                 break
             }
             newPlayNextQueue.push(action.track)
@@ -42,6 +43,11 @@ export function stationReducer(state = initialState, action) {
             break
         case 'SHUFFLE_QUEUE':
             newState = { ...state, queue: action.queue };
+        case 'TOGGLE_ISPLAYING':
+            newState = { ...state, isPlaying: !state.isPlaying };
+            break
+        case 'SET_PLAY':
+            newState = { ...state, isPlaying: true };
             break
         case 'NEXT_TRACK':
             if (state.playNextQueue.length > 0) {

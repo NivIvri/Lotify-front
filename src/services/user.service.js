@@ -25,7 +25,6 @@ function query(filterBy) {
 
 
 async function addLikeToTrack(trackId, stationOrTrack) {
-    debugger
     if (stationOrTrack === 'station') {
         await gUser.likedStations.push(trackId)
     }
@@ -60,12 +59,6 @@ async function setUserPref(userPref) {
     gUser.userPref = userPref
     _saveStationsToStorage()
 }
-
-
-
-
-
-
 
 
 
@@ -135,7 +128,7 @@ function _createUser() {
             likedStations: [],
             recentlyPlayedStations: [],
             recentlyPlayedSongs: [],
-            prefArtists: [],
+            userPref: [],
         }
     }
     gUser = user;

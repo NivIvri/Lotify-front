@@ -5,7 +5,7 @@ import Slider from '@mui/material/Slider';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 
-import { playNextTrack, playPrevTrack, shuffleQueue } from '../store/station.actions.js';
+import { setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying } from '../store/station.actions.js';
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
 
@@ -23,7 +23,9 @@ class _AppFooter extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.currTrack !== prevProps.currTrack) {
-            this.setState({ isPlayedTrack: true, played: 0, duration: 0 })
+            //this.props.toggleIsPlaying();
+            this.props.setPlay()
+            this.setState({ played: 0, duration: 0 })
         }
     }
 
@@ -33,10 +35,11 @@ class _AppFooter extends Component {
     };
     togglePlay = () => {
         if (this.state.isLoaded)
-            this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
+            this.props.toggleIsPlaying();
+        // this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
     }
 
-    
+
     handleSeekMouseDown = e => {
         if (!this.props.currTrack) return
         this.setState({ seeking: true })
@@ -106,7 +109,8 @@ class _AppFooter extends Component {
     }
 
     render() {
-        const { played, isPlayedTrack, duration, volume, isShuffle } = this.state
+        const { played, duration, volume, isShuffle } = this.state
+        const { isPlaying } = this.props
         const track = this.props.currTrack
         return (
             <>
@@ -116,7 +120,7 @@ class _AppFooter extends Component {
 
                         <ReactPlayer
                             ref={this.ref}
-                            playing={isPlayedTrack}
+                            playing={isPlaying}
                             url={`https://www.youtube.com/watch?v=${track.id}`}
                             onDuration={this.onDuration}
                             onProgress={this.onProgress}
@@ -134,40 +138,33 @@ class _AppFooter extends Component {
                     </div>
                 }
                 <div className='playing-bar'>
-
-                    <div className="volume">
-                        <Box sx={{ width: 200 }}>
-                            <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                                {/*<VolumeDown />*/}
-                                <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
-                                {/*<VolumeUp />*/}
-                            </Stack>
-                        </Box>
+                    <div className='song-name-bar'>
                         <div>
-                            <span onClick={this.inQueue} className="fas fa-outdent"></span>
+                            {track ? track.title : ""}
                         </div>
+                        <div>♥</div>
+                        {
+                            track &&
+                            <img className='track-img' src={track.imgUrl} />
+                        }
                     </div>
+
 
                     <div className="player-controls">
                         <div className="player-controls-btn flex">
                             <span className={isShuffle ? "fas fa-random green" : "fas fa-random"} onClick={this.goShuffle}></span>
 
-                            {/*<img src={shuffle} onClick={this.goShuffle} />*/}
                             <span className="fas fa-step-forward" onClick={this.goPrev}></span>
 
-                            {/*<img src={next} onClick={this.goPrev} />*/}
                             {
-                                isPlayedTrack &&
+                                isPlaying &&
                                 <span class="fas fa-pause" onClick={this.togglePlay}></span>
-                                //<img src={pause} onClick={this.togglePlay} />
                             }
                             {
-                                !isPlayedTrack &&
+                                !isPlaying &&
                                 <span className="fas fa-play" onClick={this.togglePlay}></span>
-                                //<img src={play} onClick={this.togglePlay} />
                             }
                             <span className="fas fa-step-forward" onClick={this.goNext}></span>
-                            {/*<img src={next} onClick={this.goNext} />*/}
                         </div>
                         <div className='played-input flex'>
                             <Duration seconds={duration * played} />
@@ -183,17 +180,20 @@ class _AppFooter extends Component {
                     </div>
 
 
-                    <div className='song-name-bar'>
-                        <div>
-                            {track ? track.title : ""}
-                        </div>
-                        <div>♥</div>
-                        {
-                            track &&
-                            <img className='track-img' src={track.imgUrl} />
-                        }
-                    </div>
 
+                    <div className="volume">
+                        <div>
+                            <span onClick={this.inQueue} className="fas fa-outdent"></span>
+                        </div>
+                        <Box sx={{ width: 200 }}>
+                            <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                                {/*<VolumeDown />*/}
+                                <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
+                                {/*<VolumeUp />*/}
+                            </Stack>
+                        </Box>
+
+                    </div>
                 </div>
             </>
         )
@@ -204,6 +204,7 @@ class _AppFooter extends Component {
 function mapStateToProps(state) {
     return {
         currTrack: state.stationMoudle.currTrack,
+        isPlaying: state.stationMoudle.isPlaying,
         queue: state.stationMoudle.queue
 
     }
@@ -211,7 +212,9 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     playNextTrack,
     playPrevTrack,
-    shuffleQueue
+    shuffleQueue,
+    toggleIsPlaying,
+    setPlay
 }
 
 

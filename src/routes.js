@@ -13,11 +13,11 @@ import { UserPref } from "./pages/user-pref";
 const routes = [
     {
         path: '/',
-        component: Home,
+        component: UserPref,
     },
     {
-        path: '/preff',
-        component: UserPref,
+        path: '/Home',
+        component: Home,
     },
     {
         path: '/station/:stationId',

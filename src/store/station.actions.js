@@ -73,6 +73,21 @@ export function addStation(newStation) {
         })
     }
 }
+export function toggleIsPlaying() {
+    return async (dispatch) => {
+        dispatch({
+            type: 'TOGGLE_ISPLAYING',
+        })
+    }
+}
+
+export function setPlay() {
+    return async (dispatch) => {
+        dispatch({
+            type: 'SET_PLAY',
+        })
+    }
+}
 
 export function shuffleQueue(queue) {
     for (let i = queue.length - 1; i > 0; i--) {
