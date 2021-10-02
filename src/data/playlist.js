@@ -1,5 +1,17 @@
 [
   {
+    "_id": "eeeee",
+    "name": "Liked Songs",
+    "tags": [],
+    "createdAt": 1541652422,
+    "createdBy": {
+      "_id": "u101",
+      "fullname": "app",
+      "imgUrl": "http://some-photo/",
+      "songs": []
+    }
+  },
+  {
     "_id": "5c09",
     "name": "arctic monkeys",
     "tags": ["Funk", "Happy"],
@@ -91,7 +103,7 @@
       {
         "id": "fNThHjoimrY",
         "title": "שלמה ארצי - אבסורד",
-        "imgUrl":"https://i.ytimg.com/vi/fNThHjoimrY/hqdefault.jpg",
+        "imgUrl": "https://i.ytimg.com/vi/fNThHjoimrY/hqdefault.jpg",
         "duration": "PT4M2S"
       },
       {

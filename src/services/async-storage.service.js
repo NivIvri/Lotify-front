@@ -84,6 +84,7 @@ function _createStations() {
         })
     }
     gStations = stations;
+    console.log('gstations', gStations);
     _saveStationsToStorage();
 }
 
