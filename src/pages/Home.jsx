@@ -49,7 +49,6 @@ class _Home extends Component {
     render() {
         const { stations, user } = this.props
         const { likedStations } = this.state
-        debugger
         if (!stations && !this.props.user && !likedStations) return <h1>loading...</h1>
         return (
 
@@ -76,7 +75,7 @@ class _Home extends Component {
                                 <h3>Rock Music</h3>
                             </div>
                             <div className="flex genre">
-                                {stations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
+                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
                             </div>
                         </div>
 
@@ -86,7 +85,7 @@ class _Home extends Component {
                             </div>
                             <div className="flex genre">
 
-                                {stations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
+                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
                             </div>
                         </div>
                         <div className='card'>

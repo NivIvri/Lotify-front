@@ -4,22 +4,40 @@
     .bar-action {
         gap: 24px;
         align-items: center;
+        padding: 25.6px;
+        background-image: linear-gradient(180deg, #0f0f0ff2, #0000008a);
 
         img {
             height: 40px;
         }
-        .fa-heart::before{
+        .fa-heart::before {
             font-size: 40px;
         }
     }
 
     .station-head {
-        padding: 15px;
-        padding-top: 30px;
-
+        padding: 25.6px;
+        align-items: center;
+        height: 340px;
+        gap: 5px;
+        /* background: linear-gradient(rgba(0,0,0,.6) 0,#121212 100%); */
+        //background-image: linear-gradient(
+        //    177deg, #000000, ghostwhite);
+        //background-image: linear-gradient(
+        //    360deg, #0000002b, #f8f8ffa6);
+        //background-image: linear-gradient(
+        //    360deg, #000000, #f8f8ff);
+        background-image: linear-gradient(360deg, #000000, #b4b4b5);
         img {
-            height: 120px;
-            margin-right: 15px;
+            //margin-inline-end: 24px;
+            min-width: 232px;
+            //margin: -73px -73px -73px -73px;
+            height: 230px;
+            width: 230px;
+            object-fit: cover;
+            box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
+            border-radius: 4px;
+            margin-right: 24px;
         }
 
         p {
@@ -48,8 +66,6 @@
             flex-direction: column;
             justify-content: space-evenly;
         }
-
-        margin-bottom: 20px;
     }
 
     .main-container {
