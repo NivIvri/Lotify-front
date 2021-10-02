@@ -83,10 +83,17 @@
     gap: 10px;
     margin-bottom: 20px;
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 200px);
-    grid-template-rows: 200px;
-    justify-items: center;
+    //flex-wrap: wrap;
+    overflow: hidden;
+    //gap: 10px;
+    //margin-bottom: 20px;
+    //width: 100%;
+    //display: grid;
+    //grid-template-columns: repeat(auto-fill, 200px);
+    //justify-items: center;
+    //float: left;
+
+
     h4 {
       font-weight: bolder;
     }
@@ -95,9 +102,8 @@
       font-size: 0.8rem;
     }
     .station-preview {
-      max-width: 200px;
-      min-width: 200px;
-      padding: 0.8rem;
+    max-width: 200px;
+    min-width: 200px;      padding: 0.8rem;
       margin-bottom: 16px;
       .img-container {
         margin: 0.5em 10px 0.5em 0;
