@@ -40,7 +40,7 @@ async function removeLikeFromTrack(currTrackId, stationOrTrack) {
         gUser.likedStations = likedStations
     }
     else {
-        let likedTracks = gUser.likedTracks.filter(trackId => trackId !== currTrackId)
+        let likedTracks = gUser.likedTracks.filter(track => track.id !== currTrackId)
         gUser.likedTracks = likedTracks
     }
 

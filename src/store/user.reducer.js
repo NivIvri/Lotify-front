@@ -39,7 +39,9 @@ export function userReducer(state = initialState, action) {
                 newState = { ...state, user: { ...state.user, likedStations: likedStations } }
             }
             else {
-                var likedTracks = state.user.likedTracks.filter(currTrackId => currTrackId !== action.trackId);
+                // old code
+                // var likedTracks = state.user.likedTracks.filter(currTrackId => currTrackId !== action.trackId);
+                var likedTracks = state.user.likedTracks.filter(currTrack => currTrack.id !== action.trackId);
                 newState = { ...state, user: { ...state.user, likedTracks: likedTracks } }
             }
             break;
