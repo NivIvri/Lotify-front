@@ -52,14 +52,16 @@ class _MainNav extends React.Component {
     return (
       <>
         <nav className="main-nav">
-          <div className="banner">
-            {/* src\assets\img */}
-            <div className="logo-img-container">
-              <img src={logo} alt="" />
+          <Link to='/home'>
+            <div className="banner">
+              {/* src\assets\img */}
+              <div className="logo-img-container">
+                <img src={logo} alt="" />
+              </div>
+              <h4>Lotify
+              </h4>
             </div>
-            <h4>Lotify
-            </h4>
-          </div>
+          </Link>
           <ul className="primary-nav">
             {links.map(link => {
               return <li key={link.id} onClick={() => this.handleClick(link.id)} className={link.id === activLink ? 'active' : ''}>
@@ -67,9 +69,9 @@ class _MainNav extends React.Component {
                 <NavLink to={link.to}>{link.name}</NavLink>
               </li>
             })}
-          <li onClick={()=>{eventBusService.emit("create-playlist")}} className="nav-create">
-            <span  className="nav-icon fas fa-plus-square"></span>
-            <a>Create Playlist</a>
+            <li onClick={() => { eventBusService.emit("create-playlist") }} className="nav-create">
+              <span className="nav-icon fas fa-plus-square"></span>
+              <a>Create Playlist</a>
             </li>
 
 

@@ -12,6 +12,9 @@ import { arrayMoveImmutable } from 'array-move';
 import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 //import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 import heartNotChecked from '../assets/img/heart-regular.svg';
+import ColorThief from "colorthief";
+import _ from 'lodash';
+
 
 class _StationDetails extends Component {
     state = {
@@ -34,6 +37,7 @@ class _StationDetails extends Component {
             }
             else this.setState({ isLike: false })
         }
+
     }
 
     async componentDidUpdate() {
@@ -99,48 +103,56 @@ class _StationDetails extends Component {
             }
         })
     }
+
+
     render() {
         const { station } = this.state
         if (!station) return <h1>not found</h1>
         const { loadStations, addToNextQueue, stations } = this.props;
         return (
-            <MainLayout>
-                <section className='station-details'>
-                    <div className="station-head flex">
-                        {station.songs.length > 0 &&
-                            <img src={`${station.songs[0].imgUrl}`} />
+            <section className='station-details'>
+                <div className="station-head flex">
+                    <div className='img-container'>
+
+                        {station.imgUrl &&
+                            <img className='square-ratio' src={station.imgUrl} />
+                        }
+                        {station.songs.length > 0 && !station.imgUrl &&
+                            <img className='square-ratio' src={`${station.songs[0].imgUrl}`} />
                         }
                         {!station.songs.length &&
-                            <img src={stationImg} />
+                            <img className='square-ratio' src={stationImg} />
                         }
-                        <div className="title-details">
-                            <p>Playlist</p>
-                            <h1>{station.name}</h1>
-                            <ul className="clean-list flex">
-                                <li>{station.createdBy?.fullname}</li>
-                                <li>{station.songs.length} songs</li>
-                            </ul>
-                        </div>
+
                     </div>
-                    <Link className="fas back fa-chevron-left" to="/"></Link>
-                    <div className='bar-action flex'>
-                        <button className="play-rand" onClick={this.playRandTrack}>
-                            <i class={this.props.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
-                        </button>
-                        {
-                            this.state.isLike && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
-                        }
-                        {
-                            !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
-                        }
+                    <div className="title-details">
+                        <p>Playlist</p>
+                        <h1>{station.name}</h1>
+                        <ul className="clean-list flex">
+                            <li>{station.createdBy?.fullname}</li>
+                            <li>{station.songs.length} songs</li>
+                        </ul>
                     </div>
+                </div>
+                <Link className="fas back fa-chevron-left" to="/"></Link>
+                <div className='bar-action flex'>
+                    <button className="play-rand" onClick={this.playRandTrack}>
+                        <i class={this.props.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
+                    </button>
+                    {
+                        this.state.isLike && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
+                    }
+                    {
+                        !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
+                    }
+                </div>
+                <MainLayout>
                     <DraggableTrackList songs={station.songs} currStation={station}
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
                         distance='20' />
 
-
-                </section>
-            </MainLayout>
+                </MainLayout>
+            </section>
         )
     }
 

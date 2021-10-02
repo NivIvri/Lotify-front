@@ -8,8 +8,10 @@ import { connect } from 'react-redux'
 import { setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying } from '../store/station.actions.js';
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
-
-
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import VolumeDownIcon from '@material-ui/icons/VolumeDown';
+//import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
+import volumeMiddle from '../assets/img/volumeMiddle.svg';
 class _AppFooter extends Component {
     state = {
         volume: 30,
@@ -18,7 +20,8 @@ class _AppFooter extends Component {
         loaded: 0,
         duration: 0,
         inQueue: false,
-        isShuffle: false
+        isShuffle: false,
+
     }
 
     componentDidUpdate(prevProps) {
@@ -139,14 +142,15 @@ class _AppFooter extends Component {
                 }
                 <div className='playing-bar'>
                     <div className='song-name-bar'>
-                        <div>
-                            {track ? track.title : ""}
-                        </div>
-                        <div>♥</div>
                         {
                             track &&
                             <img className='track-img' src={track.imgUrl} />
                         }
+                        <div>
+                            {track ? track.title : ""}
+                        </div>
+                        <div>♥</div>
+
                     </div>
 
 
@@ -187,9 +191,14 @@ class _AppFooter extends Component {
                         </div>
                         <Box sx={{ width: 200 }}>
                             <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                                {/*<VolumeDown />*/}
+                                {volume === 0 &&
+                                    <span class="fas fa-volume-mute"></span>}
+                                {volume > 0 && volume < 50 &&
+                                    <span class="fas fa-volume-down"></span>}
+                                {volume > 50 &&
+                                    <span class="fas fa-volume-up"></span>}
+
                                 <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
-                                {/*<VolumeUp />*/}
                             </Stack>
                         </Box>
 
