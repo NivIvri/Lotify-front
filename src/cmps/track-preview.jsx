@@ -142,10 +142,10 @@ class _TrackPreview extends Component {
             // onClick={this.playTrack(track, idx)}
             //button-cell
             <div className="track-container flex" onClick={() => this.playTrack(track, idx)}>
-                {this.props.currTrack && this.props.currTrack?.id === track.id &&
-                    <div className="track-num"> < img src={isPlying} /></div>
+                {this.props.currTrack && this.props.currTrack?.id === track.id && this.props.isPlaying &&
+                    <div className="track-num"> < img className='isPlaying' src={isPlying} /></div>
                 }
-                {(!this.props.currTrack || this.props.currTrack.id !== track.id) &&
+                {(!this.props.currTrack || this.props.currTrack.id !== track.id ||!this.props.isPlaying) &&
                     <div className="track-num">{idx + 1}</div>}
                 <div className="track-img"><img src={track.imgUrl} alt="" /></div>
                 <div className="track-title">{track.title}</div>
@@ -187,6 +187,7 @@ function mapStateToProps(state) {
         stations: state.stationMoudle.stations,
         queue: state.stationMoudle.queue,
         currTrack: state.stationMoudle.currTrack,
+        isPlaying: state.stationMoudle.isPlaying,
         user: state.userMoudle.user,
     }
 }
