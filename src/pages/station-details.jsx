@@ -90,6 +90,7 @@ class _StationDetails extends Component {
         const { station } = this.state
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
         this.setState((prevState) => ({ ...prevState, station }))
+        this.props.setQueue([...station.songs])
 
     }
 

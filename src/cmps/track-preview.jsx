@@ -123,7 +123,7 @@ class _TrackPreview extends Component {
         ev.stopPropagation()
         this.setState({ isLike: !this.state.isLike }, () => {
             if (this.state.isLike)
-                this.props.addLikeToTrack(this.props.track.id, 'track')
+                this.props.addLikeToTrack(this.props.track, 'track')
             else {
                 this.props.removeLikeFromTrack(this.props.track.id, 'track')
             }
@@ -132,7 +132,7 @@ class _TrackPreview extends Component {
 
     render() {
         const { track, idx, currStation, stations, user } = this.props
-        console.log(this.state.isLike,'this.stste.isLike');
+        console.log(this.state.isLike, 'this.stste.isLike');
         return (
             // onClick={this.playTrack(track, idx)}
             //button-cell
