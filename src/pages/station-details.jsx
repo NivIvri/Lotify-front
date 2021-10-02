@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack, addToNextQueue, setQueue, loadStations, toggleIsPlaying,setArrangedQueue } from '../store/station.actions.js';
+import { setCurrTrack, addToNextQueue, setQueue, loadStations, toggleIsPlaying } from '../store/station.actions.js';
 import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import stationImg from '../assets/img/stationImg.jpg'
 import { arrayMove } from 'react-sortable-hoc';
@@ -88,7 +88,7 @@ class _StationDetails extends Component {
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
         this.setState((prevState) => ({ ...prevState, station }))
         if(this.props.currTrack){
-            this.props.setArrangedQueue([...station.songs])
+            this.props.setQueue([...station.songs])
         }
     }
 
@@ -168,7 +168,6 @@ const mapDispatchToProps = {
     loadUser,
     removeLikeFromTrack,
     toggleIsPlaying,
-    setArrangedQueue
 }
 
 
