@@ -27,21 +27,11 @@ export function stationReducer(state = initialState, action) {
                 newQueue.push(state.currTrack)
             }
             newState = { ...state, currTrack: action.track, queue: newQueue, playNextQueue: newPlayNextQueue }
-            // console.log('new state', newState);
-
             break
         case 'SET_QUEUE':
-            // ori - i uncomment this
-            action.queue.splice(action.idx, 1);
-
-            //ori
-            // newQueue = [...action.queue];
-            //
-            // console.log('action queue', action.queue);
-            // console.log('newQueue', newQueue);
             newState = { ...state, queue: action.queue };
-            // console.log('new State', newState);
             break
+        
         case 'ADD_TO_NEXT_QUEUE':
             if (!state.currTrack) {
                 newState = { ...state, currTrack: action.track };

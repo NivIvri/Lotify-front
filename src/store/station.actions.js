@@ -28,6 +28,9 @@ export function setCurrTrack(track, idx) {
 }
 
 export function setQueue(queue, idx = 0) {
+    const befores=queue.splice(0,idx)
+    queue.shift()
+    queue=queue.concat(befores)
     return async (dispatch) => {
         dispatch({
             type: 'SET_QUEUE',
@@ -85,6 +88,15 @@ export function setPlay() {
     return async (dispatch) => {
         dispatch({
             type: 'SET_PLAY',
+        })
+    }
+}
+
+export function setArrangedQueue(queue) {
+    return async (dispatch) => {
+        dispatch({
+            type: 'SET_ARRANGED_QUEUE',
+            queue
         })
     }
 }

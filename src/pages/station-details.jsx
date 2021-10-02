@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 import { TrackList } from '../cmps/trackList.jsx';
 import { stationService } from '../services/async-storage.service.js';
-import { setCurrTrack, addToNextQueue, setQueue, loadStations, toggleIsPlaying } from '../store/station.actions.js';
+import { setCurrTrack, addToNextQueue, setQueue, loadStations, toggleIsPlaying,setArrangedQueue } from '../store/station.actions.js';
 import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import stationImg from '../assets/img/stationImg.jpg'
 import { arrayMove } from 'react-sortable-hoc';
@@ -12,9 +12,6 @@ import { arrayMoveImmutable } from 'array-move';
 import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 //import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 import heartNotChecked from '../assets/img/heart-regular.svg';
-import ColorThief from "colorthief";
-import _ from 'lodash';
-
 
 class _StationDetails extends Component {
     state = {
@@ -37,7 +34,6 @@ class _StationDetails extends Component {
             }
             else this.setState({ isLike: false })
         }
-
     }
 
     async componentDidUpdate() {
@@ -60,6 +56,7 @@ class _StationDetails extends Component {
 
 
     loadStation = async () => {
+
         const { stationId } = this.props.match.params
         let station = await stationService.getStationById(stationId)
         if (!station) {
@@ -90,8 +87,9 @@ class _StationDetails extends Component {
         const { station } = this.state
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
         this.setState((prevState) => ({ ...prevState, station }))
-        this.props.setQueue([...station.songs])
-
+        if(this.props.currTrack){
+            this.props.setArrangedQueue([...station.songs])
+        }
     }
 
     toggleLike = async (ev, stationOrTrack) => {
@@ -104,8 +102,6 @@ class _StationDetails extends Component {
             }
         })
     }
-
-
     render() {
         const { station } = this.state
         if (!station) return <h1>not found</h1>
@@ -113,19 +109,12 @@ class _StationDetails extends Component {
         return (
             <section className='station-details'>
                 <div className="station-head flex">
-                    <div className='img-container'>
-
-                        {station.imgUrl &&
-                            <img className='square-ratio' src={station.imgUrl} />
-                        }
-                        {station.songs.length > 0 && !station.imgUrl &&
-                            <img className='square-ratio' src={`${station.songs[0].imgUrl}`} />
-                        }
-                        {!station.songs.length &&
-                            <img className='square-ratio' src={stationImg} />
-                        }
-
-                    </div>
+                    {station.songs.length > 0 &&
+                        <img src={`${station.songs[0].imgUrl}`} />
+                    }
+                    {!station.songs.length &&
+                        <img src={stationImg} />
+                    }
                     <div className="title-details">
                         <p>Playlist</p>
                         <h1>{station.name}</h1>
@@ -152,6 +141,7 @@ class _StationDetails extends Component {
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
                         distance='20' />
 
+
                 </MainLayout>
             </section>
         )
@@ -177,7 +167,8 @@ const mapDispatchToProps = {
     addLikeToTrack,
     loadUser,
     removeLikeFromTrack,
-    toggleIsPlaying
+    toggleIsPlaying,
+    setArrangedQueue
 }
 
 

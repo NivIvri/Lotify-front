@@ -33,6 +33,15 @@ export function stationReducer(state = initialState, action) {
             action.queue.splice(action.idx, 1);
             newState = { ...state, queue: action.queue };
             break
+        case 'SET_ARRANGED_QUEUE':
+            console.log('here');
+            let idx = action.queue.findIndex((track) => state.currTrack.id === track.id)
+            const befores = action.queue.splice(0, idx)
+            action.queue.shift()
+            action.queue = action.queue.concat(befores)
+            console.log('queue', action.queue);
+            newState = { ...state, queue: action.queue };
+            break
         case 'ADD_TO_NEXT_QUEUE':
             if (!state.currTrack) {
                 newState = { ...state, currTrack: action.track };
