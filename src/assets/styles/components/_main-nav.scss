@@ -1,7 +1,7 @@
 .main-nav {
   position           : fixed;
   left               : 0;
-  width              : 300px;
+  width              : 250px;
   height             : 100vh;
   background-color   : $main-nav-bg;
   color              : white;
@@ -10,32 +10,26 @@
 }
 
 .offset-main {
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 250px;
+  max-width: 250px;
 }
 
 .banner {
   display      : flex;
   align-items  : center;
-  font-size    : 2.5rem;
+  font-size    : 2rem;
   padding-left : 1rem;
   color        : white;
   margin-bottom: 1rem;
 
-  .logo-img-container {
-    display         : flex;
-    justify-content : center;
-    align-items     : center;
-    margin-right    : 1rem;
-    width           : 40px;
-    height          : 40px;
-    border-radius   : 50%;
-    background-color: #fff;
-  }
+   h4 > span {
+      color: #04c504;
+    }
 
   img {
     display      : block;
-    width        : 25px;
+    width        : 1.6rem;
+    margin-right: 5px;
     // object-fit: cover;
   }
 }

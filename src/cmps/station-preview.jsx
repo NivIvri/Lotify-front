@@ -92,7 +92,7 @@ class _StationPreview extends React.Component {
 
                         </div>
                     </div>
-                    <h3 className="station-name-header">{station.name}</h3>
+                    <div className="station-name-header">{station.name}</div>
                     <p className="station-desc">
                         {station.songs.reduce((songStr, song) => {
                             songStr += ',' + song.title

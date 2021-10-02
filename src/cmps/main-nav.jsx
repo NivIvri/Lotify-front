@@ -59,6 +59,7 @@ class _MainNav extends React.Component {
                 <img src={logo} alt="" />
               </div>
               <h4>Lotify
+              <span>.</span>
               </h4>
             </div>
           </Link>

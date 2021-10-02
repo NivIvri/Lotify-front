@@ -9,7 +9,7 @@ export function FavoriteArtists({ artists }) {
                     <div className='img-container'>
                         <img src={artist.img} />
                     </div>
-                    <h3>{artist.artist}</h3>
+                    <h4>{artist.artist}</h4>
                 </Link >
                 )
             })}

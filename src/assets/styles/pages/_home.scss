@@ -1,10 +1,30 @@
 .home-page {
   width: 100%;
-  h3 {
+  h1 {
+    font-size: 32px;
     font-weight: 700;
     letter-spacing: -0.04em;
+    line-height: 36px;
+    text-transform: none;
+    font-family: "Quicksand-Bold";
+  }
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 28px;
+    text-transform: none;
   }
 
+  h4 {
+    font-size: 16px;
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+  .card-top {
+    padding: 3rem 25.6px;
+  }
   .card {
     margin-bottom: 16px;
     min-height: 300px;
@@ -13,12 +33,29 @@
       padding-bottom: 16px;
     }
   }
+  .main-container {
+    padding-top: unset;
+  }
+}
+.shadow
+{
+    display:block;
+    position:relative;
+}
+.shadow:before {
+  display: block;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0px 0px 3px 2px #121212;
 }
 
 .hero {
-  background-image: url("../../img/hero-pic.jpg");
+  background-image: url("../../img/hero-pic1.jpg");
   width: 100%;
-  height: 50vh;
+  height: 55vh;
+  background-position-y: -86px;
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -27,15 +64,14 @@
   text-align: center;
 
   h1 {
-    font-size: 3rem;
-    background: #7a78783d;
-    padding: 30px;
-    border: none;
-    box-shadow: 4px -2px 13px 3px #00000085;
+    position: absolute;
+    top: 49px;
+    font-size: 1.5rem;
+    font-family: "Quicksand-Bold";
+    top: 22px;
   }
   .logo {
     //font-family: "Lobster", cursive;
-    font-size: 4.5rem;
 
     > span {
       color: #04c504;
@@ -80,19 +116,18 @@
 
 .station-container {
   .genre {
-    gap: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-    //flex-wrap: wrap;
-    overflow: hidden;
     //gap: 10px;
     //margin-bottom: 20px;
     //width: 100%;
-    //display: grid;
-    //grid-template-columns: repeat(auto-fill, 200px);
-    //justify-items: center;
-    //float: left;
-
+    ////flex-wrap: wrap;
+    overflow: hidden;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    justify-items: center;
+    float: left;
 
     h4 {
       font-weight: bolder;
@@ -102,8 +137,9 @@
       font-size: 0.8rem;
     }
     .station-preview {
-    max-width: 200px;
-    min-width: 200px;      padding: 0.8rem;
+      max-width: 200px;
+      min-width: 200px;
+      padding: 0.8rem;
       margin-bottom: 16px;
       .img-container {
         margin: 0.5em 10px 0.5em 0;
