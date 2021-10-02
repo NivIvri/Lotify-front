@@ -5,7 +5,6 @@ import axios from 'axios'
 export const userService = {
     query,
     saveStation,
-    deleteStation,
     getStationById,
     getNextStationId,
     getLoggedinUser,
@@ -53,8 +52,6 @@ async function getLoggedinUser() {
     return Promise.resolve(gUser)
 }
 
-
-
 async function setUserPref(userPref) {
     gUser.userPref = userPref
     _saveStationsToStorage()
@@ -62,16 +59,6 @@ async function setUserPref(userPref) {
 
 
 
-
-
-function deleteStation(userId) {
-    var userIdx = gUser.findIndex(function (user) {
-        return userId === user.id
-    })
-    gUser.splice(userIdx, 1)
-    _saveStationsToStorage();
-    return Promise.resolve()
-}
 
 function saveStation(userToEdit) {
     return userToEdit.id ? _updateStation(userToEdit) : _addStation(userToEdit)
