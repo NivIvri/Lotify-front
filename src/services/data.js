@@ -1,6 +1,18 @@
 export const gPlaylists =
     [
         {
+            "_id": "likedTracks",
+            "name": "Liked Songs",
+            "tags": [],
+            "createdAt": 1541652422,
+            "createdBy": {
+                "_id": "u101",
+                "fullname": "app",
+                "imgUrl": "http://some-photo/",
+            },
+            "songs": []
+        },
+        {
             "_id": "5c08",
             "name": "arctic monkeys",
             "tags": ["Funk", "Happy"],

@@ -12,9 +12,6 @@ import { arrayMoveImmutable } from 'array-move';
 import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 //import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 import heartNotChecked from '../assets/img/heart-regular.svg';
-import ColorThief from "colorthief";
-import _ from 'lodash';
-
 
 class _StationDetails extends Component {
     state = {
@@ -37,7 +34,6 @@ class _StationDetails extends Component {
             }
             else this.setState({ isLike: false })
         }
-
     }
 
     async componentDidUpdate() {
@@ -60,8 +56,25 @@ class _StationDetails extends Component {
 
 
     loadStation = async () => {
-        const { stationId } = this.props.match.params
+        const { stationId } = this.props.match.params;
         let station = await stationService.getStationById(stationId)
+        let user;
+        if (stationId === 'likedTracks') {
+            user = await this.props.user
+            if (!user) {
+                await this.props.loadUser();
+                user = await this.props.user
+                // console.log('user', user);
+            }
+            if (user.likedTracks) {
+                // console.log(user.likedTracks);
+                station.songs = [...user.likedTracks]
+            }
+            else {
+                console.log('no liked tracks');
+            }
+        }
+        debugger
         if (!station) {
             station = await stationService.getStationByTag(stationId)
             if (station)
@@ -80,7 +93,7 @@ class _StationDetails extends Component {
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
             this.props.setCurrTrack(track, idx);
-            this.props.setQueue(songs, idx);
+            this.props.setQueue([...songs], this.state.stationId);
         }
         this.props.toggleIsPlaying()
     }
@@ -90,8 +103,9 @@ class _StationDetails extends Component {
         const { station } = this.state
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
         this.setState((prevState) => ({ ...prevState, station }))
-        this.props.setQueue([...station.songs])
-
+        if (this.props.currTrack && this.props.currStation === this.state.stationId) {
+            this.props.setQueue([...station.songs], this.state.stationId)
+        }
     }
 
     toggleLike = async (ev, stationOrTrack) => {
@@ -104,8 +118,6 @@ class _StationDetails extends Component {
             }
         })
     }
-
-
     render() {
         const { station } = this.state
         if (!station) return <h1>not found</h1>
@@ -113,19 +125,12 @@ class _StationDetails extends Component {
         return (
             <section className='station-details'>
                 <div className="station-head flex">
-                    <div className='img-container'>
-
-                        {station.imgUrl &&
-                            <img className='square-ratio' src={station.imgUrl} />
-                        }
-                        {station.songs.length > 0 && !station.imgUrl &&
-                            <img className='square-ratio' src={`${station.songs[0].imgUrl}`} />
-                        }
-                        {!station.songs.length &&
-                            <img className='square-ratio' src={stationImg} />
-                        }
-
-                    </div>
+                    {station.songs.length > 0 &&
+                        <img src={`${station.songs[0].imgUrl}`} />
+                    }
+                    {!station.songs.length &&
+                        <img src={stationImg} />
+                    }
                     <div className="title-details">
                         <p>Playlist</p>
                         <h1>{station.name}</h1>
@@ -152,6 +157,7 @@ class _StationDetails extends Component {
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
                         distance='20' />
 
+
                 </MainLayout>
             </section>
         )
@@ -177,7 +183,7 @@ const mapDispatchToProps = {
     addLikeToTrack,
     loadUser,
     removeLikeFromTrack,
-    toggleIsPlaying
+    toggleIsPlaying,
 }
 
 
