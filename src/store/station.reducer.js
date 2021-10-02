@@ -28,7 +28,6 @@ export function stationReducer(state = initialState, action) {
                 newQueue.push(state.currTrack)
             }
             newState = { ...state, currTrack: action.track, queue: newQueue, playNextQueue: newPlayNextQueue }
-
             break
         case 'SET_QUEUE':
             let idx = action.queue.findIndex((track) => state.currTrack.id === track.id)

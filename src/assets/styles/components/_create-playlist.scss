@@ -1,15 +1,15 @@
 .create-playlist.on{
-    z-index: 5;
+    z-index: 10;
     display: block;
-    position: absolute;
+    position: fixed;
     width: 500Px;
-    padding: 30px;
+    // padding: 30px;
     background-color: #272727;
     transform: translate(-50%, -50%);
-    
+    // box-shadow: #1DB954 0px 0px 29px 3px;
+    border-radius: 10px;
     top: 50%;
     left: 50%;
-
     .header{
         display: flex;
         justify-content: space-between;
@@ -19,11 +19,12 @@
             color: white;
             font-size: 1.5rem;
         }
-        background-color: rgba(0, 0, 0, 0.76);
+        background-color: rgba(26, 25, 25, 0.76);
         padding: 5px;
     }
     .body{
         padding: 10px;
+        height: 200px;
     }
     img{
         width: 100px;
@@ -35,28 +36,16 @@
         flex-direction: column;
         gap: 10px;
         width: 80%;
-        color: white;
+        color: rgb(32, 32, 32);
         input{
             width: 100%;
             height: 2rem;
+            padding-left: 10px;
             font-size: 1.5rem;
-            background-color: rgba(0, 0, 0, 0.678);
+            // background-color: rgba(24, 24, 24, 0.678);
             border: none;
             outline: none;
-            color: white;
-        }
-        .select{
-            background-color: rgba(0, 0, 0, 0.678);
-            .css-1s2u09g-control{
-                background-color: rgba(0, 0, 0, 0);
-                border: none;
-            }
-            .css-1pahdxg-control{
-                background-color: rgba(0, 0, 0, 0);
-            }
-            .css-2613qy-menu{
-                background-color: rgba(0, 0, 0, 0);
-            }
+            color: rgb(32, 32, 32);
         }
         button{
             background-color: rgba(0, 0, 0, 0.678);
@@ -70,31 +59,19 @@
         }
     }
 }
+.body-modal.on{
+    display: block;
+    position:fixed;
+    z-index: 5;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.63);
+}
+.body-modal.off{
+    display: none;
+}
 .create-playlist.off{
     display: none;
 }
-
-//.create-station-header{
-//    .img-contianer{
-//        height: 192px;
-//        width: 192px;
-//    }
-//    .img{
-//        -webkit-box-align: center;
-//        -ms-flex-align: center;
-//        -webkit-box-pack: center;
-//        -ms-flex-pack: center;
-//        align-items: center;
-//        background-color: #282828;
-//        border: none;
-//        color: #fff;
-//        display: -webkit-box;
-//        display: -ms-flexbox;
-//        display: flex;
-//        justify-content: center;
-//        padding: 0;
-//        text-align: center;
-//        width: 100%;
-//        height: 100%;
-//    }
-//}
