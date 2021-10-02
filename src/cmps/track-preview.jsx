@@ -34,10 +34,12 @@ class _TrackPreview extends Component {
             await this.props.loadUser();
             user = await this.props.user
         }
-        if (user.likedTracks.includes(this.props.track.id)) {
-            this.setState({ isLike: true })
+        else {
+            if (user.likedTracks.includes(this.props.track.id)) {
+                this.setState({ isLike: true })
+            }
+            else this.setState({ isLike: false })
         }
-        else this.setState({ isLike: false })
 
     }
 
