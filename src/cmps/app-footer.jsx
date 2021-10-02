@@ -11,7 +11,9 @@ import { withRouter } from "react-router";
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 //import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
-import volumeMiddle from '../assets/img/volumeMiddle.svg';
+import heartNotChecked from '../assets/img/heart-regular.svg';
+
+
 class _AppFooter extends Component {
     state = {
         volume: 30,
@@ -21,16 +23,25 @@ class _AppFooter extends Component {
         duration: 0,
         inQueue: false,
         isShuffle: false,
+        isLiked: false
 
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevstate) {
         if (this.props.currTrack !== prevProps.currTrack) {
+            this.isTrackLiked()
             //this.props.toggleIsPlaying();
             this.props.setPlay()
             this.setState({ played: 0, duration: 0 })
         }
     }
+
+    isTrackLiked = () => {
+        const trackIdxs = this.props.user.likedTracks.map(track => track.id)
+        const isLiked = trackIdxs.includes(this.props.currTrack.id)
+        this.setState({ isLiked })
+    }
+
 
     handleChange = (event) => {
         let newValue = event.target.value;
@@ -142,15 +153,23 @@ class _AppFooter extends Component {
                 }
                 <div className='playing-bar'>
                     <div className='song-name-bar'>
-                        {
-                            track &&
-                            <img className='track-img' src={track.imgUrl} />
-                        }
+                        <div className='img-container-player'>
+                            {
+                                track &&
+                                <img className='track-img' src={track.imgUrl} />
+                            }
+                        </div>
                         <div>
                             {track ? track.title : ""}
                         </div>
-                        <div>♥</div>
-
+                        <div>
+                            {
+                                this.state.isLiked && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} class="fas fa-heart"></span>
+                            }
+                            {
+                                !this.state.isLiked && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                            }
+                        </div>
                     </div>
 
 
@@ -214,7 +233,8 @@ function mapStateToProps(state) {
     return {
         currTrack: state.stationMoudle.currTrack,
         isPlaying: state.stationMoudle.isPlaying,
-        queue: state.stationMoudle.queue
+        queue: state.stationMoudle.queue,
+        user: state.userMoudle.user
 
     }
 }

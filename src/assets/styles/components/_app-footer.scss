@@ -34,6 +34,16 @@
     color: white;
     display: flex;
     justify-content: space-between;
+    .song-name-bar {
+        align-items: center;
+        justify-content: flex-start;
+        align-content: center;
+        gap: 10px;
+        &:nth-child(1){
+            font-size: 15px;
+            font-family: "Raleway-Thin";
+        }
+    }
     & > * {
         display: flex;
         align-items: center;
@@ -43,6 +53,7 @@
     .track-img {
         width: 56px;
         height: 56px;
+        object-fit: cover;
     }
 
     .player-controls-btn {
@@ -61,5 +72,13 @@
         & span:nth-of-type(2) {
             transform: rotate(180deg);
         }
+    }
+
+    .img-container-player {
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+      
     }
 }
