@@ -3,7 +3,8 @@ const initialState = {
     queue: [],
     playNextQueue: [],
     currTrack: null,
-    isPlaying: false
+    isPlaying: false,
+    currStation:null
 }
 export function stationReducer(state = initialState, action) {
     var newState = state
@@ -34,7 +35,7 @@ export function stationReducer(state = initialState, action) {
             const befores = action.queue.splice(0, idx)
             action.queue.shift()
             action.queue = action.queue.concat(befores)
-            newState = { ...state, queue: action.queue };
+            newState = { ...state, queue: action.queue ,currStation:action.stationId};
             break
         case 'ADD_TO_NEXT_QUEUE':
             if (!state.currTrack) {

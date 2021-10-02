@@ -77,7 +77,7 @@ class _StationDetails extends Component {
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
             this.props.setCurrTrack(track, idx);
-            this.props.setQueue(songs, idx);
+            this.props.setQueue([...songs], this.state.stationId);
         }
         this.props.toggleIsPlaying()
     }
@@ -87,8 +87,8 @@ class _StationDetails extends Component {
         const { station } = this.state
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
         this.setState((prevState) => ({ ...prevState, station }))
-        if(this.props.currTrack){
-            this.props.setQueue([...station.songs])
+        if (this.props.currTrack && this.props.currStation === this.state.stationId) {
+            this.props.setQueue([...station.songs], this.state.stationId)
         }
     }
 
