@@ -47,6 +47,7 @@ export function stationReducer(state = initialState, action) {
             break
         case 'SHUFFLE_QUEUE':
             newState = { ...state, queue: action.queue };
+            break
         case 'TOGGLE_ISPLAYING':
             newState = { ...state, isPlaying: !state.isPlaying };
             break
