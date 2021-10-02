@@ -130,7 +130,6 @@ class _AppFooter extends Component {
     }
 
     toggleLike = async (ev) => {
-        debugger
         ev.stopPropagation()
         this.setState({ isLiked: !this.state.isLiked }, () => {
             if (this.state.isLiked)

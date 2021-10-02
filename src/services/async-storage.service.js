@@ -55,8 +55,6 @@ function _updateStation(stationToEdit) {
 
 
 function getStationById(stationId) {
-    debugger
-    // console.log(gStations);
     var station = gStations.find(function (station) {
         return stationId === station._id
     })

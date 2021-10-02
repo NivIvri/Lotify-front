@@ -30,10 +30,8 @@ class _UserPref extends Component {
 
 
     render() {
-        console.log(this.state.artists);
         const { stations, user } = this.props
         if (!stations || !user) return <h1>loading...</h1>
-        console.log(user);
          if (user.userPref.length >= 4) {
          return <Redirect to='/home' />
          }
