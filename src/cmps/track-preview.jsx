@@ -19,7 +19,7 @@ import { eventBusService } from '../services/event-bus.service';
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
 import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import heartNotChecked from '../assets/img/heart-regular.svg';
-
+import isPlying from '../assets/img/isPlaying.gif'
 
 class _TrackPreview extends Component {
     state = {
@@ -135,13 +135,18 @@ class _TrackPreview extends Component {
     }
 
     render() {
+        console.log(this.props.currTrack, 'this.props.currTrack');
         const { track, idx, currStation, stations, user } = this.props
         console.log(this.state.isLike, 'this.stste.isLike');
         return (
             // onClick={this.playTrack(track, idx)}
             //button-cell
             <div className="track-container flex" onClick={() => this.playTrack(track, idx)}>
-                <div className="track-num">{idx + 1}</div>
+                {this.props.currTrack && this.props.currTrack?.id === track.id &&
+                    <div className="track-num"> < img src={isPlying} /></div>
+                }
+                {(!this.props.currTrack || this.props.currTrack.id !== track.id) &&
+                    <div className="track-num">{idx + 1}</div>}
                 <div className="track-img"><img src={track.imgUrl} alt="" /></div>
                 <div className="track-title">{track.title}</div>
                 <div className="track-duration">{this.getTimeFromDuration(track.duration)}</div>
