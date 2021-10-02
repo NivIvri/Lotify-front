@@ -60,8 +60,25 @@ class _StationDetails extends Component {
 
 
     loadStation = async () => {
-        const { stationId } = this.props.match.params
+        const { stationId } = this.props.match.params;
         let station = await stationService.getStationById(stationId)
+        let user;
+        if (stationId === 'likedTracks') {
+            user = await this.props.user
+            if (!user) {
+                await this.props.loadUser();
+                user = await this.props.user
+                console.log('user', user);
+            }
+            if (user.likedTracks) {
+                // console.log(user.likedTracks);
+                station.songs = user.likedTracks
+            }
+            else {
+                console.log('no liked tracks');
+            }
+        }
+        debugger
         if (!station) {
             station = await stationService.getStationByTag(stationId)
             if (station)
