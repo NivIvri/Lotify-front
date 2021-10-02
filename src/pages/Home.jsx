@@ -75,7 +75,7 @@ class _Home extends Component {
                                 <h3>Rock Music</h3>
                             </div>
                             <div className="flex genre">
-                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                                {stations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
                             </div>
                         </div>
 
@@ -85,7 +85,7 @@ class _Home extends Component {
                             </div>
                             <div className="flex genre">
 
-                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                                {stations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
                             </div>
                         </div>
                         <div className='card'>
@@ -94,7 +94,7 @@ class _Home extends Component {
                             </div>
                             <div className="flex genre">
                                 {likedStations &&
-                                    likedStations.map((station => <StationPreview key={station._id} station={station} />))}
+                                    likedStations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>

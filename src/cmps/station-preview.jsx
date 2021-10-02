@@ -92,9 +92,12 @@ class _StationPreview extends React.Component {
 
                         </div>
                     </div>
-                    <div className="station-name-header">{station.name}</div>
+                    <div className="station-name-header">
+                        {station.name.length < 50 ? station.name : station.name.slice(0, 50) + '...'}
+                    </div>
                     <p className="station-desc">
-                        {station.songs.reduce((songStr, song) => {
+                        {!station.songs.length? '':
+                        station.songs.reduce((songStr, song) => {
                             songStr += ',' + song.title
                             return songStr;
                         }, '').slice(0, 30) + '...'}
