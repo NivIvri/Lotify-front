@@ -53,29 +53,29 @@ class _Home extends Component {
         return (
 
             <div className="home-page">
-                <div className="hero">
-                    <h1>Listen to your favorite music in <span className="logo"><span>Loti</span>fy</span></h1>
+                <div class="shadow">
+
+                    <div className="hero">
+                        <h1>Listen to your favorite music in <span className="logo">Lotify<span>.</span></span></h1>
+                    </div>
                 </div>
                 <section className='station-container'>
+                    <div className='card card-top'>
+                        <div className='card-header'>
+                            <h1>{this.getTime()}</h1>
+                        </div>
+                        {
+                            user.userPref ?
+                                <FavoriteArtists artists={user.userPref.slice(0, 4)} /> :
+                                <FavoriteArtists artists={[{ artist: 'justin bieber', img: 'https://yt3.ggpht.com/ytc/AKedOLTKwkiuIDMtT7w-C55QJm3-FxExhi3So7EWofYGuQ=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'ed sheeran', img: 'https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'billie eilish', img: 'https://yt3.ggpht.com/ytc/AKedOLTAirqzFYUbcrpr8K0Bh8iDCZvBopbEb3K9klVNBA=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'michael jackson', img: 'https://yt3.ggpht.com/ytc/AKedOLRKkpURBGspdclOcPs6lr2Ds0S6VEIWIImSCQ63iA=s800-c-k-c0xffffffff-no-rj-mo' }]} />
+                        }                        </div>
                     <MainLayout>
                         <div className='card'>
                             <div className='card-header'>
-
-                                <h1>{this.getTime()}, {this.props.user.username}</h1>
-                                <h3>Your favorite artists</h3>
-                            </div>
-                            {
-                                user.userPref ?
-                                    <FavoriteArtists artists={user.userPref.slice(0, 4)} /> :
-                                    <FavoriteArtists artists={[{ artist: 'justin bieber', img: 'https://yt3.ggpht.com/ytc/AKedOLTKwkiuIDMtT7w-C55QJm3-FxExhi3So7EWofYGuQ=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'ed sheeran', img: 'https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'billie eilish', img: 'https://yt3.ggpht.com/ytc/AKedOLTAirqzFYUbcrpr8K0Bh8iDCZvBopbEb3K9klVNBA=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'michael jackson', img: 'https://yt3.ggpht.com/ytc/AKedOLRKkpURBGspdclOcPs6lr2Ds0S6VEIWIImSCQ63iA=s800-c-k-c0xffffffff-no-rj-mo' }]} />
-                            }                        </div>
-                        <div className='card'>
-                            <div className='card-header'>
-
                                 <h3>Rock Music</h3>
                             </div>
                             <div className="flex genre">
-                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                                {stations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
                             </div>
                         </div>
 
@@ -85,7 +85,7 @@ class _Home extends Component {
                             </div>
                             <div className="flex genre">
 
-                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                                {stations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
                             </div>
                         </div>
                         <div className='card'>
@@ -94,7 +94,7 @@ class _Home extends Component {
                             </div>
                             <div className="flex genre">
                                 {likedStations &&
-                                    likedStations.map((station => <StationPreview key={station._id} station={station} />))}
+                                    likedStations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>
