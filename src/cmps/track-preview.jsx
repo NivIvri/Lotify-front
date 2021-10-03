@@ -110,7 +110,7 @@ class _TrackPreview extends Component {
     playTrack = async (track, idx) => {
         const { currStation, queue, currTrack, playNextQueue } = this.props
         let songs
-        if (currStation) {//from station
+        if (currStation) {//only if clicking on station details not from queue!
             songs = [...currStation.songs];
         } else {
             if (queue.length && queue.some(trackFromQueue => track.id === trackFromQueue.id)) {//From Queue
