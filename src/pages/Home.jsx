@@ -56,7 +56,7 @@ class _Home extends Component {
                 <div class="shadow">
 
                     <div className="hero">
-                        <h1>Listen to your favorite music in <span className="logo">Lotify<span>.</span></span></h1>
+                        <h1>Listen to your favorite music on <span className="logo">Lotify<span>.</span></span></h1>
                     </div>
                 </div>
                 <section className='station-container'>
