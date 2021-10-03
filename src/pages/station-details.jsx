@@ -146,7 +146,7 @@ class _StationDetails extends Component {
                 <Link className="fas back fa-chevron-left" to="/"></Link>
                 <div className='bar-action flex'>
                     <button className="play-rand" onClick={this.playRandTrack}>
-                        <i class={this.props.isPlaying ? "fas fa-pause" : "fas fa-play"}></i>
+                        <i class={this.props.isPlaying&&this.props.playedStation===station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
                     {
                         this.state.isLike && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>

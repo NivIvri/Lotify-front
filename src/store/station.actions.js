@@ -91,6 +91,29 @@ export function setPlay() {
     }
 }
 
+export function setCurrStation(station) {
+    return async (dispatch) => {
+        dispatch(
+            {
+                type: 'SET_CURR_STATION',
+                station
+            }
+        )
+
+    }
+}
+export function unshuffleQueue(playedStation) {
+    return async (dispatch) => {
+        let queue = await stationService.getStationById(playedStation)
+        queue = queue.songs
+        dispatch({
+            type: 'SET_QUEUE',
+            queue,
+            stationId: playedStation
+        })
+    }
+}
+
 export function shuffleQueue(queue) {
     for (let i = queue.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));

@@ -1,12 +1,12 @@
 .main-nav {
-  position        : fixed;
-  left            : 0;
-  width           : 250px;
-  height          : 100vh;
-  background-color: $main-nav-bg;
-  color           : white;
-  padding-top     : 1.8rem;
-  overflow-x      : hidden // padding-left    : 2rem;
+  position           : fixed;
+  left               : 0;
+  width              : 250px;
+  height             : 100vh;
+  background-color   : $main-nav-bg;
+  color              : white;
+  padding-top        : 1.8rem;
+  // padding-left    : 2rem;
 }
 
 .offset-main {
@@ -61,6 +61,7 @@
       padding-top    : 10px;
       max-height     : 60vh;
       overflow-y     : scroll;
+      overflow-x     : hidden;
       padding-bottom : 100px;
       scrollbar-width: thin;
 

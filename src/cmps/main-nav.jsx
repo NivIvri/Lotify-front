@@ -58,15 +58,17 @@ class _MainNav extends React.Component {
                 <img src={logo} alt="" />
               </div>
               <h4>Lotify
-              <span>.</span>
+                <span>.</span>
               </h4>
             </div>
           </Link>
           <ul className="primary-nav">
             {links.map(link => {
               return <li key={link.id} onClick={() => this.handleClick(link.id)} className={link.id === activLink ? 'active' : ''}>
-                <span className={`nav-icon fas ${link.fa}`}></span>
-                <NavLink to={link.to}>{link.name}</NavLink>
+
+                <NavLink to={link.to}>
+                  <span className={`nav-icon fas ${link.fa}`}></span>
+                  {link.name}</NavLink>
               </li>
             })}
             <li onClick={() => { eventBusService.emit("create-playlist") }} className="nav-create">
@@ -94,7 +96,9 @@ class _MainNav extends React.Component {
               {
                 stations.map(station => {
                   return <li key={station._id} onClick={() => this.setSelectedStationId(station._id)}><NavLink to={`/station/${station._id}`}
-                    className={selectedStationId === station._id ? 'selected-station' : ''}>{station.name}</NavLink></li>
+                    className={selectedStationId === station._id ? 'selected-station' : ''}>
+                    {station.name.length < 28 ? station.name : station.name.slice(0, 28) + '...'}
+                  </NavLink></li>
                 })
               }
 

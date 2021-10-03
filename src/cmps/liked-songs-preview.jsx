@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { toggleIsPlaying } from '../store/station.actions.js';
-import { setCurrTrack, setQueue } from '../store/station.actions.js';
+import { setCurrTrack, setQueue, setCurrStation, setPlay } from '../store/station.actions.js';
 import { loadUser } from '../store/user.actions';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ class _LikedSongsPreview extends React.Component {
     playRandTrack = async () => {
         const { station, currStation } = this.props
         let songs;
-        if (station._id !== currStation) {
+        if (!currStation || station._id !== currStation._id) {
 
             let user = await this.props.user
             if (!user) {
@@ -30,8 +30,12 @@ class _LikedSongsPreview extends React.Component {
             const track = songs[idx]
             this.props.setCurrTrack(track, idx);
             this.props.setQueue([...songs], station._id);
+            this.props.setCurrStation(station)
+            this.props.setPlay()
         }
-        this.props.toggleIsPlaying()
+        else {
+            this.props.toggleIsPlaying()
+        }
     }
 
     navigateToStation = (stationId) => {
@@ -52,7 +56,7 @@ class _LikedSongsPreview extends React.Component {
                     e.stopPropagation()
                     this.playRandTrack()
                 }}>
-                    <i class={`play-icon ${isPlaying && (station._id === currStation) ? "fas fa-pause" : "fas fa-play"}`}></i>
+                    <i class={`play-icon ${isPlaying && (station._id === currStation._id) ? "fas fa-pause" : "fas fa-play"}`}></i>
                 </div>
             </div>
         )
@@ -74,7 +78,9 @@ const mapDispatchToProps = {
     setCurrTrack,
     setQueue,
     toggleIsPlaying,
-    loadUser
+    loadUser,
+    setCurrStation,
+    setPlay
 }
 
 
