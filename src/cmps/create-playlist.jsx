@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import SendIcon from '@mui/icons-material/Send';
 import CreatableSelect from 'react-select/creatable';
 import { eventBusService } from '../services/event-bus.service';
-// import { ActionMeta, OnChangeValue } from 'react-select';
 import { connect } from 'react-redux'
 import { addStation } from '../store/station.actions.js';
 
@@ -31,7 +29,7 @@ class _CreateStation extends Component {
     }
 
     create = (track) => {
-        this.setState({ isCreate: !this.state.isCreate, songs: [track] })
+        this.setState({ isCreate: !this.state.isCreate, songs: [track],station:{name:"",tags:[]}})
     }
 
     handleChange = ({ target }) => {
@@ -86,6 +84,7 @@ class _CreateStation extends Component {
                                 closeMenuOnSelect={false}
                                 options={this.labelOptions}
                                 isMulti
+                                value={this.state.station.tags.map(tag=>({value:tag,label:tag}))}
                                 placeholder="Tags..."
                             />
                             <div className="buttons flex">
@@ -93,7 +92,6 @@ class _CreateStation extends Component {
                                     Create
                                 </Button>
                             </div>
-                            {/* <button type='submit'>Create</button> */}
                         </form>
                     </div>
                 </div>
@@ -114,44 +112,3 @@ const mapDispatchToProps = {
 
 
 export const CreateStation = connect(mapStateToProps, mapDispatchToProps)(_CreateStation)
-
-
-
-//{
-//    "_id": "5c08",
-//    "name": "arctic monkeys",
-//    "tags": ["Funk", "Happy"],
-//    "createdAt": 1541652422,
-//    "createdBy": {
-//        "_id": "u101",
-//        "fullname": "app",
-//        "imgUrl": "http://some-photo/"
-//    },
-//    "likedByUsers": [],
-//    "songs": [
-//        {
-//            "id": "bpOSxM0rNPM",
-//            "title": "Arctic Monkeys - Do I Wanna Know?",
-//            "imgUrl": "https://i.ytimg.com/vi/bpOSxM0rNPM/hqdefault.jpg",
-//            "duration": "PT4M26S"
-//        },
-//        {
-//            "id": "6366dxFf-Os",
-//            "title": "Arctic Monkeys - Why`d You Only Call Me When You`re High?",
-//            "imgUrl": "https://i.ytimg.com/vi/6366dxFf-Os/hqdefault.jpg",
-//            "duration": "PT4M49S"
-//        },
-//        {
-//            "id": "VQH8ZTgna3Q",
-//            "title": "Arctic Monkeys - R U Mine?",
-//            "imgUrl": "https://i.ytimg.com/vi/VQH8ZTgna3Q/hqdefault.jpg",
-//            "duration": "PT3M44S"
-//        },
-//        {
-//            "id": "ma9I9VBKPiw",
-//            "title": "Arctic Monkeys - Fluorescent Adolescent",
-//            "imgUrl": "https://i.ytimg.com/vi/ma9I9VBKPiw/hqdefault.jpg",
-//            "duration": "PT3M16S"
-//        }
-//    ]
-//}
