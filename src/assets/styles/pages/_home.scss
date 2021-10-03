@@ -1,115 +1,128 @@
-.home-page {
+.home-page,
+.station-page {
   width: 100%;
+
   h1 {
-    font-size: 32px;
-    font-weight: 700;
+    font-size     : 32px;
+    font-weight   : 700;
     letter-spacing: -0.04em;
-    line-height: 36px;
+    line-height   : 36px;
     text-transform: none;
-    font-family: "Quicksand-Bold";
+    font-family   : "Quicksand-Bold";
   }
+
   h3 {
-    font-size: 24px;
-    font-weight: 700;
+    font-size     : 24px;
+    font-weight   : 700;
     letter-spacing: -0.04em;
-    line-height: 28px;
+    line-height   : 28px;
     text-transform: none;
   }
 
   h4 {
     font-size: 16px;
+
     &::first-letter {
       text-transform: uppercase;
     }
   }
+
   .card-top {
     padding: 3rem 25.6px;
   }
+
   .card {
     margin-bottom: 16px;
-    min-height: 300px;
-    min-width: 100%;
+    min-height   : 300px;
+    min-width    : 100%;
+
     .card-header {
       padding-bottom: 16px;
     }
   }
+
   .main-container {
     padding-top: unset;
   }
 }
-.shadow
-{
-    display:block;
-    position:relative;
+
+.shadow {
+  display : block;
+  position: relative;
 }
+
 .shadow:before {
-  display: block;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  display   : block;
+  content   : "";
+  position  : absolute;
+  width     : 100%;
+  height    : 100%;
   box-shadow: inset 0px 0px 3px 2px #121212;
 }
 
 .hero {
-  background-image: url("../../img/hero-pic1.jpg");
-  width: 100%;
-  height: 55vh;
+  background-image     : url("../../img/hero-pic1.jpg");
+  width                : 100%;
+  height               : 55vh;
   background-position-y: -86px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  background-size      : cover;
+  background-repeat    : no-repeat;
+  display              : flex;
+  justify-content      : center;
+  align-items          : center;
+  text-align           : center;
 
   h1 {
-    position: absolute;
-    top: 49px;
-    font-size: 1.5rem;
+    position   : absolute;
+    top        : 49px;
+    font-size  : 1.5rem;
     font-family: "Quicksand-Bold";
-    top: 22px;
+    top        : 22px;
   }
+
   .logo {
     //font-family: "Lobster", cursive;
 
-    > span {
+    >span {
       color: #04c504;
     }
   }
 }
 
 .favorite-artists {
-  display: grid;
+  display              : grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 20px;
+  grid-template-rows   : 1fr 1fr;
+  gap                  : 10px;
+  margin-bottom        : 20px;
 
   a {
-    width: 100%;
-    display: flex;
-    grid-gap: 20px;
-    align-items: center;
+    width           : 100%;
+    display         : flex;
+    grid-gap        : 20px;
+    align-items     : center;
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    height: 80px;
-    position: relative;
-    transition: background-color 0.3s ease;
+    border-radius   : 4px;
+    height          : 80px;
+    position        : relative;
+    transition      : background-color 0.3s ease;
+
     &:hover {
       background: rgba(255, 255, 255, 0.2);
     }
   }
+
   img {
-    margin: -10px -10px -18px -5px;
-    height: 102px;
-    width: 102px;
+    margin    : -10px -10px -18px -5px;
+    height    : 102px;
+    width     : 102px;
     object-fit: cover;
   }
+
   .img-container {
-    float: left;
-    margin: 0.5em 10px 0.5em 0;
-    overflow: hidden;
+    float        : left;
+    margin       : 0.5em 10px 0.5em 0;
+    overflow     : hidden;
     border-radius: 2px;
   }
 }
@@ -120,14 +133,16 @@
     //margin-bottom: 20px;
     //width: 100%;
     ////flex-wrap: wrap;
-    overflow: hidden;
-    gap: 10px;
+    overflow     : hidden;
+    gap          : 10px;
     margin-bottom: 20px;
-    width: 100%;
-    display: grid;
+    width        : 100%;
+    display      : grid;
+
     grid-template-columns: repeat(auto-fill, 200px);
+
     justify-items: center;
-    float: left;
+    float        : left;
 
     h4 {
       font-weight: bolder;
@@ -136,27 +151,43 @@
     p {
       font-size: 0.8rem;
     }
+
     .station-preview {
       max-width: 200px;
       min-width: 200px;
-      padding: 0.8rem;
+
+      // ori- I set the same padding in station-preview scss
+      // padding      : 0.8rem;
       margin-bottom: 16px;
+
+      &.liked-songs {
+        grid-column: 1 / span 2;
+        max-width  : 100%;
+        background : linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
+      }
+
       .img-container {
-        margin: 0.5em 10px 0.5em 0;
-        overflow: hidden;
+        margin       : 0.5em 10px 0.5em 0;
+        overflow     : hidden;
         border-radius: 2px;
+
         img {
-          margin: -64px -64px -64px -64px;
-          height: 293px;
-          width: 269px;
+          margin    : -64px -64px -64px -64px;
+          height    : 293px;
+          width     : 269px;
           object-fit: cover;
         }
+
+
+
       }
+
       h3 {
         padding-top: 10px;
       }
     }
   }
+
   //.playlist-container {
   //  flex-direction: column;
   //  margin-bottom: 16px;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 
 import { StationPreview } from '../cmps/station-preview.jsx';
-import { LikedSongs } from '../cmps/liked-songs-preview.jsx';
+import { LikedSongsPreview } from '../cmps/liked-songs-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
 
 class _Stations extends Component {
@@ -30,8 +30,33 @@ class _Stations extends Component {
     const { stations } = this.props
     if (!stations) return <h1>loading...</h1>
     return (
-      //<div className="stations-container">
-      //<div className="main-container">
+      <div className="station-page">
+        <div className="station-container">
+          <MainLayout>
+            <header>
+              <h1>Playlists</h1>
+            </header>
+            <section className='card'>
+              <div className="flex genre">
+                {stations.map((station, idx) => {
+                  return idx === 0 ?
+                    <LikedSongsPreview key={station._id} station={station} /> :
+                    <StationPreview key={station._id} station={station} />
+
+                })
+                }
+
+              </div>
+            </section>
+            {/* </div> */}
+          </MainLayout >
+        </div>
+
+      </div>
+    )
+
+
+    return (
       <div className="stations-wrapper">
         <MainLayout>
           <header>
@@ -41,7 +66,7 @@ class _Stations extends Component {
 
             {stations.map((station, idx) => {
               return idx === 0 ?
-                <LikedSongs key={station._id} station={station} /> :
+                <LikedSongsPreview key={station._id} station={station} /> :
                 <StationPreview key={station._id} station={station} />
 
             })
