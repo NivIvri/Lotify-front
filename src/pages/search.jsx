@@ -46,6 +46,8 @@ class _Search extends React.Component {
     delayedHandleChange = _.debounce(async () => {
         let trackResult = await stationService.searchSong(this.state.keySearch);
         let stationResult = await stationService.searchStation(this.state.keySearch);
+        let stationResultApi = await stationService.getStationByTag(this.state.keySearch);
+        stationResult= stationResult.concat(stationResultApi)
         if (trackResult.length === 0) return
         else {
             this.setState({ trackResult, stationResult }, () => {
