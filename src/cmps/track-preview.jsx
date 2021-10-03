@@ -98,8 +98,8 @@ class _TrackPreview extends Component {
             stationId = this.props.currStation
         }
         await stationService.addToStation(track, stationId)
-        if (this.props.currStation) {
-        }
+        //if (this.props.currStation) {
+        //}
     }
 
     onRemoveFromStation = async (track, stationId) => {
@@ -184,18 +184,19 @@ class _TrackPreview extends Component {
                                     return (<MenuItem onClick={() => { this.onAddToStation(track, station._id) }}>{station.name}</MenuItem>)
                                 })
                                 }
-                                <MenuItem onClick={() => eventBusService.emit("create-playlist",track)}>Create playlist</MenuItem>
+                                <MenuItem onClick={() => eventBusService.emit("create-playlist", track)}>Create playlist</MenuItem>
                             </SubMenu>
                         </Menu>
                     </div>
                 }
                 {
                     this.props?.isOnDeatils &&
-                    <button onClick={(ev) => {
+                    <button className='add-track-btn' onClick={async (ev) => {
+                        debugger
                         ev.stopPropagation()
-                        this.props.loadStation()
-                        this.onAddToStation(track, this.props.stationId)
-                    }}>add to playlist</button>
+                        await this.onAddToStation(track, this.props.stationId)
+                        await this.props.loadStation()
+                    }}>Add</button>
                 }
             </div>
         )

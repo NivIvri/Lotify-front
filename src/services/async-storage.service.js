@@ -105,11 +105,11 @@ async function searchSong(keySerch) {
         return (songCache)
     }
     try {
-        const res = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${keySerch}&type=video&videoCategoryId=10&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
+        const res = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${keySerch}&type=video&videoCategoryId=10&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)
         let idxs = res.data.items.map(track => track.id.videoId)
         idxs = idxs.join()
 
-        let duration = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${idxs}&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
+        let duration = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${idxs}&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)
         duration = duration.data.items.map(track => track.contentDetails.duration)
         songCache = res.data
         if (!res.data?.items.length) return []
@@ -156,9 +156,9 @@ async function getStationByTag(tagName) {
     //    return (songCache)
     //}
     try {
-        const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${tagName}&type=playlist&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
+        const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${tagName}&type=playlist&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)
         let stations = await res.data.items.map(async (station) => {
-            const songs = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${station.id.playlistId}&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
+            const songs = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${station.id.playlistId}&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)
             return {
                 ganer: tagName,
                 name: station.snippet.title,

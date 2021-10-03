@@ -5,8 +5,9 @@ import { DraggableTrackPreview } from './draggable-track-preview';
 
 
 
-export const DraggableTrackList = SortableContainer(({ songs, currStation, loadStation
+export const DraggableTrackList = SortableContainer(({ songs, currStation, loadStation, isShowAll
 }) => {
+  const sliceNum = isShowAll ? songs.length : 7
   return (
     <div className="station-track-list flex column">
       <div className="list-headers flex">
@@ -20,10 +21,9 @@ export const DraggableTrackList = SortableContainer(({ songs, currStation, loadS
       {
 
         songs.map((track, idx) => {
-
           return <DraggableTrackPreview key={track.id} index={idx} track={track} idx={idx}
             currStation={currStation} loadStation={loadStation} />
-        })
+        }).slice(0, sliceNum)
 
       }
 

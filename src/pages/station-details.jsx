@@ -21,7 +21,8 @@ class _StationDetails extends Component {
         isPlaying: false,
         songs: null,
         isLike: false,
-        isFindMore: false
+        isFindMore: false,
+        isShowAll: false
     }
     async componentDidMount() {
         await this.loadStation()
@@ -40,8 +41,7 @@ class _StationDetails extends Component {
 
     async componentDidUpdate(prevState) {
         const { stationId } = this.props.match.params
-        debugger
-        if (stationId !== this.state.station._id && stationId !== this.state.station.ganer || this.state?.station.length != prevState.station?.length) {
+        if (stationId !== this.state.station._id && stationId !== this.state.station.ganer) {
             await this.loadStation()
             let user = await this.props.user
             if (!user) {
@@ -59,6 +59,7 @@ class _StationDetails extends Component {
 
 
     loadStation = async () => {
+        debugger
         const { stationId } = this.props.match.params;
         let station = await stationService.getStationById(stationId)
         let user;
@@ -121,7 +122,7 @@ class _StationDetails extends Component {
         })
     }
     render() {
-        const { station, isFindMore } = this.state
+        const { station, isFindMore, isShowAll } = this.state
         if (!station) return <h1>not found</h1>
         const { loadStations, addToNextQueue, stations } = this.props;
         return (
@@ -155,12 +156,17 @@ class _StationDetails extends Component {
                     }
                 </div>
                 <MainLayout>
+
                     <DraggableTrackList songs={station.songs} currStation={station}
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
-                        distance='20' />
-
-                    <div className='find-more' onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
-                        {isFindMore ? 'Find less' : 'Find more!'}
+                        distance='20' isShowAll={isShowAll} />
+                    <div className='show-btn flex'>
+                        <div className='find-more' onClick={() => { this.setState({ isShowAll: !this.state.isShowAll }) }}>
+                            {isShowAll ? 'Show less' : 'Show all playlist'}
+                        </div>
+                        <div className='find-more' onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
+                            {isFindMore ? 'Find less' : 'Find more tracks!'}
+                        </div>
                     </div>
                     {isFindMore &&
                         <>

@@ -19,7 +19,7 @@
             transition-timing-function: cubic-bezier(0.3, 0, 0.4, 1);
             width: 100%;
         }
-        .main-container{
+        .main-container {
             display: block;
         }
     }
@@ -99,7 +99,6 @@
     .play-rand {
         i {
             position: relative;
-            left: 3px;
             font-style: normal;
         }
 
@@ -223,6 +222,10 @@
         justify-content: flex-end;
         margin: 37px 0px;
     }
+
+    .show-btn {
+        justify-content: space-evenly;
+    }
 }
 
 .station-actions {
@@ -236,4 +239,28 @@
         border: none;
         // opacity         : 0;
     }
+}
+
+.add-track-btn{
+    border: 2px solid transparent;
+    border-radius: 500px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    letter-spacing: 1.76px;
+    line-height: 18px;
+    padding: 8px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    -webkit-transition: all 33ms cubic-bezier(.3,0,0,1);
+    transition: all 33ms cubic-bezier(.3,0,0,1);
+    white-space: nowrap;
+    will-change: transform;
+    background-color: transparent;
+    border: 1px solid #535353;
+    &:hover{
+        transform: scale(1.06);
+        background-color: transparent;
+        border: 1px solid #535353;
+        }
 }
