@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import createStationImg from '../assets/img/create-station.jpg'
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
 import CreatableSelect from 'react-select/creatable';
 import { eventBusService } from '../services/event-bus.service';
@@ -14,6 +14,7 @@ class _CreateStation extends Component {
             name: "",
             tags: [],
         },
+        songs: [],
         isCreate: false
     }
 
@@ -29,8 +30,8 @@ class _CreateStation extends Component {
         eventBusService.on("create-playlist", this.create)
     }
 
-    create = () => {
-        this.setState({ isCreate: !this.state.isCreate })
+    create = (track) => {
+        this.setState({ isCreate: !this.state.isCreate, songs: [track] })
     }
 
     handleChange = ({ target }) => {
@@ -41,19 +42,18 @@ class _CreateStation extends Component {
         }
         const key = target.name
         const val = target.value
-        this.setState(prevState => ({ ...prevState, station: { ...prevState.station, [key]: val } }),
-            console.log(this.state))
+        this.setState(prevState => ({ ...prevState, station: { ...prevState.station, [key]: val } }))
     }
 
 
     onAddStation = (ev) => {
         ev.preventDefault()
+        if (!this.state.station.name) { }
         const newStation = {
-            name: this.state.station.name,
+            name: this.state.station.name ? this.state.station.name : 'Playlist',
             tags: this.state.station.tags,
             likedByUsers: [],
-            songs: [
-            ]
+            songs: this.state.songs
         }
         this.props.addStation(newStation)
         this.create()
@@ -66,20 +66,19 @@ class _CreateStation extends Component {
             <>
                 <div className={`create-playlist ${isCreate ? "on" : "off"}`} onSubmit={(ev) => { this.onAddStation(ev) }}>
                     <div className="header">
-                        <h1>Create station</h1>
+                        <h1>Create Playlist</h1>
                         <button onClick={this.create}>X</button>
                     </div>
                     <div className="body flex">
                         <form onSubmit={(ev) => ev.preventDefault()}>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Station's name"
+                            <TextField
+                                className="create-name"
+                                label="Name"
                                 value={station.name}
-                                onChange={this.handleChange}
+                                name="name"
                                 autoComplete="off"
+                                onChange={this.handleChange}
                             />
-
                             <CreatableSelect
                                 onChange={(e) => this.handleChange({ 'target': e })}
                                 name='label'
@@ -89,9 +88,11 @@ class _CreateStation extends Component {
                                 isMulti
                                 placeholder="Tags..."
                             />
-                            <Button variant="contained" endIcon={<SendIcon />}>
-                                Send
-                            </Button>
+                            <div className="buttons flex">
+                                <Button variant="contained" onClick={this.onAddStation}>
+                                    Create
+                                </Button>
+                            </div>
                             {/* <button type='submit'>Create</button> */}
                         </form>
                     </div>
