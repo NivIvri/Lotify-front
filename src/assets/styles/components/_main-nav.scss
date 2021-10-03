@@ -1,12 +1,12 @@
 .main-nav {
-  position           : fixed;
-  left               : 0;
-  width              : 250px;
-  height             : 100vh;
-  background-color   : $main-nav-bg;
-  color              : white;
-  padding-top        : 1.8rem;
-  // padding-left    : 2rem;
+  position        : fixed;
+  left            : 0;
+  width           : 250px;
+  height          : 100vh;
+  background-color: $main-nav-bg;
+  color           : white;
+  padding-top     : 1.8rem;
+  overflow-x      : hidden // padding-left    : 2rem;
 }
 
 .offset-main {
@@ -22,14 +22,14 @@
   color        : white;
   margin-bottom: 1rem;
 
-   h4 > span {
-      color: #04c504;
-    }
+  h4>span {
+    color: #04c504;
+  }
 
   img {
     display      : block;
     width        : 1.6rem;
-    margin-right: 5px;
+    margin-right : 5px;
     // object-fit: cover;
   }
 }
