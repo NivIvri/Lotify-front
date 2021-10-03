@@ -120,7 +120,9 @@ class _TrackPreview extends Component {
             }
         }
         this.props.setCurrTrack(track, idx);
-        this.props.setQueue(songs, currStation._id)
+        if (!track.nextQueue) {
+            this.props.setQueue(songs, currStation?._id)
+        }
     }
 
     toggleLike = async (ev) => {
@@ -145,7 +147,7 @@ class _TrackPreview extends Component {
                 {this.props.currTrack && this.props.currTrack?.id === track.id && this.props.isPlaying &&
                     <div className="track-num"> < img className='isPlaying' src={isPlying} /></div>
                 }
-                {(!this.props.currTrack || this.props.currTrack.id !== track.id ||!this.props.isPlaying) &&
+                {(!this.props.currTrack || this.props.currTrack.id !== track.id || !this.props.isPlaying) &&
                     <div className="track-num">{idx + 1}</div>}
                 <div className="track-img"><img src={track.imgUrl} alt="" /></div>
                 <div className="track-title">{track.title}</div>
