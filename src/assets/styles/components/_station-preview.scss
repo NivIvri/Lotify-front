@@ -1,7 +1,7 @@
 .station-preview {
   // width: 200px;
   background-color: #181818;
-  padding         : 1rem;
+  padding         : 0.8rem;
   border-radius   : 8px;
   transition      : background-color 0.3s ease;
 
@@ -14,12 +14,9 @@
     }
   }
 
-  &.liked-songs {
-    grid-column: 1 / span 2;
-    background : linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
-  }
 
-  .img-container {
+
+  .station-img-container {
     margin-bottom: 1rem;
     border-radius: 4px;
   }

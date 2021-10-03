@@ -29,7 +29,7 @@ class _StationPreview extends React.Component {
         return (
             <div className="station-preview">
                 <div className="img-card" onClick={() => this.navigateToStation(station._id)}>
-                    <div className="square-ratio img-container">
+                    <div className="square-ratio station-img-container">
                         {station.songs.length > 0 &&
                             <img src={`${station.songs[0].imgUrl}`} />
                         }
@@ -44,11 +44,8 @@ class _StationPreview extends React.Component {
                             <i class={`play-icon ${isPlaying && (station._id === currStation) ? "fas fa-pause" : "fas fa-play"}`}></i>
                         </div>
                     </div>
-                    {/* <ThemeProvider theme={theme}>
-                                <PlayCircleFilledWhiteIcon className='play-icon' color="primary" />
-                            </ThemeProvider> */}
                     <div className="station-name-header">
-                        {station.name.length < 50 ? station.name : station.name.slice(0, 50) + '...'}
+                        {station.name.length < 25 ? station.name : station.name.slice(0, 25) + '...'}
                     </div>
                     <p className="station-desc">
                         {!station.songs.length ? '' :
