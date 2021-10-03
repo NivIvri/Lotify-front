@@ -93,10 +93,12 @@ class _TrackPreview extends Component {
         return str;
     }
 
-    onAddToStation = async (track, stationId) => {
+    onAddToStation = async (track, stationId = null) => {
+        if (!stationId) {
+            stationId = this.props.currStation
+        }
         await stationService.addToStation(track, stationId)
         if (this.props.currStation) {
-            this.props.loadStation()
         }
     }
 
@@ -143,7 +145,6 @@ class _TrackPreview extends Component {
     }
 
     render() {
-        console.log(this.props.currTrack, 'this.props.currTrack');
         const { track, idx, currStation, stations, user } = this.props
         console.log(this.state.isLike, 'this.stste.isLike');
         return (
@@ -167,23 +168,35 @@ class _TrackPreview extends Component {
                         !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
                     }
                 </div>
-                <div className="button-cell track-actions" onClick={(ev) => { ev.stopPropagation() }}>
-                    <Menu menuButton={
-                        <MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
-                        <MenuItem onClick={() => this.props.addToNextQueue(track)}>Add To queue</MenuItem>
-                        {currStation && <MenuItem onClick={() => {
-                            this.onRemoveFromStation(track, currStation._id)
-                        }
-                        }>Remove from station</MenuItem>}
-                        <SubMenu label="Add to playlist">
-                            {stations.map((station) => {
-                                return (<MenuItem onClick={() => { this.onAddToStation(track, station._id) }}>{station.name}</MenuItem>)
-                            })
+                {
+
+                    !this.props?.isOnDeatils &&
+                    <div className="button-cell track-actions" onClick={(ev) => { ev.stopPropagation() }}>
+                        <Menu menuButton={
+                            <MenuButton><i className="fas fa-ellipsis-h"></i></MenuButton>}>
+                            <MenuItem onClick={() => this.props.addToNextQueue(track)}>Add To queue</MenuItem>
+                            {currStation && <MenuItem onClick={() => {
+                                this.onRemoveFromStation(track, currStation._id)
                             }
-                            <MenuItem onClick={() => eventBusService.emit("create-playlist")}>Create playlist</MenuItem>
-                        </SubMenu>
-                    </Menu>
-                </div>
+                            }>Remove from station</MenuItem>}
+                            <SubMenu label="Add to playlist">
+                                {stations.map((station) => {
+                                    return (<MenuItem onClick={() => { this.onAddToStation(track, station._id) }}>{station.name}</MenuItem>)
+                                })
+                                }
+                                <MenuItem onClick={() => eventBusService.emit("create-playlist")}>Create playlist</MenuItem>
+                            </SubMenu>
+                        </Menu>
+                    </div>
+                }
+                {
+                    this.props?.isOnDeatils &&
+                    <button onClick={(ev) => {
+                        ev.stopPropagation()
+                        this.props.loadStation()
+                        this.onAddToStation(track, this.props.stationId)
+                    }}>add to playlist</button>
+                }
             </div>
         )
     }
@@ -198,6 +211,7 @@ function mapStateToProps(state) {
         playNextQueue: state.stationMoudle.playNextQueue,
         isPlaying: state.stationMoudle.isPlaying,
         user: state.userMoudle.user,
+
     }
 }
 const mapDispatchToProps = {

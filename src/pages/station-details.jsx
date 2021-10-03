@@ -12,6 +12,7 @@ import { arrayMoveImmutable } from 'array-move';
 import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 //import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 import heartNotChecked from '../assets/img/heart-regular.svg';
+import { Search } from './search.jsx';
 
 class _StationDetails extends Component {
     state = {
@@ -19,7 +20,8 @@ class _StationDetails extends Component {
         station: null,
         isPlaying: false,
         songs: null,
-        isLike: false
+        isLike: false,
+        isFindMore: false
     }
     async componentDidMount() {
         await this.loadStation()
@@ -36,9 +38,10 @@ class _StationDetails extends Component {
         }
     }
 
-    async componentDidUpdate() {
+    async componentDidUpdate(prevState) {
         const { stationId } = this.props.match.params
-        if (stationId !== this.state.station._id && stationId !== this.state.station.ganer) {
+        debugger
+        if (stationId !== this.state.station._id && stationId !== this.state.station.ganer || this.state?.station.length != prevState.station?.length) {
             await this.loadStation()
             let user = await this.props.user
             if (!user) {
@@ -121,7 +124,7 @@ class _StationDetails extends Component {
         })
     }
     render() {
-        const { station } = this.state
+        const { station, isFindMore } = this.state
         if (!station) return <h1>not found</h1>
         const { loadStations, addToNextQueue, stations } = this.props;
         return (
@@ -159,7 +162,15 @@ class _StationDetails extends Component {
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
                         distance='20' />
 
-
+                    <div className='find-more' onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
+                        {isFindMore ? 'Find less' : 'Find more!'}
+                    </div>
+                    {isFindMore &&
+                        <>
+                            <span>Let's find something to your station</span>
+                            <Search loadStation={this.loadStation} stationId={this.state.stationId} isOnDeatils={true} />
+                        </>
+                    }
                 </MainLayout>
             </section>
         )
