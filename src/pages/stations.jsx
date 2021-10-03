@@ -16,36 +16,26 @@ class _Stations extends Component {
   }
 
 
-
-  /**
-   * 
-   *  <div className="stations-container">
-   *    <section className='stationss-container card-grid'>
-   *  </section>
-   * </div>
-   * 
-   */
+  getLikedSongsStation = (stations) => {
+    return stations.find(station => station._id === 'likedTracks')
+  }
 
   render() {
-    const { stations } = this.props
+    let { stations } = this.props
     if (!stations) return <h1>loading...</h1>
+    const likedSongsStation = this.getLikedSongsStation(stations)
+    stations = stations.filter(station => station._id !== 'likedTracks')
     return (
       <div className="station-page">
         <div className="station-container">
           <MainLayout>
-            <header>
+            <header className="stations-header">
               <h1>Playlists</h1>
             </header>
             <section className='card'>
               <div className="flex genre">
-                {stations.map((station, idx) => {
-                  return idx === 0 ?
-                    <LikedSongsPreview key={station._id} station={station} /> :
-                    <StationPreview key={station._id} station={station} />
-
-                })
-                }
-
+                <LikedSongsPreview station={likedSongsStation} />
+                {stations.map(station => <StationPreview key={station._id} station={station} />)}
               </div>
             </section>
             {/* </div> */}

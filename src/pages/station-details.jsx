@@ -105,10 +105,7 @@ class _StationDetails extends Component {
         const { station } = this.state
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
         this.setState((prevState) => ({ ...prevState, station }))
-        console.log(this.props.currStation);
-        console.log(this.state.stationId);
-        if (this.props.currTrack && this.props.currStation === this.state.stationId) {
-            console.log('here');
+        if (this.props.currTrack && this.props.playedStation === this.state.stationId) {
             this.props.setQueue([...station.songs], this.state.stationId)
         }
     }
@@ -184,7 +181,7 @@ function mapStateToProps(state) {
         isPlaying: state.stationMoudle.isPlaying,
         queue: state.stationMoudle.queue,
         currTrack: state.stationMoudle.currTrack,
-        currStation: state.stationMoudle.currStation,
+        playedStation: state.stationMoudle.playedStation,
         user: state.userMoudle.user,
     }
 }
