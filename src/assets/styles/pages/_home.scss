@@ -160,9 +160,10 @@
       // padding      : 0.8rem;
       margin-bottom: 16px;
 
-      &.liked-songs {
+      &.liked-songs-link {
+        display    : block;
         grid-column: 1 / span 2;
-        max-width  : 100%;
+        min-width  : 100%;
         background : linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
       }
 

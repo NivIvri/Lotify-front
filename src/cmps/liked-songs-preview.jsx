@@ -1,10 +1,46 @@
 import { Link } from 'react-router-dom'
-export function LikedSongsPreview({ station }) {
-    return (
-        // original code
-        // <div className="station-preview liked-songs">
-        <div className="station-preview liked-songs">
-            <Link className="img-card" to={`/station/${station._id}`}>
+import { toggleIsPlaying } from '../store/station.actions.js';
+import { setCurrTrack, setQueue } from '../store/station.actions.js';
+import { loadUser } from '../store/user.actions';
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from "react-router";
+
+
+class _LikedSongsPreview extends React.Component {
+
+    playRandTrack = async () => {
+        const { station, currStation } = this.props
+        let songs;
+        if (station._id !== currStation) {
+
+            let user = await this.props.user
+            if (!user) {
+                await this.props.loadUser();
+                user = await this.props.user
+            }
+            if (user.likedTracks) {
+                // console.log(user.likedTracks);
+                songs = [...user.likedTracks]
+            }
+            else {
+                console.log('no liked tracks');
+            }
+            const idx = Math.floor(Math.random() * (songs.length))
+            const track = songs[idx]
+            this.props.setCurrTrack(track, idx);
+            this.props.setQueue([...songs], station._id);
+        }
+        this.props.toggleIsPlaying()
+    }
+
+    navigateToStation = (stationId) => {
+        this.props.history.push(`/station/${stationId}`)
+    }
+    render() {
+        const { station, currStation, isPlaying } = this.props
+        return (
+            <div className="station-preview liked-songs-link" onClick={() => this.navigateToStation(station._id)}>
                 <h3 className="station-name-header">{station.name}</h3>
                 <p className="station-desc">
                     {station.songs.reduce((songStr, song) => {
@@ -12,7 +48,49 @@ export function LikedSongsPreview({ station }) {
                         return songStr;
                     }, '').slice(0, 30) + '...'}
                 </p>
-            </Link>
-        </div>
-    )
+                <div className="liked-songs-play-icon-container" onClick={(e) => {
+                    e.stopPropagation()
+                    this.playRandTrack()
+                }}>
+                    <i class={`play-icon ${isPlaying && (station._id === currStation) ? "fas fa-pause" : "fas fa-play"}`}></i>
+                </div>
+            </div>
+        )
+    }
 }
+
+function mapStateToProps(state) {
+    return {
+        stations: state.stationMoudle.stations,
+        isPlaying: state.stationMoudle.isPlaying,
+        queue: state.stationMoudle.queue,
+        currTrack: state.stationMoudle.currTrack,
+        currStation: state.stationMoudle.currStation,
+        user: state.userMoudle.user,
+
+    }
+}
+const mapDispatchToProps = {
+    setCurrTrack,
+    setQueue,
+    toggleIsPlaying,
+    loadUser
+}
+
+
+const __LikedSongsPreview = connect(mapStateToProps, mapDispatchToProps)(_LikedSongsPreview)
+export const LikedSongsPreview = withRouter(__LikedSongsPreview);
+// export function LikedSongsPreview({ station }) {
+    // return (
+    //     <Link className="station-preview liked-songs-link" to={`/station/${station._id}`}>
+    //         <h3 className="station-name-header">{station.name}</h3>
+    //         <p className="station-desc">
+    //             {station.songs.reduce((songStr, song) => {
+    //                 songStr += ',' + song.title
+    //                 return songStr;
+    //             }, '').slice(0, 30) + '...'}
+    //         </p>
+    //     </Link>
+//         // </div>
+//     )
+// }
