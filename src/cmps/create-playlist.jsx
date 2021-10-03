@@ -29,7 +29,8 @@ class _CreateStation extends Component {
     }
 
     create = (track) => {
-        this.setState({ isCreate: !this.state.isCreate, songs: [track],station:{name:"",tags:[]}})
+        const songs = track ? [track] : []
+        this.setState({ isCreate: !this.state.isCreate, songs, station: { name: "", tags: [] } })
     }
 
     handleChange = ({ target }) => {
@@ -84,11 +85,11 @@ class _CreateStation extends Component {
                                 closeMenuOnSelect={false}
                                 options={this.labelOptions}
                                 isMulti
-                                value={this.state.station.tags.map(tag=>({value:tag,label:tag}))}
+                                value={this.state.station.tags.map(tag => ({ value: tag, label: tag }))}
                                 placeholder="Tags..."
                             />
                             <div className="buttons flex">
-                                <Button variant="contained" onClick={this.onAddStation}>
+                                <Button style={{ height: "33px", background: '#1db954' }} variant="contained" onClick={this.onAddStation}>
                                     Create
                                 </Button>
                             </div>
