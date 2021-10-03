@@ -34,10 +34,8 @@ class _TrackPreview extends Component {
             await this.props.loadUser();
             user = await this.props.user
         }
-
+        //track save as object
         const trackIdxs = this.props.user.likedTracks.map(track => track.id)
-        // const isLiked = trackIdxs.includes(this.props.currTrack.id)
-        console.log(this.props.track.id, 'this.props.track.id');
         if (trackIdxs.includes(this.props.track.id)) {
 
             this.setState({ isLike: true })
@@ -45,19 +43,21 @@ class _TrackPreview extends Component {
 
     }
 
+
+
     async componentDidUpdate(prevProps) {
-        if (prevProps.track.id !== this.props.track.id) {
+        if ((prevProps.track.id !== this.props.track.id) || (this.props.user.likedTracks.length !== prevProps.user.likedTracks.length)) {
             await this.props.loadStations()
             let user = await this.props.user
             if (!user) {
                 await this.props.loadUser();
                 user = await this.props.user
             }
-            if (user.likedTracks.includes(this.props.track.id)) {
+            const trackIdxs = this.props.user.likedTracks.map(track => track.id)
+            if (trackIdxs.includes(this.props.track.id)) {
                 this.setState({ isLike: true })
             }
             else this.setState({ isLike: false })
-
         }
     }
 
@@ -108,7 +108,7 @@ class _TrackPreview extends Component {
     }
 
     playTrack = async (track, idx) => {
-        const { currStation, queue, currTrack } = this.props
+        const { currStation, queue, currTrack, playNextQueue } = this.props
         let songs
         if (currStation) {//from station
             songs = [...currStation.songs];
@@ -116,8 +116,14 @@ class _TrackPreview extends Component {
             if (queue.length && queue.some(trackFromQueue => track.id === trackFromQueue.id)) {//From Queue
                 songs = [...queue, currTrack]
             } else {//from search
-                songs = [track]
+                if (playNextQueue.length && playNextQueue.some(trackFromQueue => track.id === trackFromQueue.id)) {
+                    songs = [...queue, currTrack]
+                }
+                else {
+                    songs = [track]
+                }
             }
+
         }
         this.props.setCurrTrack(track, idx);
         this.props.setQueue(songs, idx)
@@ -145,7 +151,7 @@ class _TrackPreview extends Component {
                 {this.props.currTrack && this.props.currTrack?.id === track.id && this.props.isPlaying &&
                     <div className="track-num"> < img className='isPlaying' src={isPlying} /></div>
                 }
-                {(!this.props.currTrack || this.props.currTrack.id !== track.id ||!this.props.isPlaying) &&
+                {(!this.props.currTrack || this.props.currTrack.id !== track.id || !this.props.isPlaying) &&
                     <div className="track-num">{idx + 1}</div>}
                 <div className="track-img"><img src={track.imgUrl} alt="" /></div>
                 <div className="track-title">{track.title}</div>
@@ -187,6 +193,7 @@ function mapStateToProps(state) {
         stations: state.stationMoudle.stations,
         queue: state.stationMoudle.queue,
         currTrack: state.stationMoudle.currTrack,
+        playNextQueue: state.stationMoudle.playNextQueue,
         isPlaying: state.stationMoudle.isPlaying,
         user: state.userMoudle.user,
     }

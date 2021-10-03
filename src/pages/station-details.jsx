@@ -74,7 +74,6 @@ class _StationDetails extends Component {
                 console.log('no liked tracks');
             }
         }
-        // debugger
         if (!station) {
             station = await stationService.getStationByTag(stationId)
             if (station)

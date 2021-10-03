@@ -27,7 +27,9 @@ export function setCurrTrack(track, idx) {
     }
 }
 
+
 export function setQueue(queue, stationId = 0) {
+    queue = queue.filter(track => !track.nextQueue)
     return async (dispatch) => {
         dispatch({
             type: 'SET_QUEUE',
