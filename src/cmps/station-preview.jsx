@@ -1,6 +1,6 @@
 import stationImg from '../assets/img/stationImg.jpg'
 import { toggleIsPlaying } from '../store/station.actions.js';
-import { setCurrTrack, setQueue } from '../store/station.actions.js';
+import { setCurrTrack, setQueue, setCurrStation, setPlay } from '../store/station.actions.js';
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from "react-router";
@@ -9,14 +9,18 @@ class _StationPreview extends React.Component {
 
     playRandTrack = () => {
         const { station, currStation } = this.props
-        if (station._id !== currStation) {
+        if (!currStation || station._id !== currStation._id) {
             const songs = [...station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
             this.props.setCurrTrack(track, idx);
             this.props.setQueue([...songs], station._id);
+            this.props.setCurrStation(station)
+            this.props.setPlay()
         }
-        this.props.toggleIsPlaying()
+        else {
+            this.props.toggleIsPlaying()
+        }
     }
 
     navigateToStation = (stationId) => {
@@ -41,7 +45,7 @@ class _StationPreview extends React.Component {
                             e.stopPropagation()
                             this.playRandTrack()
                         }}>
-                            <i class={`play-icon ${isPlaying && (station._id === currStation) ? "fas fa-pause" : "fas fa-play"}`}></i>
+                            <i class={`play-icon ${isPlaying && (station._id === currStation._id) ? "fas fa-pause" : "fas fa-play"}`}></i>
                         </div>
                     </div>
                     <div className="station-name-header">
@@ -78,7 +82,9 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     setCurrTrack,
     setQueue,
-    toggleIsPlaying
+    toggleIsPlaying,
+    setCurrStation,
+    setPlay
 }
 
 

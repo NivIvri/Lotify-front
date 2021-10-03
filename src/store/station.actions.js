@@ -91,6 +91,17 @@ export function setPlay() {
     }
 }
 
+export function setCurrStation(station) {
+    return async (dispatch) => {
+        dispatch(
+            {
+                type: 'SET_CURR_STATION',
+                station
+            }
+        )
+
+    }
+}
 export function shuffleQueue(queue) {
     for (let i = queue.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
