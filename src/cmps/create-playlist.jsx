@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import createStationImg from '../assets/img/create-station.jpg'
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
+import TextField from '@mui/material/TextField';
 import CreatableSelect from 'react-select/creatable';
 import { eventBusService } from '../services/event-bus.service';
-// import { ActionMeta, OnChangeValue } from 'react-select';
 import { connect } from 'react-redux'
 import { addStation } from '../store/station.actions.js';
 
@@ -14,6 +12,7 @@ class _CreateStation extends Component {
             name: "",
             tags: [],
         },
+        songs: [],
         isCreate: false
     }
 
@@ -29,8 +28,8 @@ class _CreateStation extends Component {
         eventBusService.on("create-playlist", this.create)
     }
 
-    create = () => {
-        this.setState({ isCreate: !this.state.isCreate })
+    create = (track) => {
+        this.setState({ isCreate: !this.state.isCreate, songs: [track],station:{name:"",tags:[]}})
     }
 
     handleChange = ({ target }) => {
@@ -41,19 +40,18 @@ class _CreateStation extends Component {
         }
         const key = target.name
         const val = target.value
-        this.setState(prevState => ({ ...prevState, station: { ...prevState.station, [key]: val } }),
-            console.log(this.state))
+        this.setState(prevState => ({ ...prevState, station: { ...prevState.station, [key]: val } }))
     }
 
 
     onAddStation = (ev) => {
         ev.preventDefault()
+        if (!this.state.station.name) { }
         const newStation = {
-            name: this.state.station.name,
+            name: this.state.station.name ? this.state.station.name : 'Playlist',
             tags: this.state.station.tags,
             likedByUsers: [],
-            songs: [
-            ]
+            songs: this.state.songs
         }
         this.props.addStation(newStation)
         this.create()
@@ -66,20 +64,19 @@ class _CreateStation extends Component {
             <>
                 <div className={`create-playlist ${isCreate ? "on" : "off"}`} onSubmit={(ev) => { this.onAddStation(ev) }}>
                     <div className="header">
-                        <h1>Create station</h1>
+                        <h1>Create Playlist</h1>
                         <button onClick={this.create}>X</button>
                     </div>
                     <div className="body flex">
                         <form onSubmit={(ev) => ev.preventDefault()}>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Station's name"
+                            <TextField
+                                className="create-name"
+                                label="Name"
                                 value={station.name}
-                                onChange={this.handleChange}
+                                name="name"
                                 autoComplete="off"
+                                onChange={this.handleChange}
                             />
-
                             <CreatableSelect
                                 onChange={(e) => this.handleChange({ 'target': e })}
                                 name='label'
@@ -87,12 +84,14 @@ class _CreateStation extends Component {
                                 closeMenuOnSelect={false}
                                 options={this.labelOptions}
                                 isMulti
+                                value={this.state.station.tags.map(tag=>({value:tag,label:tag}))}
                                 placeholder="Tags..."
                             />
-                            <Button variant="contained" endIcon={<SendIcon />}>
-                                Send
-                            </Button>
-                            {/* <button type='submit'>Create</button> */}
+                            <div className="buttons flex">
+                                <Button variant="contained" onClick={this.onAddStation}>
+                                    Create
+                                </Button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -113,44 +112,3 @@ const mapDispatchToProps = {
 
 
 export const CreateStation = connect(mapStateToProps, mapDispatchToProps)(_CreateStation)
-
-
-
-//{
-//    "_id": "5c08",
-//    "name": "arctic monkeys",
-//    "tags": ["Funk", "Happy"],
-//    "createdAt": 1541652422,
-//    "createdBy": {
-//        "_id": "u101",
-//        "fullname": "app",
-//        "imgUrl": "http://some-photo/"
-//    },
-//    "likedByUsers": [],
-//    "songs": [
-//        {
-//            "id": "bpOSxM0rNPM",
-//            "title": "Arctic Monkeys - Do I Wanna Know?",
-//            "imgUrl": "https://i.ytimg.com/vi/bpOSxM0rNPM/hqdefault.jpg",
-//            "duration": "PT4M26S"
-//        },
-//        {
-//            "id": "6366dxFf-Os",
-//            "title": "Arctic Monkeys - Why`d You Only Call Me When You`re High?",
-//            "imgUrl": "https://i.ytimg.com/vi/6366dxFf-Os/hqdefault.jpg",
-//            "duration": "PT4M49S"
-//        },
-//        {
-//            "id": "VQH8ZTgna3Q",
-//            "title": "Arctic Monkeys - R U Mine?",
-//            "imgUrl": "https://i.ytimg.com/vi/VQH8ZTgna3Q/hqdefault.jpg",
-//            "duration": "PT3M44S"
-//        },
-//        {
-//            "id": "ma9I9VBKPiw",
-//            "title": "Arctic Monkeys - Fluorescent Adolescent",
-//            "imgUrl": "https://i.ytimg.com/vi/ma9I9VBKPiw/hqdefault.jpg",
-//            "duration": "PT3M16S"
-//        }
-//    ]
-//}
