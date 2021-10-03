@@ -47,7 +47,8 @@ class _Home extends Component {
     }
 
     render() {
-        const { stations, user } = this.props
+        let { stations, user } = this.props
+        stations = stations.filter(station => station._id !== 'likedTracks')
         const { likedStations } = this.state
         if (!stations && !this.props.user && !likedStations) return <h1>loading...</h1>
         return (
