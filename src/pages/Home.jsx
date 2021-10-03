@@ -7,6 +7,7 @@ import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
 import { loadUser } from '../store/user.actions';
 import { stationService } from '../services/async-storage.service.js';
+import { stationServiceNew } from '../services/station.service.js';
 
 class _Home extends Component {
     state = {
@@ -33,7 +34,7 @@ class _Home extends Component {
     getLikedStation = async () => {
 
         let unresolvedPromises = await this.props.user.likedStations.map((stationId => {
-            return stationService.getStationById(stationId);
+            return stationServiceNew.getStationById(stationId);
         }
         ))
 

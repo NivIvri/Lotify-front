@@ -13,6 +13,7 @@ import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 //import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 import heartNotChecked from '../assets/img/heart-regular.svg';
 import { Search } from './search.jsx';
+import { stationServiceNew } from '../services/station.service.js';
 
 class _StationDetails extends Component {
     state = {
@@ -59,9 +60,18 @@ class _StationDetails extends Component {
 
 
     loadStation = async () => {
-        debugger
         const { stationId } = this.props.match.params;
-        let station = await stationService.getStationById(stationId)
+
+        try {
+            debugger
+            var station = await stationServiceNew.getStationById(stationId)
+
+        }
+        catch {
+            station = await stationService.getStationByTag(stationId)
+            if (station)
+                station = station[0]
+        }
         let user;
         if (stationId === 'likedTracks') {
             user = await this.props.user
@@ -77,12 +87,6 @@ class _StationDetails extends Component {
             else {
                 console.log('no liked tracks');
             }
-        }
-        if (!station) {
-            station = await stationService.getStationByTag(stationId)
-            if (station)
-                station = station[0]
-            //<Redirect> </Redirect>
         }
         if (station) {
             this.setState({ station, stationId: station._id, songs: station.songs })
@@ -146,7 +150,7 @@ class _StationDetails extends Component {
                 <Link className="fas back fa-chevron-left" to="/"></Link>
                 <div className='bar-action flex'>
                     <button className="play-rand" onClick={this.playRandTrack}>
-                        <i class={this.props.isPlaying&&this.props.playedStation===station._id ? "fas fa-pause" : "fas fa-play"}></i>
+                        <i class={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
                     {
                         this.state.isLike && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>

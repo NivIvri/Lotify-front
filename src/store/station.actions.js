@@ -1,9 +1,9 @@
 import { stationService } from "../services/async-storage.service.js";
-
+import { stationServiceNew } from "../services/station.service.js";
 export function loadStations() {
     return async (dispatch) => {
         try {
-            const stations = await stationService.query()
+            const stations = await stationServiceNew.query()
             console.log('stations from DB:', stations)
             dispatch({
                 type: 'SET_STATIONS',
