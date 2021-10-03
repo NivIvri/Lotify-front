@@ -74,7 +74,6 @@ class _StationDetails extends Component {
                 console.log('no liked tracks');
             }
         }
-        debugger
         if (!station) {
             station = await stationService.getStationByTag(stationId)
             if (station)
@@ -103,7 +102,10 @@ class _StationDetails extends Component {
         const { station } = this.state
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
         this.setState((prevState) => ({ ...prevState, station }))
+        console.log(this.props.currStation);
+        console.log(this.state.stationId);
         if (this.props.currTrack && this.props.currStation === this.state.stationId) {
+            console.log('here');
             this.props.setQueue([...station.songs], this.state.stationId)
         }
     }
@@ -171,8 +173,8 @@ function mapStateToProps(state) {
         isPlaying: state.stationMoudle.isPlaying,
         queue: state.stationMoudle.queue,
         currTrack: state.stationMoudle.currTrack,
+        currStation: state.stationMoudle.currStation,
         user: state.userMoudle.user,
-
     }
 }
 const mapDispatchToProps = {
