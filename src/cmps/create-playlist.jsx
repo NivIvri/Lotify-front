@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import createStationImg from '../assets/img/create-station.jpg'
-
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 import CreatableSelect from 'react-select/creatable';
 import { eventBusService } from '../services/event-bus.service';
 // import { ActionMeta, OnChangeValue } from 'react-select';
@@ -69,10 +70,6 @@ class _CreateStation extends Component {
                         <button onClick={this.create}>X</button>
                     </div>
                     <div className="body flex">
-                        <div>
-
-                            <img src={createStationImg} alt="" />
-                        </div>
                         <form onSubmit={(ev) => ev.preventDefault()}>
                             <input
                                 type="text"
@@ -92,8 +89,10 @@ class _CreateStation extends Component {
                                 isMulti
                                 placeholder="Tags..."
                             />
-
-                            <button type='submit'>Create</button>
+                            <Button variant="contained" endIcon={<SendIcon />}>
+                                Send
+                            </Button>
+                            {/* <button type='submit'>Create</button> */}
                         </form>
                     </div>
                 </div>
