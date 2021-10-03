@@ -126,7 +126,9 @@ class _TrackPreview extends Component {
 
         }
         this.props.setCurrTrack(track, idx);
-        this.props.setQueue(songs, currStation._id)
+        if (!track.nextQueue) {
+            this.props.setQueue(songs, currStation?._id)
+        }
     }
 
     toggleLike = async (ev) => {
