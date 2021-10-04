@@ -5,23 +5,23 @@
 html {
     //height         : 100%;
     //width          : 100%;
-    color: #fff;
+    color               : #fff;
     //font-family    : "Noto Sans", serif;
-    line-height: 1.4;
-    scroll-behavior: smooth;
+    line-height         : 1.4;
+    // scroll-behavior  : smooth;
 }
 
 body {
-    background-color: #121212;
+    background-color            : #121212;
     //background-image          : linear-gradient(#0F2C43, #121212);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    // max-height             : 100vh;
-    width: 100%;
-    font-family: "Quicksand-Light";
-    margin: 0;
-    // overflow-y          : scroll
+    background-repeat           : no-repeat;
+    background-size             : cover;
+    height                      : 100%;
+    max-height                  : 100vh;
+    width                       : 100%;
+    font-family                 : "Quicksand-Light";
+    margin                      : 0;
+    overflow-y                  : hidden;
     // background-image    : linear-gradient(#0F2C43, #121212);
     // background-size     : cover;
     // height              : 100%;
@@ -32,7 +32,7 @@ body {
     // overflow         : hidden;
 
     &::-webkit-scrollbar {
-        width: 12px;
+        width        : 12px;
         // transition: all 0.6s ease-in-out;
     }
 
@@ -41,16 +41,17 @@ body {
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: #555;
-        border-radius: 5px;
+        background-color      : #555;
+        border-radius         : 5px;
         // -webkit-transition : all 3s ease-in-out;
-        transition: all 2s ease-in;
+        transition            : all 2s ease-in;
 
         &:hover {
             background-color: $main-nav-hover;
         }
     }
 }
+
 main {
     width: 100%;
 }
@@ -69,18 +70,20 @@ p {
 }
 
 a {
+
     &,
     &:hover,
     &:focus,
     &:active {
         text-decoration: none;
-        color: inherit;
+        color          : inherit;
     }
 }
 
 ul {
     padding: 0;
 }
+
 i {
     font-style: normal;
 }

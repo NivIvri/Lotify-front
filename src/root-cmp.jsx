@@ -9,18 +9,30 @@ export class RootCmp extends React.Component {
 
     render() {
         return (
-            <div>
-                <main className="flex">
-                    <CreateStation />
-                   <MainNav />
+            <main className="main-app">
+                <CreateStation />
+                <MainNav />
 
-                    <Switch>
-                        {routes.map(route => <Route key={route.path} exact component={route.component} path={route.path} />)}
-                    </Switch>
-
-                </main>
+                <Switch>
+                    {routes.map(route => <Route key={route.path} exact component={route.component} path={route.path} />)}
+                </Switch>
                 <AppFooter />
-            </div>
+
+            </main>
+
+
+            // <div>
+            // <main className="flex">
+            //     <CreateStation />
+            //    <MainNav />
+
+            //     <Switch>
+            //         {routes.map(route => <Route key={route.path} exact component={route.component} path={route.path} />)}
+            //     </Switch>
+
+            // </main>
+            //     <AppFooter />
+            // </div>
         )
     }
 }
