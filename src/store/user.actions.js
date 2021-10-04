@@ -6,8 +6,9 @@ export function loadUser() {
     return async dispatch => {
         try {
             console.log('action user');
-            const user = await userService.getLoggedinUser()
-
+            const user=await userService.login({username:'EthanGeo'})
+            console.log(user);
+            // const user = await userService.getLoggedinUser()
             dispatch({ type: 'SET_USER', user })
         } catch (err) {
             console.log('UserActions: err in loadUsers', err)

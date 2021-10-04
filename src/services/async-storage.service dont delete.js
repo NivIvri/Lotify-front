@@ -2,7 +2,7 @@ import storageService from '../services/storage.service'
 import { utilService } from './util.service.js'
 import { gPlaylists } from "./data";
 import axios from 'axios'
-export const stationService = {
+export const guestService = {
     query,
     saveStation,
     deleteStation,
@@ -78,9 +78,6 @@ function _createStations() {
     var stations = storageService.loadFromStorage(KEY)
     if (!stations || !stations.length) {
         stations = []
-        gPlaylists.map(playlist => {
-            stations.push(playlist)
-        })
     }
     gStations = stations;
     _saveStationsToStorage();

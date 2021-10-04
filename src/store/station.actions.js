@@ -1,8 +1,14 @@
+import { guestService } from "../services/async-storage.service dont delete.js";
 import { stationServiceNew } from "../services/station.service.js";
+import { userService } from "../services/user.service.js";
+
+
 export function loadStations() {
     return async (dispatch) => {
         try {
-            const stations = await stationServiceNew.query()
+            let stations = await stationServiceNew.query()
+            let guestStations = await guestService.query()
+            stations = stations.concat(guestStations)
             dispatch({
                 type: 'SET_STATIONS',
                 stations
@@ -17,8 +23,11 @@ export function loadStations() {
 
 export function addStation(newStation) {
     return async (dispatch) => {
-        debugger
-        newStation = await stationServiceNew.saveStation(newStation)
+        if(await userService.isGuest()){
+            newStation = await guestService.saveStation(newStation)
+        }else{
+            newStation = await stationServiceNew.saveStation(newStation)
+        }
         dispatch({
             type: 'ADD_STATION',
             newStation

@@ -2,126 +2,129 @@ import storageService from '../services/storage.service'
 import { utilService } from './util.service.js'
 import { gPlaylists } from "./data";
 import axios from 'axios'
+import { update } from 'lodash';
 export const userService = {
-    query,
-    saveStation,
-    getStationById,
-    getNextStationId,
     getLoggedinUser,
+    getUserById,
     addLikeToTrack,
     removeLikeFromTrack,
-    setUserPref
+    // setUserPref,
+    isGuest,
+    signup,
+    login,
+    logout
+}
+const STORAGE_KEY = "user"
+const URL='http://localhost:3030/api'
+// const KEY = 'user';
+// var gUser;
+// _createUser();
+
+async function signup(user) {
+    let userToSave = await axios.post(`${URL}/auth/signup`, user)
+    userToSave = userToSave.data
+    storageService.saveToStorage(STORAGE_KEY, JSON.stringify(userToSave))
+    return userToSave
 }
 
-
-const KEY = 'user';
-var gUser;
-_createUser();
-
-function query(filterBy) {
-    return Promise.resolve(gUser)
+async function login(credentials) {
+    let userToSave = await axios.post(`${URL}/auth/login`, credentials)
+    userToSave = userToSave.data
+    storageService.saveToStorage(STORAGE_KEY, JSON.stringify(userToSave))
+    return userToSave
 }
 
+async function logout() {
+    const removed = await axios.post(`${URL}/auth/logout`)
+    storageService.removeFromStorage(STORAGE_KEY)
+    return removed
+}
+
+async function updateUser(user) {
+    let updatedUser = await axios.put(`${URL}/user/${user._id}`, user)
+    return updatedUser.data
+}
+
+function getLoggedinUser() {
+    return JSON.parse(storageService.loadFromStorage(STORAGE_KEY))
+}
+
+async function isGuest() {
+    const user = getLoggedinUser()
+    console.log('here');
+    return user.username === "guest"
+}
+
+// function query(filterBy) {
+//     return Promise.resolve(gUser)
+// }
 
 async function addLikeToTrack(trackId, stationOrTrack) {
+    let user = getLoggedinUser()
+    console.log(user);
     if (stationOrTrack === 'station') {
-        await gUser.likedStations.push(trackId)
-        //stationServiceNew.saveStation(stations[0])
+        user.likedStations.push(trackId)
     }
     else {
-        await gUser.likedTracks.push(trackId)
+        user.likedTracks.push(trackId)
     }
-    _saveStationsToStorage()
-    return Promise.resolve()
+    // const isGuest=await isGuest()
+    // console.log(isGuest);
+    if (user.username!=="guest") {
+        user = await updateUser(user)
+    }
+    _saveUserToStorage(user)
+    return user
 }
 
 async function removeLikeFromTrack(currTrackId, stationOrTrack) {
+    let user = getLoggedinUser()
+    console.log(user);
     if (stationOrTrack === 'station') {
-        let likedStations = gUser.likedStations.filter(trackId => trackId !== currTrackId)
-        gUser.likedStations = likedStations
+        let likedStations = user.likedStations.filter(trackId => trackId !== currTrackId)
+        user.likedStations = likedStations
     }
     else {
-        let likedTracks = gUser.likedTracks.filter(track => track.id !== currTrackId)
-        gUser.likedTracks = likedTracks
+        let likedTracks = user.likedTracks.filter(track => track.id !== currTrackId)
+        user.likedTracks = likedTracks
     }
-
-    _saveStationsToStorage()
-    return Promise.resolve()
-}
-
-async function getLoggedinUser() {
-    return Promise.resolve(gUser)
-}
-
-async function setUserPref(userPref) {
-    gUser.userPref = userPref
-    _saveStationsToStorage()
-}
-
-
-function saveStation(userToEdit) {
-    return userToEdit.id ? _updateStation(userToEdit) : _addStation(userToEdit)
-}
-
-
-function _addStation(userToEdit) {
-    var user = _createStation(userToEdit)
-    gUser.unshift(user)
-    _saveStationsToStorage();
-    return Promise.resolve(user)
-}
-
-function _updateStation(userToEdit) {
-    var userIdx = gUser.findIndex(function (user) {
-        return user.id === userToEdit.id;
-    })
-    gUser[userIdx] = userToEdit
-    _saveStationsToStorage();
-    return Promise.resolve()
-}
-
-
-function getStationById(userId) {
-    console.log(gUser);
-    var user = gUser.find(function (user) {
-        return userId === user._id
-    })
-    return Promise.resolve(user)
-}
-
-
-function getNextStationId(userId) {
-    const userIdx = gUser.findIndex(user => user.id === userId)
-    let nextStationIdx = userIdx + 1
-    if (nextStationIdx === gUser.length) nextStationIdx = 0
-    return gUser[nextStationIdx].id
-}
-
-function _createStation(userToEdit) {
-    userToEdit._id = utilService.makeId()
-    return userToEdit
-}
-
-function _createUser() {
-    var user = storageService.loadFromStorage(KEY)
-    //user = user ? storageService.loadFromStorage(KEY) : []
-    if (!user) {
-        user =
-        {
-            username: 'guest123',
-            fullname: 'b',
-            likedTracks: [],  // songs that marked with 'like'
-            likedStations: [],
-            recentlyPlayedStations: [],
-            recentlyPlayedSongs: [],
-            userPref: [],
-        }
+    if (user.username!=="guest") {
+        user = await updateUser(user)
     }
-    gUser = user;
-    _saveStationsToStorage();
+    _saveUserToStorage(user)
+    return user
 }
 
-function _saveStationsToStorage() {
-    storageService.saveToStorage(KEY, gUser)
+// async function setUserPref(userPref) {
+//     user.userPref = userPref
+//     _saveStationsToStorage()
+// }
+
+async function getUserById(userId) {
+    let user = await axios.get(`${URL}/user/${user._id}`)
+    return user
+}
+
+// function _createUser() {
+//     var user = storageService.loadFromStorage(KEY)
+//     //user = user ? storageService.loadFromStorage(KEY) : []
+//     if (!user) {
+//         user =
+//         {
+//             username: 'guest123',
+//             fullname: 'b',
+//             likedTracks: [],  // songs that marked with 'like'
+//             likedStations: [],
+//             recentlyPlayedStations: [],
+//             recentlyPlayedSongs: [],
+//             userPref: [],
+//         }
+//     }
+//     gUser = user;
+//     _saveStationsToStorage();
+// }
+
+function _saveUserToStorage(user) {
+    storageService.saveToStorage(STORAGE_KEY, user)
 }
 
