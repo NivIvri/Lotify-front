@@ -20,7 +20,6 @@ class _LikedSongsPreview extends React.Component {
                 user = await this.props.user
             }
             if (user.likedTracks) {
-                // console.log(user.likedTracks);
                 songs = [...user.likedTracks]
             }
             else {
@@ -43,6 +42,7 @@ class _LikedSongsPreview extends React.Component {
     }
     render() {
         const { station, currStation, isPlaying } = this.props
+        if (!station) return <div> not found</div>
         return (
             <div className="station-preview liked-songs-link" onClick={() => this.navigateToStation(station._id)}>
                 <h3 className="station-name-header">{station.name}</h3>

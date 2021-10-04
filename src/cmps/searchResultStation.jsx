@@ -21,7 +21,6 @@ export class SearchResultStation extends React.Component {
 
     render() {
         const { stationResult } = this.state
-        console.log(stationResult, 'stationResult');
         if (!stationResult || !stationResult.length) return <div>No station found</div>
         return (
             <section className='search-result-container'>

@@ -70,7 +70,6 @@ class _AppFooter extends Component {
         if (!this.props.currTrack) return
 
         this.setState({ played: parseFloat(e.target.value) },
-            console.log(this.state.played, 'played')
         )
     }
 
@@ -94,7 +93,6 @@ class _AppFooter extends Component {
     }
 
     ref = player => {
-        console.log(player, 'player');
         this.player = player
     }
 
@@ -116,7 +114,6 @@ class _AppFooter extends Component {
         this.props.playPrevTrack()
     }
     handleDuration = (duration) => {
-        console.log('onDuration', duration)
         this.setState({ duration })
     }
 

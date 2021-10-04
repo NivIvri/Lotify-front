@@ -6,7 +6,6 @@ import { FavoriteArtists } from '../cmps/favorite-artists.jsx';
 import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
 import { loadUser } from '../store/user.actions';
-import { stationService } from '../services/async-storage.service.js';
 import { stationServiceNew } from '../services/station.service.js';
 
 class _Home extends Component {
@@ -39,11 +38,7 @@ class _Home extends Component {
         ))
 
         const results = await Promise.all(unresolvedPromises);
-        console.log(results, 'likedStations');
         this.setState({ likedStations: results })
-        results.map(station => console.log(station, 'dfdsf'))
-        { this.props.stations.map((station => console.log(station, 'station'))) }
-
         //this.props.user.likedStations.map((station => <StationPreview key={station._id} station={station} />))
     }
 

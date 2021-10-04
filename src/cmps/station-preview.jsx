@@ -23,18 +23,19 @@ class _StationPreview extends React.Component {
         }
     }
 
-    navigateToStation = (stationId) => {
+    navigateToStation = (station) => {
+        let stationId = station._id ? station._id : station.genre
         this.props.history.push(`/station/${stationId}`)
     }
 
     render() {
         const { station, currStation, isPlaying } = this.props
-
+        if (!station) return <div>loading...</div>
         return (
             <div className="station-preview">
-                <div className="img-card" onClick={() => this.navigateToStation(station._id)}>
+                <div className="img-card" onClick={() => this.navigateToStation(station)}>
                     <div className="square-ratio station-img-container">
-                        {station.songs.length > 0 && station.songs[0]?.imgUrl &&
+                        {station.songs?.length > 0 && station.songs[0]?.imgUrl &&
                             <img src={`${station.songs[0].imgUrl}`} />
                         }
                         {!station.songs.length &&

@@ -3,7 +3,6 @@
 // import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
 // import '@szhsin/react-menu/dist/index.css';
 // import '@szhsin/react-menu/dist/transitions/slide.css';
-// import { stationService } from '../services/async-storage.service';
 // import { eventBusService } from '../services/event-bus.service';
 // import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
 // import heartChecked from '../assets/img/heart-checked.png';
@@ -14,12 +13,12 @@ import React, { Component } from 'react'
 import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
-import { stationService } from '../services/async-storage.service';
 import { eventBusService } from '../services/event-bus.service';
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
 import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import heartNotChecked from '../assets/img/heart-regular.svg';
 import isPlying from '../assets/img/isPlaying.gif'
+import { stationServiceNew } from '../services/station.service';
 
 class _TrackPreview extends Component {
     state = {
@@ -46,7 +45,7 @@ class _TrackPreview extends Component {
 
 
     async componentDidUpdate(prevProps) {
-        if ((prevProps.track.id !== this.props.track.id) || (this.props.user.likedTracks.length !== prevProps.user.likedTracks.length)) {
+        if ((prevProps.track.id !== this.props.track.id) || (this.props.user.likedTracks?.length !== prevProps.user.likedTracks?.length)) {
             await this.props.loadStations()
             let user = await this.props.user
             if (!user) {
@@ -97,13 +96,18 @@ class _TrackPreview extends Component {
         if (!stationId) {
             stationId = this.props.currStation
         }
-        await stationService.addToStation(track, stationId)
+        let stationToUpdate = await stationServiceNew.getStationById(stationId)
+        stationToUpdate.songs.push(track)
+        await stationServiceNew.saveStation(stationToUpdate)
         //if (this.props.currStation) {
         //}
     }
 
     onRemoveFromStation = async (track, stationId) => {
-        await stationService.removeFromStation(track, stationId)
+        let stationToUpdate = await stationServiceNew.getStationById(stationId)
+        const trackIdx = stationToUpdate.songs.findIndex(song => track.id === song.id)
+        stationToUpdate.songs.splice(trackIdx, 1)
+        await stationServiceNew.saveStation(stationToUpdate)
         if (this.props.currStation) {
             this.props.loadStation()
         }
@@ -146,7 +150,6 @@ class _TrackPreview extends Component {
 
     render() {
         const { track, idx, currStation, stations, user } = this.props
-        console.log(this.state.isLike, 'this.stste.isLike');
         return (
             // onClick={this.playTrack(track, idx)}
             //button-cell

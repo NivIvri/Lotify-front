@@ -45,7 +45,6 @@ class _MainNav extends React.Component {
     const { stations } = this.props
     const { activLink, links, selectedStationId } = this.state
     if (!links) {
-      console.log('not links');
       return <div>loading.</div>
     }
     return (

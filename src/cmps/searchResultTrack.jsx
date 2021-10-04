@@ -9,7 +9,6 @@ export class SearchResultTrack extends React.Component {
     componentDidMount() {
         const { trackResult } = this.props
         this.setState({ trackResult })
-        console.log(trackResult.slice(1), 'slice');
 
     }
     componentDidUpdate(prevProps) {
@@ -21,7 +20,6 @@ export class SearchResultTrack extends React.Component {
 
     render() {
         const { trackResult } = this.state
-        console.log(trackResult, 'trackResult');
         if (!trackResult || !trackResult.length) return <div>No track found</div>
         return (
             <section className='search-result-container'>

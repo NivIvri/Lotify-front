@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { MainLayout } from '../cmps/layout/MainLayout.jsx';
-import { TrackList } from '../cmps/trackList.jsx';
-import { stationService } from '../services/async-storage.service.js';
 import { setCurrTrack, addToNextQueue, setQueue, loadStations, toggleIsPlaying } from '../store/station.actions.js';
 import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import stationImg from '../assets/img/stationImg.jpg'
@@ -14,6 +12,7 @@ import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 import heartNotChecked from '../assets/img/heart-regular.svg';
 import { Search } from './search.jsx';
 import { stationServiceNew } from '../services/station.service.js';
+import { youtubeApiService } from '../services/youtubeApi.service.js';
 
 class _StationDetails extends Component {
     state = {
@@ -32,7 +31,7 @@ class _StationDetails extends Component {
             await this.props.loadUser();
             user = await this.props.user
         }
-        if (this.state.station) {
+        if (this.state.station && this.state.station._id) {
             if (user.likedStations.includes(this.state.station._id)) {
                 this.setState({ isLike: true })
             }
@@ -42,7 +41,7 @@ class _StationDetails extends Component {
 
     async componentDidUpdate(prevState) {
         const { stationId } = this.props.match.params
-        if (stationId !== this.state.station._id && stationId !== this.state.station.ganer) {
+        if (stationId !== this.state.station?._id && stationId !== this.state.station?.genre) {
             await this.loadStation()
             let user = await this.props.user
             if (!user) {
@@ -61,14 +60,11 @@ class _StationDetails extends Component {
 
     loadStation = async () => {
         const { stationId } = this.props.match.params;
-
         try {
-            debugger
             var station = await stationServiceNew.getStationById(stationId)
-
         }
         catch {
-            station = await stationService.getStationByTag(stationId)
+            station = await youtubeApiService.getStationByTag(stationId)
             if (station)
                 station = station[0]
         }
@@ -78,10 +74,8 @@ class _StationDetails extends Component {
             if (!user) {
                 await this.props.loadUser();
                 user = await this.props.user
-                // console.log('user', user);
             }
             if (user.likedTracks) {
-                // console.log(user.likedTracks);
                 station.songs = [...user.likedTracks]
             }
             else {
@@ -117,9 +111,16 @@ class _StationDetails extends Component {
 
     toggleLike = async (ev, stationOrTrack) => {
         ev.stopPropagation()
-        this.setState({ isLike: !this.state.isLike }, () => {
-            if (this.state.isLike)
-                this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
+        this.setState({ isLike: !this.state.isLike }, async () => {
+            if (this.state.isLike) {
+                if (!this.state.station._id) {
+                    const stationToSave = await stationServiceNew.saveStation(this.state.station)
+                    this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
+                }
+                else {
+                    this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
+                }
+            }
             else {
                 this.props.removeLikeFromTrack(this.state.station._id, stationOrTrack)
             }

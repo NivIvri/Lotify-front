@@ -1,5 +1,4 @@
 import { httpService } from './http.service.js'
-
 import Axios from 'axios'
 const axios = Axios.create({
     withCredentials: true
@@ -11,14 +10,9 @@ const BASE_URL = (process.env.NODE_ENV == 'production')
 export const stationServiceNew = {
     query,
     getStationById,
-    add,
-    update,
-    //getById,
-    //remove,
-    //add,
-    //addReview,
+    searchStation,
+    saveStation,
 }
-
 async function query(filterBy = {}) {
     //const res = await axios.get('http://localhost:3030/api/toy', { params: filterBy })
     const res = await axios.get(`${BASE_URL}`, { params: filterBy })
@@ -31,25 +25,33 @@ async function getStationById(stationId) {
 }
 
 
+function saveStation(stationToEdit) {
+    return stationToEdit._id ? _updateStation(stationToEdit) : _addStation(stationToEdit)
+}
 
+async function _addStation(stationToEdit) {
+    //var station = _createStation(stationToEdit)
+    //gStations.unshift(station)
+    //_saveStationsToStorage();
+    const res = await axios.post(`${BASE_URL}`, stationToEdit)
+    return res.data
+    //return Promise.resolve(station)
+}
 
-
-//async function remove(toyId) {
-//    await axios.delete(`${BASE_URL}/${toyId}`)
-//}
-
-
-async function add(newStation) {
-    console.log(newStation,'newStation');
-    const res = await axios.post(`${BASE_URL}`, newStation)
+async function _updateStation(stationToEdit) {
+    const res = await axios.put(`${BASE_URL}`, stationToEdit)
     return res.data
 }
-async function update(track, stationId) {
-    const res = await axios.put(`${BASE_URL}`, {track, stationId})
-    return res.data
+
+
+async function searchStation(keySearch) {
+    const stations = await query({ keySearch })
+    return stations
 }
-//async function addReview(toyId, review) {
-//    //const res = await axios.post('http://localhost:3030/api/toy/review', { toyId, review })
-//    const res = await axios.post(`${BASE_URL}/review`, { toyId, review })
-//    return res.data
-//}
+
+
+
+
+    //async function remove(toyId) {
+    //    await axios.delete(`${BASE_URL}/${toyId}`)
+    //}

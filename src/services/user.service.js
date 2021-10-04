@@ -26,6 +26,7 @@ function query(filterBy) {
 async function addLikeToTrack(trackId, stationOrTrack) {
     if (stationOrTrack === 'station') {
         await gUser.likedStations.push(trackId)
+        //stationServiceNew.saveStation(stations[0])
     }
     else {
         await gUser.likedTracks.push(trackId)
@@ -56,8 +57,6 @@ async function setUserPref(userPref) {
     gUser.userPref = userPref
     _saveStationsToStorage()
 }
-
-
 
 
 function saveStation(userToEdit) {

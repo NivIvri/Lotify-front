@@ -22,12 +22,13 @@ import classical from '../assets/img/classical-search.jpg';
 import blues from '../assets/img/blues-search.jpg';
 //import { debounce, throttle } from 'lodash';
 import { Link } from 'react-router-dom'
-import { stationService } from "../services/async-storage.service.js";
 import { connect } from 'react-redux'
 import { setCurrTrack, addToNextQueue, setQueue, playNextTrack } from '../store/station.actions.js';
 import { SearchResultTrack } from '../cmps/searchResultTrack';
 import { SearchResultStation } from '../cmps/searchResultStation';
 import { SearchResultStationDetails } from '../cmps/searchResultStationDetails';
+import { stationServiceNew } from '../services/station.service';
+import { apiService, youtubeApiService } from '../services/youtubeApi.service';
 var _ = require('lodash');
 
 
@@ -39,15 +40,24 @@ class _Search extends React.Component {
         stationResult: null
     }
 
-    //delayedHandleChange = _.debounce(eventData => stationService.searchSong(eventData), 700);
+    //delayedHandleChange = _.debounce(eventData => stationService.searchTrack(eventData), 700);
 
 
 
     delayedHandleChange = _.debounce(async () => {
-        let trackResult = await stationService.searchSong(this.state.keySearch);
-        let stationResult = await stationService.searchStation(this.state.keySearch);
-        let stationResultApi = await stationService.getStationByTag(this.state.keySearch);
-        stationResult= stationResult.concat(stationResultApi)
+
+        if (this.props?.isOnDeatils) {
+            var trackResult = await youtubeApiService.searchTrack(this.state.keySearch);
+            var stationResult=[]
+        }
+        else {
+            var trackResult = await youtubeApiService.searchTrack(this.state.keySearch);
+            var stationResult = await stationServiceNew.searchStation(this.state.keySearch);
+            var stationResultApi = await youtubeApiService.getStationByTag(this.state.keySearch);
+            if (!stationResult.some(result => result.name === stationResultApi[0].name))
+                stationResult = stationResult.concat(stationResultApi)
+        }
+
         if (trackResult.length === 0) return
         else {
             this.setState({ trackResult, stationResult }, () => {
@@ -97,7 +107,7 @@ class _Search extends React.Component {
                     {this.props?.isOnDeatils && <div>
                         {
                             isOnSearch &&
-                            <SearchResultStationDetails loadStation={this.props.loadStation} stationId={this.props.stationId}  trackResult={trackResult} playTrack={this.onPlayTrack} />
+                            <SearchResultStationDetails loadStation={this.props.loadStation} stationId={this.props.stationId} trackResult={trackResult} playTrack={this.onPlayTrack} />
                         }
                     </div>}
                     <div className='title'>Browse all</div>
@@ -134,7 +144,7 @@ class _Search extends React.Component {
                         <Link to="station/sleep">
                             <div className="div9" style={{ backgroundColor: 'rgb(30, 50, 100)' }}><span>sleep</span><img src={sleep} /></div>
                         </Link>
-                        <Link to="station/decades">
+                        <Link to="station/decade">
                             <div className="div10" style={{ backgroundColor: 'rgb(186, 93, 7)' }}><span>decades</span><img src={decades} /></div>
                         </Link>
                         <Link to="station/workout">
@@ -146,7 +156,7 @@ class _Search extends React.Component {
                         <Link to="station/travel">
                             <div className="div13" style={{ backgroundColor: 'rgb(45, 70, 185)' }}><span>travel</span><img src={travel} /></div>
                         </Link>
-                        <Link to="station/soul">
+                        <Link to="station/souls">
                             <div className="div15" style={{ backgroundColor: 'rgb(220, 20, 140)' }}><span>soul</span><img src={soul} /></div>
                         </Link>
                         <Link to="station/jazz">

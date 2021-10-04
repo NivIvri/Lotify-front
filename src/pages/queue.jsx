@@ -26,7 +26,6 @@ class _Queue extends React.Component {
                 <button>FIND SOMETHING TO PLAY</button>
             </Link>
         </div>
-        console.log(this.props.playNextQueue, 'playNextQueue');
 
 
         // return (

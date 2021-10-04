@@ -3,7 +3,7 @@
   username,
   // password,
   likedTracks: [],  // songs that marked with 'like'
-  preferableGaners: [],
+  preferableGaneres: [],
   likedStations: [],
   recentlyPlayedStations: [],
   recentlyPlayedSongs??: []

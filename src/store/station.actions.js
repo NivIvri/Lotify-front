@@ -1,10 +1,8 @@
-import { stationService } from "../services/async-storage.service.js";
 import { stationServiceNew } from "../services/station.service.js";
 export function loadStations() {
     return async (dispatch) => {
         try {
             const stations = await stationServiceNew.query()
-            console.log('stations from DB:', stations)
             dispatch({
                 type: 'SET_STATIONS',
                 stations
@@ -17,6 +15,31 @@ export function loadStations() {
     }
 }
 
+export function addStation(newStation) {
+    return async (dispatch) => {
+        debugger
+        newStation = await stationServiceNew.saveStation(newStation)
+        dispatch({
+            type: 'ADD_STATION',
+            newStation
+        })
+    }
+}
+
+export function unshuffleQueue(playedStation) {
+    return async (dispatch) => {
+        let queue = await stationServiceNew.getStationById(playedStation)
+        queue = queue.songs
+        dispatch({
+            type: 'SET_QUEUE',
+            queue,
+            stationId: playedStation
+        })
+    }
+}
+
+
+//without service
 export function setCurrTrack(track, idx) {
     return async (dispatch) => {
         dispatch({
@@ -26,7 +49,6 @@ export function setCurrTrack(track, idx) {
         })
     }
 }
-
 
 export function setQueue(queue, stationId = 0) {
     queue = queue.filter(track => !track.nextQueue)
@@ -66,15 +88,6 @@ export function playPrevTrack() {
     }
 }
 
-export function addStation(newStation) {
-    return async (dispatch) => {
-        await stationService.saveStation(newStation)
-        dispatch({
-            type: 'ADD_STATION',
-            newStation
-        })
-    }
-}
 export function toggleIsPlaying() {
     return async (dispatch) => {
         dispatch({
@@ -102,17 +115,6 @@ export function setCurrStation(station) {
 
     }
 }
-export function unshuffleQueue(playedStation) {
-    return async (dispatch) => {
-        let queue = await stationService.getStationById(playedStation)
-        queue = queue.songs
-        dispatch({
-            type: 'SET_QUEUE',
-            queue,
-            stationId: playedStation
-        })
-    }
-}
 
 export function shuffleQueue(queue) {
     for (let i = queue.length - 1; i > 0; i--) {
@@ -131,3 +133,12 @@ export function shuffleQueue(queue) {
 
 
 
+
+//function deleteStation(stationId) {
+//    var stationIdx = gStations.findIndex(function (station) {
+//        return stationId === station.id
+//    })
+//    gStations.splice(stationIdx, 1)
+//    _saveStationsToStorage();
+//    return Promise.resolve()
+//}

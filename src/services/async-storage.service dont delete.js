@@ -8,7 +8,7 @@ export const stationService = {
     deleteStation,
     getStationById,
     getNextStationId,
-    searchSong,
+    searchTrack,
     addToStation,
     removeFromStation,
     getStationByTag,
@@ -58,7 +58,6 @@ function getStationById(stationId) {
     var station = gStations.find(function (station) {
         return stationId === station._id
     })
-    console.log('station by id', station);
     return Promise.resolve(station)
 }
 
@@ -84,7 +83,6 @@ function _createStations() {
         })
     }
     gStations = stations;
-    console.log('gstations', gStations);
     _saveStationsToStorage();
 }
 
@@ -95,9 +93,8 @@ function _saveStationsToStorage() {
 
 
 //api 
-async function searchSong(keySerch) {
+async function searchTrack(keySerch) {
     if (!keySerch) return []
-    console.log('service:', keySerch)
     //keySerch = keySerch.trim()
     songCache = storageService.loadFromStorage([keySerch])
     if (songCache) {
@@ -145,16 +142,16 @@ async function removeFromStation(track, stationId) {
 }
 
 async function getStationByTag(tagName) {
-    let songCache = gStations.find(station => station.ganer === tagName)
-    if (songCache) {
-        console.log('No need to fetch, retrieving from Cache', songCache);
-        return [songCache]
-    }
-    //songCache = storageService.loadFromStorage(tagName + "playlist")
+    //let songCache = gStations.find(station => station.ganer === tagName)
     //if (songCache) {
-    //    console.log('No need to fetch, retrieving from Cache');
-    //    return (songCache)
+    //    console.log('No need to fetch, retrieving from Cache', songCache);
+    //    return [songCache]
     //}
+    songCache = storageService.loadFromStorage(tagName + "playlist")
+    if (songCache) {
+        console.log('No need to fetch, retrieving from Cache');
+        return (songCache)
+    }
     try {
         const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${tagName}&type=playlist&key=AIzaSyDv4FZEk6YGXCuTdAs7Ib_UErbyFh3eUUs`)
         let stations = await res.data.items.map(async (station) => {
