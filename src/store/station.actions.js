@@ -1,7 +1,7 @@
 import { guestService } from "../services/async-storage.service dont delete.js";
 import { stationServiceNew } from "../services/station.service.js";
 import { userService } from "../services/user.service.js";
-
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
 
 export function loadStations() {
     return async (dispatch) => {
@@ -32,17 +32,18 @@ export function addStation(newStation) {
             type: 'ADD_STATION',
             newStation
         })
+        showSuccessMsg("Add to your Stations")
     }
 }
 
-export function unshuffleQueue(playedStation) {
+export function unshuffleQueue(playedStationId) {
     return async (dispatch) => {
-        let queue = await stationServiceNew.getStationById(playedStation)
+        let queue = await stationServiceNew.getStationById(playedStationId)
         queue = queue.songs
         dispatch({
             type: 'SET_QUEUE',
             queue,
-            stationId: playedStation
+            stationId: playedStationId
         })
     }
 }
@@ -78,6 +79,7 @@ export function addToNextQueue(track) {
             type: 'ADD_TO_NEXT_QUEUE',
             track: newTrack
         })
+        showSuccessMsg('Added to queue')
     }
 }
 

@@ -9,7 +9,6 @@ export const youtubeApiService = {
 }
 
 async function searchTrack(keySerch) {
-    debugger
     if (!keySerch) return []
     console.log('service:', keySerch)
     //keySerch = keySerch.trim()
@@ -19,11 +18,11 @@ async function searchTrack(keySerch) {
         return (songCache)
     }
     try {
-        const res = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${keySerch}&type=video&videoCategoryId=10&key=AIzaSyBSOBAlxEfZUdAToFEQD1PsP0eAcLvYARE`)
+        const res = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${keySerch}&type=video&videoCategoryId=10&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
         let idxs = res.data.items.map(track => track.id.videoId)
         idxs = idxs.join()
 
-        let duration = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${idxs}&key=AIzaSyBSOBAlxEfZUdAToFEQD1PsP0eAcLvYARE`)
+        let duration = await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails,snippet&id=${idxs}&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
         duration = duration.data.items.map(track => track.contentDetails.duration)
         songCache = res.data
         if (!res.data?.items.length) return []
@@ -55,9 +54,9 @@ async function getStationByTag(tagName) {
     }
 
     try {
-        const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${tagName}&type=playlist&key=AIzaSyBSOBAlxEfZUdAToFEQD1PsP0eAcLvYARE`)
+        const res = await axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${tagName}&type=playlist&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
         let stations = await res.data.items.map(async (station) => {
-            const songs = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${station.id.playlistId}&key=AIzaSyBSOBAlxEfZUdAToFEQD1PsP0eAcLvYARE`)
+            const songs = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=10&playlistId=${station.id.playlistId}&key=AIzaSyCcPSr5m43ZCmSIEcCOn-klalKLwfoJp1Y`)
             return {
                 genre: tagName,
                 name: station.snippet.title,
@@ -76,7 +75,6 @@ async function getStationByTag(tagName) {
             }
         })
         stations = await Promise.all(stations)
-        debugger
         await storageService.saveToStorage(tagName + 'playlist', stations)
         //stations = await stationServiceNew.saveStation(stations[0])
         return stations

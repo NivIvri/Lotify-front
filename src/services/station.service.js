@@ -1,5 +1,6 @@
 import { httpService } from './http.service.js'
 import Axios from 'axios'
+
 const axios = Axios.create({
     withCredentials: true
 });
@@ -30,12 +31,8 @@ function saveStation(stationToEdit) {
 }
 
 async function _addStation(stationToEdit) {
-    //var station = _createStation(stationToEdit)
-    //gStations.unshift(station)
-    //_saveStationsToStorage();
     const res = await axios.post(`${BASE_URL}`, stationToEdit)
     return res.data
-    //return Promise.resolve(station)
 }
 
 async function _updateStation(stationToEdit) {

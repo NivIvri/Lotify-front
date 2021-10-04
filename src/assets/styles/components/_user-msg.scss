@@ -1,0 +1,29 @@
+.user-msg {
+    color: white;
+    padding: 12px 20px;
+    font-size: 1em;
+    border-radius: 10px;
+    //width:300px;
+    position: fixed;
+    font-family: "Quicksand-Bold";
+    text-align: center;
+    left: 50%;
+    bottom: 200px;
+    transform: translate(-50%, 72px);
+}
+.user-msg button {
+    position: absolute;
+    border: 0;
+    top: 3px;
+    border-radius: 50%;
+    background: #f0f8ff00;
+    right: 3px;
+}
+
+.user-msg.success {
+    background-color: $clr1;
+}
+.user-msg.danger {
+    background-color: rgb(216, 93, 93);
+}
+
