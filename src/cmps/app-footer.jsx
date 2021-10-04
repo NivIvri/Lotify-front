@@ -5,7 +5,7 @@ import Slider from '@mui/material/Slider';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 
-import { setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying,unshuffleQueue } from '../store/station.actions.js';
+import { setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying, unshuffleQueue } from '../store/station.actions.js';
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
@@ -102,9 +102,9 @@ class _AppFooter extends Component {
     }
 
     goShuffle = () => {
-        if(this.state.isShuffle){
+        if (this.state.isShuffle) {
             this.props.unshuffleQueue(this.props.playedStation)
-        }else{
+        } else {
             this.props.shuffleQueue([...this.props.queue])
         }
         this.setState({ isShuffle: !this.state.isShuffle })
@@ -146,7 +146,7 @@ class _AppFooter extends Component {
         const { isPlaying } = this.props
         const track = this.props.currTrack
         return (
-            <>
+            <div className="player-container">
                 {
                     track &&
                     <div className='player'>
@@ -242,7 +242,7 @@ class _AppFooter extends Component {
 
                     </div>
                 </div>
-            </>
+            </div>
         )
     }
 }

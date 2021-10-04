@@ -1,12 +1,14 @@
 #root {
-    display        : flex;
-    flex-direction : column;
-    justify-content: space-between;
-    min-height     : 100vh;
+    // display        : flex;
+    // flex-direction : column;
+    // justify-content: space-between;
+    max-height: 100vh;
 }
 
+.main-app {
+    display              : grid;
+    grid-template-columns: 270px 1fr;
+    min-height           : 100vh;
+    max-height           : 100vh;
 
-//  .main {
-//      max-height: calc(100vh - 90px);
-//      overflow-y: scroll;
-//  }
+}

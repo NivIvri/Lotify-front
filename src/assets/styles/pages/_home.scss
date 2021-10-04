@@ -1,6 +1,38 @@
+.search,
+.station-details,
 .home-page,
 .station-page {
-  width: 100%;
+  max-height: calc(100vh - 90px);
+  overflow-y: scroll;
+  //
+  width     : 100%;
+
+
+  &::-webkit-scrollbar {
+    width        : 12px;
+    // transition: all 0.6s ease-in-out;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $main-nav-bg !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color      : #555;
+    border-radius         : 5px;
+    // -webkit-transition : all 3s ease-in-out;
+    transition            : all 2s ease-in;
+
+    &:hover {
+      background-color: $main-nav-hover;
+    }
+  }
+}
+
+.home-page,
+.station-page {
+  // ori test
+
 
   h1 {
     font-size     : 32px;

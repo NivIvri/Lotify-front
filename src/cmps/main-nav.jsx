@@ -74,37 +74,22 @@ class _MainNav extends React.Component {
               <span className="nav-icon fas fa-plus-square"></span>
               <a>Create Playlist</a>
             </li>
-
-
-
-            {/* <li key="0" onClick={(e) => this.setState({ activeIdx: e.key })} className={this.key === activeIdx ? 'active' : ''}>
-            <span className="fas fa-home nav-icon"></span>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li key="1">
-            <span className="fas fa-search nav-icon"></span>
-            <NavLink to="/">Search</NavLink>
-          </li>
-          <li key="2">
-            <span className="fas fa-library nav-icon"></span>
-            <NavLink to="/stations">Your library</NavLink>
-          </li> */}
           </ul>
-          <div className="stations-wrapper">
-            <ul className="stations">
-              {
-                stations.map(station => {
-                  return <li key={station._id} onClick={() => this.setSelectedStationId(station._id)}><NavLink to={`/station/${station._id}`}
-                    className={selectedStationId === station._id ? 'selected-station' : ''}>
-                    {station.name.length < 28 ? station.name : station.name.slice(0, 28) + '...'}
-                  </NavLink></li>
-                })
-              }
+          {/* <div className="stations-wrapper"> */}
+          <ul className="stations">
+            {
+              stations.map(station => {
+                return <li key={station._id} onClick={() => this.setSelectedStationId(station._id)}><NavLink to={`/station/${station._id}`}
+                  className={selectedStationId === station._id ? 'selected-station' : ''}>
+                  {station.name.length < 28 ? station.name : station.name.slice(0, 28) + '...'}
+                </NavLink></li>
+              })
+            }
 
-            </ul>
-          </div>
+          </ul>
+          {/* </div> */}
         </nav>
-        <div className="offset-main"></div>
+        {/* <div className="offset-main"></div> */}
       </>
     )
   }
