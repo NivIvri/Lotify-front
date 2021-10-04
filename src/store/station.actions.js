@@ -26,14 +26,14 @@ export function addStation(newStation) {
     }
 }
 
-export function unshuffleQueue(playedStation) {
+export function unshuffleQueue(playedStationId) {
     return async (dispatch) => {
-        let queue = await stationServiceNew.getStationById(playedStation)
+        let queue = await stationServiceNew.getStationById(playedStationId)
         queue = queue.songs
         dispatch({
             type: 'SET_QUEUE',
             queue,
-            stationId: playedStation
+            stationId: playedStationId
         })
     }
 }

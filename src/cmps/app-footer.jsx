@@ -181,14 +181,14 @@ class _AppFooter extends Component {
                         <div>
                             {track ? track.title : ""}
                         </div>
-                        <div>
+                        {track && <div>
                             {
                                 this.state.isLiked && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} class="fas fa-heart"></span>
                             }
                             {
                                 !this.state.isLiked && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
                             }
-                        </div>
+                        </div>}
                     </div>
 
 
