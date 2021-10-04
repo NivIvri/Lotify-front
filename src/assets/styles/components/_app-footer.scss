@@ -1,6 +1,9 @@
 .player-container {
     background-color: #181818;
     grid-column: 1 / span 2;
+    //position: relative;
+    //z-index: 5;
+    padding: 0 16px;
 }
 
 .player-controls {
@@ -24,9 +27,6 @@
         font-size: 20px;
     }
 
-    .green {
-        color: #1db954;
-    }
 }
 
 .player {
@@ -69,8 +69,8 @@
     }
 
     img.track-img {
-        width: 56px;
-        height: 56px;
+        width: 90px;
+        height: 90px;
         object-fit: cover;
     }
 
@@ -96,5 +96,12 @@
         height: 100%;
         display: flex;
         align-items: center;
+    }
+}
+.volume{
+    gap: 14px;
+    justify-content: end;
+    .css-1qx01vb-MuiStack-root{
+             margin-bottom: 0px;
     }
 }

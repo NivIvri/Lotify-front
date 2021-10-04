@@ -1,6 +1,7 @@
 .station-details {
     height: 100%;
     .search {
+        overflow-y: hidden;
         .grid-container-search,
         .title {
             display: none;
@@ -22,6 +23,7 @@
         .main-container {
             display: block;
         }
+        
     }
     .bar-action {
         gap: 24px;

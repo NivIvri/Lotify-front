@@ -13,6 +13,7 @@ import heartNotChecked from '../assets/img/heart-regular.svg';
 import { Search } from './search.jsx';
 import { stationServiceNew } from '../services/station.service.js';
 import { youtubeApiService } from '../services/youtubeApi.service.js';
+import { showSuccessMsg,showErrorMsg } from '../services/event-bus.service.js';
 
 class _StationDetails extends Component {
     state = {
@@ -113,27 +114,32 @@ class _StationDetails extends Component {
         ev.stopPropagation()
         this.setState({ isLike: !this.state.isLike }, async () => {
             if (this.state.isLike) {
+                //if the station is from the search
                 if (!this.state.station._id) {
                     const stationToSave = await stationServiceNew.saveStation(this.state.station)
                     this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
+                    showSuccessMsg('Saved to Your Library')
+
                 }
                 else {
                     this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
+                    showSuccessMsg('Saved to Your Library')
                 }
             }
             else {
                 this.props.removeLikeFromTrack(this.state.station._id, stationOrTrack)
+                showErrorMsg('Removed from Your Library')
             }
         })
     }
     render() {
         const { station, isFindMore, isShowAll } = this.state
         if (!station) return <h1>not found</h1>
-        const { loadStations, addToNextQueue, stations } = this.props;
+        //const { loadStations, addToNextQueue, stations } = this.props;
         return (
             <section className='station-details'>
                 <div className="station-head flex">
-                    {station.songs.length > 0 &&
+                    {station.songs?.length > 0 &&
                         <img src={`${station.songs[0].imgUrl}`} />
                     }
                     {!station.songs.length &&
@@ -166,10 +172,13 @@ class _StationDetails extends Component {
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
                         distance='20' isShowAll={isShowAll} />
                     <div className='show-btn flex'>
-                        <div className='find-more' onClick={() => { this.setState({ isShowAll: !this.state.isShowAll }) }}>
-                            {isShowAll ? 'Show less' : 'Show all playlist'}
-                        </div>
-                        <div className='find-more' onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
+                        {
+                            station.songs.length > 10 &&
+                            <div className={`find-more ${!isShowAll ? "green" : ""}`} onClick={() => { this.setState({ isShowAll: !this.state.isShowAll }) }}>
+                                {isShowAll ? 'Show less' : 'Show all playlist'}
+                            </div>
+                        }
+                        <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
                         </div>
                     </div>

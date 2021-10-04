@@ -15,6 +15,7 @@ import heartNotChecked from '../assets/img/heart-regular.svg';
 import { addLikeToTrack, removeLikeFromTrack } from '../store/user.actions';
 
 
+
 class _AppFooter extends Component {
     state = {
         volume: 30,
@@ -24,7 +25,8 @@ class _AppFooter extends Component {
         duration: 0,
         inQueue: false,
         isShuffle: false,
-        isLiked: false
+        isLiked: false,
+        muted: false,
 
     }
 
@@ -122,13 +124,15 @@ class _AppFooter extends Component {
     }
 
     inQueue = async () => {
-        await this.setState({ inQueue: !this.state.inQueue })
-        if (this.state.inQueue)
-            this.props.history.push(`/queue`)
-        else {
-            this.props.history.goBack()
-        }
+        this.setState({ inQueue: !this.state.inQueue }, () => {
+            if (this.state.inQueue)
+                this.props.history.push(`/queue`)
+            else {
+                this.props.history.goBack()
+            }
+        })
     }
+
 
     toggleLike = async (ev) => {
         ev.stopPropagation()
@@ -139,6 +143,15 @@ class _AppFooter extends Component {
                 this.props.removeLikeFromTrack(this.props.currTrack.id, 'track')
             }
         })
+    }
+
+    handleToggleMuted = () => {
+        let volume = this.state.volume > 5 ? 5 : 30
+        this.setState({ muted: !this.state.muted, volume })
+    }
+    onGoToplaylist = () => {
+        if (!this.props.playedStation) return
+        this.props.history.push(`/station/${this.props.playedStation}`)
     }
 
     render() {
@@ -166,7 +179,7 @@ class _AppFooter extends Component {
                             onReady={() => { this.setState({ isLoaded: true }) }}
                             controls='false'
                             onEnded={this.handleEnded}
-
+                            muted={this.state.muted}
                         />
                     </div>
                 }
@@ -175,10 +188,10 @@ class _AppFooter extends Component {
                         <div className='img-container-player'>
                             {
                                 track &&
-                                <img className='track-img' src={track.imgUrl} />
+                                <img onClick={this.onGoToplaylist} className='track-img' src={track.imgUrl} />
                             }
                         </div>
-                        <div>
+                        <div onClick={this.onGoToplaylist}>
                             {track ? track.title : ""}
                         </div>
                         {track && <div>
@@ -225,16 +238,16 @@ class _AppFooter extends Component {
 
                     <div className="volume">
                         <div>
-                            <span onClick={this.inQueue} className="fas fa-outdent"></span>
+                            <span onClick={this.inQueue} className={this.state.inQueue ? "fas fa-outdent green" : "fas fa-outdent"}></span>
                         </div>
                         <Box sx={{ width: 200 }}>
                             <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                                {volume === 0 &&
-                                    <span class="fas fa-volume-mute"></span>}
-                                {volume > 0 && volume < 50 &&
-                                    <span class="fas fa-volume-down"></span>}
-                                {volume > 50 &&
-                                    <span class="fas fa-volume-up"></span>}
+                                {volume === 0 || this.state.muted &&
+                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-mute"></span>}
+                                {volume > 0 && volume < 50 && !this.state.muted &&
+                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-down"></span>}
+                                {volume > 50 && !this.state.muted &&
+                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-up"></span>}
 
                                 <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
                             </Stack>

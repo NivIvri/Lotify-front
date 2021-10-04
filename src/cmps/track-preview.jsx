@@ -13,7 +13,7 @@ import React, { Component } from 'react'
 import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
-import { eventBusService } from '../services/event-bus.service';
+import { eventBusService, showSuccessMsg, showErrorMsg } from '../services/event-bus.service';
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
 import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import heartNotChecked from '../assets/img/heart-regular.svg';
@@ -97,10 +97,14 @@ class _TrackPreview extends Component {
             stationId = this.props.currStation
         }
         let stationToUpdate = await stationServiceNew.getStationById(stationId)
+        if (stationToUpdate.songs.some(song => song.id === track.id)) {
+            showErrorMsg('This Track already exists in this station ')
+            return
+        }
+
         stationToUpdate.songs.push(track)
         await stationServiceNew.saveStation(stationToUpdate)
-        //if (this.props.currStation) {
-        //}
+        showSuccessMsg('Add to station')
     }
 
     onRemoveFromStation = async (track, stationId) => {
@@ -111,6 +115,7 @@ class _TrackPreview extends Component {
         if (this.props.currStation) {
             this.props.loadStation()
         }
+        showErrorMsg('Removed from Station')
     }
 
     playTrack = async (track, idx) => {
@@ -140,10 +145,13 @@ class _TrackPreview extends Component {
     toggleLike = async (ev) => {
         ev.stopPropagation()
         this.setState({ isLike: !this.state.isLike }, () => {
-            if (this.state.isLike)
+            if (this.state.isLike) {
                 this.props.addLikeToTrack(this.props.track, 'track')
+                showSuccessMsg("Add to your Liked Tracks")
+            }
             else {
                 this.props.removeLikeFromTrack(this.props.track.id, 'track')
+                showErrorMsg("Removed from your Liked Tracks")
             }
         })
     }
@@ -180,6 +188,7 @@ class _TrackPreview extends Component {
                             <MenuItem onClick={() => this.props.addToNextQueue(track)}>Add To queue</MenuItem>
                             {currStation && <MenuItem onClick={() => {
                                 this.onRemoveFromStation(track, currStation._id)
+
                             }
                             }>Remove from station</MenuItem>}
                             <SubMenu label="Add to playlist">
@@ -195,7 +204,6 @@ class _TrackPreview extends Component {
                 {
                     this.props?.isOnDeatils &&
                     <button className='add-track-btn' onClick={async (ev) => {
-                        debugger
                         ev.stopPropagation()
                         await this.onAddToStation(track, this.props.stationId)
                         await this.props.loadStation()

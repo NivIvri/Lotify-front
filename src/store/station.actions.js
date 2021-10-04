@@ -1,4 +1,6 @@
 import { stationServiceNew } from "../services/station.service.js";
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
+
 export function loadStations() {
     return async (dispatch) => {
         try {
@@ -17,12 +19,12 @@ export function loadStations() {
 
 export function addStation(newStation) {
     return async (dispatch) => {
-        debugger
         newStation = await stationServiceNew.saveStation(newStation)
         dispatch({
             type: 'ADD_STATION',
             newStation
         })
+        showSuccessMsg("Add to your Stations")
     }
 }
 
@@ -69,6 +71,7 @@ export function addToNextQueue(track) {
             type: 'ADD_TO_NEXT_QUEUE',
             track: newTrack
         })
+        showSuccessMsg('Added to queue')
     }
 }
 

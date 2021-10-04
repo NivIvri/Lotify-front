@@ -7,7 +7,9 @@ import { DraggableTrackPreview } from './draggable-track-preview';
 
 export const DraggableTrackList = SortableContainer(({ songs, currStation, loadStation, isShowAll
 }) => {
+  
   const sliceNum = isShowAll ? songs.length : 7
+  //sliceNum = songs.length>10 
   return (
     <div className="station-track-list flex column">
       <div className="list-headers flex">
