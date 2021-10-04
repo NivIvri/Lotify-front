@@ -11,12 +11,37 @@ import { stationServiceNew } from '../services/station.service.js';
 
 class _Home extends Component {
     state = {
-        likedStations: ''
+        likedStations: '',
+        numOfPreviews: 5
+    }
+
+    resizer
+    handleRisize = (entries) => {
+        const viewPortWidth = entries[0].contentRect.width
+        if (viewPortWidth >= 2010)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 8 }))
+        if (viewPortWidth >= 1800)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 7 }))
+        else if (viewPortWidth >= 1590)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 6 }))
+        else if (viewPortWidth >= 1380)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 5 }))
+        else if (viewPortWidth >= 1170)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 4 }))
+        else if (viewPortWidth >= 962)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 3 }))
+        else if (viewPortWidth >= 762)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 2 }))
+        else if (viewPortWidth >= 562)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 1 }))
+
     }
     async componentDidMount() {
         await this.props.loadStations();
         await this.props.loadUser();
         await this.getLikedStation()
+        this.resizer = new ResizeObserver(this.handleRisize)
+        this.resizer.observe(document.querySelector('.main-app'))
     }
 
     getTime = () => {
@@ -50,7 +75,8 @@ class _Home extends Component {
     render() {
         let { stations, user } = this.props
         stations = stations.filter(station => station._id !== 'likedTracks')
-        const { likedStations } = this.state
+        const { likedStations, numOfPreviews } = this.state
+        console.log('numOfPreviews', numOfPreviews);
         if (!stations && !this.props.user && !likedStations) return <h1>loading...</h1>
         return (
 
@@ -78,7 +104,8 @@ class _Home extends Component {
                             </div>
                             <div className="flex genre">
                                 {/* {stations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)} */}
-                                {stations.map((station => <StationPreview key={station._id} station={station} />))}
+                                {stations.map((station => <StationPreview key={station._id}
+                                    station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
                             </div>
                         </div>
 
@@ -88,16 +115,18 @@ class _Home extends Component {
                             </div>
                             <div className="flex genre">
 
-                                {stations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
+                                {stations.map((station => <StationPreview key={station._id}
+                                    station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
                             </div>
                         </div>
                         <div className='card'>
                             <div className='card-header'>
-                                <h3>Liked station</h3>
+                                <h3>Stations you liked</h3>
                             </div>
                             <div className="flex genre">
                                 {likedStations &&
-                                    likedStations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)}
+                                    likedStations.map((station => <StationPreview key={station._id}
+                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>
