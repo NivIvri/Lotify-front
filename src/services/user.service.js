@@ -9,7 +9,7 @@ export const userService = {
     addLikeToTrack,
     removeLikeFromTrack,
     AddToRecentlyPlayed,
-    // setUserPref,
+    setUserPref,
     isGuest,
     signup,
     login,
@@ -17,21 +17,20 @@ export const userService = {
 }
 const STORAGE_KEY = "user"
 const URL = 'http://localhost:3030/api'
-// const KEY = 'user';
-// var gUser;
-// _createUser();
-///login-signup-logout
+
+
 async function signup(user) {
     let userToSave = await axios.post(`${URL}/auth/signup`, user)
     userToSave = userToSave.data
-    storageService.saveToStorage(STORAGE_KEY, JSON.stringify(userToSave))
+    storageService.saveToStorage(STORAGE_KEY, userToSave)
     return userToSave
 }
 
 async function login(credentials) {
+    console.log(credentials);
     let userToSave = await axios.post(`${URL}/auth/login`, credentials)
     userToSave = userToSave.data
-    storageService.saveToStorage(STORAGE_KEY, JSON.stringify(userToSave))
+    storageService.saveToStorage(STORAGE_KEY,userToSave)
     return userToSave
 }
 
@@ -71,7 +70,7 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(storageService.loadFromStorage(STORAGE_KEY))
+    return storageService.loadFromStorage(STORAGE_KEY)
 }
 
 async function isGuest() {
@@ -122,38 +121,21 @@ async function getUserById(userId) {
     return user
 }
 
-
-function _saveUserToStorage(user) {
-    storageService.saveToStorage(STORAGE_KEY, JSON.stringify(user))
+async function setUserPref(userPref) {
+    let user=await getLoggedinUser()
+    user.userPref=userPref
+    if(user.username!=="guest"){
+        updateUser(user)
+    }
+    _saveUserToStorage(user)
+    // let user = await axios.get(`${URL}/user/${user._id}`)
+    return user
 }
 
-// function _createUser() {
-    //     var user = storageService.loadFromStorage(KEY)
-    //     //user = user ? storageService.loadFromStorage(KEY) : []
-    //     if (!user) {
-        //         user =
-        //         {
-            //             username: 'guest123',
-            //             fullname: 'b',
-            //             likedTracks: [],  // songs that marked with 'like'
-            //             likedStations: [],
-            //             recentlyPlayedStations: [],
-            //             recentlyPlayedSongs: [],
-            //             userPref: [],
-            //         }
-            //     }
-            //     gUser = user;
-            //     _saveStationsToStorage();
-            // }
-
-
-            // async function setUserPref(userPref) {
-            //         user.userPref = userPref
-            //         _saveStationsToStorage()
-            //     }
 
 
 
-                // function query(filterBy) {
-                //     return Promise.resolve(gUser)
-                // }
+
+function _saveUserToStorage(user) {
+    storageService.saveToStorage(STORAGE_KEY,user)
+}
