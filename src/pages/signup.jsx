@@ -65,7 +65,7 @@ class _Signup extends React.Component {
     if (ev) ev.preventDefault();
     const loginUser = await this.props.onSignup(this.state.credentials);
     if (loginUser) {
-      this.props.history.push(`/home`)
+      this.props.history.push(`/`)
     }
     this.clearState()
   }

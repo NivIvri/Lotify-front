@@ -16,8 +16,17 @@ const routes = [
         path: '/userPref',
         component: UserPref,
     },
+    //{
+    //    path: '/',
+    //    component: Signin,
+    //},
+    // {
+    //    path: '/signup',
+    //    component: Signup,
+    //},
+
     {
-        path: '/Home',
+        path: '/',
         component: Home,
     },
     {

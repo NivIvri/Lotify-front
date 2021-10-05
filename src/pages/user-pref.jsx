@@ -33,7 +33,7 @@ class _UserPref extends Component {
         const { stations, user } = this.props
         if (!stations || !user) return <h1>loading...</h1>
          if (user.userPref.length >= 4) {
-         return <Redirect to='/home' />
+         return <Redirect to='/' />
          }
         return (
             <div className="user-pref">

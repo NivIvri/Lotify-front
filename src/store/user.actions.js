@@ -6,7 +6,7 @@ export function loadUser() {
     return async dispatch => {
         try {
             console.log('action user');
-            const user=await userService.login({username:'EthanGeo'})
+            const user = await userService.login({ username: 'EthanGeo' })
             console.log(user);
             // const user = await userService.getLoggedinUser()
             dispatch({ type: 'SET_USER', user })
@@ -33,7 +33,7 @@ export function addLikeToTrack(trackId, stationOrTrack) {
 export function removeLikeFromTrack(trackId, stationOrTrack) {
     return async dispatch => {
         try {
-            await userService.removeLikeFromTrack(trackId,stationOrTrack)
+            await userService.removeLikeFromTrack(trackId, stationOrTrack)
             dispatch({ type: 'REMOVE_LIKE_FROM_TRACK', trackId, stationOrTrack })
         } catch (err) {
             console.log('UserActions: err in removeUser', err)
