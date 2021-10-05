@@ -62,7 +62,7 @@ class _CreateStation extends Component {
     render() {
         const { isCreate, station } = this.state
         return (
-            <>
+            <div className={`create-playlist-wrapper ${isCreate ? "on" : "off"}`}>
                 <div className={`create-playlist ${isCreate ? "on" : "off"}`} onSubmit={(ev) => { this.onAddStation(ev) }}>
                     <div className="header">
                         <h1>Create Playlist</h1>
@@ -97,7 +97,7 @@ class _CreateStation extends Component {
                     </div>
                 </div>
                 <div className={`body-modal ${isCreate ? "on" : "off"}`} onClick={this.create}></div>
-            </>
+            </div>
         );
     }
 }

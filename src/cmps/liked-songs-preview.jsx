@@ -27,8 +27,8 @@ class _LikedSongsPreview extends React.Component {
             }
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
-            this.props.setCurrTrack(track, idx);
-            this.props.setQueue([...songs], station._id);
+            await this.props.setCurrTrack(track, idx);
+            await this.props.setQueue([...songs], station._id);
             this.props.setCurrStation(station)
             this.props.setPlay()
         }
@@ -44,7 +44,7 @@ class _LikedSongsPreview extends React.Component {
         const { station, currStation, isPlaying } = this.props
         if (!station) return <div> not found</div>
         return (
-            <div className="station-preview liked-songs-link" onClick={() => this.navigateToStation(station._id)}>
+            <div className="station-preview liked-songs-link" onClick={() => this.navigateToStation(station.genre)}>
                 <h3 className="station-name-header">{station.name}</h3>
                 <p className="station-desc">
                     {station.songs.reduce((songStr, song) => {
