@@ -145,7 +145,8 @@ class _StationDetails extends Component {
 
     }
 
-
+    // Niv Original Code
+    //========================
     // this.setState({ isLike: !this.state.isLike }, async () => {
     //     if (this.state.isLike) {
     //         //if the station is from the search
