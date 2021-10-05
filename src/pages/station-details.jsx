@@ -66,16 +66,16 @@ class _StationDetails extends Component {
         try {
             if (stationId.length === 24) {
                 station = await stationServiceNew.getStationById(stationId)
-                console.log('got by id',station);
+                console.log('got by id', station);
             } else {
                 station = await stationServiceNew.getStationByGenre(stationId)
-                console.log('got by genre',station);
+                console.log('got by genre', station);
             }
             if (!station) {
                 station = await youtubeApiService.getStationByTag(stationId)
                 if (station)
-                station = station[0]
-                console.log('got from api',station);
+                    station = station[0]
+                console.log('got from api', station);
             }
             let user;
             if (stationId === 'likedTracks') {
@@ -96,10 +96,10 @@ class _StationDetails extends Component {
             }
             else this.setState({ station: [] })
         }
-        catch{
+        catch {
             console.log('had issues');
         }
-}
+    }
 
     playRandTrack = () => {
         if (!this.props.currTrack) {
@@ -188,6 +188,7 @@ class _StationDetails extends Component {
 
     render() {
         const { station, isFindMore, isShowAll } = this.state
+        const { user } = this.props
         console.log(station?.songs);
         if (!station) return <h1>not found</h1>
         //const { loadStations, addToNextQueue, stations } = this.props;
