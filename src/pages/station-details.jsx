@@ -170,14 +170,14 @@ class _StationDetails extends Component {
 
                     <DraggableTrackList songs={station.songs} currStation={station}
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
-                        distance='20' isShowAll={isShowAll} />
+                        distance='20'  />
                     <div className='show-btn flex'>
-                        {
+                        {/*{
                             station.songs.length > 10 &&
                             <div className={`find-more ${!isShowAll ? "green" : ""}`} onClick={() => { this.setState({ isShowAll: !this.state.isShowAll }) }}>
                                 {isShowAll ? 'Show less' : 'Show all playlist'}
                             </div>
-                        }
+                        }*/}
                         <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
                         </div>
