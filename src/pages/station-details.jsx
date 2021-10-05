@@ -67,16 +67,16 @@ class _StationDetails extends Component {
         try {
             if (stationId.length === 24) {
                 station = await stationServiceNew.getStationById(stationId)
-                console.log('got by id',station);
+                console.log('got by id', station);
             } else {
                 station = await stationServiceNew.getStationByGenre(stationId)
-                console.log('got by genre',station);
+                console.log('got by genre', station);
             }
             if (!station) {
                 station = await youtubeApiService.getStationByTag(stationId)
                 if (station)
-                station = station[0]
-                console.log('got from api',station);
+                    station = station[0]
+                console.log('got from api', station);
             }
             let user;
             if (stationId === 'likedTracks') {
@@ -97,10 +97,10 @@ class _StationDetails extends Component {
             }
             else this.setState({ station: [] })
         }
-        catch{
+        catch {
             console.log('had issues');
         }
-}
+    }
 
     playRandTrack = () => {
         if (!this.props.currTrack) {
@@ -185,10 +185,18 @@ class _StationDetails extends Component {
 
     // })
 
+    handleFindMore = () => {
+        this.setState({ isFindMore: !this.state.isFindMore }, () => {
+            const homePage = document.querySelector('.station-details')
+            homePage.scrollTop = homePage.scrollHeight
+        });
 
+    }
 
     render() {
         const { station, isFindMore, isShowAll } = this.state
+        const { user } = this.props
+        const { stationId } = this.props.match.params;
         console.log(station?.songs);
         if (!station) return <h1>not found</h1>
         //const { loadStations, addToNextQueue, stations } = this.props;
@@ -216,10 +224,11 @@ class _StationDetails extends Component {
                         <i class={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
                     {
-                        this.state.isLike && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
+                        (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
                     }
                     {
-                        !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
+                        (stationId !== 'likedTracks' && !this.state.isLike)
+                        && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
                     }
                 </div>
                 <MainLayout>
@@ -234,18 +243,22 @@ class _StationDetails extends Component {
                                 {isShowAll ? 'Show less' : 'Show all playlist'}
                             </div>
                         }*/}
-                        <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
+
+                        {/* original handle */}
+                        {/* () => { this.setState({ isFindMore: !this.state.isFindMore */}
+
+                        {station.songs && station.songs.length > 0 && <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
-                        </div>
+                        </div>}
                     </div>
-                    {isFindMore &&
+                    {isFindMore && station.songs.length > 0 &&
                         <>
                             <span>Let's find something to your station</span>
                             <Search loadStation={this.loadStation} stationId={this.state.stationId} isOnDeatils={true} />
                         </>
                     }
                 </MainLayout>
-            </section>
+            </section >
         )
     }
 
