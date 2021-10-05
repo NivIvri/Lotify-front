@@ -129,7 +129,7 @@ class _Home extends Component {
                             <div className="flex genre">
                                 {likedStations &&
                                     likedStations.map((station => <StationPreview key={station._id}
-                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
+                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews)).reverse()}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>
@@ -140,7 +140,7 @@ class _Home extends Component {
                             <div className="flex genre">
                                 {recentlyPlayedStations &&
                                     recentlyPlayedStations.map((station => <StationPreview key={station._id}
-                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
+                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews)).reverse()}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>
