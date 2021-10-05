@@ -190,7 +190,7 @@ class _TrackPreview extends Component {
                                 this.onRemoveFromStation(track, currStation._id)
 
                             }
-                            }>Remove from station</MenuItem>}
+                            }>Remove from Playlist</MenuItem>}
                             <SubMenu label="Add to playlist">
                                 {stations.map((station) => {
                                     return (<MenuItem onClick={() => { this.onAddToStation(track, station._id) }}>{station.name}</MenuItem>)
