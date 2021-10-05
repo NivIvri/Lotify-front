@@ -50,7 +50,7 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
         let recentlyPlayedSongs = user.recentlyPlayedSongs
         if (!recentlyPlayedSongs.length < 10)
             recentlyPlayedSongs = recentlyPlayedSongs.slice(Math.max(recentlyPlayedSongs.length - 9, 0))
-        recentlyPlayedSongs.push(track)
+        recentlyPlayedSongs.unshift(track)
         user.recentlyPlayedSongs = recentlyPlayedSongs
     }
     else {
@@ -58,7 +58,7 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
         let recentlyPlayedStations = user.recentlyPlayedStations
         if (!recentlyPlayedStations.length < 10)
             recentlyPlayedStations = recentlyPlayedStations.slice(Math.max(recentlyPlayedStations.length - 9, 0))
-        recentlyPlayedStations.push(track)
+        recentlyPlayedStations.unshift(track)
         user.recentlyPlayedStations = recentlyPlayedStations
     }
     if (user.username !== "guest") {
