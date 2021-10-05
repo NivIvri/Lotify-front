@@ -45,6 +45,13 @@ export function userReducer(state = initialState, action) {
         case 'SET_USERֹ_PREF':
             newState = { ...state, user: { ...state.user, prefArtists: action.userPref } }
             break;
+        case 'ADD_TO_RECENTLY_PLAYED':
+            if (action.stationOrTrack === 'station')
+                newState = { ...state, user: { ...state.user, recentlyPlayedStations: [...state.user.recentlyPlayedStations, action.track] } }
+            else {
+                newState = { ...state, user: { ...state.user, recentlyPlayedSongs: [...state.user.recentlyPlayedSongs, action.track] } }
+            }
+            break;
         default:
 
     }

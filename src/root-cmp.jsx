@@ -13,8 +13,8 @@ export class RootCmp extends React.Component {
     render() {
         return (
             <>
-                <Route exact component={Signin} path="/" />
-                <Route exact component={Signup} path='/signup' />
+                {/*<Route exact component={Signin} path="/" />
+                <Route exact component={Signup} path='/signup' />*/}
                 <main className="main-app">
                     <CreateStation />
                     <MainNav />

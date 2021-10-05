@@ -8,6 +8,7 @@ export const userService = {
     getUserById,
     addLikeToTrack,
     removeLikeFromTrack,
+    AddToRecentlyPlayed,
     // setUserPref,
     isGuest,
     signup,
@@ -15,11 +16,11 @@ export const userService = {
     logout
 }
 const STORAGE_KEY = "user"
-const URL='http://localhost:3030/api'
+const URL = 'http://localhost:3030/api'
 // const KEY = 'user';
 // var gUser;
 // _createUser();
-
+///login-signup-logout
 async function signup(user) {
     let userToSave = await axios.post(`${URL}/auth/signup`, user)
     userToSave = userToSave.data
@@ -40,9 +41,24 @@ async function logout() {
     return removed
 }
 
+
 async function updateUser(user) {
     let updatedUser = await axios.put(`${URL}/user/${user._id}`, user)
     return updatedUser.data
+}
+async function AddToRecentlyPlayed(track) {
+    let user = getLoggedinUser()
+    debugger
+    let recentlyPlayedSongs = user.recentlyPlayedSongs
+
+    recentlyPlayedSongs = recentlyPlayedSongs.slice(Math.max(recentlyPlayedSongs.length - 9, 0))
+    recentlyPlayedSongs.push(track)
+    user.recentlyPlayedSongs = recentlyPlayedSongs
+    if (user.username !== "guest") {
+        user = await updateUser(user)
+    }
+    _saveUserToStorage(user)
+    return user
 }
 
 function getLoggedinUser() {
@@ -55,10 +71,6 @@ async function isGuest() {
     return user.username === "guest"
 }
 
-// function query(filterBy) {
-//     return Promise.resolve(gUser)
-// }
-
 async function addLikeToTrack(trackId, stationOrTrack) {
     let user = getLoggedinUser()
     console.log(user);
@@ -70,7 +82,7 @@ async function addLikeToTrack(trackId, stationOrTrack) {
     }
     // const isGuest=await isGuest()
     // console.log(isGuest);
-    if (user.username!=="guest") {
+    if (user.username !== "guest") {
         user = await updateUser(user)
     }
     _saveUserToStorage(user)
@@ -88,43 +100,51 @@ async function removeLikeFromTrack(currTrackId, stationOrTrack) {
         let likedTracks = user.likedTracks.filter(track => track.id !== currTrackId)
         user.likedTracks = likedTracks
     }
-    if (user.username!=="guest") {
+    if (user.username !== "guest") {
         user = await updateUser(user)
     }
     _saveUserToStorage(user)
     return user
 }
 
-// async function setUserPref(userPref) {
-//     user.userPref = userPref
-//     _saveStationsToStorage()
-// }
 
 async function getUserById(userId) {
     let user = await axios.get(`${URL}/user/${user._id}`)
     return user
 }
 
-// function _createUser() {
-//     var user = storageService.loadFromStorage(KEY)
-//     //user = user ? storageService.loadFromStorage(KEY) : []
-//     if (!user) {
-//         user =
-//         {
-//             username: 'guest123',
-//             fullname: 'b',
-//             likedTracks: [],  // songs that marked with 'like'
-//             likedStations: [],
-//             recentlyPlayedStations: [],
-//             recentlyPlayedSongs: [],
-//             userPref: [],
-//         }
-//     }
-//     gUser = user;
-//     _saveStationsToStorage();
-// }
 
 function _saveUserToStorage(user) {
     storageService.saveToStorage(STORAGE_KEY, JSON.stringify(user))
 }
 
+// function _createUser() {
+    //     var user = storageService.loadFromStorage(KEY)
+    //     //user = user ? storageService.loadFromStorage(KEY) : []
+    //     if (!user) {
+        //         user =
+        //         {
+            //             username: 'guest123',
+            //             fullname: 'b',
+            //             likedTracks: [],  // songs that marked with 'like'
+            //             likedStations: [],
+            //             recentlyPlayedStations: [],
+            //             recentlyPlayedSongs: [],
+            //             userPref: [],
+            //         }
+            //     }
+            //     gUser = user;
+            //     _saveStationsToStorage();
+            // }
+
+
+            // async function setUserPref(userPref) {
+            //         user.userPref = userPref
+            //         _saveStationsToStorage()
+            //     }
+
+
+
+                // function query(filterBy) {
+                //     return Promise.resolve(gUser)
+                // }

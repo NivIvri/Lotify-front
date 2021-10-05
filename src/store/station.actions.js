@@ -2,6 +2,7 @@ import { guestService } from "../services/async-storage.service dont delete.js";
 import { stationServiceNew } from "../services/station.service.js";
 import { userService } from "../services/user.service.js";
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
+import { AddToRecentlyPlayed } from "./user.actions.js";
 
 export function loadStations() {
     return async (dispatch) => {
@@ -23,9 +24,9 @@ export function loadStations() {
 
 export function addStation(newStation) {
     return async (dispatch) => {
-        if(await userService.isGuest()){
+        if (await userService.isGuest()) {
             newStation = await guestService.saveStation(newStation)
-        }else{
+        } else {
             newStation = await stationServiceNew.saveStation(newStation)
         }
         dispatch({
@@ -52,11 +53,21 @@ export function unshuffleQueue(playedStationId) {
 //without service
 export function setCurrTrack(track, idx) {
     return async (dispatch) => {
-        dispatch({
-            type: 'SET_CURR_TRACK',
-            track,
-            idx,
-        })
+        ////add track to recentlyPlayed
+        try {
+            dispatch({
+                type: 'SET_CURR_TRACK',
+                track,
+                idx,
+            })
+            await userService.AddToRecentlyPlayed(track)
+            dispatch({ type: 'ADD_TO_RECENTLY_PLAYED', track })
+        }
+
+        catch (err) {
+            console.log('UserActions: err in removeUser', err)
+        }
+
     }
 }
 

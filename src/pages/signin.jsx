@@ -63,7 +63,7 @@ class _Signin extends React.Component {
     const loginUser = await this.props.onLogin(this.state.credentials)
     this.clearState()
     if (loginUser) {
-      this.props.history.push(`/home`)
+      this.props.history.push(`/`)
     }
 
   }

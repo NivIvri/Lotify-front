@@ -11,7 +11,7 @@ class _MainNav extends React.Component {
       {
         id: 1,
         name: "Home",
-        to: "/Home",
+        to: "/",
         fa: 'fa-home'
       },
       {
