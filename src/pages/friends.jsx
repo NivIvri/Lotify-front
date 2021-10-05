@@ -42,8 +42,6 @@ export default class Friends extends Component {
                         return <div>
                             {trackAndUser.track.title}
                             {trackAndUser.user.username}
-
-
                         </div>
                     })
                 }

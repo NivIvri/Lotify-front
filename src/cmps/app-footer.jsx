@@ -33,7 +33,6 @@ class _AppFooter extends Component {
     }
     componentDidMount() {
         socketService.setup()
-  
     }
     componentDidUpdate(prevProps, prevstate) {
         if (this.props.currTrack !== prevProps.currTrack) {
