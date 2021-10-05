@@ -1,7 +1,7 @@
 
 const initialState = {
     //user: userService.getLoggedinUser(),
-    user: '',
+    user: null,
     users: [],
 }
 

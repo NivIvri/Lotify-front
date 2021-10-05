@@ -42,6 +42,7 @@ class _StationDetails extends Component {
 
     async componentDidUpdate(prevProps) {
         const { stationId } = this.props.match.params
+        console.log(prevProps);
         if (prevProps.user?.likedTracks.length !== this.props.user?.likedTracks.length) return this.loadStation()
         if (stationId !== this.state.station?._id && stationId !== this.state.station?.genre) {
             await this.loadStation()

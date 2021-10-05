@@ -23,14 +23,14 @@ const URL='http://localhost:3030/api'
 async function signup(user) {
     let userToSave = await axios.post(`${URL}/auth/signup`, user)
     userToSave = userToSave.data
-    storageService.saveToStorage(STORAGE_KEY, JSON.stringify(userToSave))
+    storageService.saveToStorage(STORAGE_KEY, userToSave)
     return userToSave
 }
 
 async function login(credentials) {
     let userToSave = await axios.post(`${URL}/auth/login`, credentials)
     userToSave = userToSave.data
-    storageService.saveToStorage(STORAGE_KEY, JSON.stringify(userToSave))
+    storageService.saveToStorage(STORAGE_KEY,userToSave)
     return userToSave
 }
 
@@ -46,7 +46,7 @@ async function updateUser(user) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(storageService.loadFromStorage(STORAGE_KEY))
+    return storageService.loadFromStorage(STORAGE_KEY)
 }
 
 async function isGuest() {
@@ -125,6 +125,6 @@ async function getUserById(userId) {
 // }
 
 function _saveUserToStorage(user) {
-    storageService.saveToStorage(STORAGE_KEY, JSON.stringify(user))
+    storageService.saveToStorage(STORAGE_KEY,user)
 }
 
