@@ -5,6 +5,10 @@
   // max-width  : 100%;
   background    : linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
 
+  @include for-inbetween-layout {
+    grid-column: unset;
+  }
+
   &:hover {
     // background-color: #282828;
 
