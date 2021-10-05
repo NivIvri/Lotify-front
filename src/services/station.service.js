@@ -13,6 +13,7 @@ export const stationServiceNew = {
     getStationById,
     searchStation,
     saveStation,
+    getStationByGenre
 }
 async function query(filterBy = {}) {
     //const res = await axios.get('http://localhost:3030/api/toy', { params: filterBy })
@@ -25,6 +26,10 @@ async function getStationById(stationId) {
     return res.data
 }
 
+async function getStationByGenre(stationId) {
+    const res = await axios.get(`${BASE_URL}/genre/${stationId}`)
+    return res.data
+}
 
 function saveStation(stationToEdit) {
     return stationToEdit._id ? _updateStation(stationToEdit) : _addStation(stationToEdit)

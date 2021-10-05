@@ -13,7 +13,7 @@ import heartNotChecked from '../assets/img/heart-regular.svg';
 import { Search } from './search.jsx';
 import { stationServiceNew } from '../services/station.service.js';
 import { youtubeApiService } from '../services/youtubeApi.service.js';
-import { showSuccessMsg,showErrorMsg } from '../services/event-bus.service.js';
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
 
 class _StationDetails extends Component {
     state = {
@@ -61,33 +61,44 @@ class _StationDetails extends Component {
 
     loadStation = async () => {
         const { stationId } = this.props.match.params;
+        let station
         try {
-            var station = await stationServiceNew.getStationById(stationId)
-        }
-        catch {
-            station = await youtubeApiService.getStationByTag(stationId)
-            if (station)
+            if (stationId.length === 24) {
+                station = await stationServiceNew.getStationById(stationId)
+                console.log('got by id',station);
+            } else {
+                station = await stationServiceNew.getStationByGenre(stationId)
+                console.log('got by genre',station);
+            }
+            if (!station) {
+                station = await youtubeApiService.getStationByTag(stationId)
+                if (station)
                 station = station[0]
-        }
-        let user;
-        if (stationId === 'likedTracks') {
-            user = await this.props.user
-            if (!user) {
-                await this.props.loadUser();
+                console.log('got from api',station);
+            }
+            let user;
+            if (stationId === 'likedTracks') {
                 user = await this.props.user
+                if (!user) {
+                    await this.props.loadUser();
+                    user = await this.props.user
+                }
+                if (user.likedTracks) {
+                    station.songs = [...user.likedTracks]
+                }
+                else {
+                    console.log('no liked tracks');
+                }
             }
-            if (user.likedTracks) {
-                station.songs = [...user.likedTracks]
+            if (station) {
+                this.setState({ station, stationId: station._id, songs: station.songs })
             }
-            else {
-                console.log('no liked tracks');
-            }
+            else this.setState({ station: [] })
         }
-        if (station) {
-            this.setState({ station, stationId: station._id, songs: station.songs })
+        catch{
+            console.log('had issues');
         }
-        else this.setState({ station: [] })
-    }
+}
 
     playRandTrack = () => {
         if (!this.props.currTrack) {
@@ -170,7 +181,7 @@ class _StationDetails extends Component {
 
                     <DraggableTrackList songs={station.songs} currStation={station}
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
-                        distance='20'  />
+                        distance='20' />
                     <div className='show-btn flex'>
                         {/*{
                             station.songs.length > 10 &&
