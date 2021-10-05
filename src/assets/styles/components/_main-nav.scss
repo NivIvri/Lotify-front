@@ -171,6 +171,10 @@
     left    : 0;
   }
 
+  @include for-wide-layout {
+    width: 270px;
+  }
+
 }
 
 .liked-songs-svg {

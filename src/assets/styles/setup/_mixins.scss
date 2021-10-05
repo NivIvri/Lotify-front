@@ -18,6 +18,12 @@
   }
 }
 
+@mixin for-inbetween-layout {
+  @media (max-width: 845px) {
+    @content
+  }
+}
+
 @mixin for-wide-layout {
   @media (min-width: $normal-breakpoint) {
     @content;
