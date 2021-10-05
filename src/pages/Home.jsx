@@ -69,10 +69,10 @@ class _Home extends Component {
 
     render() {
         let { stations, user } = this.props
-        stations = stations.filter(station => station._id !== 'likedTracks')
+        stations = stations.filter(station => station.genre !== 'likedTracks')
         const { likedStations, numOfPreviews } = this.state
         console.log('numOfPreviews', numOfPreviews);
-        if (!stations && !this.props.user && !likedStations) return <h1>loading...</h1>
+        if (!user || !stations && !this.props.user && !likedStations) return <h1>loading...</h1>
         return (
 
             <div className="home-page">

@@ -196,6 +196,7 @@ class _StationDetails extends Component {
     render() {
         const { station, isFindMore, isShowAll } = this.state
         const { user } = this.props
+        const { stationId } = this.props.match.params;
         console.log(station?.songs);
         if (!station) return <h1>not found</h1>
         //const { loadStations, addToNextQueue, stations } = this.props;
@@ -223,10 +224,11 @@ class _StationDetails extends Component {
                         <i class={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
                     {
-                        this.state.isLike && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
+                        (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
                     }
                     {
-                        !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
+                        (stationId !== 'likedTracks' && !this.state.isLike)
+                        && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
                     }
                 </div>
                 <MainLayout>
@@ -249,14 +251,14 @@ class _StationDetails extends Component {
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
                         </div>}
                     </div>
-                    {isFindMore &&
+                    {isFindMore && station.songs.length > 0 &&
                         <>
                             <span>Let's find something to your station</span>
                             <Search loadStation={this.loadStation} stationId={this.state.stationId} isOnDeatils={true} />
                         </>
                     }
                 </MainLayout>
-            </section>
+            </section >
         )
     }
 
