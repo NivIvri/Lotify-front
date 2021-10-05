@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import logoImg from '../assets/img/logo.jpg'
 import logo from '../assets/img/gramophone-svgrepo-com.svg'
-import likedSongsSvg from '../icons/liked.svg'
 // '../icons/liked.svg'
 import { eventBusService } from '../services/event-bus.service'
 class _MainNav extends React.Component {
