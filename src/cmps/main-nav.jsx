@@ -26,7 +26,6 @@ class _MainNav extends React.Component {
         to: "/stations",
         fa: 'fa-library'
       }
-
     ],
     activLink: 1,
     selectedStationId: null

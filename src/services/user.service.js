@@ -46,14 +46,23 @@ async function updateUser(user) {
     let updatedUser = await axios.put(`${URL}/user/${user._id}`, user)
     return updatedUser.data
 }
-async function AddToRecentlyPlayed(track) {
+async function AddToRecentlyPlayed(track, stationOrTrack) {
     let user = getLoggedinUser()
-    debugger
-    let recentlyPlayedSongs = user.recentlyPlayedSongs
-
-    recentlyPlayedSongs = recentlyPlayedSongs.slice(Math.max(recentlyPlayedSongs.length - 9, 0))
-    recentlyPlayedSongs.push(track)
-    user.recentlyPlayedSongs = recentlyPlayedSongs
+    if (stationOrTrack === 'track') {
+        let recentlyPlayedSongs = user.recentlyPlayedSongs
+        if (!recentlyPlayedSongs.length < 10)
+            recentlyPlayedSongs = recentlyPlayedSongs.slice(Math.max(recentlyPlayedSongs.length - 9, 0))
+        recentlyPlayedSongs.push(track)
+        user.recentlyPlayedSongs = recentlyPlayedSongs
+    }
+    else {
+        if (!track) return
+        let recentlyPlayedStations = user.recentlyPlayedStations
+        if (!recentlyPlayedStations.length < 10)
+            recentlyPlayedStations = recentlyPlayedStations.slice(Math.max(recentlyPlayedStations.length - 9, 0))
+        recentlyPlayedStations.push(track)
+        user.recentlyPlayedStations = recentlyPlayedStations
+    }
     if (user.username !== "guest") {
         user = await updateUser(user)
     }

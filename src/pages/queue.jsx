@@ -51,7 +51,7 @@ class _Queue extends React.Component {
                         <div className="playing-next-queue-container">
                             {
                                 this.props.playNextQueue &&
-                                <TrackList songs={this.props.playNextQueue} onAddToNextQueue={this.onAddToNextQueue} idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
+                                <TrackList songs={this.props.playNextQueue} onAddToNextQueue={this.onAddToNextQueue} idx={0} playTrack={async (track, idx) => { await this.props.setCurrTrack(track, idx) }} />
                             }
                         </div>
                         <div className="queue-sub-header">
@@ -61,7 +61,7 @@ class _Queue extends React.Component {
 
                             {
                                 songs &&
-                                <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={this.onAddToNextQueue} />
+                                <TrackList songs={songs} playTrack={async (track, idx) => { await this.props.setCurrTrack(track, idx) }} onAddToNextQueue={this.onAddToNextQueue} />
                             }
                         </div>
                     </div>

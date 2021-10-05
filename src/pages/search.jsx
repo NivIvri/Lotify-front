@@ -48,7 +48,7 @@ class _Search extends React.Component {
 
         if (this.props?.isOnDeatils) {
             var trackResult = await youtubeApiService.searchTrack(this.state.keySearch);
-            var stationResult=[]
+            var stationResult = []
         }
         else {
             var trackResult = await youtubeApiService.searchTrack(this.state.keySearch);
@@ -81,8 +81,8 @@ class _Search extends React.Component {
             this.setState(prevState => ({ ...prevState }))
             return
         }
-        this.props.setCurrTrack(track, idx);
-        this.props.setQueue([track], idx)
+        await this.props.setCurrTrack(track, idx);
+        await this.props.setQueue([track], idx)
     }
 
 

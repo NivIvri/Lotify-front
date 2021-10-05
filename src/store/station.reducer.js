@@ -31,7 +31,6 @@ export function stationReducer(state = initialState, action) {
             newState = { ...state, currTrack: action.track, queue: newQueue, playNextQueue: newPlayNextQueue }
             break
         case 'SET_QUEUE':
-            debugger
             let idx = action.queue.findIndex((track) => state.currTrack.id === track.id)
             const befores = action.queue.splice(0, idx)
             action.queue.shift()

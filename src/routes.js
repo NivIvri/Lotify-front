@@ -2,6 +2,7 @@
 //import {AboutUs} from './pages/about-us.jsx'
 //import {CarApp} from './pages/car-app.jsx'
 
+import Friends from "./pages/friends";
 import { Home } from "./pages/Home";
 import { Queue } from "./pages/queue";
 import { Search } from "./pages/search";
@@ -16,14 +17,6 @@ const routes = [
         path: '/userPref',
         component: UserPref,
     },
-    //{
-    //    path: '/',
-    //    component: Signin,
-    //},
-    // {
-    //    path: '/signup',
-    //    component: Signup,
-    //},
 
     {
         path: '/',
@@ -37,10 +30,10 @@ const routes = [
         path: '/queue',
         component: Queue,
     },
-    //{
-    //    path:'/about',
-    //    component: AboutUs,
-    //}
+    {
+        path: '/friends',
+        component: Friends,
+    },
     {
         path: '/search',
         component: Search

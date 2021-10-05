@@ -27,10 +27,10 @@ class _StationDetails extends Component {
     }
     async componentDidMount() {
         await this.loadStation()
-        let user = await this.props.user
+        let { user } = this.props
         if (!user) {
             await this.props.loadUser();
-            user = await this.props.user
+            user = this.props.user
         }
         if (this.state.station && this.state.station._id) {
             if (user.likedStations.includes(this.state.station._id)) {
@@ -66,16 +66,16 @@ class _StationDetails extends Component {
         try {
             if (stationId.length === 24) {
                 station = await stationServiceNew.getStationById(stationId)
-                console.log('got by id',station);
+                console.log('got by id', station);
             } else {
                 station = await stationServiceNew.getStationByGenre(stationId)
-                console.log('got by genre',station);
+                console.log('got by genre', station);
             }
             if (!station) {
                 station = await youtubeApiService.getStationByTag(stationId)
                 if (station)
-                station = station[0]
-                console.log('got from api',station);
+                    station = station[0]
+                console.log('got from api', station);
             }
             let user;
             if (stationId === 'likedTracks') {
@@ -96,18 +96,18 @@ class _StationDetails extends Component {
             }
             else this.setState({ station: [] })
         }
-        catch{
+        catch {
             console.log('had issues');
         }
-}
+    }
 
-    playRandTrack = () => {
+    playRandTrack = async () => {
         if (!this.props.currTrack) {
             const songs = [...this.state.station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
-            this.props.setCurrTrack(track, idx);
-            this.props.setQueue([...songs], this.state.stationId);
+            await this.props.setCurrTrack(track, idx);
+            await this.props.setQueue([...songs], this.state.stationId);
         }
         this.props.toggleIsPlaying()
     }
@@ -115,11 +115,13 @@ class _StationDetails extends Component {
 
     onSortEnd = ({ oldIndex, newIndex }) => {
         const { station } = this.state
+        debugger
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
-        this.setState((prevState) => ({ ...prevState, station }))
-        if (this.props.currTrack && this.props.playedStation === this.state.stationId) {
-            this.props.setQueue([...station.songs], this.state.stationId)
-        }
+        this.setState((prevState) => ({ ...prevState, station }), () => {
+            if (this.props.currTrack && this.props.playedStation === this.state.stationId) {
+                this.props.setQueue([...station.songs], this.state.stationId)
+            }
+        })
     }
 
     toggleLike = async (ev, stationOrTrack) => {
@@ -134,9 +136,9 @@ class _StationDetails extends Component {
             //if the station is from the search
             if (!this.state.station._id) {
                 const stationToSave = await stationServiceNew.saveStation(this.state.station)
-                this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
+                this.setState({ station: stationToSave })
+                await this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
                 showSuccessMsg('Saved to Your Library')
-
             }
             else {
                 this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
@@ -148,9 +150,7 @@ class _StationDetails extends Component {
             showErrorMsg('Removed from Your Library')
         }
         const { stationId } = this.state
-        debugger
         if (stationId === 'likedTracks') {
-            debugger
             this.loadStation()
         }
 
