@@ -29,43 +29,44 @@ class _Queue extends React.Component {
 
 
         return (
-            // <div className='queue-page-wrapper flex column'>
-            <MainLayout>
-                <div className='station-track-list flex column'>
-                    <div className="queue-header">
-                        <h2>Queue</h2>
-                    </div>
-                    <div className="queue-sub-header">
-                        <h4>New Playing</h4>
-                    </div>
-                    <div className="now-playing-container">
-                        {
-                            this.props.currTrack &&
-                            <TrackPreview track={this.props.currTrack} idx={0} playTrack={() => { }} onAddToNextQueue={this.onAddToNextQueue} />
-                        }
+            <div className='queue-page'>
+                <MainLayout>
+                    <div className='station-track-list flex column'>
+                        <div className="queue-header">
+                            <h2>Queue</h2>
+                        </div>
+                        <div className="queue-sub-header">
+                            <h4>New Playing</h4>
+                        </div>
+                        <div className="now-playing-container">
+                            {
+                                this.props.currTrack &&
+                                <TrackPreview track={this.props.currTrack} idx={0} playTrack={() => { }} onAddToNextQueue={this.onAddToNextQueue} />
+                            }
 
-                    </div>
-                    <div className="queue-sub-header">
-                        <h4>Playing Next Queue</h4>
-                    </div>
-                    <div className="playing-next-queue-container">
-                        {
-                            this.props.playNextQueue &&
-                            <TrackList songs={this.props.playNextQueue} onAddToNextQueue={this.onAddToNextQueue} idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
-                        }
-                    </div>
-                    <div className="queue-sub-header">
-                        <h4>Queue</h4>
-                    </div>
-                    <div className="queue-container">
+                        </div>
+                        <div className="queue-sub-header">
+                            <h4>Playing Next Queue</h4>
+                        </div>
+                        <div className="playing-next-queue-container">
+                            {
+                                this.props.playNextQueue &&
+                                <TrackList songs={this.props.playNextQueue} onAddToNextQueue={this.onAddToNextQueue} idx={0} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} />
+                            }
+                        </div>
+                        <div className="queue-sub-header">
+                            <h4>Queue</h4>
+                        </div>
+                        <div className="queue-container">
 
-                        {
-                            songs &&
-                            <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={this.onAddToNextQueue} />
-                        }
+                            {
+                                songs &&
+                                <TrackList songs={songs} playTrack={(track, idx) => { this.props.setCurrTrack(track, idx) }} onAddToNextQueue={this.onAddToNextQueue} />
+                            }
+                        </div>
                     </div>
-                </div>
-            </MainLayout>
+                </MainLayout>
+            </div>
         )
     }
 }
