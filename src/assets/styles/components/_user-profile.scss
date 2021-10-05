@@ -1,0 +1,28 @@
+.profiler{
+    position:fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    button{
+        padding: 15px;
+        background-color: rgba(0, 0, 0, 0.616);
+        display: flex;
+        align-items: center;
+        border: none;
+        color: white;
+        border-radius: 25px;
+        width: 150px;
+        // height: 30px;
+        
+        h2{
+            font-size: 1.5rem;
+        }
+    }
+    h2::before{
+        margin-right: 10px;
+    }
+    h2::after{
+        font-size: 1rem;
+        margin-left: 10px;
+    }
+}

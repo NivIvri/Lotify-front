@@ -5,10 +5,11 @@ import { showErrorMsg } from '../services/event-bus.service.js'
 export function loadUser() {
     return async dispatch => {
         try {
-            console.log('action user');
-            const user = await userService.login({ username: 'EthanGeo' })
-            console.log(user);
-            // const user = await userService.getLoggedinUser()
+            let user = await userService.getLoggedinUser()
+            if (!user) {
+                console.log('here');
+                user = await userService.login({ username: 'guest' })
+            }
             dispatch({ type: 'SET_USER', user })
         } catch (err) {
             console.log('UserActions: err in loadUsers', err)
@@ -70,33 +71,33 @@ export function onLogin(credentials) {
 
 
 export function onSignup(credentials) {
-    return (dispatch) => {
-        userService.signup(credentials)
-            .then(user => {
-                dispatch({
-                    type: 'SET_USER',
-                    user
-                })
+    return async (dispatch) => {
+        try {
+            const user = await userService.signup(credentials)
+            dispatch({
+                type: 'SET_USER',
+                user
             })
-            .catch(err => {
-                showErrorMsg('Cannot signup')
-                console.log('Cannot signup', err)
-            })
+        } catch (err) {
+            showErrorMsg('Cannot signup')
+            console.log('Cannot signup', err)
+        }
 
     }
 }
 
 export function onLogout() {
-    return (dispatch) => {
-        userService.logout()
-            .then(() => dispatch({
-                type: 'SET_USER',
-                user: null
-            }))
-            .catch(err => {
-                showErrorMsg('Cannot logout')
-                console.log('Cannot logout', err)
-            })
+    return async (dispatch) => {
+        try {
+            await userService.logout()
+            loadUser()
+        }
+        catch (err) {
+            showErrorMsg('Cannot signup')
+            console.log('Cannot signup', err)
+
+        }
+
     }
 }
 

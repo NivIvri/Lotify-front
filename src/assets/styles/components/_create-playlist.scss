@@ -3,7 +3,7 @@
     display: block;
     position: fixed;
     width: 456px;
-    /* height: 287px; */
+    overflow-y: unset;
     background-color: #272727;
     transform: translate(-50%, -50%);
     border-radius: 10px;
