@@ -117,7 +117,6 @@ async function searchTrack(keySerch) {
         })
 
         await storageService.saveToStorage([keySerch], trackResult)
-        console.log(trackResult, 'trackResult');
         return trackResult
     }
     catch (err) {

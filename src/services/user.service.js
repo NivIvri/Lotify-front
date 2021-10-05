@@ -27,7 +27,6 @@ async function signup(user) {
 }
 
 async function login(credentials) {
-    console.log(credentials);
     let userToSave = await axios.post(`${URL}/auth/login`, credentials)
     userToSave = userToSave.data
     storageService.saveToStorage(STORAGE_KEY,userToSave)
@@ -75,13 +74,11 @@ function getLoggedinUser() {
 
 async function isGuest() {
     const user = getLoggedinUser()
-    console.log('here');
     return user.username === "guest"
 }
 
 async function addLikeToTrack(trackId, stationOrTrack) {
     let user = getLoggedinUser()
-    console.log(user);
     if (stationOrTrack === 'station') {
         user.likedStations.push(trackId)
     }
@@ -99,7 +96,6 @@ async function addLikeToTrack(trackId, stationOrTrack) {
 
 async function removeLikeFromTrack(currTrackId, stationOrTrack) {
     let user = getLoggedinUser()
-    console.log(user);
     if (stationOrTrack === 'station') {
         let likedStations = user.likedStations.filter(trackId => trackId !== currTrackId)
         user.likedStations = likedStations

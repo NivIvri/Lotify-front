@@ -10,8 +10,6 @@ export const youtubeApiService = {
 
 async function searchTrack(keySerch) {
     if (!keySerch) return []
-    console.log('service:', keySerch)
-    //keySerch = keySerch.trim()
     songCache = storageService.loadFromStorage([keySerch])
     if (songCache) {
         console.log('No need to fetch, retrieving from Cache');
@@ -36,7 +34,6 @@ async function searchTrack(keySerch) {
         })
 
         await storageService.saveToStorage([keySerch], trackResult)
-        console.log(trackResult, 'trackResult');
         return trackResult
     }
     catch (err) {

@@ -78,7 +78,6 @@ class _Home extends Component {
         let { stations, user } = this.props
         stations = stations.filter(station => station.genre !== 'likedTracks')
         const { likedStations, numOfPreviews ,recentlyPlayedStations} = this.state
-        console.log('numOfPreviews', numOfPreviews);
         if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <h1>loading...</h1>
         return (
 

@@ -7,7 +7,6 @@ export function loadUser() {
         try {
             let user = await userService.getLoggedinUser()
             if (!user) {
-                console.log('here');
                 user = await userService.login({ username: 'guest' })
             }
             dispatch({ type: 'SET_USER', user })

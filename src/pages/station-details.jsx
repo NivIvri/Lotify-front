@@ -42,7 +42,6 @@ class _StationDetails extends Component {
 
     async componentDidUpdate(prevProps) {
         const { stationId } = this.props.match.params
-        console.log(prevProps);
         if (prevProps.user?.likedTracks.length !== this.props.user?.likedTracks.length) return this.loadStation()
         if (stationId !== this.state.station?._id && stationId !== this.state.station?.genre) {
             await this.loadStation()
@@ -105,7 +104,7 @@ class _StationDetails extends Component {
     }
 
     playRandTrack = async () => {
-        if (!this.props.currTrack) {
+        if (!this.props.currTrack||this.props.playedStation!==this.state.station._id) {
             const songs = [...this.state.station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
@@ -199,7 +198,6 @@ class _StationDetails extends Component {
         const { station, isFindMore, isShowAll } = this.state
         const { user } = this.props
         const { stationId } = this.props.match.params;
-        console.log(station?.songs);
         if (!station) return <h1>not found</h1>
         //const { loadStations, addToNextQueue, stations } = this.props;
         return (
