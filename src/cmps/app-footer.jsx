@@ -151,7 +151,6 @@ class _AppFooter extends Component {
         })
     }
 
-
     handleToggleMuted = () => {
         let volume = this.state.volume > 5 ? 5 : 30
         this.setState({ muted: !this.state.muted, volume })
