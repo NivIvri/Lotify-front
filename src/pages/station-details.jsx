@@ -65,6 +65,8 @@ class _StationDetails extends Component {
         const { stationId } = this.props.match.params;
         let station
         try {
+            station = await stationServiceNew.getStationFromLocal(stationId)//search in local storage
+            if(!station)
             if (stationId.length === 24) {
                 station = await stationServiceNew.getStationById(stationId)
                 console.log('got by id', station);
