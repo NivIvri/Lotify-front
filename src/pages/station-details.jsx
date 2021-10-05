@@ -13,7 +13,7 @@ import heartNotChecked from '../assets/img/heart-regular.svg';
 import { Search } from './search.jsx';
 import { stationServiceNew } from '../services/station.service.js';
 import { youtubeApiService } from '../services/youtubeApi.service.js';
-import { showSuccessMsg,showErrorMsg } from '../services/event-bus.service.js';
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
 
 class _StationDetails extends Component {
     state = {
@@ -40,8 +40,9 @@ class _StationDetails extends Component {
         }
     }
 
-    async componentDidUpdate(prevState) {
+    async componentDidUpdate(prevProps) {
         const { stationId } = this.props.match.params
+        if (prevProps.user?.likedTracks.length !== this.props.user?.likedTracks.length) return this.loadStation()
         if (stationId !== this.state.station?._id && stationId !== this.state.station?.genre) {
             await this.loadStation()
             let user = await this.props.user
@@ -112,28 +113,70 @@ class _StationDetails extends Component {
 
     toggleLike = async (ev, stationOrTrack) => {
         ev.stopPropagation()
-        this.setState({ isLike: !this.state.isLike }, async () => {
-            if (this.state.isLike) {
-                //if the station is from the search
-                if (!this.state.station._id) {
-                    const stationToSave = await stationServiceNew.saveStation(this.state.station)
-                    this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
-                    showSuccessMsg('Saved to Your Library')
+        this.setState(prevState => {
+            return { ...prevState, isLike: !this.state.isLike }
+        }, () => this.handleToggleLike(stationOrTrack))
+    }
 
-                }
-                else {
-                    this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
-                    showSuccessMsg('Saved to Your Library')
-                }
+    handleToggleLike = async (stationOrTrack) => {
+        if (this.state.isLike) {
+            //if the station is from the search
+            if (!this.state.station._id) {
+                const stationToSave = await stationServiceNew.saveStation(this.state.station)
+                this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
+                showSuccessMsg('Saved to Your Library')
+
             }
             else {
-                this.props.removeLikeFromTrack(this.state.station._id, stationOrTrack)
-                showErrorMsg('Removed from Your Library')
+                this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
+                showSuccessMsg('Saved to Your Library')
             }
-        })
+        }
+        else {
+            this.props.removeLikeFromTrack(this.state.station._id, stationOrTrack)
+            showErrorMsg('Removed from Your Library')
+        }
+        const { stationId } = this.state
+        debugger
+        if (stationId === 'likedTracks') {
+            debugger
+            this.loadStation()
+        }
+
     }
+
+
+    // this.setState({ isLike: !this.state.isLike }, async () => {
+    //     if (this.state.isLike) {
+    //         //if the station is from the search
+    //         if (!this.state.station._id) {
+    //             const stationToSave = await stationServiceNew.saveStation(this.state.station)
+    //             this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
+    //             showSuccessMsg('Saved to Your Library')
+
+    //         }
+    //         else {
+    //             this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
+    //             showSuccessMsg('Saved to Your Library')
+    //         }
+    //     }
+    //     else {
+    //         this.props.removeLikeFromTrack(this.state.station._id, stationOrTrack)
+    //         showErrorMsg('Removed from Your Library')
+    //     }
+    //     const { stationId } = this.state
+    //     if (stationId === 'likedTracks') {
+    //         debugger
+    //         this.loadStation()
+    //     }
+
+    // })
+
+
+
     render() {
         const { station, isFindMore, isShowAll } = this.state
+        console.log(station?.songs);
         if (!station) return <h1>not found</h1>
         //const { loadStations, addToNextQueue, stations } = this.props;
         return (
@@ -170,7 +213,7 @@ class _StationDetails extends Component {
 
                     <DraggableTrackList songs={station.songs} currStation={station}
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
-                        distance='20'  />
+                        distance='20' />
                     <div className='show-btn flex'>
                         {/*{
                             station.songs.length > 10 &&
