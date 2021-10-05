@@ -72,7 +72,7 @@ class _Home extends Component {
         stations = stations.filter(station => station.genre !== 'likedTracks')
         const { likedStations, numOfPreviews } = this.state
         console.log('numOfPreviews', numOfPreviews);
-        if (!user || !stations && !this.props.user && !likedStations) return <h1>loading...</h1>
+        if (!stations || !this.props.user || !likedStations) return <h1>loading...</h1>
         return (
 
             <div className="home-page">
@@ -91,7 +91,8 @@ class _Home extends Component {
                             user.userPref ?
                                 <FavoriteArtists artists={user.userPref.slice(0, 4)} /> :
                                 <FavoriteArtists artists={[{ artist: 'justin bieber', img: 'https://yt3.ggpht.com/ytc/AKedOLTKwkiuIDMtT7w-C55QJm3-FxExhi3So7EWofYGuQ=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'ed sheeran', img: 'https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'billie eilish', img: 'https://yt3.ggpht.com/ytc/AKedOLTAirqzFYUbcrpr8K0Bh8iDCZvBopbEb3K9klVNBA=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'michael jackson', img: 'https://yt3.ggpht.com/ytc/AKedOLRKkpURBGspdclOcPs6lr2Ds0S6VEIWIImSCQ63iA=s800-c-k-c0xffffffff-no-rj-mo' }]} />
-                        }                        </div>
+                        }
+                    </div>
                     <MainLayout>
                         <div className='card'>
                             <div className='card-header'>
@@ -136,7 +137,6 @@ function mapStateToProps(state) {
     return {
         stations: state.stationMoudle.stations,
         user: state.userMoudle.user,
-
     }
 }
 const mapDispatchToProps = {

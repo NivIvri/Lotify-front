@@ -24,7 +24,7 @@ class _StationPreview extends React.Component {
     }
 
     navigateToStation = (station) => {
-        let stationId = station._id ? station._id : station.genre
+        let stationId = station._id ? station._id : station.name
         this.props.history.push(`/station/${stationId}`)
     }
 

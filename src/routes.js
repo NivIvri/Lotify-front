@@ -13,7 +13,7 @@ import { UserPref } from "./pages/user-pref";
 
 const routes = [
     {
-        path: '/userPref',
+        path: '/',
         component: UserPref,
     },
     //{
@@ -26,7 +26,7 @@ const routes = [
     //},
 
     {
-        path: '/',
+        path: '/home',
         component: Home,
     },
     {
