@@ -13,7 +13,8 @@ import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 //import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import heartNotChecked from '../assets/img/heart-regular.svg';
 import { addLikeToTrack, removeLikeFromTrack } from '../store/user.actions';
-import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js';
+import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js';
+import { socketService } from '../services/socket.service'
 
 
 
@@ -30,9 +31,13 @@ class _AppFooter extends Component {
         muted: false,
 
     }
-
+    componentDidMount() {
+        socketService.setup()
+  
+    }
     componentDidUpdate(prevProps, prevstate) {
         if (this.props.currTrack !== prevProps.currTrack) {
+            socketService.emit('play track', { track: this.props.currTrack, user: this.props.user })
             this.isTrackLiked()
             //this.props.toggleIsPlaying();
             this.props.setPlay()
@@ -138,7 +143,7 @@ class _AppFooter extends Component {
     toggleLike = async (ev) => {
         ev.stopPropagation()
         this.setState({ isLiked: !this.state.isLiked }, () => {
-            if (this.state.isLiked){
+            if (this.state.isLiked) {
 
                 this.props.addLikeToTrack(this.props.currTrack, 'track')
                 showSuccessMsg("Add to your Liked Tracks")
