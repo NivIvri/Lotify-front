@@ -125,6 +125,6 @@ async function getUserById(userId) {
 // }
 
 function _saveUserToStorage(user) {
-    storageService.saveToStorage(STORAGE_KEY, user)
+    storageService.saveToStorage(STORAGE_KEY, JSON.stringify(user))
 }
 
