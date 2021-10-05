@@ -13,6 +13,7 @@ import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 //import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import heartNotChecked from '../assets/img/heart-regular.svg';
 import { addLikeToTrack, removeLikeFromTrack } from '../store/user.actions';
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js';
 
 
 
@@ -137,13 +138,19 @@ class _AppFooter extends Component {
     toggleLike = async (ev) => {
         ev.stopPropagation()
         this.setState({ isLiked: !this.state.isLiked }, () => {
-            if (this.state.isLiked)
+            if (this.state.isLiked){
+
                 this.props.addLikeToTrack(this.props.currTrack, 'track')
+                showSuccessMsg("Add to your Liked Tracks")
+            }
             else {
                 this.props.removeLikeFromTrack(this.props.currTrack.id, 'track')
+                showErrorMsg("Removed from your Liked Tracks")
+
             }
         })
     }
+
 
     handleToggleMuted = () => {
         let volume = this.state.volume > 5 ? 5 : 30
