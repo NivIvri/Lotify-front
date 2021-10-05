@@ -24,7 +24,7 @@ export function loadStations() {
 
 export function addStation(newStation) {
     return async (dispatch) => {
-        if (await userService.isGuest()) {//ethan fix!
+        if (await userService.isGuest()) {
             newStation = await guestService.saveStation(newStation)
         } else {
             newStation = await stationServiceNew.saveStation(newStation)
@@ -60,8 +60,8 @@ export function setCurrTrack(track, idx) {
                 track,
                 idx,
             })
-            await userService.AddToRecentlyPlayed(track)
-            dispatch({ type: 'ADD_TO_RECENTLY_PLAYED', track })
+            await userService.AddToRecentlyPlayed(track, 'track')
+            dispatch({ type: 'ADD_TO_RECENTLY_PLAYED', stationOrTrack: 'track', track })
         }
 
         catch (err) {
@@ -74,11 +74,20 @@ export function setCurrTrack(track, idx) {
 export function setQueue(queue, stationId = 0) {
     queue = queue.filter(track => !track.nextQueue)
     return async (dispatch) => {
-        dispatch({
-            type: 'SET_QUEUE',
-            queue,
-            stationId
-        })
+        try {
+            dispatch({
+                type: 'SET_QUEUE',
+                queue,
+                stationId
+            })
+            debugger
+            if (!stationId) return
+            await userService.AddToRecentlyPlayed(stationId, 'station')
+            dispatch({ type: 'ADD_TO_RECENTLY_PLAYED', stationOrTrack: 'station', stationId })
+        }
+        catch (err) {
+            console.log('setQueue  error', err)
+        }
     }
 }
 

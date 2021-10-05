@@ -26,15 +26,14 @@ class _UserPref extends Component {
         if (this.state.artists.length === 3) {
             this.props.setUserPref([...this.state.artists, { artist, img }])
         }
-        // this.props.loadUser()
     }
 
 
     render() {
         const { stations, user } = this.props
         if (!stations || !user) return <h1>loading...</h1>
-         if (user.userPref?.length >= 4) {
-         return <Redirect to='/home' />
+         if (user.userPref.length >= 4) {
+         return <Redirect to='/' />
          }
         return (
             <div className="user-pref">

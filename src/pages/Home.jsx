@@ -11,6 +11,7 @@ import { stationServiceNew } from '../services/station.service.js';
 class _Home extends Component {
     state = {
         likedStations: '',
+        recentlyPlayedStations: '',
         numOfPreviews: 5
     }
 
@@ -56,23 +57,29 @@ class _Home extends Component {
         }
     }
     getLikedStation = async () => {
-
-        let unresolvedPromises = await this.props.user.likedStations.map((stationId => {
+        debugger
+        let unresolvedPromisesLike = await this.props.user.likedStations.map((stationId => {
             return stationServiceNew.getStationById(stationId);
         }
         ))
-
-        const results = await Promise.all(unresolvedPromises);
-        this.setState({ likedStations: results })
+        let unresolvedPromisesStation = await this.props.user.recentlyPlayedStations.map((stationId => {
+            return stationServiceNew.getStationById(stationId);
+        }
+        ))
+        let b =await Promise.all(unresolvedPromisesStation)
+        let a = await Promise.all(unresolvedPromisesLike)
+        const results = await Promise.all([a, b]);
+        debugger
+        this.setState({ likedStations: results[0], recentlyPlayedStations: results[1] })
         //this.props.user.likedStations.map((station => <StationPreview key={station._id} station={station} />))
     }
 
     render() {
         let { stations, user } = this.props
-        stations = stations.filter(station => station.genre !== 'likedTracks')
-        const { likedStations, numOfPreviews } = this.state
+        stations = stations.filter(station => station._id !== 'likedTracks')
+        const { likedStations, numOfPreviews, recentlyPlayedStations } = this.state
         console.log('numOfPreviews', numOfPreviews);
-        if (!stations || !this.props.user || !likedStations) return <h1>loading...</h1>
+        if (!stations && !this.props.user && !likedStations && !recentlyPlayedStations) return <h1>loading...</h1>
         return (
 
             <div className="home-page">
@@ -91,8 +98,7 @@ class _Home extends Component {
                             user.userPref ?
                                 <FavoriteArtists artists={user.userPref.slice(0, 4)} /> :
                                 <FavoriteArtists artists={[{ artist: 'justin bieber', img: 'https://yt3.ggpht.com/ytc/AKedOLTKwkiuIDMtT7w-C55QJm3-FxExhi3So7EWofYGuQ=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'ed sheeran', img: 'https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'billie eilish', img: 'https://yt3.ggpht.com/ytc/AKedOLTAirqzFYUbcrpr8K0Bh8iDCZvBopbEb3K9klVNBA=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'michael jackson', img: 'https://yt3.ggpht.com/ytc/AKedOLRKkpURBGspdclOcPs6lr2Ds0S6VEIWIImSCQ63iA=s800-c-k-c0xffffffff-no-rj-mo' }]} />
-                        }
-                    </div>
+                        }                        </div>
                     <MainLayout>
                         <div className='card'>
                             <div className='card-header'>
@@ -126,6 +132,17 @@ class _Home extends Component {
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>
+                        <div className='card'>
+                            <div className='card-header'>
+                                <h3>Recently played</h3>
+                            </div>
+                            <div className="flex genre">
+                                {recentlyPlayedStations &&
+                                    recentlyPlayedStations.map((station => <StationPreview key={station._id}
+                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
+                                {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
+                            </div>
+                        </div>
                     </MainLayout>
                 </section>
             </div>
@@ -137,6 +154,7 @@ function mapStateToProps(state) {
     return {
         stations: state.stationMoudle.stations,
         user: state.userMoudle.user,
+
     }
 }
 const mapDispatchToProps = {

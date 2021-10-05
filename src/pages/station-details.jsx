@@ -27,10 +27,10 @@ class _StationDetails extends Component {
     }
     async componentDidMount() {
         await this.loadStation()
-        let user = await this.props.user
+        let { user } = this.props
         if (!user) {
             await this.props.loadUser();
-            user = await this.props.user
+            user = this.props.user
         }
         if (this.state.station && this.state.station._id) {
             if (user.likedStations.includes(this.state.station._id)) {
@@ -42,7 +42,6 @@ class _StationDetails extends Component {
 
     async componentDidUpdate(prevProps) {
         const { stationId } = this.props.match.params
-        console.log(prevProps);
         if (prevProps.user?.likedTracks.length !== this.props.user?.likedTracks.length) return this.loadStation()
         if (stationId !== this.state.station?._id && stationId !== this.state.station?.genre) {
             await this.loadStation()
@@ -65,8 +64,6 @@ class _StationDetails extends Component {
         const { stationId } = this.props.match.params;
         let station
         try {
-            station = await stationServiceNew.getStationFromLocal(stationId)//search in local storage
-            if(!station)
             if (stationId.length === 24) {
                 station = await stationServiceNew.getStationById(stationId)
                 console.log('got by id', station);
@@ -104,13 +101,13 @@ class _StationDetails extends Component {
         }
     }
 
-    playRandTrack = () => {
+    playRandTrack = async () => {
         if (!this.props.currTrack) {
             const songs = [...this.state.station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
-            this.props.setCurrTrack(track, idx);
-            this.props.setQueue([...songs], this.state.stationId);
+            await this.props.setCurrTrack(track, idx);
+            await this.props.setQueue([...songs], this.state.stationId);
         }
         this.props.toggleIsPlaying()
     }
@@ -118,11 +115,13 @@ class _StationDetails extends Component {
 
     onSortEnd = ({ oldIndex, newIndex }) => {
         const { station } = this.state
+        debugger
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
-        this.setState((prevState) => ({ ...prevState, station }))
-        if (this.props.currTrack && this.props.playedStation === this.state.stationId) {
-            this.props.setQueue([...station.songs], this.state.stationId)
-        }
+        this.setState((prevState) => ({ ...prevState, station }), () => {
+            if (this.props.currTrack && this.props.playedStation === this.state.stationId) {
+                this.props.setQueue([...station.songs], this.state.stationId)
+            }
+        })
     }
 
     toggleLike = async (ev, stationOrTrack) => {
@@ -137,9 +136,9 @@ class _StationDetails extends Component {
             //if the station is from the search
             if (!this.state.station._id) {
                 const stationToSave = await stationServiceNew.saveStation(this.state.station)
-                this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
+                this.setState({ station: stationToSave })
+                await this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
                 showSuccessMsg('Saved to Your Library')
-
             }
             else {
                 this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
@@ -151,9 +150,7 @@ class _StationDetails extends Component {
             showErrorMsg('Removed from Your Library')
         }
         const { stationId } = this.state
-        debugger
         if (stationId === 'likedTracks') {
-            debugger
             this.loadStation()
         }
 
@@ -187,18 +184,10 @@ class _StationDetails extends Component {
 
     // })
 
-    handleFindMore = () => {
-        this.setState({ isFindMore: !this.state.isFindMore }, () => {
-            const homePage = document.querySelector('.station-details')
-            homePage.scrollTop = homePage.scrollHeight
-        });
 
-    }
 
     render() {
         const { station, isFindMore, isShowAll } = this.state
-        const { user } = this.props
-        const { stationId } = this.props.match.params;
         console.log(station?.songs);
         if (!station) return <h1>not found</h1>
         //const { loadStations, addToNextQueue, stations } = this.props;
@@ -226,11 +215,10 @@ class _StationDetails extends Component {
                         <i class={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
                     {
-                        (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
+                        this.state.isLike && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
                     }
                     {
-                        (stationId !== 'likedTracks' && !this.state.isLike)
-                        && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
+                        !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
                     }
                 </div>
                 <MainLayout>
@@ -245,22 +233,18 @@ class _StationDetails extends Component {
                                 {isShowAll ? 'Show less' : 'Show all playlist'}
                             </div>
                         }*/}
-
-                        {/* original handle */}
-                        {/* () => { this.setState({ isFindMore: !this.state.isFindMore */}
-
-                        {station.songs && station.songs.length > 0 && <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
+                        <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
-                        </div>}
+                        </div>
                     </div>
-                    {isFindMore && station.songs.length > 0 &&
+                    {isFindMore &&
                         <>
                             <span>Let's find something to your station</span>
                             <Search loadStation={this.loadStation} stationId={this.state.stationId} isOnDeatils={true} />
                         </>
                     }
                 </MainLayout>
-            </section >
+            </section>
         )
     }
 

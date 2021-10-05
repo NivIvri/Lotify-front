@@ -7,14 +7,14 @@ import { withRouter } from "react-router";
 
 class _StationPreview extends React.Component {
 
-    playRandTrack = () => {
+    playRandTrack = async () => {
         const { station, currStation } = this.props
         if (!currStation || station._id !== currStation._id) {
             const songs = [...station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
-            this.props.setCurrTrack(track, idx);
-            this.props.setQueue([...songs], station._id);
+            await this.props.setCurrTrack(track, idx);
+            await this.props.setQueue([...songs], station._id);
             this.props.setCurrStation(station)
             this.props.setPlay()
         }
@@ -24,7 +24,7 @@ class _StationPreview extends React.Component {
     }
 
     navigateToStation = (station) => {
-        let stationId = station._id ? station._id : station.name
+        let stationId = station._id ? station._id : station.genre
         this.props.history.push(`/station/${stationId}`)
     }
 

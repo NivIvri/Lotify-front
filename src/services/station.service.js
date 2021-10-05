@@ -1,6 +1,5 @@
 import { httpService } from './http.service.js'
 import Axios from 'axios'
-import storageService from './storage.service.js';
 
 const axios = Axios.create({
     withCredentials: true
@@ -14,8 +13,7 @@ export const stationServiceNew = {
     getStationById,
     searchStation,
     saveStation,
-    getStationByGenre,
-    getStationFromLocal
+    getStationByGenre
 }
 async function query(filterBy = {}) {
     //const res = await axios.get('http://localhost:3030/api/toy', { params: filterBy })
@@ -26,10 +24,6 @@ async function query(filterBy = {}) {
 async function getStationById(stationId) {
     const res = await axios.get(`${BASE_URL}/${stationId}`)
     return res.data
-}
-async function getStationFromLocal(stationId) {
-    const stations = await storageService.loadFromStorage('stations')
-    return stations.find((station) => station._id === stationId)
 }
 
 async function getStationByGenre(stationId) {

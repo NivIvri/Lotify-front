@@ -11,21 +11,4 @@
     min-height           : 100vh;
     max-height           : 100vh;
 
-    @include for-narrow-layout {
-        grid-template-columns: 1fr;
-    }
-
-
-    @include for-normal-layout {
-        grid-template-columns: 210px 1fr;
-
-    }
-
-    @include for-wide-layout {
-        grid-template-columns: 270px 1fr;
-
-    }
-
-
-
 }

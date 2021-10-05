@@ -20,6 +20,11 @@ export function stationReducer(state = initialState, action) {
             if (action.track.nextQueue) {
                 if (state.currTrack) newPlayNextQueue.splice(action.idx, 1)
             }
+            // else {
+            // //     if (state.currTrack) {
+            // //         newQueue.splice(action.idx, 1)
+            // //     }
+            // // }
             if (!state.currTrack?.nextQueue) {
                 newQueue.push(state.currTrack)
             }
