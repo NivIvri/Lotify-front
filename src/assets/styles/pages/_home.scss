@@ -1,8 +1,10 @@
 .search,
 .station-details,
 .home-page,
+.queue-page,
+.create-playlist,
 .station-page {
-  max-height: calc(100vh - 90px);
+  max-height: calc(100vh - 100px);
   overflow-y: scroll;
   //
   width     : 100%;
@@ -165,12 +167,12 @@
     //margin-bottom: 20px;
     //width: 100%;
     ////flex-wrap: wrap;
-    overflow     : hidden;
-    gap          : 10px;
-    margin-bottom: 20px;
-    width        : 100%;
-    display      : grid;
-    justify-content: space-between;
+    overflow             : hidden;
+    gap                  : 10px;
+    margin-bottom        : 20px;
+    width                : 100%;
+    display              : grid;
+    justify-content      : space-between;
     grid-template-columns: repeat(auto-fill, 200px);
 
     justify-items: center;

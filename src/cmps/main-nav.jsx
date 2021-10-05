@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import logoImg from '../assets/img/logo.jpg'
 import logo from '../assets/img/gramophone-svgrepo-com.svg'
+// '../icons/liked.svg'
 import { eventBusService } from '../services/event-bus.service'
 class _MainNav extends React.Component {
   state = {
@@ -71,25 +72,35 @@ class _MainNav extends React.Component {
               </li>
             })}
             <li onClick={() => { eventBusService.emit("create-playlist") }} className="nav-create">
-              <span className="nav-icon fas fa-plus-square"></span>
-              <a>Create Playlist</a>
+              <a>
+                <span className="nav-icon fas fa-plus-square"></span>
+                Create Playlist
+              </a>
+            </li>
+            <li>
+              <NavLink to={'/station/likedTracks'}>
+                {/* <span>
+                  <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
+                </span> */}
+                <span className={`nav-icon fas fa-heart`}></span>
+                Liked Songs</NavLink>
+
             </li>
           </ul>
-          {/* <div className="stations-wrapper"> */}
           <ul className="stations">
             {
               stations.map(station => {
-                return <li key={station._id} onClick={() => this.setSelectedStationId(station._id)}><NavLink to={`/station/${station._id}`}
-                  className={selectedStationId === station._id ? 'selected-station' : ''}>
-                  {station.name.length < 28 ? station.name : station.name.slice(0, 28) + '...'}
-                </NavLink></li>
+                return <li key={station._id} onClick={() => this.setSelectedStationId(station._id)}>
+                  <NavLink to={`/station/${station._id}`}
+                    className={selectedStationId === station._id ? 'station-link selected-station' : 'station-link'}>
+                    {station.name}
+                    {/* {station.name.length < 28 ? station.name : station.name.slice(0, 28) + '...'} */}
+                  </NavLink></li>
               })
             }
 
           </ul>
-          {/* </div> */}
         </nav>
-        {/* <div className="offset-main"></div> */}
       </>
     )
   }
