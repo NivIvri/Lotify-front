@@ -24,7 +24,7 @@ export function loadStations() {
 
 export function addStation(newStation) {
     return async (dispatch) => {
-        if (await userService.isGuest()) {
+        if (await userService.isGuest()) {//ethan fix!
             newStation = await guestService.saveStation(newStation)
         } else {
             newStation = await stationServiceNew.saveStation(newStation)

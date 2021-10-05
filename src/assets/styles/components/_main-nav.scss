@@ -2,10 +2,16 @@
   // position           : fixed;
   // left               : 0;
   // width              : 250px;
-  max-height         : calc(100vh - 90px);
-  background-color   : $main-nav-bg;
-  color              : white;
-  padding-top        : 1.8rem;
+
+
+  // ori-  its down in .main-nav class selector
+  // max-height      : calc(100vh - 90px);
+  // background-color: $main-nav-bg;
+  // color           : white;
+  // padding-top     : 1.8rem;
+
+
+
   // padding-left    : 2rem;
 }
 
@@ -49,8 +55,10 @@
 }
 
 .main-nav {
-  // white-space: nowrap;
-  //overflow: visible;
+  max-height      : calc(100vh - 90px);
+  background-color: $main-nav-bg;
+  color           : white;
+  padding-top     : 1.8rem;
 
   ul {
 
@@ -149,6 +157,20 @@
 
     }
   }
+
+
+  @include for-narrow-layout {
+    position: absolute;
+    width   : 210px;
+    left    : -210px;
+  }
+
+  @include for-normal-layout {
+    position: relative;
+    width   : 210px;
+    left    : 0;
+  }
+
 }
 
 .liked-songs-svg {

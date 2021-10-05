@@ -45,7 +45,7 @@ class _Search extends React.Component {
 
 
     delayedHandleChange = _.debounce(async () => {
-
+        if(!this.state.keySearch)return
         if (this.props?.isOnDeatils) {
             var trackResult = await youtubeApiService.searchTrack(this.state.keySearch);
             var stationResult = []
@@ -54,16 +54,19 @@ class _Search extends React.Component {
             var trackResult = await youtubeApiService.searchTrack(this.state.keySearch);
             var stationResult = await stationServiceNew.searchStation(this.state.keySearch);
             var stationResultApi = await youtubeApiService.getStationByTag(this.state.keySearch);
-            if (!stationResult.some(result => result.name === stationResultApi[0].name))
-                stationResult = stationResult.concat(stationResultApi)
+            if (stationResultApi)
+                if (!stationResult.some(result => result.name === stationResultApi[0].name))
+                    stationResult = stationResult.concat(stationResultApi)
         }
-
-        if (trackResult.length === 0) return
-        else {
+        if (!trackResult) {
+            trackResult = []
+        }
+        // if (trackResult.length === 0) return
+        // else {
             this.setState({ trackResult, stationResult }, () => {
                 this.setState({ isOnSearch: true })
             })
-        }
+        // }
     }, 700);
 
     handleChange = async ({ target }) => {

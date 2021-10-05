@@ -66,7 +66,7 @@ class _Home extends Component {
             return stationServiceNew.getStationById(stationId);
         }
         ))
-        let b =await Promise.all(unresolvedPromisesStation)
+        let b = await Promise.all(unresolvedPromisesStation)
         let a = await Promise.all(unresolvedPromisesLike)
         const results = await Promise.all([a, b]);
         debugger
@@ -76,10 +76,10 @@ class _Home extends Component {
 
     render() {
         let { stations, user } = this.props
-        stations = stations.filter(station => station._id !== 'likedTracks')
-        const { likedStations, numOfPreviews, recentlyPlayedStations } = this.state
+        stations = stations.filter(station => station.genre !== 'likedTracks')
+        const { likedStations, numOfPreviews ,recentlyPlayedStations} = this.state
         console.log('numOfPreviews', numOfPreviews);
-        if (!stations && !this.props.user && !likedStations && !recentlyPlayedStations) return <h1>loading...</h1>
+        if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <h1>loading...</h1>
         return (
 
             <div className="home-page">
@@ -98,7 +98,8 @@ class _Home extends Component {
                             user.userPref ?
                                 <FavoriteArtists artists={user.userPref.slice(0, 4)} /> :
                                 <FavoriteArtists artists={[{ artist: 'justin bieber', img: 'https://yt3.ggpht.com/ytc/AKedOLTKwkiuIDMtT7w-C55QJm3-FxExhi3So7EWofYGuQ=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'ed sheeran', img: 'https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'billie eilish', img: 'https://yt3.ggpht.com/ytc/AKedOLTAirqzFYUbcrpr8K0Bh8iDCZvBopbEb3K9klVNBA=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'michael jackson', img: 'https://yt3.ggpht.com/ytc/AKedOLRKkpURBGspdclOcPs6lr2Ds0S6VEIWIImSCQ63iA=s800-c-k-c0xffffffff-no-rj-mo' }]} />
-                        }                        </div>
+                        }
+                    </div>
                     <MainLayout>
                         <div className='card'>
                             <div className='card-header'>
@@ -154,7 +155,6 @@ function mapStateToProps(state) {
     return {
         stations: state.stationMoudle.stations,
         user: state.userMoudle.user,
-
     }
 }
 const mapDispatchToProps = {

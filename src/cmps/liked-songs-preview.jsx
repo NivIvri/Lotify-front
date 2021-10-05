@@ -44,7 +44,7 @@ class _LikedSongsPreview extends React.Component {
         const { station, currStation, isPlaying } = this.props
         if (!station) return <div> not found</div>
         return (
-            <div className="station-preview liked-songs-link" onClick={() => this.navigateToStation(station._id)}>
+            <div className="station-preview liked-songs-link" onClick={() => this.navigateToStation(station.genre)}>
                 <h3 className="station-name-header">{station.name}</h3>
                 <p className="station-desc">
                     {station.songs.reduce((songStr, song) => {

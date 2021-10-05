@@ -42,6 +42,7 @@ class _StationDetails extends Component {
 
     async componentDidUpdate(prevProps) {
         const { stationId } = this.props.match.params
+        console.log(prevProps);
         if (prevProps.user?.likedTracks.length !== this.props.user?.likedTracks.length) return this.loadStation()
         if (stationId !== this.state.station?._id && stationId !== this.state.station?.genre) {
             await this.loadStation()
@@ -64,13 +65,15 @@ class _StationDetails extends Component {
         const { stationId } = this.props.match.params;
         let station
         try {
-            if (stationId.length === 24) {
-                station = await stationServiceNew.getStationById(stationId)
-                console.log('got by id', station);
-            } else {
-                station = await stationServiceNew.getStationByGenre(stationId)
-                console.log('got by genre', station);
-            }
+            station = await stationServiceNew.getStationFromLocal(stationId)//search in local storage
+            if (!station)
+                if (stationId.length === 24) {
+                    station = await stationServiceNew.getStationById(stationId)
+                    console.log('got by id', station);
+                } else {
+                    station = await stationServiceNew.getStationByGenre(stationId)
+                    console.log('got by genre', station);
+                }
             if (!station) {
                 station = await youtubeApiService.getStationByTag(stationId)
                 if (station)
@@ -184,10 +187,18 @@ class _StationDetails extends Component {
 
     // })
 
+    handleFindMore = () => {
+        this.setState({ isFindMore: !this.state.isFindMore }, () => {
+            const homePage = document.querySelector('.station-details')
+            homePage.scrollTop = homePage.scrollHeight
+        });
 
+    }
 
     render() {
         const { station, isFindMore, isShowAll } = this.state
+        const { user } = this.props
+        const { stationId } = this.props.match.params;
         console.log(station?.songs);
         if (!station) return <h1>not found</h1>
         //const { loadStations, addToNextQueue, stations } = this.props;
@@ -215,10 +226,11 @@ class _StationDetails extends Component {
                         <i class={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
                     {
-                        this.state.isLike && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
+                        (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
                     }
                     {
-                        !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
+                        (stationId !== 'likedTracks' && !this.state.isLike)
+                        && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev, 'station') }} />
                     }
                 </div>
                 <MainLayout>
@@ -233,9 +245,13 @@ class _StationDetails extends Component {
                                 {isShowAll ? 'Show less' : 'Show all playlist'}
                             </div>
                         }*/}
-                        <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
+
+                        {/* original handle */}
+                        {/* () => { this.setState({ isFindMore: !this.state.isFindMore */}
+
+                        { <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
-                        </div>
+                        </div>}
                     </div>
                     {isFindMore &&
                         <>
@@ -244,7 +260,7 @@ class _StationDetails extends Component {
                         </>
                     }
                 </MainLayout>
-            </section>
+            </section >
         )
     }
 

@@ -14,12 +14,12 @@ import { UserPref } from "./pages/user-pref";
 
 const routes = [
     {
-        path: '/userPref',
+        path: '/',
         component: UserPref,
     },
 
     {
-        path: '/',
+        path: '/home',
         component: Home,
     },
     {

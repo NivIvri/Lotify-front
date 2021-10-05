@@ -97,9 +97,16 @@
 .fa-ellipsis-h::before {
   content: '\f141';
 }
+.fa-chevron-down-after::after{
+  font-family: fas;
+  content: '\f078';
+}
 
 .fa-chevron-left::before {
   content: '\f053';
+}
+.fa-user-alt::before {
+  content: '\f406';
 }
 
 
