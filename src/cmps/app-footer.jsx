@@ -179,7 +179,7 @@ class _AppFooter extends Component {
                             width='0px'
                             heigth='0px'
                             volume={volume / 100}
-                            onSeek={e => console.log('onSeek', e)}
+                            // onSeek={e => console.log('onSeek', e)}
                             onProgress={this.handleProgress}
                             onDuration={this.handleDuration}
                             onReady={() => { this.setState({ isLoaded: true }) }}

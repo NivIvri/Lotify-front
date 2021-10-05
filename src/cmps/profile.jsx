@@ -39,7 +39,6 @@ class _UserPrifile extends Component {
             this.props.onLogin(credentials)
         } else {
             credentials = { ...this.state.credentials, userPref: this.props.user.userPref }
-            console.log('cre',credentials);
             this.props.onSignup(credentials)
         }
         this.setLoginOrSignup(null)
