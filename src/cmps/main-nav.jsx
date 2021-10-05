@@ -10,7 +10,7 @@ class _MainNav extends React.Component {
       {
         id: 1,
         name: "Home",
-        to: "/",
+        to: "/Home",
         fa: 'fa-home'
       },
       {
@@ -50,7 +50,7 @@ class _MainNav extends React.Component {
     return (
       <>
         <nav className="main-nav">
-          <Link to='/home'>
+          <Link to='/Home'>
             <div className="banner">
               {/* src\assets\img */}
               <div className="logo-img-container">
