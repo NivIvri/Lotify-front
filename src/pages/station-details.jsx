@@ -185,7 +185,13 @@ class _StationDetails extends Component {
 
     // })
 
+    handleFindMore = () => {
+        this.setState({ isFindMore: !this.state.isFindMore }, () => {
+            const homePage = document.querySelector('.station-details')
+            homePage.scrollTop = homePage.scrollHeight
+        });
 
+    }
 
     render() {
         const { station, isFindMore, isShowAll } = this.state
@@ -235,9 +241,13 @@ class _StationDetails extends Component {
                                 {isShowAll ? 'Show less' : 'Show all playlist'}
                             </div>
                         }*/}
-                        <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={() => { this.setState({ isFindMore: !this.state.isFindMore }) }}>
+
+                        {/* original handle */}
+                        {/* () => { this.setState({ isFindMore: !this.state.isFindMore */}
+
+                        {station.songs && station.songs.length > 0 && <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
-                        </div>
+                        </div>}
                     </div>
                     {isFindMore &&
                         <>
