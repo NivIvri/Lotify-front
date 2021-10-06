@@ -7,6 +7,7 @@ import { StationPreview } from '../cmps/station-preview.jsx';
 import { loadStations } from '../store/station.actions.js';
 import { loadUser } from '../store/user.actions';
 import { stationServiceNew } from '../services/station.service.js';
+import { Loading } from '../cmps/Loading.jsx';
 
 class _Home extends Component {
     state = {
@@ -76,8 +77,8 @@ class _Home extends Component {
     render() {
         let { stations, user } = this.props
         stations = stations.filter(station => station.genre !== 'likedTracks')
-        const { likedStations, numOfPreviews ,recentlyPlayedStations} = this.state
-        if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <h1>loading...</h1>
+        const { likedStations, numOfPreviews, recentlyPlayedStations } = this.state
+        if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <Loading />
         return (
 
             <div className="home-page">

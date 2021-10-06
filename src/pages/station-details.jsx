@@ -64,6 +64,7 @@ class _StationDetails extends Component {
         const { stationId } = this.props.match.params;
         let station
         try {
+            //only for guest
             station = await stationServiceNew.getStationFromLocal(stationId)//search in local storage
             if (!station)
                 if (stationId.length === 24) {
@@ -151,9 +152,9 @@ class _StationDetails extends Component {
             showErrorMsg('Removed from Your Library')
         }
         const { stationId } = this.state
-        if (stationId === 'likedTracks') {
-            this.loadStation()
-        }
+        //if (stationId === 'likedTracks') {
+        this.loadStation()
+        //}
 
     }
 
