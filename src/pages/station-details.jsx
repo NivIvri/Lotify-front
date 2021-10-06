@@ -104,7 +104,7 @@ class _StationDetails extends Component {
     }
 
     playRandTrack = async () => {
-        if (!this.props.currTrack||this.props.playedStation!==this.state.station._id) {
+        if (!this.props.currTrack || this.props.playedStation !== this.state.station._id) {
             const songs = [...this.state.station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
@@ -222,6 +222,7 @@ class _StationDetails extends Component {
                     <button className="play-rand" onClick={this.playRandTrack}>
                         <i class={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
+
                     {
                         (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
                     }
@@ -246,7 +247,7 @@ class _StationDetails extends Component {
                         {/* original handle */}
                         {/* () => { this.setState({ isFindMore: !this.state.isFindMore */}
 
-                        { <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
+                        {<div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
                         </div>}
                     </div>

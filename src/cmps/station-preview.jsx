@@ -4,6 +4,8 @@ import { setCurrTrack, setQueue, setCurrStation, setPlay } from '../store/statio
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from "react-router";
+import PlayCircleIcon from '@material-ui/icons/PlayCircleFilledWhite';
+import { ThemeProvider, createTheme } from '@material-ui/core'
 
 class _StationPreview extends React.Component {
 
@@ -49,6 +51,7 @@ class _StationPreview extends React.Component {
 
                         }}>
                             <i class={`play-icon ${isPlaying && (station?._id === currStation?._id) ? "fas fa-pause" : "fas fa-play"}`}></i>
+
                         </div>
                     </div>
                     <div className="station-name-header">
