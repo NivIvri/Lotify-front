@@ -24,7 +24,7 @@ export function loadStations() {
 
 export function addStation(newStation) {
     return async (dispatch) => {
-        if (await userService.isGuest()) {//ethan fix!
+        if (await userService.isGuest()) {
             console.log('is guest');
             newStation = await guestService.saveStation(newStation)
         } else {
@@ -50,7 +50,6 @@ export function unshuffleQueue(playedStationId) {
         })
     }
 }
-
 
 //without service
 export function setCurrTrack(track, idx) {
@@ -82,7 +81,6 @@ export function setQueue(queue, stationId = 0) {
                 queue,
                 stationId
             })
-            // debugger
             if (!stationId) return
             await userService.AddToRecentlyPlayed(stationId, 'station')
             dispatch({ type: 'ADD_TO_RECENTLY_PLAYED', stationOrTrack: 'station', stationId })

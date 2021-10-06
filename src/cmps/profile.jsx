@@ -7,6 +7,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { eventBusService } from '../services/event-bus.service';
 import { connect } from 'react-redux'
 import { loadUser, onSignup, onLogin, onLogout } from '../store/user.actions';
+import { loadStations} from '../store/station.actions';
 
 class _UserPrifile extends Component {
     state = {
@@ -32,16 +33,18 @@ class _UserPrifile extends Component {
         this.setState(prevState => ({ ...prevState, credentials: { ...prevState.credentials, [key]: val } }))
     }
 
-    onSubmit = () => {
+    onSubmit = async () => {
         let credentials
         if (this.state.loginOrSignup === "Login") {
             credentials = { username: this.state.credentials.username, password: this.state.credentials.password }
-            this.props.onLogin(credentials)
+            await this.props.onLogin(credentials)
         } else {
             credentials = { ...this.state.credentials, userPref: this.props.user.userPref }
-            this.props.onSignup(credentials)
+            await this.props.onSignup(credentials)
         }
         this.setLoginOrSignup(null)
+        await this.props.loadUser()
+        this.props.loadStations()
     }
 
 
@@ -61,7 +64,8 @@ class _UserPrifile extends Component {
                             <MenuItem onClick={() => this.setLoginOrSignup("Signup")}>Signup</MenuItem> :
                             <MenuItem onClick={async () => {
                                await this.props.onLogout()
-                                this.props.loadUser()
+                              await  this.props.loadUser()
+                                this.props.loadStations()
                             }
                             }>Logout</MenuItem>
                         }
@@ -127,7 +131,8 @@ const mapDispatchToProps = {
     loadUser,
     onSignup,
     onLogin,
-    onLogout
+    onLogout,
+    loadStations
 }
 
 
