@@ -11,6 +11,10 @@
     min-height           : 100vh;
     max-height           : 100vh;
 
+    // &>span {
+    //     display: none !important;
+    // }
+
     @include for-narrow-layout {
         grid-template-columns: 1fr;
     }
