@@ -85,6 +85,15 @@ class _MainNav extends React.Component {
                 Liked Songs</NavLink>
 
             </li>
+            <li>
+              <NavLink to={'/friends'}>
+                {/* <span>
+                  <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
+                </span> */}
+                <span className={`nav-icon fas fa-user-friends`}></span>
+                Friends</NavLink>
+
+            </li>
           </ul>
           <ul className="stations">
             {

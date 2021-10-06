@@ -70,7 +70,6 @@ class _Signin extends React.Component {
 
   render() {
     const { username, password } = this.state.credentials;
-    console.log(username, password, 'username, password');
     return (
       <ThemeProvider theme={theme} >
         <Container component="main" maxWidth="xs">

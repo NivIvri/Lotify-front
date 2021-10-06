@@ -27,7 +27,6 @@ async function signup(user) {
 }
 
 async function login(credentials) {
-    console.log(credentials);
     let userToSave = await axios.post(`${URL}/auth/login`, credentials)
     userToSave = userToSave.data
     storageService.saveToStorage(STORAGE_KEY,userToSave)
@@ -51,7 +50,7 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
         let recentlyPlayedSongs = user.recentlyPlayedSongs
         if (!recentlyPlayedSongs.length < 10)
             recentlyPlayedSongs = recentlyPlayedSongs.slice(Math.max(recentlyPlayedSongs.length - 9, 0))
-        recentlyPlayedSongs.push(track)
+        recentlyPlayedSongs.unshift(track)
         user.recentlyPlayedSongs = recentlyPlayedSongs
     }
     else {
@@ -59,7 +58,7 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
         let recentlyPlayedStations = user.recentlyPlayedStations
         if (!recentlyPlayedStations.length < 10)
             recentlyPlayedStations = recentlyPlayedStations.slice(Math.max(recentlyPlayedStations.length - 9, 0))
-        recentlyPlayedStations.push(track)
+        recentlyPlayedStations.unshift(track)
         user.recentlyPlayedStations = recentlyPlayedStations
     }
     if (user.username !== "guest") {
@@ -75,18 +74,16 @@ function getLoggedinUser() {
 
 async function isGuest() {
     const user = getLoggedinUser()
-    console.log('here');
     return user.username === "guest"
 }
 
 async function addLikeToTrack(trackId, stationOrTrack) {
     let user = getLoggedinUser()
-    console.log(user);
     if (stationOrTrack === 'station') {
-        user.likedStations.push(trackId)
+        user.likedStations.unshift(trackId)
     }
     else {
-        user.likedTracks.push(trackId)
+        user.likedTracks.unshift(trackId)
     }
     // const isGuest=await isGuest()
     // console.log(isGuest);
@@ -99,7 +96,6 @@ async function addLikeToTrack(trackId, stationOrTrack) {
 
 async function removeLikeFromTrack(currTrackId, stationOrTrack) {
     let user = getLoggedinUser()
-    console.log(user);
     if (stationOrTrack === 'station') {
         let likedStations = user.likedStations.filter(trackId => trackId !== currTrackId)
         user.likedStations = likedStations

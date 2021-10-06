@@ -78,7 +78,6 @@ class _Home extends Component {
         let { stations, user } = this.props
         stations = stations.filter(station => station.genre !== 'likedTracks')
         const { likedStations, numOfPreviews ,recentlyPlayedStations} = this.state
-        console.log('numOfPreviews', numOfPreviews);
         if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <h1>loading...</h1>
         return (
 
@@ -129,7 +128,7 @@ class _Home extends Component {
                             <div className="flex genre">
                                 {likedStations &&
                                     likedStations.map((station => <StationPreview key={station._id}
-                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews)).reverse()}
+                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>
@@ -140,7 +139,7 @@ class _Home extends Component {
                             <div className="flex genre">
                                 {recentlyPlayedStations &&
                                     recentlyPlayedStations.map((station => <StationPreview key={station._id}
-                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews)).reverse()}
+                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>
