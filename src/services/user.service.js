@@ -1,9 +1,13 @@
 import storageService from '../services/storage.service'
 import { utilService } from './util.service.js'
 import { gPlaylists } from "./data";
-import axios from 'axios'
+import Axios from 'axios'
 import { update } from 'lodash';
-import { stationServiceNew } from './station.service';
+
+const axios = Axios.create({
+withCredentials: true
+});
+
 export const userService = {
     getLoggedinUser,
     getUserById,
@@ -77,7 +81,7 @@ function getLoggedinUser() {
 }
 
 async function isGuest() {
-    const user = getLoggedinUser()
+    const user = await getLoggedinUser()
     return user.username === "guest"
 }
 

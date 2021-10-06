@@ -5,7 +5,10 @@ import Slider from '@mui/material/Slider';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
 
-import { setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying, unshuffleQueue } from '../store/station.actions.js';
+import {
+    setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying,
+    setCurrTrack, setQueue, unshuffleQueue
+} from '../store/station.actions.js';
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
@@ -60,8 +63,26 @@ class _AppFooter extends Component {
     handleChange = (event) => {
         let newValue = event.target.value;
         this.setState({ volume: newValue });
-    };
-    togglePlay = () => {
+    }
+
+    playRandTrack = async (stations) => {
+        let randIdx = Math.floor(Math.random() * (stations.length))
+        let station = stations[randIdx]
+        while (station.genre === 'likedTracks') {
+            randIdx = Math.floor(Math.random() * (stations.length))
+            station = stations[randIdx]
+        }
+        const songs = [...station.songs];
+        const idx = Math.floor(Math.random() * (songs.length))
+        const track = songs[idx]
+        await this.props.setCurrTrack(track, idx);
+        await this.props.setQueue([...songs], station._id);
+    }
+
+    togglePlay = async () => {
+        if (!this.props.currTrack) {
+            await this.playRandTrack(this.props.stations)
+        }
         if (this.state.isLoaded)
             this.props.toggleIsPlaying();
         // this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
@@ -159,10 +180,14 @@ class _AppFooter extends Component {
         let volume = this.state.volume > 5 ? 5 : 30
         this.setState({ muted: !this.state.muted, volume })
     }
+
     onGoToplaylist = () => {
         if (!this.props.playedStation) return
         this.props.history.push(`/station/${this.props.playedStation}`)
     }
+
+
+
 
     render() {
         const { played, duration, volume, isShuffle } = this.state
@@ -277,7 +302,8 @@ function mapStateToProps(state) {
         isPlaying: state.stationMoudle.isPlaying,
         playedStation: state.stationMoudle.playedStation,
         queue: state.stationMoudle.queue,
-        user: state.userMoudle.user
+        user: state.userMoudle.user,
+        stations: state.stationMoudle.stations
 
     }
 }
@@ -289,7 +315,9 @@ const mapDispatchToProps = {
     toggleIsPlaying,
     setPlay,
     addLikeToTrack,
-    removeLikeFromTrack
+    removeLikeFromTrack,
+    setCurrTrack,
+    setQueue
 }
 
 

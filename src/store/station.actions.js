@@ -7,7 +7,7 @@ import { AddToRecentlyPlayed } from "./user.actions.js";
 export function loadStations() {
     return async (dispatch) => {
         try {
-            let stations = await stationServiceNew.query()
+            let stations = await stationServiceNew.getStationsByUser()
             let guestStations = await guestService.query()
             stations = stations.concat(guestStations)
             dispatch({
@@ -24,9 +24,11 @@ export function loadStations() {
 
 export function addStation(newStation) {
     return async (dispatch) => {
-        if (await userService.isGuest()) {//ethan fix!
+        if (await userService.isGuest()) {
+            console.log('is guest');
             newStation = await guestService.saveStation(newStation)
         } else {
+            console.log('not guest');
             newStation = await stationServiceNew.saveStation(newStation)
         }
         dispatch({
@@ -48,7 +50,6 @@ export function unshuffleQueue(playedStationId) {
         })
     }
 }
-
 
 //without service
 export function setCurrTrack(track, idx) {
@@ -80,7 +81,6 @@ export function setQueue(queue, stationId = 0) {
                 queue,
                 stationId
             })
-            debugger
             if (!stationId) return
             await userService.AddToRecentlyPlayed(stationId, 'station')
             dispatch({ type: 'ADD_TO_RECENTLY_PLAYED', stationOrTrack: 'station', stationId })

@@ -118,7 +118,6 @@ class _StationDetails extends Component {
 
     onSortEnd = ({ oldIndex, newIndex }) => {
         const { station } = this.state
-        debugger
         station.songs = arrayMoveImmutable(station.songs, oldIndex, newIndex)
         this.setState((prevState) => ({ ...prevState, station }), () => {
             if (this.props.currTrack && this.props.playedStation === this.state.stationId) {
