@@ -57,7 +57,6 @@ class _Home extends Component {
         }
     }
     getLikedStation = async () => {
-        debugger
         let unresolvedPromisesLike = await this.props.user.likedStations.map((stationId => {
             return stationServiceNew.getStationById(stationId);
         }
