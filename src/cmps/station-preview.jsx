@@ -8,14 +8,14 @@ import { withRouter } from "react-router";
 class _StationPreview extends React.Component {
 
     playRandTrack = async () => {
-        const { station, playedStation } = this.props
-        if (!playedStation || station._id !== playedStation._id) {
+        const { station, currStation } = this.props
+        if (!currStation || station._id !== currStation._id) {
             const songs = [...station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
             await this.props.setCurrTrack(track, idx);
             await this.props.setQueue([...songs], station._id);
-            // this.props.setCurrStation(station)
+            this.props.setCurrStation(station)
             this.props.setPlay()
         }
         else {
@@ -29,8 +29,8 @@ class _StationPreview extends React.Component {
     }
 
     render() {
-        const { station, playedStation, isPlaying } = this.props
-        debugger
+        const { station, currStation, isPlaying } = this.props
+        // debugger
         if (!station) return <div>loading...</div>
         return (
             <div className="station-preview">
@@ -48,7 +48,7 @@ class _StationPreview extends React.Component {
                             this.playRandTrack()
 
                         }}>
-                            <i class={`play-icon ${isPlaying && (station?._id === playedStation?._id) ? "fas fa-pause" : "fas fa-play"}`}></i>
+                            <i class={`play-icon ${isPlaying && (station?._id === currStation?._id) ? "fas fa-pause" : "fas fa-play"}`}></i>
                         </div>
                     </div>
                     <div className="station-name-header">
@@ -79,6 +79,7 @@ function mapStateToProps(state) {
         currTrack: state.stationMoudle.currTrack,
         playedStation: state.stationMoudle.playedStation,
         user: state.userMoudle.user,
+        currStation: state.stationMoudle.currStation
 
     }
 }

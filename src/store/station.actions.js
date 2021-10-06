@@ -80,7 +80,7 @@ export function setQueue(queue, stationId = 0) {
                 queue,
                 stationId
             })
-            debugger
+            // debugger
             if (!stationId) return
             await userService.AddToRecentlyPlayed(stationId, 'station')
             dispatch({ type: 'ADD_TO_RECENTLY_PLAYED', stationOrTrack: 'station', stationId })

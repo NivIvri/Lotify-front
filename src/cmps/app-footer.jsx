@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 import {
     setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying,
-    setCurrTrack, setQueue, unshuffleQueue
+    setCurrTrack, setQueue, unshuffleQueue, setCurrStation
 } from '../store/station.actions.js';
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
@@ -77,15 +77,20 @@ class _AppFooter extends Component {
         const track = songs[idx]
         await this.props.setCurrTrack(track, idx);
         await this.props.setQueue([...songs], station._id);
+        this.props.setCurrStation(station)
+        this.props.setPlay()
     }
 
     togglePlay = async () => {
         if (!this.props.currTrack) {
             await this.playRandTrack(this.props.stations)
         }
-        if (this.state.isLoaded)
+        else if (this.state.isLoaded)
             this.props.toggleIsPlaying();
-        // this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
+
+        // original code
+        // if (this.state.isLoaded)
+        // this.props.toggleIsPlaying();
     }
 
 
@@ -314,6 +319,7 @@ const mapDispatchToProps = {
     unshuffleQueue,
     toggleIsPlaying,
     setPlay,
+    setCurrStation,
     addLikeToTrack,
     removeLikeFromTrack,
     setCurrTrack,
