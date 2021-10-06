@@ -31,10 +31,16 @@ class _Home extends Component {
             this.setState(prevState => ({ ...prevState, numOfPreviews: 4 }))
         else if (viewPortWidth >= 962)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 3 }))
-        else if (viewPortWidth >= 762)
+        else if (viewPortWidth >= 762 || (viewPortWidth < 640 && viewPortWidth > 460))
             this.setState(prevState => ({ ...prevState, numOfPreviews: 2 }))
-        else if (viewPortWidth >= 562)
+        else if (viewPortWidth >= 640 && viewPortWidth < 762)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 3 }))
+        else {
             this.setState(prevState => ({ ...prevState, numOfPreviews: 1 }))
+
+        }
+        // else if (viewPortWidth >= 562)
+        //     this.setState(prevState => ({ ...prevState, numOfPreviews: 1 }))
 
     }
     async componentDidMount() {

@@ -4,11 +4,10 @@ import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
-import { setFriendCurrTrack } from '../store/friends.actions.js'
 
 import {
     setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying,
-    setCurrTrack, setQueue, unshuffleQueue, setCurrStation
+    setCurrTrack, setQueue, unshuffleQueue
 } from '../store/station.actions.js';
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
@@ -23,6 +22,7 @@ import { socketService } from '../services/socket.service'
 
 
 class _AppFooter extends Component {
+    imgRef = React.createRef()
     state = {
         volume: 30,
         isPlayedTrack: false,
@@ -32,19 +32,13 @@ class _AppFooter extends Component {
         inQueue: false,
         isShuffle: false,
         isLiked: false,
-        trackAndUsers: [],
+        muted: false,
+        trackNotSet: true
+
+
     }
     componentDidMount() {
         socketService.setup()
-        socketService.on('send notification', (username) => {
-            showSuccessMsg(username + ' liked playlist')
-        })
-        socketService.on('user track', ({ track, user }) => {
-            console.log("🚀 ~ file: app-footer.jsx ~ line 43 ~ _AppFooter ~ socketService.on ~ { track, user }", { track, user })
-            this.props.setFriendCurrTrack({ track, user })
-        })
-
-
     }
     componentDidUpdate(prevProps, prevstate) {
         if (this.props.currTrack !== prevProps.currTrack) {
@@ -84,22 +78,25 @@ class _AppFooter extends Component {
         const songs = [...station.songs];
         const idx = Math.floor(Math.random() * (songs.length))
         const track = songs[idx]
-        await this.props.setCurrTrack(track, idx);
-        await this.props.setQueue([...songs], station._id);
-        this.props.setCurrStation(station)
-        this.props.setPlay()
+        this.setState(prevState => ({ ...prevState, trackNotSet: false }),
+            async () => {
+                await this.props.setCurrTrack(track, idx);
+                await this.props.setQueue([...songs], station._id);
+            })
     }
-
+    counter = 0
     togglePlay = async () => {
-        if (!this.props.currTrack) {
-            await this.playRandTrack(this.props.stations)
+        const { trackNotSet } = this.state
+        debugger
+        if (!this.props.currTrack && trackNotSet) {
+            // alert('counter', this.counter++);
+            // await this.playRandTrack(this.props.stations)
         }
-        else if (this.state.isLoaded)
+        if (this.state.isLoaded) {
+            console.log('player loaded');
             this.props.toggleIsPlaying();
-
-        // original code
-        // if (this.state.isLoaded)
-        // this.props.toggleIsPlaying();
+        }
+        // this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
     }
 
 
@@ -190,10 +187,10 @@ class _AppFooter extends Component {
         })
     }
 
-    //handleToggleMuted = () => {
-    //    let volume = this.state.volume > 5 ? 5 : 30
-    //    this.setState({ muted: !this.state.muted, volume })
-    //}
+    handleToggleMuted = () => {
+        let volume = this.state.volume > 5 ? 5 : 30
+        this.setState({ muted: !this.state.muted, volume })
+    }
 
     onGoToplaylist = () => {
         if (!this.props.playedStation) return
@@ -204,7 +201,8 @@ class _AppFooter extends Component {
 
 
     render() {
-        const { played, duration, volume, isShuffle, isGetNotification, notificationMsg } = this.state
+        console.log('imgRef', this.imgRef);
+        const { played, duration, volume, isShuffle } = this.state
         const { isPlaying } = this.props
         const track = this.props.currTrack
         return (
@@ -228,7 +226,7 @@ class _AppFooter extends Component {
                             onReady={() => { this.setState({ isLoaded: true }) }}
                             controls='false'
                             onEnded={this.handleEnded}
-                            muted={false}
+                            muted={this.state.muted}
                         />
                     </div>
                 }
@@ -237,9 +235,11 @@ class _AppFooter extends Component {
                         <div className='img-container-player'>
                             {
                                 track &&
-                                <img onClick={this.onGoToplaylist} className='track-img' src={track.imgUrl} />
+                                <img ref={this.imgRef} alt="" onClick={this.onGoToplaylist}
+                                    className='track-img' src={track.imgUrl} />
                             }
                         </div>
+
                         <div onClick={this.onGoToplaylist}>
                             {track ? track.title : ""}
                         </div>
@@ -291,12 +291,13 @@ class _AppFooter extends Component {
                         </div>
                         <Box sx={{ width: 200 }}>
                             <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                                {volume === 0 &&
-                                    <span /*onClick={this.handleToggleMuted}*/ className="fas fa-volume-mute"></span>}
-                                {volume > 0 && volume < 50 &&
-                                    <span /*onClick={this.handleToggleMuted}*/ className="fas fa-volume-down"></span>}
-                                {volume > 50 &&
-                                    <span /*onClick={this.handleToggleMuted}*/ className="fas fa-volume-up"></span>}
+                                {volume === 0 || this.state.muted &&
+                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-mute"></span>}
+                                {volume > 0 && volume < 50 && !this.state.muted &&
+                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-down"></span>}
+                                {volume > 50 && !this.state.muted &&
+                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-up"></span>}
+
                                 <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
                             </Stack>
                         </Box>
@@ -316,7 +317,7 @@ function mapStateToProps(state) {
         playedStation: state.stationMoudle.playedStation,
         queue: state.stationMoudle.queue,
         user: state.userMoudle.user,
-        stations: state.stationMoudle.stations,
+        stations: state.stationMoudle.stations
 
     }
 }
@@ -327,12 +328,10 @@ const mapDispatchToProps = {
     unshuffleQueue,
     toggleIsPlaying,
     setPlay,
-    setCurrStation,
     addLikeToTrack,
     removeLikeFromTrack,
     setCurrTrack,
-    setQueue,
-    setFriendCurrTrack
+    setQueue
 }
 
 
