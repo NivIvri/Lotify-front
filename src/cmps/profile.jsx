@@ -7,7 +7,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { eventBusService } from '../services/event-bus.service';
 import { connect } from 'react-redux'
 import { loadUser, onSignup, onLogin, onLogout } from '../store/user.actions';
-import { loadStations} from '../store/station.actions';
+import { loadStations } from '../store/station.actions';
 
 class _UserPrifile extends Component {
     state = {
@@ -56,15 +56,15 @@ class _UserPrifile extends Component {
             <>
                 <div className="profiler">
                     <Menu menuButton={
-                        <MenuButton><h2 className="fa-user-alt fas fa-chevron-down-after">{user.fullname}</h2></MenuButton>}>
+                        <MenuButton title={user.username} className={user.username==="guest"?"":"user"}>{<img src={user.img ? user.img:"https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="" />} </MenuButton>}>
                         {user.username === "guest" &&
                             <MenuItem onClick={() => this.setLoginOrSignup("Login")}>Login</MenuItem>
                         }
                         {user.username === "guest" ?
                             <MenuItem onClick={() => this.setLoginOrSignup("Signup")}>Signup</MenuItem> :
                             <MenuItem onClick={async () => {
-                               await this.props.onLogout()
-                              await  this.props.loadUser()
+                                await this.props.onLogout()
+                                await this.props.loadUser()
                                 this.props.loadStations()
                             }
                             }>Logout</MenuItem>

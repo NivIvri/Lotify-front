@@ -11,6 +11,8 @@ import { Loading } from '../cmps/Loading.jsx';
 
 class _Home extends Component {
     state = {
+        goodDayStations:[],
+        hotStations:[],
         likedStations: '',
         recentlyPlayedStations: '',
         numOfPreviews: 5
@@ -41,6 +43,9 @@ class _Home extends Component {
         await this.props.loadStations();
         await this.props.loadUser();
         await this.getLikedStation()
+        const goodDayStations=await stationServiceNew.getGoodDay()
+        const hotStations=await stationServiceNew.getHot()
+        this.setState({goodDayStations,hotStations})
         this.resizer = new ResizeObserver(this.handleRisize)
         this.resizer.observe(document.querySelector('.main-app'))
     }
@@ -69,7 +74,6 @@ class _Home extends Component {
         let b = await Promise.all(unresolvedPromisesStation)
         let a = await Promise.all(unresolvedPromisesLike)
         const results = await Promise.all([a, b]);
-        debugger
         this.setState({ likedStations: results[0], recentlyPlayedStations: results[1] })
         //this.props.user.likedStations.map((station => <StationPreview key={station._id} station={station} />))
     }
@@ -77,7 +81,8 @@ class _Home extends Component {
     render() {
         let { stations, user } = this.props
         stations = stations.filter(station => station.genre !== 'likedTracks')
-        const { likedStations, numOfPreviews, recentlyPlayedStations } = this.state
+        const { likedStations, numOfPreviews, recentlyPlayedStations,goodDayStations ,hotStations} = this.state
+        console.log(goodDayStations);
         if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <Loading />
         return (
 
@@ -102,23 +107,22 @@ class _Home extends Component {
                     <MainLayout>
                         <div className='card'>
                             <div className='card-header'>
-                                <h3>Rock Music</h3>
+                                <h3>Good day</h3>
                             </div>
                             <div className="flex genre">
-                                {/* {stations.map((station => <StationPreview key={station._id} station={station} />)).slice(0, 5)} */}
-                                {stations.map((station => <StationPreview key={station._id}
-                                    station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
+                                {goodDayStations.map((station => <StationPreview key={station._id}
+                                    station={station} />)).slice(0, Math.min(goodDayStations.length, numOfPreviews))}
                             </div>
                         </div>
 
                         <div className='card'>
                             <div className='card-header'>
-                                <h3>Alternative Music</h3>
+                                <h3>Hot right now</h3>
                             </div>
                             <div className="flex genre">
 
-                                {stations.map((station => <StationPreview key={station._id}
-                                    station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
+                                {hotStations.map((station => <StationPreview key={station._id}
+                                    station={station} />)).slice(0, Math.min(hotStations.length, numOfPreviews))}
                             </div>
                         </div>
                         <div className='card'>
