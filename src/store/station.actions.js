@@ -7,7 +7,7 @@ import { AddToRecentlyPlayed } from "./user.actions.js";
 export function loadStations() {
     return async (dispatch) => {
         try {
-            let stations = await stationServiceNew.query()
+            let stations = await stationServiceNew.getStationsByUser()
             let guestStations = await guestService.query()
             stations = stations.concat(guestStations)
             dispatch({
@@ -25,8 +25,10 @@ export function loadStations() {
 export function addStation(newStation) {
     return async (dispatch) => {
         if (await userService.isGuest()) {//ethan fix!
+            console.log('is guest');
             newStation = await guestService.saveStation(newStation)
         } else {
+            console.log('not guest');
             newStation = await stationServiceNew.saveStation(newStation)
         }
         dispatch({
