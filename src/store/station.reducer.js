@@ -80,6 +80,7 @@ export function stationReducer(state = initialState, action) {
         case 'ADD_STATION':
             newState = { ...state, stations: [...state.stations, action.newStation] };
             break
+        // case ''
         default:
     }
     return newState
