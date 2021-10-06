@@ -62,8 +62,8 @@ export function setCurrTrack(track, idx) {
                 track,
                 idx,
             })
-            await userService.AddToRecentlyPlayed(track, 'track')
-            dispatch({ type: 'ADD_TO_RECENTLY_PLAYED', stationOrTrack: 'track', track })
+            //await userService.AddToRecentlyPlayed(track, 'track')
+            //dispatch({ type: 'ADD_TO_RECENTLY_PLAYED', stationOrTrack: 'track', track })
         }
 
         catch (err) {

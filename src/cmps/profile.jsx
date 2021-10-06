@@ -103,7 +103,6 @@ class _UserPrifile extends Component {
                                 autoComplete="off"
                                 onChange={this.handleChange}
                             />
-
                             <div className="buttons flex">
                                 <Button style={{ height: "33px", background: '#1db954' }} variant="contained" onClick={this.onSubmit}>
                                     {loginOrSignup}

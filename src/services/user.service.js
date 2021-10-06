@@ -85,10 +85,10 @@ async function isGuest() {
 async function addLikeToTrack(trackId, stationOrTrack) {
     let user = getLoggedinUser()
     if (stationOrTrack === 'station') {
-        user.likedStations.push(trackId)
+        user.likedStations.unshift(trackId)
     }
     else {
-        user.likedTracks.push(trackId)
+        user.likedTracks.unshift(trackId)
     }
     // const isGuest=await isGuest()
     // console.log(isGuest);
