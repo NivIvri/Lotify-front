@@ -5,6 +5,7 @@ import logoImg from '../assets/img/logo.jpg'
 import logo from '../assets/img/gramophone-svgrepo-com.svg'
 // '../icons/liked.svg'
 import { eventBusService } from '../services/event-bus.service'
+import { socketService } from '../services/socket.service'
 class _MainNav extends React.Component {
   state = {
     links: [
@@ -41,9 +42,10 @@ class _MainNav extends React.Component {
     ],
     activLink: 1,
     selectedStationId: null
+  }
+  componentDidMount() {
 
   }
-
 
   handleClick = (linkId) => {
     this.setState({ activLink: linkId })
@@ -93,7 +95,7 @@ class _MainNav extends React.Component {
                 {/* <span>
                   <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
                 </span> */}
-                {/*<span className={`nav-icon fas fa-heart`}></span>
+            {/*<span className={`nav-icon fas fa-heart`}></span>
                 Liked Songs</NavLink>
 
             </li>*/}
@@ -102,7 +104,7 @@ class _MainNav extends React.Component {
                 {/* <span>
                   <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
                 </span> */}
-                {/*<span className={`nav-icon fas fa-user-friends`}></span>
+            {/*<span className={`nav-icon fas fa-user-friends`}></span>
                 Friends</NavLink>
 
             </li>*/}

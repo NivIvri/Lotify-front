@@ -58,6 +58,7 @@ class _Home extends Component {
         }
     }
     getLikedStation = async () => {
+        debugger
         let unresolvedPromisesLike = await this.props.user.likedStations.map((stationId => {
             return stationServiceNew.getStationById(stationId);
         }
@@ -66,10 +67,10 @@ class _Home extends Component {
             return stationServiceNew.getStationById(stationId);
         }
         ))
+        debugger
         let b = await Promise.all(unresolvedPromisesStation)
         let a = await Promise.all(unresolvedPromisesLike)
         const results = await Promise.all([a, b]);
-        debugger
         this.setState({ likedStations: results[0], recentlyPlayedStations: results[1] })
         //this.props.user.likedStations.map((station => <StationPreview key={station._id} station={station} />))
     }
@@ -78,7 +79,8 @@ class _Home extends Component {
         let { stations, user } = this.props
         stations = stations.filter(station => station.genre !== 'likedTracks')
         const { likedStations, numOfPreviews, recentlyPlayedStations } = this.state
-        if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <Loading />
+        console.log(recentlyPlayedStations, 'recentlyPlayedStations');
+        if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <Loading/>
         return (
 
             <div className="home-page">
@@ -116,7 +118,6 @@ class _Home extends Component {
                                 <h3>Alternative Music</h3>
                             </div>
                             <div className="flex genre">
-
                                 {stations.map((station => <StationPreview key={station._id}
                                     station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
                             </div>
@@ -139,7 +140,7 @@ class _Home extends Component {
                             <div className="flex genre">
                                 {recentlyPlayedStations &&
                                     recentlyPlayedStations.map((station => <StationPreview key={station._id}
-                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
+                                        station={station} />)).slice(0, Math.min(recentlyPlayedStations.length, numOfPreviews))}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>

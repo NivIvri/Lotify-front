@@ -1,5 +1,6 @@
 import { userService } from "../services/user.service.js";
 import { showErrorMsg } from '../services/event-bus.service.js'
+import { socketService } from "../services/socket.service.js";
 //import { socketService, SOCKET_EMIT_USER_WATCH, SOCKET_EVENT_USER_UPDATED } from "../services/socket.service.js";
 
 export function loadUser() {
@@ -61,6 +62,7 @@ export function onLogin(credentials) {
                 type: 'SET_USER',
                 user
             })
+            socketService.emit('set-user-socket', user._id);
         } catch (err) {
             showErrorMsg('Cannot login')
             console.log('Cannot login', err)
@@ -77,6 +79,8 @@ export function onSignup(credentials) {
                 type: 'SET_USER',
                 user
             })
+            socketService.emit('set-user-socket', user._id);
+
         } catch (err) {
             showErrorMsg('Cannot signup')
             console.log('Cannot signup', err)
@@ -90,6 +94,7 @@ export function onLogout() {
         try {
             await userService.logout()
             loadUser()
+            socketService.emit('unset-user-socket');
         }
         catch (err) {
             showErrorMsg('Cannot signup')

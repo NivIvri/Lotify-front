@@ -3,9 +3,11 @@ import { utilService } from './util.service.js'
 import { gPlaylists } from "./data";
 import Axios from 'axios'
 import { update } from 'lodash';
+import { stationServiceNew } from './station.service';
+import { socketService } from '../services/socket.service'
 
 const axios = Axios.create({
-withCredentials: true
+    withCredentials: true
 });
 
 export const userService = {
@@ -87,7 +89,7 @@ async function isGuest() {
 
 async function addLikeToTrack(trackId, stationOrTrack) {
     let user = getLoggedinUser()
-    debugger
+
     if (stationOrTrack === 'station') {
         user.likedStations.unshift(trackId)
         let stationToUpdate = await stationServiceNew.getStationFromLocal(trackId)//search in local storage
@@ -99,7 +101,11 @@ async function addLikeToTrack(trackId, stationOrTrack) {
                 stationToUpdate = await stationServiceNew.getStationByGenre(trackId)
                 console.log('got by genre', stationToUpdate);
             }
+
+        socketService.emit('add like', { userIdliked: stationToUpdate.createdBy.id, currUser: user })
+
         if (!stationToUpdate.likedByUsers) stationToUpdate.likedByUsers = []
+
         stationToUpdate.likedByUsers.push({ username: user.username, id: user._id })
 
         await stationServiceNew.saveStation(stationToUpdate)

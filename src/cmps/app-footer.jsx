@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 import ReactPlayer from 'react-player'
 import { connect } from 'react-redux'
+import { setFriendCurrTrack } from '../store/friends.actions.js'
 
 import {
     setPlay, playNextTrack, playPrevTrack, shuffleQueue, toggleIsPlaying,
@@ -31,11 +32,19 @@ class _AppFooter extends Component {
         inQueue: false,
         isShuffle: false,
         isLiked: false,
-        muted: false,
-
+        trackAndUsers: [],
     }
     componentDidMount() {
         socketService.setup()
+        socketService.on('send notification', (username) => {
+            showSuccessMsg(username + ' liked playlist')
+        })
+        socketService.on('user track', ({ track, user }) => {
+            console.log("🚀 ~ file: app-footer.jsx ~ line 43 ~ _AppFooter ~ socketService.on ~ { track, user }", { track, user })
+            this.props.setFriendCurrTrack({ track, user })
+        })
+
+
     }
     componentDidUpdate(prevProps, prevstate) {
         if (this.props.currTrack !== prevProps.currTrack) {
@@ -176,10 +185,10 @@ class _AppFooter extends Component {
         })
     }
 
-    handleToggleMuted = () => {
-        let volume = this.state.volume > 5 ? 5 : 30
-        this.setState({ muted: !this.state.muted, volume })
-    }
+    //handleToggleMuted = () => {
+    //    let volume = this.state.volume > 5 ? 5 : 30
+    //    this.setState({ muted: !this.state.muted, volume })
+    //}
 
     onGoToplaylist = () => {
         if (!this.props.playedStation) return
@@ -190,7 +199,7 @@ class _AppFooter extends Component {
 
 
     render() {
-        const { played, duration, volume, isShuffle } = this.state
+        const { played, duration, volume, isShuffle, isGetNotification, notificationMsg } = this.state
         const { isPlaying } = this.props
         const track = this.props.currTrack
         return (
@@ -214,7 +223,7 @@ class _AppFooter extends Component {
                             onReady={() => { this.setState({ isLoaded: true }) }}
                             controls='false'
                             onEnded={this.handleEnded}
-                            muted={this.state.muted}
+                            muted={false}
                         />
                     </div>
                 }
@@ -277,13 +286,12 @@ class _AppFooter extends Component {
                         </div>
                         <Box sx={{ width: 200 }}>
                             <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                                {volume === 0 || this.state.muted &&
-                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-mute"></span>}
-                                {volume > 0 && volume < 50 && !this.state.muted &&
-                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-down"></span>}
-                                {volume > 50 && !this.state.muted &&
-                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-up"></span>}
-
+                                {volume === 0 &&
+                                    <span /*onClick={this.handleToggleMuted}*/ className="fas fa-volume-mute"></span>}
+                                {volume > 0 && volume < 50 &&
+                                    <span /*onClick={this.handleToggleMuted}*/ className="fas fa-volume-down"></span>}
+                                {volume > 50 &&
+                                    <span /*onClick={this.handleToggleMuted}*/ className="fas fa-volume-up"></span>}
                                 <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
                             </Stack>
                         </Box>
@@ -303,7 +311,7 @@ function mapStateToProps(state) {
         playedStation: state.stationMoudle.playedStation,
         queue: state.stationMoudle.queue,
         user: state.userMoudle.user,
-        stations: state.stationMoudle.stations
+        stations: state.stationMoudle.stations,
 
     }
 }
@@ -317,7 +325,8 @@ const mapDispatchToProps = {
     addLikeToTrack,
     removeLikeFromTrack,
     setCurrTrack,
-    setQueue
+    setQueue,
+    setFriendCurrTrack
 }
 
 

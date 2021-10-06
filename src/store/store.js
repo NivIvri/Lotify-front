@@ -7,10 +7,12 @@ import thunk from 'redux-thunk'
 
 import { stationReducer } from './station.reducer.js'
 import { userReducer } from './user.reducer.js'
+import { friendReducer } from './friend.reducer.js'
 
 const rootReducer = combineReducers({
     stationMoudle: stationReducer,
     userMoudle: userReducer,
+    friendMoudle: friendReducer,
 })
 
 
