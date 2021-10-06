@@ -25,6 +25,18 @@ class _MainNav extends React.Component {
         name: "My Stations",
         to: "/stations",
         fa: 'fa-library'
+      },
+      {
+        id: 4,
+        name: "Liked Songs",
+        to: "/station/likedTracks",
+        fa: 'fa-heart'
+      },
+      {
+        id: 5,
+        name: "Friends",
+        to: "/friends",
+        fa: 'fa-user-friends'
       }
     ],
     activLink: 1,
@@ -76,24 +88,24 @@ class _MainNav extends React.Component {
                 Create Playlist
               </a>
             </li>
-            <li>
+            {/*<li>
               <NavLink to={'/station/likedTracks'}>
                 {/* <span>
                   <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
                 </span> */}
-                <span className={`nav-icon fas fa-heart`}></span>
+                {/*<span className={`nav-icon fas fa-heart`}></span>
                 Liked Songs</NavLink>
 
-            </li>
-            <li>
+            </li>*/}
+            {/*<li>
               <NavLink to={'/friends'}>
                 {/* <span>
                   <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
                 </span> */}
-                <span className={`nav-icon fas fa-user-friends`}></span>
+                {/*<span className={`nav-icon fas fa-user-friends`}></span>
                 Friends</NavLink>
 
-            </li>
+            </li>*/}
           </ul>
           <ul className="stations">
             {

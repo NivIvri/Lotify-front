@@ -3,6 +3,7 @@ import { utilService } from './util.service.js'
 import { gPlaylists } from "./data";
 import axios from 'axios'
 import { update } from 'lodash';
+import { stationServiceNew } from './station.service';
 export const userService = {
     getLoggedinUser,
     getUserById,
@@ -13,7 +14,8 @@ export const userService = {
     isGuest,
     signup,
     login,
-    logout
+    logout,
+    getUsers
 }
 const STORAGE_KEY = "user"
 const URL = 'http://localhost:3030/api'
@@ -29,7 +31,7 @@ async function signup(user) {
 async function login(credentials) {
     let userToSave = await axios.post(`${URL}/auth/login`, credentials)
     userToSave = userToSave.data
-    storageService.saveToStorage(STORAGE_KEY,userToSave)
+    storageService.saveToStorage(STORAGE_KEY, userToSave)
     return userToSave
 }
 
@@ -54,8 +56,10 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
         user.recentlyPlayedSongs = recentlyPlayedSongs
     }
     else {
+        debugger
         if (!track) return
         let recentlyPlayedStations = user.recentlyPlayedStations
+        if (recentlyPlayedStations.some(stationIdx => stationIdx === track)) return
         if (!recentlyPlayedStations.length < 10)
             recentlyPlayedStations = recentlyPlayedStations.slice(Math.max(recentlyPlayedStations.length - 9, 0))
         recentlyPlayedStations.unshift(track)
@@ -79,8 +83,22 @@ async function isGuest() {
 
 async function addLikeToTrack(trackId, stationOrTrack) {
     let user = getLoggedinUser()
+    debugger
     if (stationOrTrack === 'station') {
         user.likedStations.unshift(trackId)
+        let stationToUpdate = await stationServiceNew.getStationFromLocal(trackId)//search in local storage
+        if (!stationToUpdate)
+            if (trackId.length === 24) {
+                stationToUpdate = await stationServiceNew.getStationById(trackId)
+                console.log('got by id', stationToUpdate);
+            } else {
+                stationToUpdate = await stationServiceNew.getStationByGenre(trackId)
+                console.log('got by genre', stationToUpdate);
+            }
+        if (!stationToUpdate.likedByUsers) stationToUpdate.likedByUsers = []
+        stationToUpdate.likedByUsers.push({ username: user.username, id: user._id })
+
+        await stationServiceNew.saveStation(stationToUpdate)
     }
     else {
         user.likedTracks.unshift(trackId)
@@ -116,11 +134,17 @@ async function getUserById(userId) {
     let user = await axios.get(`${URL}/user/${user._id}`)
     return user
 }
+async function getUsers(filterBy) {
+    filterBy = { filterBy }
+    console.log(filterBy, 'filterBy');
+    let res = await axios.get(`${URL}/user`, { params: filterBy })
+    return res.data
+}
 
 async function setUserPref(userPref) {
-    let user=await getLoggedinUser()
-    user.userPref=userPref
-    if(user.username!=="guest"){
+    let user = await getLoggedinUser()
+    user.userPref = userPref
+    if (user.username !== "guest") {
         updateUser(user)
     }
     _saveUserToStorage(user)
@@ -129,9 +153,6 @@ async function setUserPref(userPref) {
 }
 
 
-
-
-
 function _saveUserToStorage(user) {
-    storageService.saveToStorage(STORAGE_KEY,user)
+    storageService.saveToStorage(STORAGE_KEY, user)
 }

@@ -63,11 +63,10 @@
   background-color: #1db954;
   color           : white;
   position        : absolute;
-  width           : 2.1875rem;
-  height          : 2.1875rem;
   border-radius   : 50%;
-  bottom          : 8px;
-  right           : 8px;
+  bottom: 8px;
+  right: 8px;
+  padding: 20px;
   transition      : visibility 0s, opacity 0.3s linear;
 
   &:hover {
@@ -80,8 +79,8 @@
 
 .play-icon {
   transition: transform 0.3s ease-in-out;
-  position  : absolute;
-  left      : 50%;
-  top       : 50%;
-  transform : translate(-50%, -50%);
+  position: absolute;
+  left: 53%;
+  top: 51%;
+  transform: translate(-50%, -50%);
 }

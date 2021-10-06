@@ -64,6 +64,7 @@ class _StationDetails extends Component {
         const { stationId } = this.props.match.params;
         let station
         try {
+            //only for guest
             station = await stationServiceNew.getStationFromLocal(stationId)//search in local storage
             if (!station)
                 if (stationId.length === 24) {
@@ -104,7 +105,7 @@ class _StationDetails extends Component {
     }
 
     playRandTrack = async () => {
-        if (!this.props.currTrack||this.props.playedStation!==this.state.station._id) {
+        if (!this.props.currTrack || this.props.playedStation !== this.state.station._id) {
             const songs = [...this.state.station.songs];
             const idx = Math.floor(Math.random() * (songs.length))
             const track = songs[idx]
@@ -152,9 +153,9 @@ class _StationDetails extends Component {
             showErrorMsg('Removed from Your Library')
         }
         const { stationId } = this.state
-        if (stationId === 'likedTracks') {
-            this.loadStation()
-        }
+        //if (stationId === 'likedTracks') {
+        this.loadStation()
+        //}
 
     }
 
@@ -247,7 +248,7 @@ class _StationDetails extends Component {
                         {/* original handle */}
                         {/* () => { this.setState({ isFindMore: !this.state.isFindMore */}
 
-                        { <div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
+                        {<div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
                         </div>}
                     </div>
