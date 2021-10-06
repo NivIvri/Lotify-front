@@ -223,6 +223,7 @@ class _StationDetails extends Component {
                     <button className="play-rand" onClick={this.playRandTrack}>
                         <i class={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
+
                     {
                         (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
                     }

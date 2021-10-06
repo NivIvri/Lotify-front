@@ -4,8 +4,10 @@ import { SearchResultUser } from '../cmps/searchResultUser';
 import { eventBusService } from '../services/event-bus.service'
 import { socketService } from '../services/socket.service'
 import { userService } from '../services/user.service';
+import { connect } from 'react-redux'
+
 var _ = require('lodash');
-export default class Friends extends Component {
+class _Friends extends Component {
     state = {
         trackAndUsers: [],
         userResult: [],
@@ -13,26 +15,16 @@ export default class Friends extends Component {
     }
     componentDidMount() {
         socketService.setup()
-        socketService.on('user track', ({ track, user }) => {
-            const trackAndUserIdx = this.state.trackAndUsers.findIndex(trackAndUser => trackAndUser.user._id === user._id)
-            if (trackAndUserIdx !== -1) {
-
-                let trackAndUsers = [...this.state.trackAndUsers];
-                let trackAndUser = { ...trackAndUsers[trackAndUserIdx] };
-                trackAndUser.track = track;
-                trackAndUsers[trackAndUserIdx] = trackAndUser
-                this.setState({ trackAndUsers });
-            }
-            else {
-                this.setState({ trackAndUsers: [...this.state.trackAndUsers, ({ track, user })] })
-            }
-        })
+        debugger
+        this.setState({ trackAndUsers: this.props.trackAndUsers })
     }
-    //componentDidUpdate(prevState) {
-    //    debugger
-    //    if (prevState.tracks?.length !== this.state.tracks.length)
-    //            this.setState({ tracks: allTrack })
+    //componentDidUpdate(prevProps) {
+    //    if (this.props.trackAndUsers !== prevProps.trackAndUsers) {
+    //        this.setState({ trackAndUsers: this.props.trackAndUsers })
+    //    }
     //}
+
+
     delayedHandleChange = _.debounce(async () => {
         if (!this.state.keySearch) return
         var userResult = await userService.getUsers(this.state.keySearch);
@@ -59,7 +51,8 @@ export default class Friends extends Component {
 
 
     render() {
-        const { trackAndUsers, isOnSearch, userResult } = this.state
+        const {  isOnSearch, userResult } = this.state
+        const  trackAndUsers = this.props.trackAndUsers
         if (!trackAndUsers) return <div>loading</div>
         return (
             <MainLayout>
@@ -73,10 +66,10 @@ export default class Friends extends Component {
                     }
                     {trackAndUsers &&
                         trackAndUsers.map((trackAndUser) => {
-                            debugger
+                            
                             return <div>
-                                {trackAndUser.track.title}
-                                {trackAndUser.user.username}
+                                {trackAndUser?.track.title}
+                                {trackAndUser?.user.username}
                             </div>
                         })
                     }
@@ -85,3 +78,15 @@ export default class Friends extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        trackAndUsers: state.friendMoudle.trackAndUsers
+    }
+}
+const mapDispatchToProps = {
+}
+
+
+export const Friends = connect(mapStateToProps, mapDispatchToProps)(_Friends)
+

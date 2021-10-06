@@ -5,6 +5,7 @@ import logoImg from '../assets/img/logo.jpg'
 import logo from '../assets/img/gramophone-svgrepo-com.svg'
 // '../icons/liked.svg'
 import { eventBusService } from '../services/event-bus.service'
+import { socketService } from '../services/socket.service'
 class _MainNav extends React.Component {
   state = {
     links: [
@@ -40,10 +41,13 @@ class _MainNav extends React.Component {
       }
     ],
     activLink: 1,
-    selectedStationId: null
+    selectedStationId: null,
+    isMenuOpen: false
 
   }
+  componentDidMount() {
 
+  }
 
   handleClick = (linkId) => {
     this.setState({ activLink: linkId })
@@ -53,15 +57,31 @@ class _MainNav extends React.Component {
     this.setState(prevState => ({ ...prevState, selectedStationId: stationId }))
   }
 
+  toggleMenu = (isMenuOpen = !this.state.isMenuOpen) => {
+    console.log(isMenuOpen, 'ismenuOpen');
+    this.setState({ isMenuOpen })
+  }
+
   render() {
     const { stations } = this.props
-    const { activLink, links, selectedStationId } = this.state
+    const { activLink, links, selectedStationId, isMenuOpen } = this.state
     if (!links) {
       return <div>loading.</div>
     }
     return (
       <>
-        <nav className="main-nav">
+        <nav className={isMenuOpen ? 'main-nav active' : 'main-nav'}>
+          {/* <div className="humb" onClick={() => this.toggleMenu()}>
+            <div className="humb-strip"></div>
+            <div className="humb-strip"></div>
+            <div className="humb-strip"></div>
+          </div> */}
+
+          <div className={`hamb-icon ${isMenuOpen ? "active" : ""}`} onClick={() => this.toggleMenu()}>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
           <Link to='/Home'>
             <div className="banner">
               {/* src\assets\img */}
@@ -93,7 +113,7 @@ class _MainNav extends React.Component {
                 {/* <span>
                   <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
                 </span> */}
-                {/*<span className={`nav-icon fas fa-heart`}></span>
+            {/*<span className={`nav-icon fas fa-heart`}></span>
                 Liked Songs</NavLink>
 
             </li>*/}
@@ -102,7 +122,7 @@ class _MainNav extends React.Component {
                 {/* <span>
                   <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
                 </span> */}
-                {/*<span className={`nav-icon fas fa-user-friends`}></span>
+            {/*<span className={`nav-icon fas fa-user-friends`}></span>
                 Friends</NavLink>
 
             </li>*/}

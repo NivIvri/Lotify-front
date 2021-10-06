@@ -180,7 +180,7 @@ class _Search extends React.Component {
                         <Link to="station/blues">
                             <div className="div21" style={{ backgroundColor: 'rgb(13, 115, 236)' }}><span>blues</span><img src={blues} /></div>
                         </Link>
-                        <span></span>
+                      
                     </div>
                 </MainLayout>
             </section >

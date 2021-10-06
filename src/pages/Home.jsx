@@ -33,10 +33,16 @@ class _Home extends Component {
             this.setState(prevState => ({ ...prevState, numOfPreviews: 4 }))
         else if (viewPortWidth >= 962)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 3 }))
-        else if (viewPortWidth >= 762)
+        else if (viewPortWidth >= 762 || (viewPortWidth < 640 && viewPortWidth > 460))
             this.setState(prevState => ({ ...prevState, numOfPreviews: 2 }))
-        else if (viewPortWidth >= 562)
+        else if (viewPortWidth >= 640 && viewPortWidth < 762)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 3 }))
+        else {
             this.setState(prevState => ({ ...prevState, numOfPreviews: 1 }))
+
+        }
+        // else if (viewPortWidth >= 562)
+        //     this.setState(prevState => ({ ...prevState, numOfPreviews: 1 }))
 
     }
     async componentDidMount() {
@@ -63,6 +69,7 @@ class _Home extends Component {
         }
     }
     getLikedStation = async () => {
+        debugger
         let unresolvedPromisesLike = await this.props.user.likedStations.map((stationId => {
             return stationServiceNew.getStationById(stationId);
         }
@@ -71,6 +78,7 @@ class _Home extends Component {
             return stationServiceNew.getStationById(stationId);
         }
         ))
+        debugger
         let b = await Promise.all(unresolvedPromisesStation)
         let a = await Promise.all(unresolvedPromisesLike)
         const results = await Promise.all([a, b]);
@@ -143,7 +151,7 @@ class _Home extends Component {
                             <div className="flex genre">
                                 {recentlyPlayedStations &&
                                     recentlyPlayedStations.map((station => <StationPreview key={station._id}
-                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
+                                        station={station} />)).slice(0, Math.min(recentlyPlayedStations.length, numOfPreviews))}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>
