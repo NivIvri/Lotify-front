@@ -18,6 +18,7 @@ export const userService = {
     AddToRecentlyPlayed,
     setUserPref,
     isGuest,
+    updateUser,
     signup,
     login,
     logout,
@@ -50,6 +51,7 @@ async function logout() {
 
 async function updateUser(user) {
     let updatedUser = await axios.put(`${URL}/user/${user._id}`, user)
+    _saveUserToStorage(updatedUser.data)
     return updatedUser.data
 }
 async function AddToRecentlyPlayed(track, stationOrTrack) {

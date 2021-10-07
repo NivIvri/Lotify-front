@@ -111,26 +111,35 @@ class _Home extends Component {
                         }
                     </div>
                     <MainLayout>
-                        <div className='card'>
-                            <div className='card-header'>
-                                <h3>Good day</h3>
-                            </div>
-                            <div className="flex genre">
-                                {goodDayStations.map((station => <StationPreview key={station._id}
-                                    station={station} />)).slice(0, Math.min(goodDayStations.length, numOfPreviews))}
-                            </div>
-                        </div>
+                        {
 
-                        <div className='card'>
-                            <div className='card-header'>
-                                <h3>Hot right now</h3>
+                        }
+                        {
+                            user.username === 'guest' &&
+                            <div className='card'>
+                                <div className='card-header'>
+                                    <h3>Good day</h3>
+                                </div>
+                                <div className="flex genre">
+                                    {goodDayStations.map((station => <StationPreview key={station._id}
+                                        station={station} />)).slice(0, Math.min(goodDayStations.length, numOfPreviews))}
+                                </div>
                             </div>
-                            <div className="flex genre">
 
-                                {hotStations.map((station => <StationPreview key={station._id}
-                                    station={station} />)).slice(0, Math.min(hotStations.length, numOfPreviews))}
+                        }
+                        {
+                            user.username === 'guest' &&
+                            <div className='card'>
+                                <div className='card-header'>
+                                    <h3>Hot right now</h3>
+                                </div>
+                                <div className="flex genre">
+
+                                    {hotStations.map((station => <StationPreview key={station._id}
+                                        station={station} />)).slice(0, Math.min(hotStations.length, numOfPreviews))}
+                                </div>
                             </div>
-                        </div>
+                        }
                         <div className='card'>
                             <div className='card-header'>
                                 <h3>Stations you liked</h3>
