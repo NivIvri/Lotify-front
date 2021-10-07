@@ -17,6 +17,17 @@ export function loadUser() {
     }
 }
 
+export function loadUsers() {
+    return async dispatch => {
+        try {
+            let users = await userService.getUsers()
+            dispatch({ type: 'SET_USERS', users })
+        } catch (err) {
+            console.log('UserActions: err in loadUsers', err)
+        }
+    }
+}
+
 
 export function addLikeToTrack(trackId, stationOrTrack) {
     return async dispatch => {
@@ -111,6 +122,19 @@ export function removeUser(userId) {
         try {
             await userService.remove(userId)
             dispatch({ type: 'REMOVE_USER', userId })
+        } catch (err) {
+            console.log('UserActions: err in removeUser', err)
+        }
+    }
+}
+
+
+export function updateUser(userToUpdate) {
+    return async dispatch => {
+        try {
+            let a = await userService.updateUser(userToUpdate)
+            debugger
+            dispatch({ type: 'UPDATE_USER', user:userToUpdate })
         } catch (err) {
             console.log('UserActions: err in removeUser', err)
         }

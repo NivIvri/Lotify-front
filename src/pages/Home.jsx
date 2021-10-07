@@ -11,8 +11,8 @@ import { Loading } from '../cmps/Loading.jsx';
 
 class _Home extends Component {
     state = {
-        goodDayStations:[],
-        hotStations:[],
+        goodDayStations: [],
+        hotStations: [],
         likedStations: '',
         recentlyPlayedStations: '',
         numOfPreviews: 5
@@ -49,9 +49,9 @@ class _Home extends Component {
         await this.props.loadStations();
         await this.props.loadUser();
         await this.getLikedStation()
-        const goodDayStations=await stationServiceNew.getGoodDay()
-        const hotStations=await stationServiceNew.getHot()
-        this.setState({goodDayStations,hotStations})
+        const goodDayStations = await stationServiceNew.getGoodDay()
+        const hotStations = await stationServiceNew.getHot()
+        this.setState({ goodDayStations, hotStations })
         this.resizer = new ResizeObserver(this.handleRisize)
         this.resizer.observe(document.querySelector('.main-app'))
     }
@@ -87,7 +87,7 @@ class _Home extends Component {
     render() {
         let { stations, user } = this.props
         stations = stations.filter(station => station.genre !== 'likedTracks')
-        const { likedStations, numOfPreviews, recentlyPlayedStations,goodDayStations ,hotStations} = this.state
+        const { likedStations, numOfPreviews, recentlyPlayedStations, goodDayStations, hotStations } = this.state
         console.log(goodDayStations);
         if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <Loading />
         return (
@@ -111,26 +111,35 @@ class _Home extends Component {
                         }
                     </div>
                     <MainLayout>
-                        <div className='card'>
-                            <div className='card-header'>
-                                <h3>Good day</h3>
-                            </div>
-                            <div className="flex genre">
-                                {goodDayStations.map((station => <StationPreview key={station._id}
-                                    station={station} />)).slice(0, Math.min(goodDayStations.length, numOfPreviews))}
-                            </div>
-                        </div>
+                        {
 
-                        <div className='card'>
-                            <div className='card-header'>
-                                <h3>Hot right now</h3>
+                        }
+                        {
+                            user.username === 'guest' &&
+                            <div className='card'>
+                                <div className='card-header'>
+                                    <h3>Good day</h3>
+                                </div>
+                                <div className="flex genre">
+                                    {goodDayStations.map((station => <StationPreview key={station._id}
+                                        station={station} />)).slice(0, Math.min(goodDayStations.length, numOfPreviews))}
+                                </div>
                             </div>
-                            <div className="flex genre">
 
-                                {hotStations.map((station => <StationPreview key={station._id}
-                                    station={station} />)).slice(0, Math.min(hotStations.length, numOfPreviews))}
+                        }
+                        {
+                            user.username === 'guest' &&
+                            <div className='card'>
+                                <div className='card-header'>
+                                    <h3>Hot right now</h3>
+                                </div>
+                                <div className="flex genre">
+
+                                    {hotStations.map((station => <StationPreview key={station._id}
+                                        station={station} />)).slice(0, Math.min(hotStations.length, numOfPreviews))}
+                                </div>
                             </div>
-                        </div>
+                        }
                         <div className='card'>
                             <div className='card-header'>
                                 <h3>Stations you liked</h3>

@@ -24,6 +24,11 @@ export function userReducer(state = initialState, action) {
         case 'SET_USERS':
             newState = { ...state, users: action.users }
             break;
+        case 'UPDATE_USER':
+            debugger
+            let users = state.users.map(user => (user._id === action.user._id) ? action.user : user);
+            newState = { ...state, users }
+            break;
         case 'ADD_LIKE_TO_TRACK':
             if (action.stationOrTrack === 'station')
                 newState = { ...state, user: { ...state.user, likedStations: [...state.user.likedStations, action.trackId] } }

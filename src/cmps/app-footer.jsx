@@ -16,7 +16,7 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeDownIcon from '@material-ui/icons/VolumeDown';
 //import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import heartNotChecked from '../assets/img/heart-regular.svg';
-import { addLikeToTrack, removeLikeFromTrack } from '../store/user.actions';
+import { addLikeToTrack, loadUser, loadUsers, removeLikeFromTrack } from '../store/user.actions';
 import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js';
 import { socketService } from '../services/socket.service'
 
@@ -34,15 +34,17 @@ class _AppFooter extends Component {
         isLiked: false,
         trackAndUsers: [],
     }
-    componentDidMount() {
+    async componentDidMount() {
+        const users = await this.props.loadUsers()
         socketService.setup()
         socketService.on('send notification', (username) => {
             showSuccessMsg(username + ' liked playlist')
             eventBusService.emit(username)
         })
-    
+
         socketService.on('user track', ({ track, user }) => {
-            this.props.setFriendCurrTrack({ track, user })
+
+            this.props.setFriendCurrTrack({ track, user, currLoginUser: this.props.user })
         })
 
 
@@ -298,7 +300,7 @@ class _AppFooter extends Component {
                                     <span /*onClick={this.handleToggleMuted}*/ className="fas fa-volume-down"></span>}
                                 {volume > 50 &&
                                     <span /*onClick={this.handleToggleMuted}*/ className="fas fa-volume-up"></span>}
-                                <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
+                                <Slider aria-label="Volume" value={volume} onChange={this.handleChange} style={{ color: '#1db954', width: "150px" }} />
                             </Stack>
                         </Box>
 
@@ -332,7 +334,8 @@ const mapDispatchToProps = {
     removeLikeFromTrack,
     setCurrTrack,
     setQueue,
-    setFriendCurrTrack
+    setFriendCurrTrack,
+    loadUsers
 }
 
 

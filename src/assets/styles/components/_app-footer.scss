@@ -129,3 +129,17 @@ input[type="range"]::-webkit-slider-runnable-track {
     border: none;
     background: transparent;
 }
+
+.css-187mznn-MuiSlider-root {
+    border-radius: 12px;
+    box-sizing: content-box;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    touch-action: none;
+    color: #1db954;
+    -webkit-tap-highlight-color: transparent;
+    height: 4px;
+    width: 100%;
+    padding: 13px 0;
+}
