@@ -7,7 +7,6 @@ export function friendReducer(state = initialState, action) {
 
     switch (action.type) {
         case 'SET_FRIEND_CURR_TRACK':
-            debugger
             if (!action.currLoginUser.following?.length) return []
             else {
                 if (!action.currLoginUser.following.includes(action.user._id)) {
@@ -25,7 +24,7 @@ export function friendReducer(state = initialState, action) {
                 newState = { ...state, trackAndUsers }
             }
             else {
-                newState = { ...state, trackAndUsers: [...state.trackAndUsers, ({ track: action.track, user: action.user })] }
+                newState = { ...state, trackAndUsers: [...state.trackAndUsers, ({ track: action.track, user: {...action.user} })] }
             }
             break
     }

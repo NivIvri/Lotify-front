@@ -13,7 +13,7 @@ export function userReducer(state = initialState, action) {
             newState = { ...state, count: state.count + action.diff }
             break;
         case 'SET_USER':
-            newState = { ...state, user: action.user }
+            newState = { ...state, user: { ...action.user } }
             break;
         case 'REMOVE_USER':
             newState = {
@@ -22,12 +22,11 @@ export function userReducer(state = initialState, action) {
             }
             break;
         case 'SET_USERS':
-            newState = { ...state, users: action.users }
+            newState = { ...state, users: [...action.users] }
             break;
         case 'UPDATE_USER':
-            debugger
             let users = state.users.map(user => (user._id === action.user._id) ? action.user : user);
-            newState = { ...state, users }
+            newState = { ...state, users, user: { ...action.user } }
             break;
         case 'ADD_LIKE_TO_TRACK':
             if (action.stationOrTrack === 'station')

@@ -142,8 +142,8 @@ async function removeLikeFromTrack(currTrackId, stationOrTrack) {
 
 
 async function getUserById(userId) {
-    let user = await axios.get(`${URL}/user/${user._id}`)
-    return user
+    let user = await axios.get(`${URL}/user/${userId}`)
+    return user.data
 }
 async function getUsers(filterBy) {
     filterBy = { filterBy }

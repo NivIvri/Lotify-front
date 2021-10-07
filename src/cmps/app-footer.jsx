@@ -215,7 +215,6 @@ class _AppFooter extends Component {
                 {
                     track &&
                     <div className='player'>
-
                         <ReactPlayer
                             ref={this.ref}
                             playing={isPlaying}

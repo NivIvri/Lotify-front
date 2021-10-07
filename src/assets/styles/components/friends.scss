@@ -1,0 +1,42 @@
+.friend-following {
+    gap: 20px;
+
+    .all-users-container {
+        display: flex;
+        flex-direction: column;
+        .users-table {
+            margin-top: 10px;
+            border-top: 1px solid #444;
+            padding-top: 10px;
+            max-height: 488px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            min-width: 300px;
+            &::-webkit-scrollbar {
+                width: 12px;
+                // transition: all 0.6s ease-in-out;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: $main-nav-bg !important;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #555;
+                border-radius: 5px;
+                // -webkit-transition : all 3s ease-in-out;
+                transition: all 2s ease-in;
+            }
+        }
+
+        & td:first-child {
+            width: 80px;
+        }
+        & td:nth-child(3) {
+            width: 80px;
+        }
+        & td:nth-child(2) {
+            padding-right: 15px;
+        }
+    }
+}
