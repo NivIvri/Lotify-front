@@ -8,7 +8,6 @@ import { AddToRecentlyPlayed } from "./user.actions.js";
 
 export function setFriendCurrTrack({ track, user }) {
     return async (dispatch) => {
-        debugger
         dispatch(
             {
                 type: 'SET_FRIEND_CURR_TRACK',

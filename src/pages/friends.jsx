@@ -11,11 +11,14 @@ class _Friends extends Component {
     state = {
         trackAndUsers: [],
         userResult: [],
-        isOnSearch: false
+        isOnSearch: false,
+        fromUsers: []
     }
     componentDidMount() {
         socketService.setup()
-        debugger
+        eventBusService.on('get notification', (user) => {
+            this.setState({ fromUsers: [...this.state.fromUsers, user] })
+        })
         this.setState({ trackAndUsers: this.props.trackAndUsers })
     }
     //componentDidUpdate(prevProps) {
@@ -51,9 +54,9 @@ class _Friends extends Component {
 
 
     render() {
-        const {  isOnSearch, userResult } = this.state
-        const  trackAndUsers = this.props.trackAndUsers
-        if (!trackAndUsers) return <div>loading</div>
+        const { isOnSearch, userResult, fromUsers } = this.state
+        const trackAndUsers = this.props.trackAndUsers
+        if (!trackAndUsers || !fromUsers) return <div>loading</div>
         return (
             <MainLayout>
                 <section>
@@ -66,13 +69,22 @@ class _Friends extends Component {
                     }
                     {trackAndUsers &&
                         trackAndUsers.map((trackAndUser) => {
-                            
+
                             return <div>
                                 {trackAndUser?.track.title}
                                 {trackAndUser?.user.username}
                             </div>
                         })
                     }
+
+                    <div className='notification'>
+                        {
+                            fromUsers &&
+                            fromUsers.map(user => {
+                                <div>{user} liked your playlist</div>
+                            })
+                        }
+                    </div>
                 </section>
             </MainLayout>
         )
@@ -81,7 +93,9 @@ class _Friends extends Component {
 
 function mapStateToProps(state) {
     return {
-        trackAndUsers: state.friendMoudle.trackAndUsers
+        trackAndUsers: state.friendMoudle.trackAndUsers,
+        user: state.userMoudle.user,
+
     }
 }
 const mapDispatchToProps = {

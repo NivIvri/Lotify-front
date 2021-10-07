@@ -38,9 +38,10 @@ class _AppFooter extends Component {
         socketService.setup()
         socketService.on('send notification', (username) => {
             showSuccessMsg(username + ' liked playlist')
+            eventBusService.emit(username)
         })
+    
         socketService.on('user track', ({ track, user }) => {
-            console.log("🚀 ~ file: app-footer.jsx ~ line 43 ~ _AppFooter ~ socketService.on ~ { track, user }", { track, user })
             this.props.setFriendCurrTrack({ track, user })
         })
 
@@ -317,7 +318,6 @@ function mapStateToProps(state) {
         queue: state.stationMoudle.queue,
         user: state.userMoudle.user,
         stations: state.stationMoudle.stations,
-
     }
 }
 const mapDispatchToProps = {

@@ -12,7 +12,7 @@ export class SearchResultUser extends Component {
                 <thead></thead>
                 <tbody>
                     {users.map(user => {
-                        debugger
+                        
                         return <tr className={'user-prewiew'}>
                             <td>{user.username}</td>
                             <td><button onClick={this.onFollow(user._id)}>Follow</button></td>

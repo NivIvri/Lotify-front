@@ -3,7 +3,7 @@ import loader from '../assets/img/loader.svg'
 export function Loading() {
     return (
 
-            <img src={loader} />
-       
+        <img src={loader} style={{ margin: '250px auto' }} />
+
     )
 }

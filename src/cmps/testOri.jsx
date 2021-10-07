@@ -87,7 +87,6 @@ class _AppFooter extends Component {
     counter = 0
     togglePlay = async () => {
         const { trackNotSet } = this.state
-        debugger
         if (!this.props.currTrack && trackNotSet) {
             // alert('counter', this.counter++);
             // await this.playRandTrack(this.props.stations)

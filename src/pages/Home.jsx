@@ -64,7 +64,6 @@ class _Home extends Component {
         }
     }
     getLikedStation = async () => {
-        debugger
         let unresolvedPromisesLike = await this.props.user.likedStations.map((stationId => {
             return stationServiceNew.getStationById(stationId);
         }
@@ -73,7 +72,6 @@ class _Home extends Component {
             return stationServiceNew.getStationById(stationId);
         }
         ))
-        debugger
         let b = await Promise.all(unresolvedPromisesStation)
         let a = await Promise.all(unresolvedPromisesLike)
         const results = await Promise.all([a, b]);

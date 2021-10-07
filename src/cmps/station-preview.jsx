@@ -32,7 +32,6 @@ class _StationPreview extends React.Component {
 
     render() {
         const { station, currStation, isPlaying } = this.props
-        // debugger
         if (!station) return <div>loading...</div>
         return (
             <div className="station-preview">

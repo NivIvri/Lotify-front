@@ -62,7 +62,6 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
         user.recentlyPlayedSongs = recentlyPlayedSongs
     }
     else {
-        debugger
         if (!track) return
         let recentlyPlayedStations = user.recentlyPlayedStations
         if (recentlyPlayedStations.some(stationIdx => stationIdx === track)) return
