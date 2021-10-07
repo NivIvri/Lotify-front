@@ -8,6 +8,8 @@ import { eventBusService } from '../services/event-bus.service';
 import { connect } from 'react-redux'
 import { loadUser, onSignup, onLogin, onLogout } from '../store/user.actions';
 import { loadStations } from '../store/station.actions';
+import FacebookLogin from 'react-facebook-login';
+
 
 class _UserPrifile extends Component {
     state = {
@@ -16,6 +18,10 @@ class _UserPrifile extends Component {
         credentials: {
             username: null,
             password: null,
+            fullname: null,
+            facebookUserId: null,
+            img: null
+            // facebookEmail: null
         }
     }
 
@@ -23,8 +29,19 @@ class _UserPrifile extends Component {
         this.props.loadUser()
     }
 
+    getInitialCredentials = () => {
+        return {
+            username: '',
+            password: '',
+            fullname: '',
+            facebookUserId: null,
+            img: null
+        }
+    }
     setLoginOrSignup = (loginOrSignup) => {
-        this.setState({ loginOrSignup })
+
+        this.setState(prevState => ({ ...prevState, credentials: this.getInitialCredentials(), loginOrSignup }))
+        // this.setState({ loginOrSignup })
     }
 
     handleChange = ({ target }) => {
@@ -33,10 +50,11 @@ class _UserPrifile extends Component {
         this.setState(prevState => ({ ...prevState, credentials: { ...prevState.credentials, [key]: val } }))
     }
 
-    onSubmit = async () => {
-        let credentials
+    onSubmit = async (isFacebookLogin = false) => {
+        let credentials = this.state.credentials
         if (this.state.loginOrSignup === "Login") {
-            credentials = { username: this.state.credentials.username, password: this.state.credentials.password }
+            if (!isFacebookLogin)
+                credentials = { username: this.state.credentials.username, password: this.state.credentials.password }
             await this.props.onLogin(credentials)
         } else {
             credentials = { ...this.state.credentials, userPref: this.props.user.userPref }
@@ -47,6 +65,23 @@ class _UserPrifile extends Component {
         this.props.loadStations()
     }
 
+    facebookComponentClicked = () => {
+        console.log('face soosh component clicked');
+    }
+
+    responseFacebook = async response => {
+        console.log('responseFacebook', response);
+
+        const newCredentials = {
+            username: response.email,
+            password: response.userID,
+            fullname: response.name,
+            facebookUserId: response.userID,
+            img: response.picture.data.url
+        }
+        this.setState(prevState => ({ ...prevState, credentials: newCredentials }),
+            () => this.onSubmit(true))
+    }
 
     render() {
         const { loginOrSignup, credentials } = this.state
@@ -56,7 +91,7 @@ class _UserPrifile extends Component {
             <>
                 <div className="profiler">
                     <Menu menuButton={
-                        <MenuButton title={user.username} className={user.username==="guest"?"":"user"}>{<img src={user.img ? user.img:"https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="" />} </MenuButton>}>
+                        <MenuButton title={user.username} className={user.username === "guest" ? "" : "user"}>{<img src={user.img ? user.img : "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="" />} </MenuButton>}>
                         {user.username === "guest" &&
                             <MenuItem onClick={() => this.setLoginOrSignup("Login")}>Login</MenuItem>
                         }
@@ -70,6 +105,9 @@ class _UserPrifile extends Component {
                             }>Logout</MenuItem>
                         }
                     </Menu>
+
+                    {/* ori */}
+
                 </div>
                 <div className={`create-playlist ${loginOrSignup ? "on" : "off"}`} >
                     <div className="header">
@@ -108,8 +146,24 @@ class _UserPrifile extends Component {
                                 onChange={this.handleChange}
                             />
                             <div className="buttons flex">
-                                <Button style={{ height: "33px", background: '#1db954' }} variant="contained" onClick={this.onSubmit}>
+                                <Button style={{ height: "40px", background: '#1db954' }} variant="contained"
+                                    onClick={this.onSubmit}>
                                     {loginOrSignup}
+                                </Button>
+                                <Button style={{ height: "40px", background: '#1E90EA' }} variant="contained"
+                                    className="facebook-login-btn-wrapper-ddd"
+                                    onClick={(e) => e.preventDefault()} >
+                                    {loginOrSignup === "Signup" ? 'Signup with facebook' : 'Login with facebook'}
+
+                                    {/* <p>{loginOrSignup === "Signup" ? 'Signup with facebook' : 'Login with facebook'}</p> */}
+                                    <FacebookLogin
+                                        className="facebook-login-btn"
+                                        appId="992060094973798"
+                                        autoLoad={true}
+                                        fields="name,email,picture"
+                                        onClick={this.facebookComponentClicked}
+                                        callback={this.responseFacebook} />
+
                                 </Button>
                             </div>
                         </form>
