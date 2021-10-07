@@ -43,6 +43,10 @@
     line-height   : 36px;
     text-transform: none;
     font-family   : "Quicksand-Bold";
+
+    @media screen and (max-width:720px) {
+      text-align: center;
+    }
   }
 
   h3 {
@@ -63,12 +67,21 @@
 
   .card-top {
     padding: 3rem 25.6px;
+
+    @media screen and(max-width: 720px) {
+      padding: 5rem 1.6rem;
+    }
   }
 
   .card {
     margin-bottom: 16px;
     min-height   : 300px;
     min-width    : 100%;
+
+    @media screen and(max-width: 960px) {
+      padding-left : 1.6rem;
+      padding-right: 1.6rem;
+    }
 
     .card-header {
       padding-bottom: 16px;

@@ -1,48 +1,56 @@
-.profiler{
-    position:fixed;
-    top: 20px;
-    right: 40px;
-    z-index: 10;
-    :hover{
+.profiler {
+    position: fixed;
+    top     : 20px;
+    right   : 38px;
+    z-index : 10;
+
+    :hover {
         cursor: pointer;
     }
-    h2{
+
+    h2 {
         transition: 0.5s;
     }
-    .szh-menu{
-        li{
-            min-width: 100px;
-            height: auto;
-            padding: 0;
-            display: flex;
+
+    .szh-menu {
+        li {
+            min-width     : 100px;
+            height        : auto;
+            padding       : 0;
+            display       : flex;
             flex-direction: column;
-            align-items: center;
+            align-items   : center;
         }
     }
-    button{
-        display: flex;
-        padding: 0;
-        align-items: center;
-        border: none;
+
+    button {
+        display         : flex;
+        padding         : 0;
+        align-items     : center;
+        border          : none;
         background-color: rgba(128, 128, 128, 0);
-        img{
-            height: 40px;
-            border: 1px gray solid;
-            width: 40px;
+
+        img {
+            height       : 40px;
+            border       : 1px gray solid;
+            width        : 40px;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit   : cover;
         }
-        &.user{
-            img{
-                border:1px solid rgb(29,185,84);
+
+        &.user {
+            img {
+                border: 1px solid rgb(29, 185, 84);
             }
         }
     }
-    h2::before{
+
+    h2::before {
         margin-right: 10px;
     }
-    h2::after{
-        font-size: 1rem;
+
+    h2::after {
+        font-size  : 1rem;
         margin-left: 10px;
     }
 }
