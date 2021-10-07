@@ -1,3 +1,4 @@
+
 .player-container {
     background-color: #181818;
     grid-column: 1 / span 2;
@@ -44,12 +45,45 @@
     color: white;
     display: flex;
     justify-content: space-between;
+    @media screen and (max-width: 760px) {
+        flex-direction: column;
+      }
 
     .song-name-bar {
         align-items: center;
         justify-content: flex-start;
         align-content: center;
         gap: 14px;
+        @media screen and (max-width: 760px) {
+            margin-top: 7px;
+            flex-direction: row-reverse;
+            .song-name{
+                white-space: nowrap;
+                position: relative;
+                overflow: hidden;
+                width: 80%;
+                height: 20px;
+                display: flex;
+                justify-content: center;
+                p{
+                    position: absolute;
+                    animation: marquee 15s linear infinite;
+                }
+                .like-heart{
+                    display: flex;
+                    align-items: center;
+                }
+            }
+            @keyframes marquee {
+                from{
+                    left:100%
+                }
+                to{
+                    left: -100%;
+                }
+                
+            }
+        }
         &:nth-child(1) {
             font-size: 15px;
             font-family: "Raleway-Thin";
@@ -80,6 +114,9 @@
         margin: 12px 0;
         width: 100%;
         align-items: center;
+        @media screen and (max-width: 760px) {
+            margin: 8px 0;
+          }
 
         img {
             height: 25px;
@@ -95,6 +132,9 @@
         height: 100%;
         display: flex;
         align-items: center;
+        @media screen and (max-width: 760px) {
+            display: none;
+          }
     }
 }
 .volume {

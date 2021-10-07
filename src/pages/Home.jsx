@@ -11,8 +11,8 @@ import { Loading } from '../cmps/Loading.jsx';
 
 class _Home extends Component {
     state = {
-        goodDayStations:[],
-        hotStations:[],
+        goodDayStations: [],
+        hotStations: [],
         likedStations: '',
         recentlyPlayedStations: '',
         numOfPreviews: 5
@@ -21,22 +21,22 @@ class _Home extends Component {
     resizer
     handleRisize = (entries) => {
         const viewPortWidth = entries[0].contentRect.width
-        if (viewPortWidth >= 2010)
-            this.setState(prevState => ({ ...prevState, numOfPreviews: 8 }))
-        if (viewPortWidth >= 1800)
+        if (viewPortWidth > 1760)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 7 }))
-        else if (viewPortWidth >= 1590)
+        else if (viewPortWidth >= 1560 && viewPortWidth < 1760)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 6 }))
-        else if (viewPortWidth >= 1380)
+        else if (viewPortWidth >= 1360 && viewPortWidth < 1560)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 5 }))
-        else if (viewPortWidth >= 1170)
+        else if (viewPortWidth >= 1160 && viewPortWidth < 1360)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 4 }))
-        else if (viewPortWidth >= 962)
+            else if (viewPortWidth >= 960 && viewPortWidth < 1160)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 3 }))
-        else if (viewPortWidth >= 762 || (viewPortWidth < 640 && viewPortWidth > 460))
+        else if (viewPortWidth >= 760 && viewPortWidth < 960)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 2 }))
-        else if (viewPortWidth >= 640 && viewPortWidth < 762)
+        else if (viewPortWidth >= 685 && viewPortWidth < 760)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 3 }))
+        else if (viewPortWidth < 685 && viewPortWidth >= 475)
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 2 }))
         else {
             this.setState(prevState => ({ ...prevState, numOfPreviews: 1 }))
 
@@ -49,9 +49,9 @@ class _Home extends Component {
         await this.props.loadStations();
         await this.props.loadUser();
         await this.getLikedStation()
-        const goodDayStations=await stationServiceNew.getGoodDay()
-        const hotStations=await stationServiceNew.getHot()
-        this.setState({goodDayStations,hotStations})
+        const goodDayStations = await stationServiceNew.getGoodDay()
+        const hotStations = await stationServiceNew.getHot()
+        this.setState({ goodDayStations, hotStations })
         this.resizer = new ResizeObserver(this.handleRisize)
         this.resizer.observe(document.querySelector('.main-app'))
     }
@@ -87,7 +87,7 @@ class _Home extends Component {
     render() {
         let { stations, user } = this.props
         stations = stations.filter(station => station.genre !== 'likedTracks')
-        const { likedStations, numOfPreviews, recentlyPlayedStations,goodDayStations ,hotStations} = this.state
+        const { likedStations, numOfPreviews, recentlyPlayedStations, goodDayStations, hotStations } = this.state
         console.log(goodDayStations);
         if (!stations || !this.props.user || !likedStations || !recentlyPlayedStations) return <Loading />
         return (
@@ -106,7 +106,7 @@ class _Home extends Component {
                         </div>
                         {
                             user.userPref ?
-                                <FavoriteArtists artists={user.userPref.slice(0, 4)} /> :
+                                <FavoriteArtists artists={user.userPref.slice(0, 6)} /> :
                                 <FavoriteArtists artists={[{ artist: 'justin bieber', img: 'https://yt3.ggpht.com/ytc/AKedOLTKwkiuIDMtT7w-C55QJm3-FxExhi3So7EWofYGuQ=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'ed sheeran', img: 'https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'billie eilish', img: 'https://yt3.ggpht.com/ytc/AKedOLTAirqzFYUbcrpr8K0Bh8iDCZvBopbEb3K9klVNBA=s800-c-k-c0xffffffff-no-rj-mo' }, { artist: 'michael jackson', img: 'https://yt3.ggpht.com/ytc/AKedOLRKkpURBGspdclOcPs6lr2Ds0S6VEIWIImSCQ63iA=s800-c-k-c0xffffffff-no-rj-mo' }]} />
                         }
                     </div>

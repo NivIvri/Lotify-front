@@ -1,41 +1,6 @@
-.search,
-.station-details,
-.home-page,
-.queue-page,
-.user-pref,
-.station-page {
-  max-height: calc(100vh - 100px);
-  overflow-y: scroll;
-  //
-  width     : 100%;
-
-
-  &::-webkit-scrollbar {
-    width        : 12px;
-    // transition: all 0.6s ease-in-out;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: $main-nav-bg !important;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color      : #555;
-    border-radius         : 5px;
-    // -webkit-transition : all 3s ease-in-out;
-    transition            : all 2s ease-in;
-
-    &:hover {
-      background-color: $main-nav-hover;
-    }
-  }
-}
 
 .home-page,
 .station-page {
-  // ori test
-
-
   h1 {
     font-size     : 32px;
     font-weight   : 700;
@@ -43,8 +8,7 @@
     line-height   : 36px;
     text-transform: none;
     font-family   : "Quicksand-Bold";
-
-    @media screen and (max-width:720px) {
+    @media screen and (max-width:760px) {
       text-align: center;
     }
   }
@@ -67,10 +31,11 @@
 
   .card-top {
     padding: 3rem 25.6px;
-
-    @media screen and(max-width: 720px) {
+    @media screen and(max-width: 760px) {
       padding: 5rem 1.6rem;
     }
+    
+  
   }
 
   .card {
@@ -86,6 +51,12 @@
     .card-header {
       padding-bottom: 16px;
     }
+  }
+  .card-top{
+    @media screen and (max-width: 550px) {
+      padding: 5rem 1rem;
+      padding-bottom: 3rem;
+  }
   }
 
   .main-container {
@@ -119,7 +90,7 @@
   align-items          : center;
   text-align           : center;
 
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 760px) {
     display: none;
   }
 
@@ -143,58 +114,72 @@
 
 .favorite-artists {
   display              : grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows   : 1fr 1fr;
-  gap                  : 10px;
   margin-bottom        : 20px;
-
+  gap                  : 10px;
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  
   a {
     width           : 100%;
     display         : flex;
-    grid-gap        : 20px;
     align-items     : center;
+    gap                  : 10px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius   : 4px;
-    height          : 80px;
     position        : relative;
     transition      : background-color 0.3s ease;
-
+    height          : 80px;
+    overflow: hidden;
+    @media screen and (max-width: 550px) {
+      height          : 60px;
+      h4{
+        font-size: 0.9rem;
+      }
+    }
+    
+  
     &:hover {
       background: rgba(255, 255, 255, 0.2);
     }
   }
 
   img {
-    margin    : -10px -10px -18px -5px;
-    height    : 102px;
-    width     : 102px;
-    object-fit: cover;
+    height    : 100%;
+    width: 100%;
+    max-width: 100px;
+    object-fit:cover;
+    // @media screen and (max-width: 520px) {
+    //   width     : 60px;
+    // }
   }
 
   .img-container {
+    height: 100%;
     float        : left;
-    margin       : 0.5em 10px 0.5em 0;
     overflow     : hidden;
+    width: 30%;
     border-radius: 2px;
+    margin-bottom: 0;
   }
 }
 
 .station-container {
   .genre {
-    //gap: 10px;
-    //margin-bottom: 20px;
-    //width: 100%;
-    ////flex-wrap: wrap;
     overflow             : hidden;
-    gap                  : 10px;
+    gap                  : 5px;
     margin-bottom        : 20px;
     width                : 100%;
-    display              : grid;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax((200px), 1fr));
     justify-content      : space-between;
-    grid-template-columns: repeat(auto-fill, 200px);
-
-    justify-items: center;
     float        : left;
+    @media screen and (max-width: 760px) {
+      justify-items: center;
+      float        :unset;
+    }
 
     h4 {
       font-weight: bolder;
@@ -205,11 +190,7 @@
     }
 
     .station-preview {
-      max-width: 200px;
-      min-width: 200px;
-
-      // ori- I set the same padding in station-preview scss
-      // padding      : 0.8rem;
+      width: 200px;
       margin-bottom: 16px;
 
       &.liked-songs-link {
@@ -240,9 +221,4 @@
       }
     }
   }
-
-  //.playlist-container {
-  //  flex-direction: column;
-  //  margin-bottom: 16px;
-  //}
 }

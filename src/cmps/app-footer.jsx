@@ -40,7 +40,7 @@ class _AppFooter extends Component {
             showSuccessMsg(username + ' liked playlist')
             eventBusService.emit(username)
         })
-    
+
         socketService.on('user track', ({ track, user }) => {
             this.props.setFriendCurrTrack({ track, user })
         })
@@ -241,10 +241,12 @@ class _AppFooter extends Component {
                                 <img onClick={this.onGoToplaylist} className='track-img' src={track.imgUrl} />
                             }
                         </div>
-                        <div onClick={this.onGoToplaylist}>
+                        <div onClick={this.onGoToplaylist} className="song-name">
+                            <p>
                             {track ? track.title : ""}
+                            </p>
                         </div>
-                        {track && <div>
+                        {track && <div className="like-heart">
                             {
                                 this.state.isLiked && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} class="fas fa-heart"></span>
                             }

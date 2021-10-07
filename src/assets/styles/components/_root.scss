@@ -12,10 +12,9 @@
     max-height           : 100vh;
     grid-template-rows: 1fr 100px;
 
-    // &>span {
-    //     display: none !important;
-    // }
-
+    @include for-mobile-layout {
+        grid-template-columns: 1fr;
+    }
     @include for-narrow-layout {
         grid-template-columns: 1fr;
     }
