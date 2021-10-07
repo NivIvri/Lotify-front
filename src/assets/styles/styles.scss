@@ -12,6 +12,7 @@
 // Components
 @import "components/root";
 @import "components/main-nav";
+@import "components/draggable-cmps.scss";
 @import "components/app-footer.scss";
 @import "components/user-msg";
 @import "components/dropdown-menu.scss";
@@ -20,7 +21,6 @@
 @import "components/track-list";
 @import "components/create-playlist";
 @import "components/modal.scss";
-@import "components/draggable-cmps.scss";
 @import "components/liked-songs-preview";
 @import "components/user-profile";
 @import "components/friends.scss";

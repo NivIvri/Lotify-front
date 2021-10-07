@@ -42,12 +42,15 @@
     margin-bottom: 16px;
     min-height   : 300px;
     min-width    : 100%;
-
+    
     @media screen and(max-width: 960px) {
       padding-left : 1.6rem;
       padding-right: 1.6rem;
     }
-
+    
+    @include for-mobile-layout{
+      padding: 0rem 0rem;
+    }
     .card-header {
       padding-bottom: 16px;
     }
@@ -180,6 +183,9 @@
       justify-items: center;
       float        :unset;
     }
+    @include for-mobile-layout{
+      grid-template-columns: repeat(auto-fit, minmax((150px), 1fr));
+    }
 
     h4 {
       font-weight: bolder;
@@ -192,6 +198,10 @@
     .station-preview {
       width: 200px;
       margin-bottom: 16px;
+      @include for-mobile-layout{
+        width: 150px;
+        // height: 170px;
+      }
 
       &.liked-songs-link {
         display    : block;

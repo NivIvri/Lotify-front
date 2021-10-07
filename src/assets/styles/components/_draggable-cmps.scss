@@ -22,6 +22,13 @@
 .track-img-header,
 .track-img {
   width: 120px;
+  @include for-mobile-layout{
+  width: 80px;
+  img{
+    height: 40px;
+    width: 40px;
+  }
+}
 }
 
 .track-img {
@@ -36,6 +43,13 @@
 .track-title {
   width    : 120px;
   flex-grow: 1;
+  @include for-mobile-layout{
+    line-height: 1.5rem;
+    height: 3rem;
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .duration-header,
@@ -45,9 +59,11 @@
 .track-actions,
 .actions-header {
   width: 70px;
-
+  @include for-mobile-layout{
+    width: 50px;
+  }
   @include for-narrow-layout {
-    width: 40px;
+    width: 50px;
   }
 
   @include for-normal-layout {
@@ -69,6 +85,10 @@
   width        : 100%;
   align-items  : center;
   margin-bottom: 5px;
+  border-radius: 4px;
+  @include for-mobile-layout{
+    margin-bottom: 15px;
+  }
 
   &:hover {
     // filter: brightness(0.85);
@@ -93,4 +113,8 @@
   opacity      : 0;
   transition   : visibility 0.2s, opacity 0.1s linear;
   // cursor    : default;
+  @include for-mobile-layout{
+    visibility: visible;
+    opacity: 1;
+}
 }

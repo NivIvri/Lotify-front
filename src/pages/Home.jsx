@@ -38,7 +38,7 @@ class _Home extends Component {
         else if (viewPortWidth < 685 && viewPortWidth >= 475)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 2 }))
         else {
-            this.setState(prevState => ({ ...prevState, numOfPreviews: 1 }))
+            this.setState(prevState => ({ ...prevState, numOfPreviews: 2 }))
 
         }
         // else if (viewPortWidth >= 562)

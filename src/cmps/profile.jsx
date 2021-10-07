@@ -72,16 +72,21 @@ class _UserPrifile extends Component {
 
     responseFacebook = async response => {
         console.log('responseFacebook', response);
+        try {
 
-        const newCredentials = {
-            username: response.email,
-            password: response.userID,
-            fullname: response.name,
-            facebookUserId: response.userID,
-            img: response.picture.data.url
+            const newCredentials = {
+                username: response.email,
+                password: response.userID,
+                fullname: response.name,
+                facebookUserId: response.userID,
+                img: response.picture.data.url
+            }
+            this.setState(prevState => ({ ...prevState, credentials: newCredentials }),
+                () => this.onSubmit(true))
         }
-        this.setState(prevState => ({ ...prevState, credentials: newCredentials }),
-            () => this.onSubmit(true))
+        catch{
+            
+        }
     }
 
     render() {

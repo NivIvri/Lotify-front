@@ -135,14 +135,26 @@
         @media screen and (max-width: 760px) {
             display: none;
           }
+        }
     }
-}
-.volume {
-    gap: 14px;
-    justify-content: end;
-    .css-1qx01vb-MuiStack-root {
-        margin-bottom: 0px;
-    }
+    .volume {
+        gap: 14px;
+        justify-content: end;
+        .css-1qx01vb-MuiStack-root {
+            margin-bottom: 0px;
+        }
+        @media screen and (max-width: 760px) {
+            justify-content: start;
+            gap: 0;
+            .css-1domaf0{
+                margin-bottom: 0px;
+                width: 100%;
+                flex-grow: 1;
+                display: flex;
+                justify-content: center;
+            }
+          }
+    
 }
 
 input[type="range"] {
