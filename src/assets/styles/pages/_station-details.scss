@@ -1,6 +1,5 @@
 .station-details {
     height: 100%;
-
     .search {
         overflow-y: unset;
 
@@ -49,19 +48,26 @@
         align-items       : center;
         height            : 340px;
         gap               : 5px;
-        /* background     : linear-gradient(rgba(0,0,0,.6) 0,#121212 100%); */
-        //background-image: linear-gradient(
-        //    177deg, #000000, ghostwhite);
-        //background-image: linear-gradient(
-        //    360deg, #0000002b, #f8f8ffa6);
-        //background-image: linear-gradient(
-        //    360deg, #000000, #f8f8ff);
         background-image  : linear-gradient(360deg, #000000, #b4b4b5);
+        @media screen and (max-width: 540px) {
+            flex-direction: column;
+            padding: 1rem 8.5px;
+            align-items: flex-start;
+            img{
+                align-self: center;
+            }
+            p{
+                display: none;
+            }
+            h1{
+                font-size: 2rem;
+            }
+          }        
+        
 
         img {
             //margin-inline-end: 24px;
             min-width    : 232px;
-            //margin: -73px -73px -73px -73px;
             height       : 230px;
             width        : 230px;
             object-fit   : cover;
@@ -79,9 +85,11 @@
             line-height: normal;
             font-weight: bolder;
             margin     : 0;
+            
         }
 
         ul {
+            gap: 5px;
             :first-child {
                 font-weight: bold;
             }
@@ -192,6 +200,9 @@
             background-color: rgba(255, 255, 255, 0);
             border          : none;
             opacity         : 0;
+            @include for-mobile-layout{
+                transform: rotateZ(90deg);
+            }
         }
     }
 
@@ -239,6 +250,20 @@
     .show-btn {
         justify-content: space-evenly;
     }
+    @media screen and (max-width: 760px){
+        .main-container{
+            padding: 10px;
+            .track-num,.track-duration,.list-headers{
+                display: none;
+            }
+        }
+    }
+    @include for-mobile-layout{
+        .main-container{
+            grid-column-gap: 0;
+            column-gap: 0;
+        }
+    }
 }
 
 .station-actions {
@@ -277,4 +302,5 @@
         background-color: transparent;
         border          : 1px solid #535353;
     }
+   
 }

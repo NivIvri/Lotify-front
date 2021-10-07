@@ -11,16 +11,19 @@
     min-height           : 100vh;
     max-height           : 100vh;
     grid-template-rows: 1fr 100px;
-
+    
     @include for-mobile-layout {
         grid-template-columns: 1fr;
+        grid-template-rows: 1fr 150px;
     }
     @include for-narrow-layout {
         grid-template-columns: 1fr;
+        grid-template-rows: 1fr 150px;
     }
-
-
+    
+    
     @include for-normal-layout {
+        grid-template-rows: 1fr 100px;
         grid-template-columns: 210px 1fr;
 
     }
