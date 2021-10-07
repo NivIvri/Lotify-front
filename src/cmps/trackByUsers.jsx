@@ -25,29 +25,33 @@ class _TrackByUsers extends Component {
 
 
     render() {
-        const { user,users } = this.props
+        const { user, users } = this.props
 
         if (!this.state.users || !this.props.user) return <div>loading</div>
         return (
-            <table>
-                <thead></thead>
-                <tbody>
-                    {user && user.following.map((currUserId) => {
-                        return <tr className={'user-prewiew'}>
-                            <td><pre>{users &&
-                                users.find((user => user._id === currUserId))?.username}</pre></td>
-                            <td>
-                            </td>
-                            <td>
-                                <Avatar size="100" facebook-id="invalidfacebookusername" src={this.props.usersImgs.find(imgObj => currUserId === imgObj.id)?.url} size="60" round={true} />  </td>
-                            <td>{
-                                this.getCurrTrack(currUserId)
-                            }</td>
-                        </tr>
-                    })}
+            <div className='user-track'>
 
-                </tbody>
-            </table>
+                <table>
+                    <thead></thead>
+                    <tbody>
+                        {user && user.following.map((currUserId) => {
+                            return <tr className={'user-prewiew'}>
+                                <td>
+                                    <Avatar size="100" facebook-id="invalidfacebookusername" src={this.props.usersImgs.find(imgObj => currUserId === imgObj.id)?.url} size="60" round={true} />  </td>
+                                <td>{users &&
+                                    users.find((user => user._id === currUserId))?.username}</td>
+                                <td>
+                                </td>
+
+                                <td>{
+                                    this.getCurrTrack(currUserId)
+                                }</td>
+                            </tr>
+                        })}
+
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }

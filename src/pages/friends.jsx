@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { MainLayout } from '../cmps/layout/MainLayout'
 import { TrackByUsers } from '../cmps/trackByUsers';
-import { eventBusService } from '../services/event-bus.service'
+import { eventBusService, showSuccessMsg } from '../services/event-bus.service'
 import { socketService } from '../services/socket.service'
 import { userService } from '../services/user.service';
 import { connect } from 'react-redux'
@@ -21,9 +21,8 @@ class _Friends extends Component {
         this.setState({ trackAndUsers: this.props.trackAndUsers })
         console.log(this.state.trackAndUsers, 'trackAndUsers');
         let usersImgs = this.props.users.map(user => {
-            return user.img ? {url:user.img, id:user._id} :
-            {url:"https://cdn-icons-png.flaticon.com/512/149/149071.png", id:user._id}
-        
+            return user.img ? { url: user.img, id: user._id } :
+                { url: "https://cdn-icons-png.flaticon.com/512/149/149071.png", id: user._id }
         })
         this.setState({ usersImgs })
         this.loadUsers('')
@@ -37,20 +36,6 @@ class _Friends extends Component {
 
     }
 
-    //delayedHandleChange = _.debounce(async () => {
-    //    if (!this.state.keySearch) return
-    //    var userResult = await userService.getUsers(this.state.keySearch);
-    //    if (!userResult) {
-    //        userResult = []
-    //    }
-    //    if (userResult.length === 0) return
-    //    else {
-    //        this.setState({ userResult }, () => {
-    //            this.setState({ isOnSearch: true })
-    //        })
-    //    }
-    //}, 700);
-
     handleChange = async ({ target }) => {
         this.loadUsers(target.value)
     }
@@ -62,6 +47,7 @@ class _Friends extends Component {
         }
         else {
             user.following.push(userIdToFollow)
+            socketService.emit('following', { userIdToFollow, currUser: user })
         }
         this.props.updateUser(user)
     }
@@ -74,10 +60,10 @@ class _Friends extends Component {
         return (
             <MainLayout>
                 <section className='friends-container'>
-                    <h1>Friend Activity</h1>
+                    <h1> Follow your friends!</h1>
                     <div className="friend-following flex">
                         <div className='all-users-container'>
-                            <div><input type='text' onChange={this.handleChange} /></div>
+                            <div><input type='text' onChange={this.handleChange} placeholder="Search you friends"/></div>
                             <div className='users-table'>
                                 <table>
                                     <thead>
@@ -95,10 +81,10 @@ class _Friends extends Component {
                                                     </td>
                                                     <td>
                                                         {user.following.includes(currUser._id) &&
-                                                            <button onClick={() => { this.onFollow(currUser._id, true) }}> unfollow</button>
+                                                            <button className='following' onClick={() => { this.onFollow(currUser._id, true) }}> Unfollow</button>
                                                         }
                                                         {!user.following.includes(currUser._id) &&
-                                                            <button onClick={() => { this.onFollow(currUser._id, false) }} >follow</button>
+                                                            <button className='follow' onClick={() => { this.onFollow(currUser._id, false) }} >Follow</button>
                                                         }
                                                     </td>
                                                 </tr>
@@ -109,7 +95,7 @@ class _Friends extends Component {
                             </div>
                         </div>
                         <section className='following-by-user-container flex column'>
-                            <h1>Friend Activity</h1>
+                            <h3>see what your friends are listening to on Lotify</h3>
                             <TrackByUsers trackAndUsers={trackAndUsers} usersImgs={this.state.usersImgs} />
                         </section>
 

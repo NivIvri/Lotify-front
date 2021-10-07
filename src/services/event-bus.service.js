@@ -23,6 +23,9 @@ export function showUserMsg(txt, type = '') {
 export function showSuccessMsg(txt) {
     showUserMsg(txt, 'success')
 }
+export function showNotificationMsg(txt) {
+    showUserMsg(txt, 'notification')
+}
 export function showErrorMsg(txt) {
     showUserMsg(txt, 'danger')
 }
