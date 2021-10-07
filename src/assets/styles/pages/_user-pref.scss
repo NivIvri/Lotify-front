@@ -9,8 +9,9 @@
     }
     .artists{
         display: grid;
-        row-gap: 50px;
-        grid-template-columns: repeat( auto-fit, minmax(20%, 1fr) );
+        row-gap: 20px;
+        column-gap: 10px;
+        grid-template-columns: repeat( auto-fit, minmax(22vh, 1fr) );
         .circle-container{
             text-align: center;
             display: flex;
@@ -18,7 +19,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            gap: 20px;
+            gap: 10px;
             width: 100%;
             :hover{
                 cursor: pointer;
@@ -27,8 +28,9 @@
                 transform: scale(1.2,1.2);
             }
             img{
-                height:75%;
-                width: 75%;
+                object-fit:contain;
+                height:20vh;
+                width: 20vh;
                 border-radius: 50%;
             }
             i{

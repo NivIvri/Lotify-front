@@ -17,11 +17,24 @@ export const stationServiceNew = {
     saveStation,
     getStationByGenre,
     getStationFromLocal,
-    getStationsByUser
+    getStationsByUser,
+    getGoodDay,
+    getHot
 }
+
 async function query(filterBy = {}) {
     //const res = await axios.get('http://localhost:3030/api/toy', { params: filterBy })
     const res = await axios.get(`${BASE_URL}`, { params: filterBy })
+    return res.data
+}
+
+async function getGoodDay() {
+    const res = await axios.get(`${BASE_URL}/goodDay`)
+    return res.data
+}
+
+async function getHot() {
+    const res = await axios.get(`${BASE_URL}/hot`)
     return res.data
 }
 

@@ -203,7 +203,7 @@ class _StationDetails extends Component {
             <section className='station-details'>
                 <div className="station-head flex">
                     {station.songs?.length > 0 &&
-                        <img src={`${station.songs[0].imgUrl}`} />
+                        <img src={station.img ? station.img : `${station.songs[0].imgUrl}`} />
                     }
                     {!station.songs.length &&
                         <img src={stationImg} />

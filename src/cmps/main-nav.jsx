@@ -49,7 +49,8 @@ class _MainNav extends React.Component {
 
   }
 
-  handleClick = (linkId) => {
+  handleClick = async (linkId) => {
+    await this.toggleMenu()
     this.setState({ activLink: linkId })
   }
 
@@ -57,8 +58,7 @@ class _MainNav extends React.Component {
     this.setState(prevState => ({ ...prevState, selectedStationId: stationId }))
   }
 
-  toggleMenu = (isMenuOpen = !this.state.isMenuOpen) => {
-    console.log(isMenuOpen, 'ismenuOpen');
+  toggleMenu = async (isMenuOpen = !this.state.isMenuOpen) => {
     this.setState({ isMenuOpen })
   }
 
@@ -70,6 +70,10 @@ class _MainNav extends React.Component {
     }
     return (
       <>
+        <div className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={() => this.toggleMenu()}>
+          <div></div>
+        </div>
+
         <nav className={isMenuOpen ? 'main-nav active' : 'main-nav'}>
           {/* <div className="humb" onClick={() => this.toggleMenu()}>
             <div className="humb-strip"></div>
@@ -77,11 +81,6 @@ class _MainNav extends React.Component {
             <div className="humb-strip"></div>
           </div> */}
 
-          <div className={`hamb-icon ${isMenuOpen ? "active" : ""}`} onClick={() => this.toggleMenu()}>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
           <Link to='/Home'>
             <div className="banner">
               {/* src\assets\img */}

@@ -38,7 +38,7 @@ class _StationPreview extends React.Component {
                 <div className="img-card" onClick={() => this.navigateToStation(station)}>
                     <div className="square-ratio station-img-container">
                         {station.songs?.length > 0 && station.songs[0]?.imgUrl &&
-                            <img src={`${station.songs[0].imgUrl}`} />
+                            <img src={station.img ? station.img : `${station.songs[0].imgUrl}`} />
                         }
                         {!station.songs.length &&
                             <img src={stationImg} />
