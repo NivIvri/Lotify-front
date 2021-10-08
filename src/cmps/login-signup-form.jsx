@@ -78,7 +78,7 @@ export class LoginSignupForm extends Component {
             <FacebookLogin
               className="facebook-login-btn"
               appId="992060094973798"
-              autoLoad={true}
+              autoLoad={false}
               fields="name,email,picture"
               onClick={this.facebookComponentClicked}
               callback={this.responseFacebook} />
