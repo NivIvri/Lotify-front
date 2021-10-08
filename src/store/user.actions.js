@@ -133,8 +133,7 @@ export function updateUser(userToUpdate) {
     return async dispatch => {
         try {
             let a = await userService.updateUser(userToUpdate)
-            debugger
-            dispatch({ type: 'UPDATE_USER', user:userToUpdate })
+            dispatch({ type: 'UPDATE_USER', user: userToUpdate })
         } catch (err) {
             console.log('UserActions: err in removeUser', err)
         }

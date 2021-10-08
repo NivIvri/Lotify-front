@@ -12,12 +12,9 @@ import {
 } from '../store/station.actions.js';
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import VolumeDownIcon from '@material-ui/icons/VolumeDown';
-//import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import heartNotChecked from '../assets/img/heart-regular.svg';
 import { addLikeToTrack, loadUser, loadUsers, removeLikeFromTrack } from '../store/user.actions';
-import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js';
+import { eventBusService, showErrorMsg, showNotificationMsg, showSuccessMsg } from '../services/event-bus.service.js';
 import { socketService } from '../services/socket.service'
 
 
@@ -35,15 +32,18 @@ class _AppFooter extends Component {
         trackAndUsers: [],
     }
     async componentDidMount() {
-        const users = await this.props.loadUsers()
+        await this.props.loadUsers()
         socketService.setup()
         socketService.on('send notification', (username) => {
-            showSuccessMsg(username + ' liked playlist')
+            showNotificationMsg(username + ' liked playlist')
             eventBusService.emit(username)
         })
-
+        socketService.on('send follow notification', (username) => {
+            console.log('hererr');
+            showNotificationMsg(username + 'is followd you')
+            eventBusService.emit(username)
+        })
         socketService.on('user track', ({ track, user }) => {
-
             this.props.setFriendCurrTrack({ track, user, currLoginUser: this.props.user })
         })
 
@@ -215,7 +215,6 @@ class _AppFooter extends Component {
                 {
                     track &&
                     <div className='player'>
-
                         <ReactPlayer
                             ref={this.ref}
                             playing={isPlaying}
@@ -245,7 +244,7 @@ class _AppFooter extends Component {
                         </div>
                         <div onClick={this.onGoToplaylist} className="song-name">
                             <p>
-                            {track ? track.title : ""}
+                                {track ? track.title : ""}
                             </p>
                         </div>
                         {track && <div className="like-heart">

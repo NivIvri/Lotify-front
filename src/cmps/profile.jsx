@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { loadUser, onSignup, onLogin, onLogout } from '../store/user.actions';
 import { loadStations } from '../store/station.actions';
 import FacebookLogin from 'react-facebook-login';
+import Avatar from 'react-avatar';
 
 
 class _UserPrifile extends Component {
@@ -96,7 +97,9 @@ class _UserPrifile extends Component {
             <>
                 <div className="profiler">
                     <Menu menuButton={
-                        <MenuButton title={user.username} className={user.username === "guest" ? "" : "user"}>{<img src={user.img ? user.img : "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="" />} </MenuButton>}>
+                        <MenuButton title={user.username}>
+                            <Avatar size="100" facebook-id="invalidfacebookusername" src={user.img ? user.img : "https://cdn-icons-png.flaticon.com/512/149/149071.png"} size="60" round={true} />
+                        </MenuButton>}>
                         {user.username === "guest" &&
                             <MenuItem onClick={() => this.setLoginOrSignup("Login")}>Login</MenuItem>
                         }
@@ -155,7 +158,11 @@ class _UserPrifile extends Component {
                                     onClick={this.onSubmit}>
                                     {loginOrSignup}
                                 </Button>
+<<<<<<< HEAD
                                 {/* <Button style={{ height: "40px", background: '#1E90EA' }} variant="contained"
+=======
+                                {/*<Button style={{ height: "40px", background: '#1E90EA' }} variant="contained"
+>>>>>>> 215bfb21b1b9f83722a1d1b7d0d5af48b3ba43ec
                                     className="facebook-login-btn-wrapper-ddd"
                                     onClick={(e) => e.preventDefault()} >
                                     {loginOrSignup === "Signup" ? 'Signup with facebook' : 'Login with facebook'}
@@ -168,8 +175,12 @@ class _UserPrifile extends Component {
                                         onClick={this.facebookComponentClicked}
                                         callback={this.responseFacebook} />
 
+<<<<<<< HEAD
                                 </Button> 
                             */}
+=======
+                                </Button>*/}
+>>>>>>> 215bfb21b1b9f83722a1d1b7d0d5af48b3ba43ec
                             </div>
                         </form>
                     </div>

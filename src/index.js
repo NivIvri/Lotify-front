@@ -7,7 +7,7 @@ import { store } from './store/store'
 import { RootCmp } from './root-cmp';
 import './assets/styles/styles.scss'
 import { Signin } from './pages/signin.jsx'
-
+//ServiceWorkerRegistration.register()
 
 
 ReactDOM.render(

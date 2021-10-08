@@ -187,10 +187,16 @@ class _StationDetails extends Component {
 
     handleFindMore = () => {
         this.setState({ isFindMore: !this.state.isFindMore }, () => {
-            const homePage = document.querySelector('.station-details')
-            homePage.scrollTop = homePage.scrollHeight
+            this.moveSrollDown()
         });
 
+    }
+
+    moveSrollDown = () => {
+        console.log('moving scroll down');
+        const homePage = document.querySelector('.station-details')
+        console.log('scrollHeight', homePage.scrollHeight);
+        homePage.scrollTop = homePage.scrollHeight
     }
 
     render() {
@@ -254,7 +260,8 @@ class _StationDetails extends Component {
                     {isFindMore &&
                         <>
                             <span>Let's find something to your station</span>
-                            <Search loadStation={this.loadStation} stationId={this.state.stationId} isOnDeatils={true} />
+                            <Search loadStation={this.loadStation} stationId={this.state.stationId} isOnDeatils={true}
+                            />
                         </>
                     }
                 </MainLayout>

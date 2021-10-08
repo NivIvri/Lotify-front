@@ -1,0 +1,107 @@
+.friends-container {
+    font-family: "Quicksand-Light";
+
+    h1 {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        line-height: 36px;
+        text-transform: none;
+        text-align: center;
+        margin-bottom: 20px;
+        height: 40px;
+    }
+    h3{
+        font-weight: unset;
+        font-size: 18px;
+    }
+    input{
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 0;
+        border-radius: 4px;
+        color: rgba(255, 255, 255, 0.7);
+        height: 40px;
+        opacity: 1;
+        padding: 8px 32px;
+        text-overflow: ellipsis;
+        transition-duration: 0.3s;
+        transition-property: opacity width;
+        transition-timing-function: cubic-bezier(0.3, 0, 0.4, 1);
+        width: 400px;
+        outline: none;
+        font-size: 18px;
+    }
+    .friend-following {
+        justify-content: space-evenly;
+        & td:first-child {
+            width: 80px;
+        }
+
+        & td:nth-child(3) {
+            width: 80px;
+        }
+        & td:nth-child(2) {
+            padding-right: 15px;
+
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+        .all-users-container {
+            display: flex;
+            flex-direction: column;
+            .users-table,
+            .user-track {
+                margin-top: 10px;
+                border-top: 1px solid #444;
+                padding-top: 10px;
+                max-height: 488px;
+                overflow-y: scroll;
+                overflow-x: hidden;
+                min-width: 300px;
+                &::-webkit-scrollbar {
+                    width: 12px;
+                    // transition: all 0.6s ease-in-out;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: $main-nav-bg !important;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: #555;
+                    border-radius: 5px;
+                    // -webkit-transition : all 3s ease-in-out;
+                    transition: all 2s ease-in;
+                }
+            }
+            .following,
+            .follow {
+                /* height: 25px; */
+                padding: 5px;
+                margin-right: 15px;
+                width: 120px;
+                border-radius: 5px;
+                border: 0.1px solid #4a4a4a;
+                /* box-shadow: 0px 0px 2px 0.8px #594c4c; */
+                background: #deb88700;
+                color: white;
+                font-size: 14px;
+                letter-spacing: 0.6px;
+                cursor: pointer;
+            
+            }
+            .follow {
+                background: #1db954ba;
+            }
+        }
+    }
+
+    .user-track {
+        padding-top: 10px;
+        .track {
+            font-weight: 900;
+            color: #02d54cba;
+        }
+    }
+}
