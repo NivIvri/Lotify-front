@@ -1,0 +1,117 @@
+.form-wrapper {
+  background-color: #444;
+  position        : fixed;
+  top             : 50%;
+  left            : 50%;
+  transform       : translate(-50%, -50%);
+  width           : 500px;
+  padding         : 1.5rem 2.5rem;
+
+  z-index: 10;
+
+  .close-form {
+    position   : absolute;
+    top        : 1rem;
+    right      : 1rem;
+    color      : #f6f6f6;
+    font-size  : 1.5rem;
+    font-weight: 800;
+    cursor     : pointer;
+
+    &:hover {
+      // color: black;
+      color: rgb(202, 202, 147);
+    }
+  }
+
+
+  .form-logo {
+    margin    : auto;
+    text-align: center;
+
+    img {
+      width     : 50px;
+      object-fit: cover;
+    }
+  }
+
+  .form-header {
+    text-align   : center;
+    margin-bottom: 1rem;
+  }
+
+  .login-signup-form {
+
+    // &>input:not(:last-of-type) {
+    //   margin-bottom: 1rem;
+    // }
+    &>* {
+      border       : none;
+      margin-bottom: 5px;
+    }
+
+    button {
+      border-radius: 8px;
+      height       : 34px;
+      cursor       : pointer;
+      font-size    : 1.1rem;
+    }
+
+    input {
+      border-radius: 8px;
+      line-height  : 1.5rem;
+      outline      : none;
+      padding      : 0.3rem 1rem;
+      font-size    : 0.8rem;
+    }
+
+    .login-signup-btn {
+      background-color: rgb(128, 228, 128);
+
+      &:hover {
+        background-color: rgb(24, 139, 87);
+        color           : white;
+      }
+    }
+
+    .facebook-login-btn-wrapper {
+      position           : relative;
+      background-color   : rgb(30, 50, 223);
+      color              : white;
+      padding            : 0.5rem;
+      // border-radius   : 3px;
+
+      &:hover {
+        background-color: rgb(17, 44, 197);
+
+      }
+
+      .facebook-login-btn {
+        display: block;
+      }
+
+      span {
+        position: absolute;
+        top     : 0;
+        left    : 0;
+        display : block !important;
+        height  : 100%;
+        width   : 100%;
+        padding : 0 !important;
+
+        button {
+          display   : block;
+          min-width : 100% !important;
+          min-height: 100% !important;
+          padding   : 0 !important;
+          opacity   : 0;
+        }
+      }
+
+    }
+
+  }
+
+}
+
+.facebook-login-btn-wrapper {}
