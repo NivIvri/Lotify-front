@@ -21,7 +21,7 @@
 
 .track-img-header,
 .track-img {
-  width: 120px;
+  width: 90px;
 
   @include for-mobile-layout {
     width: 80px;
@@ -36,7 +36,7 @@
 .track-img {
   &>img {
     display   : block;
-    width     : 80%;
+    width     : 90%;
     object-fit: cover;
   }
 }
