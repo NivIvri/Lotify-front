@@ -48,13 +48,16 @@ class _MainNav extends React.Component {
 
     }
 
+    // Methods Binding:
+    // this.toggleMenu = this.toggleMenu.bind(this)
+
   }
   componentDidMount() {
 
   }
 
   handleClick = async (linkId) => {
-    await this.toggleMenu()
+    await this.toggleMenu(!this.state.isMenuOpen)
     this.setState({ activLink: linkId })
   }
 
@@ -62,8 +65,10 @@ class _MainNav extends React.Component {
     this.setState(prevState => ({ ...prevState, selectedStationId: stationId }))
   }
 
-  toggleMenu = async (isMenuOpen = !this.state.isMenuOpen) => {
-    this.setState({ isMenuOpen })
+  toggleMenu = async (newIsMenuOpen) => {
+    // console.log('newIsMenuOpen', newIsMenuOpen);
+    // debugger
+    this.setState({ isMenuOpen: newIsMenuOpen })
   }
 
   render() {
@@ -74,7 +79,7 @@ class _MainNav extends React.Component {
     }
     return (
       <>
-        <div className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={() => this.toggleMenu()}>
+        <div className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={this.toggleMenu.bind(this, !isMenuOpen)}>
           <div></div>
         </div>
 
