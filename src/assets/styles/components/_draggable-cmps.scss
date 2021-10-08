@@ -21,58 +21,35 @@
 
 .track-img-header,
 .track-img {
-  width: 100px;
-
-  @include for-mobile-layout {
-    width: 80px;
-
-    img {
-      height: 40px;
-      width : 40px;
-    }
+  width: 120px;
+  @include for-mobile-layout{
+  width: 80px;
+  img{
+    height: 40px;
+    width: 40px;
   }
+}
 }
 
 .track-img {
   &>img {
     display   : block;
-    width     : 90%;
+    width     : 80%;
     object-fit: cover;
-  }
-}
-
-.track-title {
-  span {
-    display        : block;
-    width          : 90%;
-    // padding-left: 0.5rem;
-    font-size      : 1rem;
-    font-family    : "Quicksand-Light";
-
-
   }
 }
 
 .track-title-header,
 .track-title {
-  // max-width      : 500px; 
-  flex-grow      : 9;
-  // margin-right: 10px;
-
-  @include for-mobile-layout {
-    line-height  : 1.5rem;
-    height       : 3rem;
-    font-size    : 1rem;
-    overflow     : hidden;
+  width    : 120px;
+  flex-grow: 1;
+  @include for-mobile-layout{
+    line-height: 1.5rem;
+    height: 3rem;
+    font-size: 1rem;
+    overflow: hidden;
     text-overflow: ellipsis;
   }
-}
-
-
-.duration-header,
-.track-duration {
-  display        : flex;
-  justify-content: center;
 }
 
 .duration-header,
@@ -82,11 +59,9 @@
 .track-actions,
 .actions-header {
   width: 70px;
-
-  @include for-mobile-layout {
+  @include for-mobile-layout{
     width: 50px;
   }
-
   @include for-narrow-layout {
     width: 50px;
   }
@@ -94,10 +69,6 @@
   @include for-normal-layout {
     width: 70px;
   }
-}
-
-.add-track-wrapper {
-  min-width: 110px;
 }
 
 .likes {
@@ -115,8 +86,7 @@
   align-items  : center;
   margin-bottom: 5px;
   border-radius: 4px;
-
-  @include for-mobile-layout {
+  @include for-mobile-layout{
     margin-bottom: 15px;
   }
 
@@ -139,13 +109,12 @@
 }
 
 .likes img.isnotLike {
-  visibility: hidden;
-  opacity   : 0;
-  transition: visibility 0.2s, opacity 0.1s linear;
-
+  visibility   : hidden;
+  opacity      : 0;
+  transition   : visibility 0.2s, opacity 0.1s linear;
   // cursor    : default;
-  @include for-mobile-layout {
+  @include for-mobile-layout{
     visibility: visible;
-    opacity   : 1;
-  }
+    opacity: 1;
+}
 }

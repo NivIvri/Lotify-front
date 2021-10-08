@@ -1,5 +1,6 @@
 .friends-container {
     font-family: "Quicksand-Light";
+
     h1 {
         font-size: 32px;
         font-weight: 700;
@@ -8,9 +9,11 @@
         text-transform: none;
         text-align: center;
         margin-bottom: 20px;
+        height: 40px;
     }
     h3{
         font-weight: unset;
+        font-size: 18px;
     }
     input{
         background-color: rgba(255, 255, 255, 0.1);
@@ -29,7 +32,7 @@
         font-size: 18px;
     }
     .friend-following {
-        gap: 50px;
+        justify-content: space-evenly;
         & td:first-child {
             width: 80px;
         }
