@@ -158,11 +158,7 @@ class _UserPrifile extends Component {
                                     onClick={this.onSubmit}>
                                     {loginOrSignup}
                                 </Button>
-<<<<<<< HEAD
                                 {/* <Button style={{ height: "40px", background: '#1E90EA' }} variant="contained"
-=======
-                                {/*<Button style={{ height: "40px", background: '#1E90EA' }} variant="contained"
->>>>>>> 215bfb21b1b9f83722a1d1b7d0d5af48b3ba43ec
                                     className="facebook-login-btn-wrapper-ddd"
                                     onClick={(e) => e.preventDefault()} >
                                     {loginOrSignup === "Signup" ? 'Signup with facebook' : 'Login with facebook'}
@@ -175,12 +171,8 @@ class _UserPrifile extends Component {
                                         onClick={this.facebookComponentClicked}
                                         callback={this.responseFacebook} />
 
-<<<<<<< HEAD
                                 </Button> 
                             */}
-=======
-                                </Button>*/}
->>>>>>> 215bfb21b1b9f83722a1d1b7d0d5af48b3ba43ec
                             </div>
                         </form>
                     </div>
