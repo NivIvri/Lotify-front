@@ -72,6 +72,7 @@ class _UserPrifile extends Component {
 
     responseFacebook = async response => {
         console.log('responseFacebook', response);
+
         try {
 
             const newCredentials = {
@@ -81,11 +82,12 @@ class _UserPrifile extends Component {
                 facebookUserId: response.userID,
                 img: response.picture.data.url
             }
+            this.setLoginOrSignup(null)
             this.setState(prevState => ({ ...prevState, credentials: newCredentials }),
                 () => this.onSubmit(true))
         }
-        catch{
-            
+        catch {
+
         }
     }
 
@@ -171,8 +173,8 @@ class _UserPrifile extends Component {
                                         onClick={this.facebookComponentClicked}
                                         callback={this.responseFacebook} />
 
-                                </Button> 
-                           
+                                </Button>
+
                             </div>
                         </form>
                     </div>
