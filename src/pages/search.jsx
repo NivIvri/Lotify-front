@@ -65,7 +65,7 @@ class _Search extends React.Component {
         // if (trackResult.length === 0) return
         // else {
         this.setState({ trackResult, stationResult }, () => {
-            this.setState({ isOnSearch: true })
+            this.setState({ isOnSearch: true });
 
         })
         // }
@@ -76,7 +76,7 @@ class _Search extends React.Component {
         const homePage = document.querySelector('.station-details')
         if (homePage)
             homePage.scrollTop = homePage.scrollHeight - 700
-    }, 720)
+    }, 800)
 
     handleChange = async ({ target }) => {
         this.setState({ keySearch: target.value }, () => {
