@@ -136,9 +136,9 @@ class _TrackPreview extends Component {
             }
 
         }
-        await  this.props.setCurrTrack(track, idx);
+        await this.props.setCurrTrack(track, idx);
         if (!track.nextQueue) {
-            await    this.props.setQueue(songs, currStation?._id)
+            await this.props.setQueue(songs, currStation?._id)
         }
     }
 
@@ -170,7 +170,7 @@ class _TrackPreview extends Component {
                 <div className="track-img"><img src={track.imgUrl} alt="" /></div>
                 <div className="track-title">{track.title}</div>
                 <div className="track-duration">{this.getTimeFromDuration(track.duration)}</div>
-                <div className='likes'>
+                {!this.props?.isOnDeatils && <div className='likes'>
                     {
                         //this.state.isLike && <img className='islike' src={heartChecked} onClick={(ev) => { this.toggleLike(ev) }} />
                         this.state.isLike && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} class="fas fa-heart"></span>
@@ -178,7 +178,7 @@ class _TrackPreview extends Component {
                     {
                         !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
                     }
-                </div>
+                </div>}
                 {
 
                     !this.props?.isOnDeatils &&
@@ -203,11 +203,13 @@ class _TrackPreview extends Component {
                 }
                 {
                     this.props?.isOnDeatils &&
-                    <button className='add-track-btn' onClick={async (ev) => {
-                        ev.stopPropagation()
-                        await this.onAddToStation(track, this.props.stationId)
-                        await this.props.loadStation()
-                    }}>Add</button>
+                    <div className="add-track-wrapper">
+                        <button className='add-track-btn' onClick={async (ev) => {
+                            ev.stopPropagation()
+                            await this.onAddToStation(track, this.props.stationId)
+                            await this.props.loadStation()
+                        }}>Add</button>
+                    </div>
                 }
             </div>
         )

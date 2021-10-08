@@ -38,6 +38,7 @@ class _Search extends React.Component {
         isOnSearch: false,
         trackResult: null,
         stationResult: null
+
     }
 
     //delayedHandleChange = _.debounce(eventData => stationService.searchTrack(eventData), 700);
@@ -45,7 +46,7 @@ class _Search extends React.Component {
 
 
     delayedHandleChange = _.debounce(async () => {
-        if(!this.state.keySearch)return
+        if (!this.state.keySearch) return
         if (this.props?.isOnDeatils) {
             var trackResult = await youtubeApiService.searchTrack(this.state.keySearch);
             var stationResult = []
@@ -63,11 +64,19 @@ class _Search extends React.Component {
         }
         // if (trackResult.length === 0) return
         // else {
-            this.setState({ trackResult, stationResult }, () => {
-                this.setState({ isOnSearch: true })
-            })
+        this.setState({ trackResult, stationResult }, () => {
+            this.setState({ isOnSearch: true })
+
+        })
         // }
     }, 700);
+
+
+    moveScrollDwon = _.debounce(async () => {
+        const homePage = document.querySelector('.station-details')
+        if (homePage)
+            homePage.scrollTop = homePage.scrollHeight - 700
+    }, 720)
 
     handleChange = async ({ target }) => {
         this.setState({ keySearch: target.value }, () => {
@@ -76,7 +85,9 @@ class _Search extends React.Component {
                 return
             }
             this.delayedHandleChange(this.state.keySearch)
+            this.moveScrollDwon()
         })
+
     }
 
     onPlayTrack = async (track = null, idx = null) => {
@@ -180,7 +191,7 @@ class _Search extends React.Component {
                         <Link to="station/blues">
                             <div className="div21" style={{ backgroundColor: 'rgb(13, 115, 236)' }}><span>blues</span><img src={blues} /></div>
                         </Link>
-                      
+
                     </div>
                 </MainLayout>
             </section >
