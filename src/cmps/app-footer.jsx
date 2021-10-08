@@ -266,7 +266,7 @@ class _AppFooter extends Component {
 
                             {
                                 isPlaying &&
-                                <span class="fas fa-pause" onClick={this.togglePlay}></span>
+                                <span className="fas fa-pause" onClick={this.togglePlay}></span>
                             }
                             {
                                 !isPlaying &&

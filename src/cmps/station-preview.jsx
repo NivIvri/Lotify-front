@@ -49,7 +49,7 @@ class _StationPreview extends React.Component {
                             this.playRandTrack()
 
                         }}>
-                            <i class={`play-icon ${isPlaying && (station?._id === currStation?._id) ? "fas fa-pause" : "fas fa-play"}`}></i>
+                            <i className={`play-icon ${isPlaying && (station?._id === currStation?._id) ? "fas fa-pause" : "fas fa-play"}`}></i>
 
                         </div>
                     </div>

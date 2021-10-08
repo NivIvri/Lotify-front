@@ -29,7 +29,7 @@ class _Home extends Component {
             this.setState(prevState => ({ ...prevState, numOfPreviews: 5 }))
         else if (viewPortWidth >= 1160 && viewPortWidth < 1360)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 4 }))
-            else if (viewPortWidth >= 960 && viewPortWidth < 1160)
+        else if (viewPortWidth >= 960 && viewPortWidth < 1160)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 3 }))
         else if (viewPortWidth >= 760 && viewPortWidth < 960)
             this.setState(prevState => ({ ...prevState, numOfPreviews: 2 }))
@@ -93,7 +93,7 @@ class _Home extends Component {
         return (
 
             <div className="home-page">
-                <div class="shadow">
+                <div className="shadow">
 
                     <div className="hero">
                         <h1>Listen to your favorite music on <span className="logo">Lotify<span>.</span></span></h1>
