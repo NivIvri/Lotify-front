@@ -10,6 +10,7 @@ import { loadUser, onSignup, onLogin, onLogout } from '../store/user.actions';
 import { loadStations } from '../store/station.actions';
 import FacebookLogin from 'react-facebook-login';
 import Avatar from 'react-avatar';
+import { LoginSignupForm } from './login-signup-form';
 
 
 class _UserPrifile extends Component {
@@ -50,15 +51,18 @@ class _UserPrifile extends Component {
         const val = target.value
         this.setState(prevState => ({ ...prevState, credentials: { ...prevState.credentials, [key]: val } }))
     }
-
-    onSubmit = async (isFacebookLogin = false) => {
-        let credentials = this.state.credentials
+    closeForm = () => {
+        this.setLoginOrSignup(null)
+    }
+    onSubmit = async (credentials) => {
+        // let credentials = this.state.credentials
         if (this.state.loginOrSignup === "Login") {
-            if (!isFacebookLogin)
-                credentials = { username: this.state.credentials.username, password: this.state.credentials.password }
+            // if (!isFacebookLogin)
+            // credentials = { username: this.state.credentials.username, password: this.state.credentials.password }
             await this.props.onLogin(credentials)
         } else {
-            credentials = { ...this.state.credentials, userPref: this.props.user.userPref }
+            // credentials = { ...this.state.credentials, userPref: this.props.user.userPref }
+            credentials.userPref = this.props.user.userPref
             await this.props.onSignup(credentials)
         }
         this.setLoginOrSignup(null)
@@ -119,7 +123,12 @@ class _UserPrifile extends Component {
                     {/* ori */}
 
                 </div>
-                <div className={`create-playlist ${loginOrSignup ? "on" : "off"}`} >
+                {loginOrSignup && <LoginSignupForm onSubmit={this.onSubmit}
+                    isLogin={loginOrSignup === 'Login' ? true : false}
+                    closeForm={this.closeForm} />}
+
+
+                {/* <div className={`create-playlist ${loginOrSignup ? "on" : "off"}`} >
                     <div className="header">
                         <h1>{loginOrSignup}</h1>
                         <button onClick={() => this.setLoginOrSignup(null)}>X</button>
@@ -178,8 +187,10 @@ class _UserPrifile extends Component {
                             </div>
                         </form>
                     </div>
-                </div>
-                <div className={`body-modal ${loginOrSignup ? "on" : "off"}`} onClick={() => this.setLoginOrSignup(null)}></div>
+                </div> */}
+
+                {/** Ori - I've uncomment this */}
+                {/* <div className={`body-modal ${loginOrSignup ? "on" : "off"}`} onClick={() => this.setLoginOrSignup(null)}></div> */}
             </>
         );
     }
