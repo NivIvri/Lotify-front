@@ -119,6 +119,7 @@ class _TrackPreview extends Component {
     }
 
     playTrack = async (track, idx) => {
+        debugger
         const { currStation, queue, currTrack, playNextQueue } = this.props
         let songs
         if (currStation) {//only if clicking on station details not from queue!
