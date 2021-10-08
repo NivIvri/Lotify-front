@@ -4,7 +4,16 @@
   grid-gap: 24px;
   justify-content: center;
   align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax((204px), 1fr));
+  @include for-normal-layout{
+    grid-template-columns: repeat(auto-fit, minmax((35%), 1fr));
+  }
+  @include for-narrow-layout{
+    grid-template-columns: repeat(auto-fit, minmax((204px), 1fr));
+    
+  }
+  @include for-mobile-layout{
+    grid-template-columns: repeat(auto-fit, minmax((30%), 1fr));
+  }
   place-items: stretch;
   & div {
     border: none;
@@ -12,7 +21,13 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    height: 204px;
+    @include for-narrow-layout{
+      height: 204px;
+      
+    }
+    @include for-mobile-layout{
+      height: 154px;
+    }
     //width: 204px;
 
     //     @include aspect-ratio(1, 1);

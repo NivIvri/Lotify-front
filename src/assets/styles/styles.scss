@@ -12,7 +12,7 @@
 // Components
 @import "components/root";
 @import "components/main-nav";
-//@import "components/draggable-cmps.scss";
+@import "components/draggable-cmps.scss";
 @import "components/app-footer.scss";
 @import "components/user-msg";
 @import "components/dropdown-menu.scss";
@@ -33,4 +33,4 @@
 @import "pages/station-details";
 @import "pages/stations.scss";
 @import "pages/search.scss";
-@import "pages/queue.scss";
+@import "pages/queue";
