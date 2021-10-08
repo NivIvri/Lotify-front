@@ -5,7 +5,6 @@ import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/s
 class _PrackByUserPreview extends Component {
 
     playTrack = async (track, idx) => {
-        debugger
         const { currStation } = this.props
         let songs = [track]
         await this.props.setCurrTrack(track, idx);

@@ -48,7 +48,7 @@ class _LikedSongsPreview extends React.Component {
                 <h3 className="station-name-header">{station.name}</h3>
                 <p className="station-desc">
                     {station.songs.reduce((songStr, song) => {
-                        songStr += ',' + song.title
+                        songStr +=song.title
                         return songStr;
                     }, '').slice(0, 30) + '...'}
                 </p>

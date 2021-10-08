@@ -21,7 +21,6 @@ class _UserPref extends Component {
 
 
     selectArtist = ({ target }, artist) => {
-        debugger
         if (target.parentElement.classList.contains('selected')) return
         target.parentElement.classList.add('selected')
         const img = target.parentElement.children[0].src;
@@ -38,7 +37,6 @@ class _UserPref extends Component {
         const { stations, user } = this.props
         if (!stations || !user) return <h1>loading...</h1>
         if (user.userPref?.length >= 5) {
-            debugger
             console.log(user.userPref.length, 'user.userPref.length');
             return <Redirect to='/home' />
         }

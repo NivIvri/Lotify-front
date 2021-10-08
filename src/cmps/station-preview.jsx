@@ -59,7 +59,7 @@ class _StationPreview extends React.Component {
                     <p className="station-desc">
                         {!station.songs.length ? '' :
                             station.songs.reduce((songStr, song) => {
-                                songStr += ',' + song.title
+                                songStr += song.title
                                 return songStr;
                             }, '').slice(0, 30) + '...'}
                     </p>
