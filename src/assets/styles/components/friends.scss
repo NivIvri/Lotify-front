@@ -32,13 +32,17 @@
     & h3 {
         font-weight: unset;
         font-size: 18px;
-    
     }
     .friend-following {
-        justify-content: space-evenly;
+        flex-direction: column;
+        @media screen and (min-width: 1285px) {
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+        gap: 20px;
         th {
-            padding: 8px 15px;
-            //text-align: left;
+            padding: 8px 0px;
+            text-align: left;
         }
         td {
             height: 72px;
@@ -48,12 +52,11 @@
         }
 
         & td:nth-child(3) {
-            //max-width: 100px;
+            min-width: 160px;
             padding-right: 30px;
         }
         & td:nth-child(4) {
             width: 300px;
-            text-align: center;
         }
         & td:nth-child(2) {
             padding-right: 30px;
@@ -124,6 +127,31 @@
                 left: -100%;
             }
         }
+        //& th:nth-child(2) {
+        //    display: none;
+        //}
+        //& th:nth-child(3) {
+        //    display: none;
+        //}
+        //& td:nth-child(3) {
+        //    display: none;
+        //}
+        //@media screen and (min-width: 1285px) {
+        //    & th:nth-child(2) {
+        //        display: block;
+        //    }
+        //    & th:nth-child(3) {
+        //        display: block;
+        //    }
+        //    & td:nth-child(3) {
+        //        display: block;
+        //    }
+        //}
+    }
+
+    .following-by-user-container {
+        padding-top: 40px;
+        //min-width: 495px;
     }
 }
 .users-table,
@@ -131,10 +159,14 @@
     margin-top: 10px;
     border-top: 1px solid #444;
     padding-top: 10px;
-    max-height: 488px;
+    max-height: 200px;
+
     overflow-y: scroll;
     overflow-x: hidden;
     min-width: 300px;
+    @media screen and (min-width: 1285px) {
+        max-height: 488px;
+    }
     &::-webkit-scrollbar {
         width: 12px;
         // transition: all 0.6s ease-in-out;
@@ -149,5 +181,10 @@
         border-radius: 5px;
         // -webkit-transition : all 3s ease-in-out;
         transition: all 2s ease-in;
+    }
+}
+@media screen and (max-width: 760px){
+    .main-container{
+        padding: 10px;
     }
 }

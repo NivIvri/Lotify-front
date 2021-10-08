@@ -19,7 +19,7 @@ class _PrackByUserPreview extends Component {
             <tr className={'user-preview'}>
                 <td>
                     <Avatar size="100" facebook-id="invalidfacebookusername" src={this.props.usersImgs.find(imgObj => this.props.currUserId === imgObj.id)?.url} size="60" round={true} />  </td>
-                {this.props.users && <td>
+                {this.props.users && <td >
                     {this.props.users.find((user => user._id === this.props.currUserId))?.username}</td>}
                 {this.props.track &&
                     <td>is active </td>
@@ -33,7 +33,7 @@ class _PrackByUserPreview extends Component {
                 {!this.props.track && <td>
                     <span> User is not active</span></td>}
                 {!this.props.track && <td>
-                    <span> -</span></td>}
+                    <span></span></td>}
             </tr>
         )
     }

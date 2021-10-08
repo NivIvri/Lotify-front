@@ -10,7 +10,9 @@ import logo from '../assets/img/gramophone.png'
 
 class _UserPref extends Component {
     state = {
-        artists: []
+        artists: [{ artist: 'ed sheeran', img: 'https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo' },
+        { artist: 'billie eilish', img: 'https://yt3.ggpht.com/ytc/AKedOLTAirqzFYUbcrpr8K0Bh8iDCZvBopbEb3K9klVNBA=s800-c-k-c0xffffffff-no-rj-mo' }
+        ]
     }
 
     componentDidMount() {
@@ -19,13 +21,15 @@ class _UserPref extends Component {
 
 
     selectArtist = ({ target }, artist) => {
+        debugger
         if (target.parentElement.classList.contains('selected')) return
         target.parentElement.classList.add('selected')
         const img = target.parentElement.children[0].src;
-        this.setState((prevState) => ({ artists: [...prevState.artists, { artist, img }] }))
-        if (this.state.artists.length === 3) {
-            this.props.setUserPref([...this.state.artists, { artist, img }])
-        }
+        this.setState((prevState) => ({ artists: [...prevState.artists, { artist, img }] }), () => {
+            if (this.state.artists.length >=6) {
+                this.props.setUserPref([...this.state.artists, { artist, img }])
+            }
+        })
         // this.props.loadUser()
     }
 
@@ -33,9 +37,11 @@ class _UserPref extends Component {
     render() {
         const { stations, user } = this.props
         if (!stations || !user) return <h1>loading...</h1>
-         if (user.userPref?.length >= 4) {
-         return <Redirect to='/home' />
-         }
+        if (user.userPref?.length >= 5) {
+            debugger
+            console.log(user.userPref.length, 'user.userPref.length');
+            return <Redirect to='/home' />
+        }
         return (
             <div className="user-pref">
                 <header>

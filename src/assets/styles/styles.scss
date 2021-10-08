@@ -12,7 +12,7 @@
 // Components
 @import "components/root";
 @import "components/main-nav";
-@import "components/draggable-cmps.scss";
+//@import "components/draggable-cmps.scss";
 @import "components/app-footer.scss";
 @import "components/user-msg";
 @import "components/dropdown-menu.scss";
@@ -23,12 +23,14 @@
 @import "components/modal.scss";
 @import "components/liked-songs-preview";
 @import "components/user-profile";
-@import "components/login-signup-form";
 @import "components/friends.scss";
+@import "components/login-signup-form";
 
+
+// Pages
 @import "pages/home";
 @import "pages/user-pref";
 @import "pages/station-details";
 @import "pages/stations.scss";
-@import "pages/search";
+@import "pages/search.scss";
 @import "pages/queue.scss";

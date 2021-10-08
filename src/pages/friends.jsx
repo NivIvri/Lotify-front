@@ -63,7 +63,7 @@ class _Friends extends Component {
                     <h1> Follow your friends!</h1>
                     <div className="friend-following flex">
                         <div className='all-users-container'>
-                            <div><input type='text' onChange={this.handleChange} placeholder="Search you friends"/></div>
+                            <div><input type='text' onChange={this.handleChange} placeholder="Search you friends" /></div>
                             <div className='users-table'>
                                 <table>
                                     <thead>
@@ -76,7 +76,7 @@ class _Friends extends Component {
                                                     <td>
                                                         <Avatar size="100" facebook-id="invalidfacebookusername" src={this.state.usersImgs[idx].url} size="60" round={true} />
                                                     </td>
-                                                    <td>
+                                                    <td style={{ width: "15px" }}>
                                                         {currUser.username}
                                                     </td>
                                                     <td>
@@ -95,7 +95,6 @@ class _Friends extends Component {
                             </div>
                         </div>
                         <section className='following-by-user-container flex column'>
-                            <h3>see what your friends are listening to on Lotify</h3>
                             <TrackByUsers trackAndUsers={trackAndUsers} usersImgs={this.state.usersImgs} />
                         </section>
 
