@@ -21,33 +21,40 @@
 
 .track-img-header,
 .track-img {
-  width: 120px;
-  @include for-mobile-layout{
-  width: 80px;
-  img{
-    height: 40px;
-    width: 40px;
+  width: 90px;
+
+  @include for-mobile-layout {
+    width: 80px;
+
+    img {
+      height: 40px;
+      width : 40px;
+    }
   }
-}
 }
 
 .track-img {
   &>img {
     display   : block;
-    width     : 80%;
+    width     : 90%;
     object-fit: cover;
   }
+}
+
+.add-track-wrapper {
+  width: 105px;
 }
 
 .track-title-header,
 .track-title {
   width    : 120px;
   flex-grow: 1;
-  @include for-mobile-layout{
-    line-height: 1.5rem;
-    height: 3rem;
-    font-size: 1rem;
-    overflow: hidden;
+
+  @include for-mobile-layout {
+    line-height  : 1.5rem;
+    height       : 3rem;
+    font-size    : 1rem;
+    overflow     : hidden;
     text-overflow: ellipsis;
   }
 }
@@ -59,9 +66,11 @@
 .track-actions,
 .actions-header {
   width: 70px;
-  @include for-mobile-layout{
+
+  @include for-mobile-layout {
     width: 50px;
   }
+
   @include for-narrow-layout {
     width: 50px;
   }
@@ -86,7 +95,8 @@
   align-items  : center;
   margin-bottom: 5px;
   border-radius: 4px;
-  @include for-mobile-layout{
+
+  @include for-mobile-layout {
     margin-bottom: 15px;
   }
 
@@ -109,12 +119,13 @@
 }
 
 .likes img.isnotLike {
-  visibility   : hidden;
-  opacity      : 0;
-  transition   : visibility 0.2s, opacity 0.1s linear;
+  visibility: hidden;
+  opacity   : 0;
+  transition: visibility 0.2s, opacity 0.1s linear;
+
   // cursor    : default;
-  @include for-mobile-layout{
+  @include for-mobile-layout {
     visibility: visible;
-    opacity: 1;
-}
+    opacity   : 1;
+  }
 }
