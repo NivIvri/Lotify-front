@@ -52,9 +52,17 @@ async function logout() {
 
 
 async function updateUser(user) {
-    let updatedUser = await axios.put(`${URL}/user/${user._id}`, user)
-    _saveUserToStorage(updatedUser.data)
-    return updatedUser.data
+    if (user.username !== "guest") {
+        let updatedUser = await axios.put(`${URL}/user/${user._id}`, user)
+        _saveUserToStorage(updatedUser.data)
+        return updatedUser.data
+
+    }
+    else {
+        _saveUserToStorage(user)
+        return user
+    }
+
 }
 async function AddToRecentlyPlayed(track, stationOrTrack) {
     let user = getLoggedinUser()
@@ -121,8 +129,6 @@ async function addLikeToTrack(trackId, stationOrTrack) {
     else {
         user.likedTracks.unshift(trackId)
     }
-    // const isGuest=await isGuest()
-    // console.log(isGuest);
     if (user.username !== "guest") {
         user = await updateUser(user)
     }
