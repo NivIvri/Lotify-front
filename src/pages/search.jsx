@@ -115,7 +115,7 @@ class _Search extends React.Component {
                         }
                         {
                             isOnSearch &&
-                            <SearchResultStation stationResult={stationResult} playTrack={this.onPlayTrack} />
+                            <SearchResultStation stationResult={stationResult.slice(0,2)} playTrack={this.onPlayTrack} />
                         }
                     </div>}
                     {this.props?.isOnDeatils && <div>

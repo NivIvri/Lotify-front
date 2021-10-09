@@ -4,6 +4,7 @@
   grid-gap: 24px;
   justify-content: center;
   align-items: center;
+ 
   @include for-normal-layout{
     grid-template-columns: repeat(auto-fit, minmax((35%), 1fr));
   }
@@ -81,28 +82,53 @@ section.search,
   //height: 300px;
   .track-container {
     .likes {
-      width: 0;
-      height: 0;
-    }
-    &:hover .likes img {
-      visibility: hidden;
-      opacity: 0;
+      width: 20px;
+      height: 100%;
     }
   }
 
   .grid-search-result-container {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: 0.1fr 1fr;
+    display: flex;
+    flex-direction: column;
     justify-content: start;
     align-content: center;
     align-items: center;
     height: 100%;
     background-color: #121212;
-    padding: 20px;
     border-radius: 4px;
     column-gap: 30px;
-
+    @include for-narrow-layout{
+      padding: 10px;
+      .track-duration,
+      .track-num{
+        display: none;
+      }
+      .track-title{
+        height: 3em;
+        line-height: 1.5em;
+        overflow: hidden
+      }
+    }
+    @include for-mobile-layout{
+      padding: 0px;
+      .track-duration,
+      .track-num{
+        display: none;
+      }
+      .track-title{
+        height: 3em;
+        line-height: 1.5em;
+        overflow: hidden
+      }
+    }
+    @include for-normal-layout{
+      padding: 20px;
+      .track-duration,
+      .track-num{
+        display: block;
+      }
+    }
+    
     & > * {
       background-color: #121212;
     }
@@ -118,7 +144,7 @@ section.search,
       width: 200px;
       object-fit: cover;
     }
-    img {
+    img :not(.likes){
       height: 56px;
       width: 56px;
       object-fit: cover;
@@ -192,11 +218,26 @@ span::first-letter {
   display: flex;
   flex-direction: column;
   background-color: #121212;
-  padding: 20px;
 
   .title {
     color: #fff;
     font-size: 29px;
     padding: 15px 0px;
+  }
+}
+.search{
+  .genre{
+    gap: 10px;
+  }
+  .station-preview{
+    .img-card{
+      height: 80%;
+    }
+    .square-ratio{
+      height: 100%;
+    }
+  }
+  span.title{
+    align-self: flex-start;
   }
 }
