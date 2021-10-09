@@ -40,7 +40,7 @@ class _AppFooter extends Component {
             eventBusService.emit(username)
         })
         socketService.on('send follow notification', (username) => {
-            console.log('hererr');
+
             showNotificationMsg(username + 'followd you')
             eventBusService.emit(username)
         })

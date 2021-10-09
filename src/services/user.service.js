@@ -65,7 +65,7 @@ async function updateUser(user) {
 
 }
 async function AddToRecentlyPlayed(track, stationOrTrack) {
-    let user = getLoggedinUser()
+    let user = await getLoggedinUser()
     if (stationOrTrack === 'track') {
         let recentlyPlayedSongs = user.recentlyPlayedSongs
         if (!recentlyPlayedSongs.length < 10)
@@ -92,9 +92,9 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
 async function getLoggedinUser() {
     let user = storageService.loadFromStorage(STORAGE_KEY)
     console.log(user);
-    if (!user){
+    if (!user) {
         await login({ username: "guest" })
-        getLoggedinUser()
+         getLoggedinUser()
     }
     return user
 }
@@ -105,8 +105,8 @@ async function isGuest() {
 }
 
 async function addLikeToTrack(trackId, stationOrTrack) {
-    let user = getLoggedinUser()
-
+    let user =await getLoggedinUser()
+    debugger
     if (stationOrTrack === 'station') {
         user.likedStations.unshift(trackId)
         let stationToUpdate = await stationServiceNew.getStationFromLocal(trackId)//search in local storage
@@ -138,7 +138,7 @@ async function addLikeToTrack(trackId, stationOrTrack) {
 }
 
 async function removeLikeFromTrack(currTrackId, stationOrTrack) {
-    let user = getLoggedinUser()
+    let user = await getLoggedinUser()
     if (stationOrTrack === 'station') {
         let likedStations = user.likedStations.filter(trackId => trackId !== currTrackId)
         user.likedStations = likedStations
