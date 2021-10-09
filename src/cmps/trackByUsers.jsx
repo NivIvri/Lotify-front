@@ -33,12 +33,12 @@ class _TrackByUsers extends Component {
         return (
             <div className='user-track'>
 
-                <div className='flex'>
+                <div className='flex header'>
                     <span>Username</span>
-                    <span>status</span>
+                    <span className='is-active'>status</span>
                     <span>Listening to</span>
                 </div>
-                {user && user.following.map((currUserId) => {
+                {user && user.following.reverse().map((currUserId) => {
                     return <PrackByUserPreview users={this.props.users}
                         currUserId={currUserId} usersImgs={this.props.usersImgs} user={users.find((user => user._id === currUserId))?.username} track={this.getCurrTrack(currUserId)} />
                 })}

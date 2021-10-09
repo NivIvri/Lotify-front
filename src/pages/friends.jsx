@@ -32,7 +32,6 @@ class _Friends extends Component {
     loadUsers = (keySearch = '') => {
 
         if (!keySearch) {
-            debugger
             let filterUsers = this.props.users.filter(user => {
                 if (user._id !== '615b1395706f019209666d5d' && user._id !== this.props.user?._id) {
                     return user
@@ -45,7 +44,6 @@ class _Friends extends Component {
             let filterUsers = this.props.users.filter(user => user.username.toUpperCase().includes(keySearch.toUpperCase()) && user._id !== '615b1395706f019209666d5d' && user._id !== this.props.user._id)
             this.setState({ users: filterUsers })
         }
-
     }
 
     handleChange = async ({ target }) => {
@@ -78,8 +76,8 @@ class _Friends extends Component {
                             <div><input type='text' onChange={this.handleChange} placeholder="Search you friends" /></div>
                             <div className='users-table'>
                                 {users &&
-                                    users.map((currUser, idx) => {
-                                        return <div className='user-preview flex'>
+                                    users.reverse().map((currUser, idx) => {
+                                        return <div className='friend-following-preview flex'>
                                             <div>
                                                 <Avatar size="100" facebook-id="invalidfacebookusername" src={this.state.usersImgs[idx]?.url} size="60" round={true} />
                                                 <span>
