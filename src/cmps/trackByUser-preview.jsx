@@ -22,7 +22,7 @@ class _PrackByUserPreview extends Component {
                         {this.props.users.find((user => user._id === this.props.currUserId))?.username}</span>}
                 </div>
                 {this.props.track &&
-                    <span>is active </span>
+                    <span className='is-active'>is active </span>
                 }
                 {this.props.track &&
                     <div className={"track"} onClick={() => { this.playTrack(this.props.track.track, 0) }}>
@@ -31,7 +31,7 @@ class _PrackByUserPreview extends Component {
                     </div>
                 }
                 {!this.props.track && <div>
-                    <span> User is not active</span></div>}
+                    <span className='is-active'> User is not active</span></div>}
                 {!this.props.track && <div>
                     <span></span></div>}
             </div>
