@@ -6,7 +6,7 @@ import { userService } from './user.service.js';
 const axios = Axios.create({
     withCredentials: true
 });
-const BASE_URL = (process.env.NODE_ENV == 'production')
+const BASE_URL = (process.env.NODE_ENV === 'production')
     ? '/api/station'
     : 'http://localhost:3030/api/station';
 
@@ -39,7 +39,7 @@ async function getHot() {
 }
 
 async function getStationsByUser() {
-    const user=await userService.getLoggedinUser()
+    const user = await userService.getLoggedinUser()
     const res = await axios.get(`${BASE_URL}/station/${user._id}`)
     return res.data
 }
