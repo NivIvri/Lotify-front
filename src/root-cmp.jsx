@@ -18,7 +18,6 @@ export class RootCmp extends React.Component {
                 <Route exact component={Signup} path='/signup' />*/}
                 <main className="main-app">
                     <CreateStation />
-                    <UserProfile />
                     <MainNav />
                     <Switch>
                         {routes.map(route => <Route key={route.path} exact component={route.component} path={route.path} />)}

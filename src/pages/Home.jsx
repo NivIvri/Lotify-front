@@ -8,6 +8,7 @@ import { loadStations } from '../store/station.actions.js';
 import { loadUser } from '../store/user.actions';
 import { stationServiceNew } from '../services/station.service.js';
 import { Loading } from '../cmps/Loading.jsx';
+import { UserProfile } from '../cmps/profile.jsx';
 
 class _Home extends Component {
     state = {
@@ -93,6 +94,7 @@ class _Home extends Component {
         return (
 
             <div className="home-page">
+                  <UserProfile />
                 <div class="shadow">
 
                     <div className="hero">
@@ -147,7 +149,7 @@ class _Home extends Component {
                             <div className="flex genre">
                                 {likedStations &&
                                     likedStations.map((station => <StationPreview key={station._id}
-                                        station={station} />)).slice(0, Math.min(stations.length, numOfPreviews))}
+                                        station={station} />)).slice(0, Math.min(likedStations.length, numOfPreviews))}
                                 {/*{likedStations.map((station => <StationPreview key={station._id} station={station} />))}*/}
                             </div>
                         </div>
