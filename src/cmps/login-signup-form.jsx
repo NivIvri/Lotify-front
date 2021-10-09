@@ -96,6 +96,7 @@ export class LoginSignupForm extends Component {
                 appId="992060094973798"
                 autoLoad={false}
                 fields="name,email,picture"
+                isSdkLoaded={false}
                 onClick={this.facebookComponentClicked}
                 callback={this.responseFacebook} />
             </button>
