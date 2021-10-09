@@ -65,33 +65,28 @@ class _Friends extends Component {
                         <div className='all-users-container'>
                             <div><input type='text' onChange={this.handleChange} placeholder="Search you friends" /></div>
                             <div className='users-table'>
-                                <table>
-                                    <thead>
+                                {users &&
+                                    users.map((currUser, idx) => {
+                                        return <div className='user-preview flex'>
+                                            <div>
+                                                <Avatar size="100" facebook-id="invalidfacebookusername" src={this.state.usersImgs[idx].url} size="60" round={true} />
+                                                <span>
+                                                    {currUser.username}
+                                                </span>
+                                            </div>
 
-                                    </thead>
-                                    <tbody>
-                                        {users &&
-                                            users.map((currUser, idx) => {
-                                                return <tr>
-                                                    <td>
-                                                        <Avatar size="100" facebook-id="invalidfacebookusername" src={this.state.usersImgs[idx].url} size="60" round={true} />
-                                                    </td>
-                                                    <td style={{ width: "15px" }}>
-                                                        {currUser.username}
-                                                    </td>
-                                                    <td>
-                                                        {user.following.includes(currUser._id) &&
-                                                            <button className='following' onClick={() => { this.onFollow(currUser._id, true) }}> Unfollow</button>
-                                                        }
-                                                        {!user.following.includes(currUser._id) &&
-                                                            <button className='follow' onClick={() => { this.onFollow(currUser._id, false) }} >Follow</button>
-                                                        }
-                                                    </td>
-                                                </tr>
-                                            })
-                                        }
-                                    </tbody>
-                                </table>
+
+                                            <div>
+                                                {user.following.includes(currUser._id) &&
+                                                    <button className='following' onClick={() => { this.onFollow(currUser._id, true) }}> Unfollow</button>
+                                                }
+                                                {!user.following.includes(currUser._id) &&
+                                                    <button className='follow' onClick={() => { this.onFollow(currUser._id, false) }} >Follow</button>
+                                                }
+                                            </div>
+                                        </div>
+                                    })
+                                }
                             </div>
                         </div>
                         <section className='following-by-user-container flex column'>

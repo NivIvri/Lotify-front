@@ -7,42 +7,49 @@ import logo from '../assets/img/gramophone-svgrepo-com.svg'
 import { eventBusService } from '../services/event-bus.service'
 import { socketService } from '../services/socket.service'
 class _MainNav extends React.Component {
-  state = {
-    links: [
-      {
-        id: 1,
-        name: "Home",
-        to: "/",
-        fa: 'fa-home'
-      },
-      {
-        id: 2,
-        name: "Search",
-        to: "/search",
-        fa: 'fa-search'
-      },
-      {
-        id: 3,
-        name: "My Stations",
-        to: "/stations",
-        fa: 'fa-library'
-      },
-      {
-        id: 4,
-        name: "Liked Songs",
-        to: "/station/likedTracks",
-        fa: 'fa-heart'
-      },
-      {
-        id: 5,
-        name: "Friends",
-        to: "/friends",
-        fa: 'fa-user-friends'
-      }
-    ],
-    activLink: 1,
-    selectedStationId: null,
-    isMenuOpen: false
+  constructor(props) {
+    super(props)
+    this.state = {
+      links: [
+        {
+          id: 1,
+          name: "Home",
+          to: "/",
+          fa: 'fa-home'
+        },
+        {
+          id: 2,
+          name: "Search",
+          to: "/search",
+          fa: 'fa-search'
+        },
+        {
+          id: 3,
+          name: "My Stations",
+          to: "/stations",
+          fa: 'fa-library'
+        },
+        {
+          id: 4,
+          name: "Liked Songs",
+          to: "/station/likedTracks",
+          fa: 'fa-heart'
+        },
+        {
+          id: 5,
+          name: "Friends",
+          to: "/friends",
+          fa: 'fa-user-friends'
+        }
+      ],
+      activLink: 1,
+      selectedStationId: null,
+      isMenuOpen: false
+
+    }
+
+    // Methods Binding:
+    // this.toggleMenu = this.toggleMenu.bind(this)
 
   }
   componentDidMount() {
@@ -50,7 +57,7 @@ class _MainNav extends React.Component {
   }
 
   handleClick = async (linkId) => {
-    await this.toggleMenu()
+    await this.toggleMenu(!this.state.isMenuOpen)
     this.setState({ activLink: linkId })
   }
 
@@ -58,8 +65,10 @@ class _MainNav extends React.Component {
     this.setState(prevState => ({ ...prevState, selectedStationId: stationId }))
   }
 
-  toggleMenu = async (isMenuOpen = !this.state.isMenuOpen) => {
-    this.setState({ isMenuOpen })
+  toggleMenu = async (newIsMenuOpen) => {
+    // console.log('newIsMenuOpen', newIsMenuOpen);
+    // debugger
+    this.setState({ isMenuOpen: newIsMenuOpen })
   }
 
   render() {
@@ -70,7 +79,7 @@ class _MainNav extends React.Component {
     }
     return (
       <>
-        <div className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={() => this.toggleMenu()}>
+        <div className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={this.toggleMenu.bind(this, !isMenuOpen)}>
           <div></div>
         </div>
 

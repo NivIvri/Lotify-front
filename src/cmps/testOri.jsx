@@ -244,7 +244,7 @@ class _AppFooter extends Component {
                         </div>
                         {track && <div>
                             {
-                                this.state.isLiked && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} class="fas fa-heart"></span>
+                                this.state.isLiked && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} className="fas fa-heart"></span>
                             }
                             {
                                 !this.state.isLiked && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
@@ -261,7 +261,7 @@ class _AppFooter extends Component {
 
                             {
                                 isPlaying &&
-                                <span class="fas fa-pause" onClick={this.togglePlay}></span>
+                                <span className="fas fa-pause" onClick={this.togglePlay}></span>
                             }
                             {
                                 !isPlaying &&
@@ -291,11 +291,11 @@ class _AppFooter extends Component {
                         <Box sx={{ width: 200 }}>
                             <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                                 {volume === 0 || this.state.muted &&
-                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-mute"></span>}
+                                    <span onClick={this.handleToggleMuted} className="fas fa-volume-mute"></span>}
                                 {volume > 0 && volume < 50 && !this.state.muted &&
-                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-down"></span>}
+                                    <span onClick={this.handleToggleMuted} className="fas fa-volume-down"></span>}
                                 {volume > 50 && !this.state.muted &&
-                                    <span onClick={this.handleToggleMuted} class="fas fa-volume-up"></span>}
+                                    <span onClick={this.handleToggleMuted} className="fas fa-volume-up"></span>}
 
                                 <Slider aria-label="Volume" value={volume} onChange={this.handleChange} />
                             </Stack>

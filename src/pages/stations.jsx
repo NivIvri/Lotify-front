@@ -17,6 +17,8 @@ class _Stations extends Component {
 
 
   getLikedSongsStation = (stations) => {
+    // console.log('stations from stations', stations);
+    // debugger
     return stations.find(station => station.genre === 'likedTracks')
   }
 
@@ -32,7 +34,7 @@ class _Stations extends Component {
             <header className="stations-header">
               <h1>Playlists</h1>
             </header>
-            <section className='card'>
+            <section className='card stations'>
               <div className="flex genre">
                 <LikedSongsPreview station={likedSongsStation} />
                 {stations.map(station => <StationPreview key={station._id} station={station} />)}

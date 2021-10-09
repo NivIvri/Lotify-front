@@ -50,7 +50,7 @@
 }
 
 section.search,
-.search-result-container {
+.-contaisearch-resultner {
   //width: 75vw;
   width: 100%;
 
@@ -80,11 +80,15 @@ section.search,
 .search-result-container {
   margin-bottom: 32px;
   //height: 300px;
+  &  .genre{
+    gap:25px
+  }
   .track-container {
     .likes {
       width: 20px;
       height: 100%;
     }
+
   }
 
   .grid-search-result-container {

@@ -174,7 +174,7 @@ class _TrackPreview extends Component {
                 {!this.props?.isOnDeatils && <div className='likes'>
                     {
                         //this.state.isLike && <img className='islike' src={heartChecked} onClick={(ev) => { this.toggleLike(ev) }} />
-                        this.state.isLike && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} class="fas fa-heart"></span>
+                        this.state.isLike && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} className="fas fa-heart"></span>
                     }
                     {
                         !this.state.isLike && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />

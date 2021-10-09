@@ -1,6 +1,7 @@
 .friends-container {
     font-family: "Quicksand-Light";
 
+
     h1 {
         font-size: 32px;
         font-weight: 700;
@@ -35,9 +36,13 @@
     }
     .friend-following {
         flex-direction: column;
-        @media screen and (min-width: 1285px) {
+        @media screen and (min-width: 900px) {
             flex-direction: row;
             justify-content: space-evenly;
+
+            &>*{
+                flex: 1;
+            }
         }
         gap: 20px;
         th {
@@ -74,7 +79,7 @@
                 /* height: 25px; */
                 padding: 5px;
                 margin-right: 15px;
-                width: 120px;
+                width: 80px;
                 border-radius: 5px;
                 border: 0.1px solid #4a4a4a;
                 /* box-shadow: 0px 0px 2px 0.8px #594c4c; */
@@ -83,6 +88,9 @@
                 font-size: 14px;
                 letter-spacing: 0.6px;
                 cursor: pointer;
+                @media screen and (min-width: 900px) {
+                    width: 120px;
+                }
             }
             .follow {
                 background: #1db954ba;
@@ -127,48 +135,58 @@
                 left: -100%;
             }
         }
-        //& th:nth-child(2) {
-        //    display: none;
-        //}
-        //& th:nth-child(3) {
-        //    display: none;
-        //}
-        //& td:nth-child(3) {
-        //    display: none;
-        //}
-        //@media screen and (min-width: 1285px) {
-        //    & th:nth-child(2) {
-        //        display: block;
-        //    }
-        //    & th:nth-child(3) {
-        //        display: block;
-        //    }
-        //    & td:nth-child(3) {
-        //        display: block;
-        //    }
-        //}
+        th {
+            padding: 8px 0px;
+            text-align: left;
+        }
+        td {
+            height: 72px;
+        }
+        & td:first-child {
+            width: 80px;
+        }
+
+        & td:nth-child(3) {
+            min-width: 160px;
+            padding-right: 30px;
+        }
+        & td:nth-child(4) {
+            width: 300px;
+        }
+        & td:nth-child(2) {
+            padding-right: 30px;
+
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
     }
 
     .following-by-user-container {
         padding-top: 40px;
-        //min-width: 495px;
+        min-width: 495px;
     }
 }
+
 .users-table,
 .user-track {
     margin-top: 10px;
     border-top: 1px solid #444;
     padding-top: 10px;
     max-height: 200px;
-
     overflow-y: scroll;
     overflow-x: hidden;
-    min-width: 300px;
-    @media screen and (min-width: 1285px) {
+
+    @media screen and (min-width: 900px) {
         max-height: 488px;
+        min-width: 300px;
+        ::-webkit-scrollbar {
+            width: 12px;
+            // transition: all 0.6s ease-in-out;
+        }
     }
     &::-webkit-scrollbar {
-        width: 12px;
+        width: 5px;
         // transition: all 0.6s ease-in-out;
     }
 
@@ -183,8 +201,17 @@
         transition: all 2s ease-in;
     }
 }
-@media screen and (max-width: 760px){
-    .main-container{
+@media screen and (max-width: 760px) {
+    .main-container {
         padding: 10px;
+    }
+}
+
+.user-preview {
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    & span:nth-child(2) {
+        margin-left: 10px;
     }
 }
