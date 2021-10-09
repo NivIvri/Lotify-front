@@ -83,6 +83,7 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
 
 async function getLoggedinUser() {
     let user = storageService.loadFromStorage(STORAGE_KEY)
+    console.log(user);
     if (!user){
         await login({ username: "guest" })
         getLoggedinUser()

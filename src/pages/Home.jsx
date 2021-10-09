@@ -47,8 +47,8 @@ class _Home extends Component {
 
     }
     async componentDidMount() {
-        await this.props.loadStations();
         await this.props.loadUser();
+        await this.props.loadStations();
         await this.getLikedStation()
         const goodDayStations = await stationServiceNew.getGoodDay()
         const hotStations = await stationServiceNew.getHot()
@@ -70,6 +70,7 @@ class _Home extends Component {
         }
     }
     getLikedStation = async () => {
+        console.log(this.props.user);
         let unresolvedPromisesLike = await this.props.user.likedStations.map((stationId => {
             return stationServiceNew.getStationById(stationId);
         }

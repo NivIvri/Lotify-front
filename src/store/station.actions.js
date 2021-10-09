@@ -10,6 +10,7 @@ export function loadStations() {
             let stations = await stationServiceNew.getStationsByUser()
             let guestStations = await guestService.query()
             stations = stations.concat(guestStations)
+            console.log(stations);
             dispatch({
                 type: 'SET_STATIONS',
                 stations
