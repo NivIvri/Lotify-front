@@ -3,11 +3,21 @@
     .is-active {
         display: none;
         flex: 0;
-    
+
         @media screen and (min-width: 1000px) {
             display: block;
             flex: 1;
         }
+    }
+    .header > * {
+        flex: 1;
+    }
+    .header {
+        height: 40px;
+        padding: 8px 32px;
+        transition-duration: 0.3s;
+        transition-property: opacity width;
+        font-size: 18px;
     }
 
     h1 {
@@ -34,7 +44,7 @@
         transition-duration: 0.3s;
         transition-property: opacity width;
         transition-timing-function: cubic-bezier(0.3, 0, 0.4, 1);
-        //min-width: 100%;
+        width: 100%;
         outline: none;
         font-size: 18px;
     }
@@ -55,6 +65,7 @@
             flex: 1;
             .friend-following-preview {
                 align-items: center;
+                height: 70px;
                 justify-content: space-between;
                 & div span {
                     margin-left: 10px;
@@ -87,12 +98,6 @@
     .user-track {
         padding-top: 10px;
 
-        .header > * {
-            flex: 1;
-        }
-        .header {
-            margin-bottom: 10px;
-        }
         .track {
             color: #02d54cba;
             font-family: "Quicksand-Light";
@@ -101,9 +106,10 @@
             align-items: center;
             justify-content: center;
             flex: 1;
+            cursor: pointer;
 
-            &:first-child(){
-                margin-right: 35px
+            &:first-child() {
+                margin-right: 35px;
             }
 
             img {
@@ -135,11 +141,9 @@
     }
 
     .following-by-user-container {
-        padding-top: 20px;
         flex: 2;
-        //min-width: 495px;
         @media screen and (min-width: 1000px) {
-            padding-top: 40px;
+            padding-top: 0;
         }
     }
 }
@@ -187,7 +191,7 @@
     justify-content: space-between;
     align-items: center;
     height: 70px;
- 
+
     @media screen and (min-width: 1000px) {
         & > * {
             flex: 1;

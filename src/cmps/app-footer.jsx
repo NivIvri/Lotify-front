@@ -34,13 +34,15 @@ class _AppFooter extends Component {
     async componentDidMount() {
         await this.props.loadUsers()
         socketService.setup()
-        socketService.on('send notification', (username) => {
-            showNotificationMsg(username + ' liked playlist')
-            eventBusService.emit(username)
+        socketService.on('send notification', (obj) => {
+            console.log(obj.username, obj.stationName, 'username, stationName');
+            debugger
+            showNotificationMsg(obj.username + ' liked your playlist: ' + obj.stationName)
+            eventBusService.emit(obj.username)
         })
         socketService.on('send follow notification', (username) => {
 
-            showNotificationMsg(username + 'followd you')
+            showNotificationMsg(username + ' followd you')
             eventBusService.emit(username)
         })
         socketService.on('user track', ({ track, user }) => {

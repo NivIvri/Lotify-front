@@ -30,7 +30,6 @@ class _Friends extends Component {
     }
 
     loadUsers = (keySearch = '') => {
-
         if (!keySearch) {
             let filterUsers = this.props.users.filter(user => {
                 if (user._id !== '615b1395706f019209666d5d' && user._id !== this.props.user?._id) {
@@ -100,7 +99,7 @@ class _Friends extends Component {
                             </div>
                         </div>
                         <section className='following-by-user-container flex column'>
-                            <TrackByUsers trackAndUsers={trackAndUsers} usersImgs={this.state.usersImgs} />
+                            <TrackByUsers trackAndUsers={trackAndUsers} users={this.state.users} usersImgs={this.state.usersImgs} />
                         </section>
 
                     </div>

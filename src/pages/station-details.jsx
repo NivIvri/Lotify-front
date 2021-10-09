@@ -13,6 +13,7 @@ import { Search } from './search.jsx';
 import { stationServiceNew } from '../services/station.service.js';
 import { youtubeApiService } from '../services/youtubeApi.service.js';
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
+import { Loading } from '../cmps/Loading.jsx';
 
 class _StationDetails extends Component {
     state = {
@@ -199,10 +200,10 @@ class _StationDetails extends Component {
     }
 
     render() {
-        const { station, isFindMore, isShowAll } = this.state
+        const { station, isFindMore } = this.state
         const { user } = this.props
         const { stationId } = this.props.match.params;
-        if (!station) return <h1>not found</h1>
+        if (!station) return <Loading />
         //const { loadStations, addToNextQueue, stations } = this.props;
         return (
             <section className='station-details'>

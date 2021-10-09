@@ -47,6 +47,7 @@ class _Home extends Component {
 
     }
     async componentDidMount() {
+        debugger
         await this.props.loadUser();
         await this.props.loadStations();
         await this.getLikedStation()
@@ -59,6 +60,7 @@ class _Home extends Component {
 
     async componentDidUpdate(prevProps) {
         if (prevProps.user?._id !== this.props.user?._id) {
+            //await this.props.loadUser();
             await this.props.loadStations();
             await this.getLikedStation()
         }
