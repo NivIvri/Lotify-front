@@ -18,7 +18,7 @@ export class RootCmp extends React.Component {
                 appId: '992060094973798',
                 cookie: true,
                 xfbml: true,
-                version: '12.0'
+                version: 'v12.0'
             });
 
             window.FB.AppEvents.logPageView();
