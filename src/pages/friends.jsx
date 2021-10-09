@@ -16,24 +16,34 @@ class _Friends extends Component {
         usersImgs: [],
         users: [],
     }
-    componentDidMount() {
+    async componentDidMount() {
+        await this.props.loadUsers()
         socketService.setup()
         this.setState({ trackAndUsers: this.props.trackAndUsers })
         console.log(this.state.trackAndUsers, 'trackAndUsers');
-        let usersImgs = this.props.users.map(user => {
+        await this.loadUsers('')
+        let usersImgs = this.state.users.map(user => {
             return user.img ? { url: user.img, id: user._id } :
                 { url: "https://cdn-icons-png.flaticon.com/512/149/149071.png", id: user._id }
         })
         this.setState({ usersImgs })
-        this.loadUsers('')
     }
+
     loadUsers = (keySearch = '') => {
-        if (!keySearch) this.setState({ users: this.props.users })
+
+        if (!keySearch) {
+            let filterUsers = this.props.users.filter(user => {
+                if (user._id !== '615b1395706f019209666d5d' && user._id !== this.props.user?._id) {
+                    return user
+                }
+            })
+            this.setState({ users: filterUsers })
+            //this.setState({ users: this.props.users })
+        }
         else {
-            let filterUsers = this.props.users.filter(user => user.username.toUpperCase().includes(keySearch.toUpperCase()))
+            let filterUsers = this.props.users.filter(user => user.username.toUpperCase().includes(keySearch.toUpperCase()) && user._id !== '615b1395706f019209666d5d' && user._id !== this.props.user._id)
             this.setState({ users: filterUsers })
         }
-
     }
 
     handleChange = async ({ target }) => {
@@ -56,7 +66,7 @@ class _Friends extends Component {
         const trackAndUsers = this.props.trackAndUsers
         const { user } = this.props
         const { users } = this.state
-        if (!users) return <div>loading</div>
+        if (!users || !this.state.usersImgs) return <div>loading</div>
         return (
             <MainLayout>
                 <section className='friends-container'>
@@ -66,10 +76,10 @@ class _Friends extends Component {
                             <div><input type='text' onChange={this.handleChange} placeholder="Search you friends" /></div>
                             <div className='users-table'>
                                 {users &&
-                                    users.map((currUser, idx) => {
-                                        return <div className='user-preview flex'>
+                                    users.reverse().map((currUser, idx) => {
+                                        return <div className='friend-following-preview flex'>
                                             <div>
-                                                <Avatar size="100" facebook-id="invalidfacebookusername" src={this.state.usersImgs[idx].url} size="60" round={true} />
+                                                <Avatar size="100" facebook-id="invalidfacebookusername" src={this.state.usersImgs[idx]?.url} size="60" round={true} />
                                                 <span>
                                                     {currUser.username}
                                                 </span>
@@ -108,7 +118,8 @@ function mapStateToProps(state) {
     }
 }
 const mapDispatchToProps = {
-    updateUser
+    updateUser,
+    loadUsers
 }
 
 

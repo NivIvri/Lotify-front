@@ -33,33 +33,16 @@ class _TrackByUsers extends Component {
         return (
             <div className='user-track'>
 
-                <table>
-                    <thead>
-                        <th colSpan={2}>Username</th>
-                        <th>status</th>
-                        <th>Listening to</th>
-                    </thead>
+                <div className='flex header'>
+                    <span>Username</span>
+                    <span className='is-active'>status</span>
+                    <span>Listening to</span>
+                </div>
+                {user && user.following.reverse().map((currUserId) => {
+                    return <PrackByUserPreview users={this.props.users}
+                        currUserId={currUserId} usersImgs={this.props.usersImgs} user={users.find((user => user._id === currUserId))?.username} track={this.getCurrTrack(currUserId)} />
+                })}
 
-
-                        <tbody>
-                            {user && user.following.map((currUserId) => {
-                                return <PrackByUserPreview users={this.props.users}
-                                    currUserId={currUserId} usersImgs={this.props.usersImgs} user={users.find((user => user._id === currUserId))?.username} track={this.getCurrTrack(currUserId)} />
-                                //return <tr className={'user-prewiew'}>
-                                //    <td>
-                                //        <Avatar size="100" facebook-id="invalidfacebookusername" src={this.props.usersImgs.find(imgObj => currUserId === imgObj.id)?.url} size="60" round={true} />  </td>
-                                //    <td>{users &&
-                                //        users.find((user => user._id === currUserId))?.username}</td>
-                                //    <td>
-                                //    </td>
-
-                                //    <td>{
-                                //        this.getCurrTrack(currUserId)
-                                //    }</td>
-                                //</tr>
-                            })}
-                        </tbody>
-                </table>
             </div>
         )
     }

@@ -25,7 +25,9 @@ export const userService = {
     getUsers
 }
 const STORAGE_KEY = "user"
-const URL = 'http://localhost:3030/api'
+const URL = (process.env.NODE_ENV === 'production') ?
+    '/api' :
+    'http://localhost:3030/api';
 
 
 async function signup(user) {
@@ -111,10 +113,10 @@ async function addLikeToTrack(trackId, stationOrTrack) {
         socketService.emit('add like', { userIdliked: stationToUpdate.createdBy.id, currUser: user })
 
         if (!stationToUpdate.likedByUsers) stationToUpdate.likedByUsers = []
-
-        stationToUpdate.likedByUsers.push({ username: user.username, id: user._id })
-
-        await stationServiceNew.saveStation(stationToUpdate)
+        if (!stationToUpdate.likedByUsers.some(likedByUser => likedByUser.id === user._id)) {
+            stationToUpdate.likedByUsers.push({ username: user.username, id: user._id })
+            await stationServiceNew.saveStation(stationToUpdate)
+        }
     }
     else {
         user.likedTracks.unshift(trackId)

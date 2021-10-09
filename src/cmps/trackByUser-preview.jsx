@@ -15,25 +15,26 @@ class _PrackByUserPreview extends Component {
 
     render() {
         return (
-            <tr className={'user-preview'}>
-                <td>
-                    <Avatar size="100" facebook-id="invalidfacebookusername" src={this.props.usersImgs.find(imgObj => this.props.currUserId === imgObj.id)?.url} size="60" round={true} />  </td>
-                {this.props.users && <td >
-                    {this.props.users.find((user => user._id === this.props.currUserId))?.username}</td>}
+            <div className={'user-preview flex'}>
+                <div>
+                    <Avatar size="100" facebook-id="invalidfacebookusername" src={this.props.usersImgs.find(imgObj => this.props.currUserId === imgObj.id)?.url} size="60" round={true} />
+                    {this.props.users && <span >
+                        {this.props.users.find((user => user._id === this.props.currUserId))?.username}</span>}
+                </div>
                 {this.props.track &&
-                    <td>is active </td>
+                    <span className='is-active'>is active </span>
                 }
                 {this.props.track &&
-                    <td className={"track"} onClick={() => { this.playTrack(this.props.track.track, 0) }}>
+                    <div className={"track"} onClick={() => { this.playTrack(this.props.track.track, 0) }}>
                         {<img src={this.props.track.track.imgUrl} />}
                         <div><p> {this.props.track.track.title}</p></div>
-                    </td>
+                    </div>
                 }
-                {!this.props.track && <td>
-                    <span> User is not active</span></td>}
-                {!this.props.track && <td>
-                    <span></span></td>}
-            </tr>
+                {!this.props.track && <div>
+                    <span className='is-active'> User is not active</span></div>}
+                {!this.props.track && <div>
+                    <span></span></div>}
+            </div>
         )
     }
 }
