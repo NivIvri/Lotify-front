@@ -79,7 +79,6 @@ class _Home extends Component {
             return stationServiceNew.getStationById(stationId);
         }
         ))
-        debugger
         let a = await Promise.all(unresolvedPromisesLike)
         let b = await Promise.all(unresolvedPromisesStation)
         const results = await Promise.all([a, b]);
