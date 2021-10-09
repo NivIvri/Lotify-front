@@ -25,7 +25,9 @@ export const userService = {
     getUsers
 }
 const STORAGE_KEY = "user"
-const URL = 'http://localhost:3030/api'
+const URL = (process.env.NODE_ENV === 'production') ?
+    '/api' :
+    'http://localhost:3030/api';
 
 
 async function signup(user) {
