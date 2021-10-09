@@ -79,8 +79,9 @@ class _Home extends Component {
             return stationServiceNew.getStationById(stationId);
         }
         ))
-        let b = await Promise.all(unresolvedPromisesStation)
+        debugger
         let a = await Promise.all(unresolvedPromisesLike)
+        let b = await Promise.all(unresolvedPromisesStation)
         const results = await Promise.all([a, b]);
         this.setState({ likedStations: results[0], recentlyPlayedStations: results[1] })
         //this.props.user.likedStations.map((station => <StationPreview key={station._id} station={station} />))

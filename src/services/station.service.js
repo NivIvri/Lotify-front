@@ -46,6 +46,7 @@ async function getStationsByUser() {
 
 async function getStationById(stationId) {
     const res = await axios.get(`${BASE_URL}/${stationId}`)
+    console.log("🚀 ~ file: station.service.js ~ line 51 ~ getStationById ~ res.data", res.data)
     return res.data
 }
 
