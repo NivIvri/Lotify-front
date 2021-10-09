@@ -106,7 +106,6 @@ async function isGuest() {
 
 async function addLikeToTrack(trackId, stationOrTrack) {
     let user =await getLoggedinUser()
-    debugger
     if (stationOrTrack === 'station') {
         user.likedStations.unshift(trackId)
         let stationToUpdate = await stationServiceNew.getStationFromLocal(trackId)//search in local storage
