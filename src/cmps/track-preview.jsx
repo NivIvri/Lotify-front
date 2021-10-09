@@ -45,7 +45,7 @@ class _TrackPreview extends Component {
 
 
     async componentDidUpdate(prevProps) {
-        if ((prevProps.track.id !== this.props.track.id) || (this.props.user.likedTracks?.length !== prevProps.user.likedTracks?.length)) {
+        if ((prevProps.track.id !== this.props.track.id) || (this.props.user?.likedTracks?.length !== prevProps.user?.likedTracks?.length)) {
             await this.props.loadStations()
             let user = await this.props.user
             if (!user) {

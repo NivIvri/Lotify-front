@@ -29,6 +29,9 @@
   margin-bottom: 20px;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   float: left;
+  @include for-mobile-layout{
+    grid-template-columns: repeat(auto-fit, minmax((150px), 1fr));
+  }
 }
