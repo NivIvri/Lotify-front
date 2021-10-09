@@ -74,11 +74,12 @@ async function AddToRecentlyPlayed(track, stationOrTrack) {
         user.recentlyPlayedSongs = recentlyPlayedSongs
     }
     else {
-        if (!track) return
+        if (!track || track === null) return
         let recentlyPlayedStations = user.recentlyPlayedStations
         if (recentlyPlayedStations.some(stationIdx => stationIdx === track)) return
         if (!recentlyPlayedStations.length < 10)
             recentlyPlayedStations = recentlyPlayedStations.slice(Math.max(recentlyPlayedStations.length - 9, 0))
+
         recentlyPlayedStations.unshift(track)
         user.recentlyPlayedStations = recentlyPlayedStations
     }
@@ -94,7 +95,7 @@ async function getLoggedinUser() {
     console.log(user);
     if (!user) {
         await login({ username: "guest" })
-         getLoggedinUser()
+        getLoggedinUser()
     }
     return user
 }
@@ -105,7 +106,7 @@ async function isGuest() {
 }
 
 async function addLikeToTrack(trackId, stationOrTrack) {
-    let user =await getLoggedinUser()
+    let user = await getLoggedinUser()
     if (stationOrTrack === 'station') {
         user.likedStations.unshift(trackId)
         let stationToUpdate = await stationServiceNew.getStationFromLocal(trackId)//search in local storage
@@ -117,8 +118,8 @@ async function addLikeToTrack(trackId, stationOrTrack) {
                 stationToUpdate = await stationServiceNew.getStationByGenre(trackId)
                 console.log('got by genre', stationToUpdate);
             }
-
-        socketService.emit('add like', { userIdliked: stationToUpdate.createdBy.id, currUser: user })
+            console.log("🚀 ~ file: user.service.js ~ line 120 ~ addLikeToTrack ~ stationToUpdate", stationToUpdate)
+            socketService.emit('add like', { userIdliked: stationToUpdate.createdBy.id, currUser: user, stationName: stationToUpdate.name })
 
         if (!stationToUpdate.likedByUsers) stationToUpdate.likedByUsers = []
         if (!stationToUpdate.likedByUsers.some(likedByUser => likedByUser.id === user._id)) {
