@@ -57,6 +57,13 @@ class _Home extends Component {
         this.resizer.observe(document.querySelector('.main-app'))
     }
 
+    async componentDidUpdate(prevProps) {
+        if (prevProps.user?._id !== this.props.user?._id) {
+            await this.props.loadStations();
+            await this.getLikedStation()
+        }
+    }
+
     getTime = () => {
         var today = new Date()
         var curHr = today.getHours()
