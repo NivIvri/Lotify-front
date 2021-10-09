@@ -21,7 +21,6 @@ class _TrackByUsers extends Component {
             trackAndUser = false
 
         else trackAndUser = trackAndUser[0]
-        console.log(trackAndUser, 'trackAndUsertrackAndUsertrackAndUser');
         return trackAndUser
     }
 
@@ -31,19 +30,23 @@ class _TrackByUsers extends Component {
 
         if (!this.state.users || !this.props.user) return <div>loading</div>
         return (
-            <div className='user-track'>
-
+            <>
                 <div className='flex header'>
                     <span>Username</span>
                     <span className='is-active'>status</span>
                     <span>Listening to</span>
                 </div>
-                {user && user.following.reverse().map((currUserId) => {
-                    return <PrackByUserPreview users={this.props.users}
-                        currUserId={currUserId} usersImgs={this.props.usersImgs} user={users.find((user => user._id === currUserId))?.username} track={this.getCurrTrack(currUserId)} />
-                })}
+                <div className='user-track'>
 
-            </div>
+
+                    {user && user.following.reverse().map((currUserId) => {
+                        console.log(user.following, 'user.following');
+                        return <PrackByUserPreview users={this.props.users}
+                            currUserId={currUserId} usersImgs={this.props.usersImgs} user={users.find((user => user._id === currUserId))?.username} track={this.getCurrTrack(currUserId)} />
+                    })}
+
+                </div>
+            </>
         )
     }
 }
@@ -53,7 +56,7 @@ class _TrackByUsers extends Component {
 function mapStateToProps(state) {
     return {
         user: state.userMoudle.user,
-        users: state.userMoudle.users,
+        //users: state.userMoudle.users,
     }
 }
 const mapDispatchToProps = {

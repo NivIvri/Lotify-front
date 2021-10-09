@@ -67,7 +67,7 @@ class _UserPrifile extends Component {
         }
         this.setLoginOrSignup(null)
         await this.props.loadUser()
-        this.props.loadStations()
+        await this.props.loadStations()
     }
 
     facebookComponentClicked = () => {
@@ -104,7 +104,7 @@ class _UserPrifile extends Component {
                 <div className="profiler">
                     <Menu menuButton={
                         <MenuButton title={user.username}>
-                            <Avatar size="50" facebook-id="invalidfacebookusername" src={user.img ? user.img : "https://cdn-icons-png.flaticon.com/512/149/149071.png"}  round={true} />
+                            <Avatar size="50" facebook-id="invalidfacebookusername" src={user.img ? user.img : "https://cdn-icons-png.flaticon.com/512/149/149071.png"} round={true} />
                         </MenuButton>}>
                         {user.username === "guest" &&
                             <MenuItem onClick={() => this.setLoginOrSignup("Login")}>Login</MenuItem>
