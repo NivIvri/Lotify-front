@@ -64,6 +64,7 @@ export function stationReducer(state = initialState, action) {
             break
 
         case 'NEXT_TRACK':
+            // debugger
             // console.log('newQueue from nextTrack', newQueue)
             if (state.playNextQueue.length > 0) {
                 nextTrack = newPlayNextQueue.shift();
