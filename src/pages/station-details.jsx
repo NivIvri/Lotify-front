@@ -219,6 +219,7 @@ class _StationDetails extends Component {
                         <ul className="clean-list flex">
                             <li>{station.createdBy?.fullname}</li>
                             <li>{station.songs.length} songs</li>
+                            {/*<li>{station?.likedByUsers.length}likes</li>*/}
                         </ul>
                     </div>
                 </div>

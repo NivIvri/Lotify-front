@@ -26,7 +26,7 @@
         transition-duration: 0.3s;
         transition-property: opacity width;
         transition-timing-function: cubic-bezier(0.3, 0, 0.4, 1);
-        min-width: 100%;
+        //min-width: 100%;
         outline: none;
         font-size: 18px;
     }
@@ -164,7 +164,7 @@
 
     .following-by-user-container {
         padding-top: 40px;
-        min-width: 495px;
+        //min-width: 495px;
     }
 }
 

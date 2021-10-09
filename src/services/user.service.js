@@ -106,10 +106,10 @@ async function addLikeToTrack(trackId, stationOrTrack) {
         socketService.emit('add like', { userIdliked: stationToUpdate.createdBy.id, currUser: user })
 
         if (!stationToUpdate.likedByUsers) stationToUpdate.likedByUsers = []
-
-        stationToUpdate.likedByUsers.push({ username: user.username, id: user._id })
-
-        await stationServiceNew.saveStation(stationToUpdate)
+        if (!stationToUpdate.likedByUsers.some(likedByUser => likedByUser.id === user._id)) {
+            stationToUpdate.likedByUsers.push({ username: user.username, id: user._id })
+            await stationServiceNew.saveStation(stationToUpdate)
+        }
     }
     else {
         user.likedTracks.unshift(trackId)
