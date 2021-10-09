@@ -149,6 +149,10 @@
             @include for-mobile-layout{
                 display: none;
             }
+            @include for-narrow-layout{
+                display: none;
+
+            }
             @include for-normal-layout{
                 display: flex;
             }
