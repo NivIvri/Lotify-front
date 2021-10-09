@@ -25,7 +25,7 @@ class _UserPref extends Component {
         target.parentElement.classList.add('selected')
         const img = target.parentElement.children[0].src;
         this.setState((prevState) => ({ artists: [...prevState.artists, { artist, img }] }), () => {
-            if (this.state.artists.length >=6) {
+            if (this.state.artists.length >= 6) {
                 this.props.setUserPref([...this.state.artists, { artist, img }])
             }
         })
@@ -37,7 +37,7 @@ class _UserPref extends Component {
         const { stations, user } = this.props
         if (!stations || !user) return <h1>loading...</h1>
         if (user.userPref?.length >= 5) {
-            console.log(user.userPref.length, 'user.userPref.length');
+            // console.log(user.userPref.length, 'user.userPref.length');
             return <Redirect to='/home' />
         }
         return (
@@ -51,47 +51,47 @@ class _UserPref extends Component {
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'kaleo')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLRrZSbWTyBAENocILL6FsPxL0FcSRdA0XNnDExc8A=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Kaleo</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'donald glover')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLR54qbXPUrgKCf0tmiquuqTiYDElO_Cekw-pSCs_g=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Donald Glover</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'sia')}>
                             <img src="https://yt3.ggpht.com/0xb0rVHF2QHhnmQA5xKQiqPPPuq0gQbHkM8zCvR4vEpvWDNhSSJYUuGXmWZHAjNHJYebQim2=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Sia</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'justin bieber')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLTKwkiuIDMtT7w-C55QJm3-FxExhi3So7EWofYGuQ=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Justin Bieber</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'led zepplin')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLRfwQJh6x8tdSDOPuMENrMgWxp6c9Wyi4k5dL3QeA=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Led Zeppelin</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'eminem')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLSk-AeebphZllYPnC6dyL4Ebaufx9EfWWcpWi5kvw=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Eminem</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'ed sheeran')}>
                             <img src="https://yt3.ggpht.com/2uiMtw7drxpcP4J7s61C0x1cK_fdX0Fp_RJ9t9l-RVnal24xyqSLPhIkWYN2I8QneubJAA8J_Fo=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Ed Sheeran</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'ariana grande')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLRrULhlsqTk0LW6WZ4ufoPC2vRrI-Hv7iQMcwALzA=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Ariana Grande</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'nirvana')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLTcKOFg-V_beC58driCSWsjY01b2yASCkXpLo6z=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Nirvana</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'avicii')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLRxjYtdXH5SpVo0Hbgj-MV9iSYOZkPnyGBPX3dBtQ=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
@@ -101,17 +101,17 @@ class _UserPref extends Component {
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'motzart')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLR-UxFlle0Li25HB_1AmFLgE1EZ5oF5lsGIojom=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Motzart</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'beyonce')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLSYFl86h5I9oWxAlUCb9ujyZVYus_NrMBnLnQZq=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Beyoncé</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'taylor swift')}>
                             <img src="https://yt3.ggpht.com/MqKm9xyjonzkICKA78ir0AM-WUR47ntkBeJlgHeIk_rUnPuukiWtzOEmU7UjO8cFoPrBatCh3As=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Taylor Swift</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'blink 182')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLS9wSSSch2T5RCOqeWes0CQPq6CuE7n6BH6SGqp9g=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
@@ -126,12 +126,12 @@ class _UserPref extends Component {
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'coldplay')}>
                             <img src="https://yt3.ggpht.com/gDGaWA0ykI0RuD-x0tOtlZQp_pmfqXMastg2rAJhCoGXeG7a44LL0BlSOZ1nQpuaj5apqzjxa4Y=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Coldplay</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'imagine dragons')}>
                             <img src="https://yt3.ggpht.com/aXBmHKABw-J-0ZMxj39wkXpLDEHViOdL5UD71cDG2s5vbeQBWk9mdX3rRxT5U6Wfkvm6o8Uu-dU=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Imagine dragons</h3>
-                            <i class="fas fa-check"></i>
+                            <i className="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'ac/dc')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLR5p4C0mvYOySvgi0lcJEQ2b9GQ5RENU_js8bHV=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
