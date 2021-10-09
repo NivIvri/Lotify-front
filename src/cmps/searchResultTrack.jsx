@@ -22,9 +22,15 @@ export class SearchResultTrack extends React.Component {
         const { trackResult } = this.state
         if (!trackResult || !trackResult.length) return <div>No track found</div>
         return (
-            <section className='search-result'>
-                <h1 className='title'>songs</h1>
-                        <TrackList songs={trackResult.slice(0, 5)} playTrack={this.props.playTrack} onAddToNextQueue={this.props.onAddToNextQueue} />
+            <section className='search-result-container'>
+
+                <div className='grid-search-result-container'>
+                    <span className='title'>songs</span>
+                    {trackResult.length  &&
+                                <TrackList songs={trackResult.slice(0, 5)} playTrack={this.props.playTrack} onAddToNextQueue={this.props.onAddToNextQueue} />
+                    }
+
+                </div>
             </section>
         )
     }
