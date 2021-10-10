@@ -291,7 +291,7 @@ class _AppFooter extends Component {
 
 
                     <div className="volume">
-                        <div>
+                        <div className='queue-btn'>
                             <span onClick={this.inQueue} className={this.state.inQueue ? "fas fa-outdent green" : "fas fa-outdent"}></span>
                         </div>
                         <Box sx={{ width: 200 }}>
