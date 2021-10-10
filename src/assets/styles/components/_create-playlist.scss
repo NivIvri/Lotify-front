@@ -1,17 +1,19 @@
 .create-playlist.on {
-    z-index         : 10;
-    display         : block;
-    position        : fixed;
-    width           : 456px;
-    overflow-y      : unset;
-    background-color: #272727;
-    transform       : translate(-50%, -50%);
-    border-radius   : 10px;
-    padding         : 16px 30px;
-    top             : 50%;
-    left            : 50%;
-    @include for-mobile-layout{
-        width:80%;
+    z-index               : 10;
+    display               : block;
+    position              : fixed;
+    width                 : 456px;
+    overflow-y            : unset;
+    background-color      : #272727;
+    // background-color   : ;
+    transform             : translate(-50%, -50%);
+    border-radius         : 10px;
+    padding               : 16px 30px;
+    top                   : 50%;
+    left                  : 50%;
+
+    @include for-mobile-layout {
+        width  : 80%;
         padding: 5px 5px;
     }
 
@@ -31,6 +33,11 @@
             border          : none;
             color           : white;
             font-size       : 1.2rem;
+
+            &:hover {
+                cursor: pointer;
+                color : rgb(4, 197, 4)
+            }
         }
 
         padding: 5px;
@@ -75,7 +82,11 @@
 
         .create-name {
             input {
-                height: 2.5rem;
+                // height: 2.5rem;
+
+                // ori test
+                height             : 2.5rem;
+                // background-color: #656565;
             }
         }
 

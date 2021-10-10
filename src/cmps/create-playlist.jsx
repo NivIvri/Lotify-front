@@ -66,7 +66,7 @@ class _CreateStation extends Component {
                 <div className={`create-playlist ${isCreate ? "on" : "off"}`} onSubmit={(ev) => { this.onAddStation(ev) }}>
                     <div className="header">
                         <h1>Create Playlist</h1>
-                        <button onClick={this.create}>X</button>
+                        <button classNam="create-close-btn" onClick={this.create}>X</button>
                     </div>
                     <div className="body flex">
                         <form onSubmit={(ev) => ev.preventDefault()}>
