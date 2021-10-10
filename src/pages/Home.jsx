@@ -47,7 +47,6 @@ class _Home extends Component {
 
     }
     async componentDidMount() {
-        debugger
         await this.props.loadUser();
         await this.props.loadStations();
         await this.getLikedStation()
