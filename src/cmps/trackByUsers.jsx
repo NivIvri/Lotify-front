@@ -39,7 +39,7 @@ class _TrackByUsers extends Component {
                 <div className='user-track'>
 
 
-                    {user && user.following.reverse().map((currUserId) => {
+                    {user && user.following.map((currUserId) => {
                         console.log(user.following, 'user.following');
                         return <PrackByUserPreview users={this.props.users}
                             currUserId={currUserId} usersImgs={this.props.usersImgs} user={users.find((user => user._id === currUserId))?.username} track={this.getCurrTrack(currUserId)} />

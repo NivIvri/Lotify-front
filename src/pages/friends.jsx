@@ -48,7 +48,7 @@ class _Friends extends Component {
     handleChange = async ({ target }) => {
         this.loadUsers(target.value)
     }
-    onFollow = (userIdToFollow, isFollow) => {
+    onFollow = async (userIdToFollow, isFollow) => {
         let user = { ...this.props.user }
         if (isFollow) {
             let following = user.following.filter(userId => userId !== userIdToFollow)
@@ -58,7 +58,7 @@ class _Friends extends Component {
             user.following.push(userIdToFollow)
             socketService.emit('following', { userIdToFollow, currUser: user })
         }
-        this.props.updateUser(user)
+        await this.props.updateUser(user)
     }
 
     render() {
@@ -75,7 +75,7 @@ class _Friends extends Component {
                             <div><input type='text' onChange={this.handleChange} placeholder="Search you friends" /></div>
                             <div className='users-table'>
                                 {users &&
-                                    users.reverse().map((currUser, idx) => {
+                                    users.map((currUser, idx) => {
                                         return <div className='friend-following-preview flex'>
                                             <div>
                                                 <Avatar size="100" facebook-id="invalidfacebookusername" src={this.state.usersImgs.find(imgObj => currUser._id === imgObj.id)?.url} size="60" round={true} />
