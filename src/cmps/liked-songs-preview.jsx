@@ -45,12 +45,17 @@ class _LikedSongsPreview extends React.Component {
         if (!station) return <div> not found</div>
         return (
             <div className="station-preview liked-songs-link" onClick={() => this.navigateToStation(station.genre)}>
-                <h3 className="station-name-header">{station.name}</h3>
+                <div className="station-name-header">
+                    <h3>{station.name}</h3>
+                    <span>{`${station.songs.length} liked songs`}</span>
+                </div>
                 <p className="station-desc">
                     {station.songs.reduce((songStr, song) => {
                         songStr += song.title
                         return songStr;
-                    }, '').slice(0, 30) + '...'}
+                    }, '')}
+
+                    {/* .slice(0, 30) + '...'} */}
                 </p>
                 <div className="liked-songs-play-icon-container" onClick={(e) => {
                     e.stopPropagation()
