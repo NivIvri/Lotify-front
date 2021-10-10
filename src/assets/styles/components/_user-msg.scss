@@ -10,6 +10,19 @@
     left: 50%;
     bottom: 200px;
     transform: translate(-50%, 72px);
+    animation: fadeIn 5s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    80% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 .user-msg button {
     position: absolute;

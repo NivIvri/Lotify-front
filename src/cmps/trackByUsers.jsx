@@ -13,7 +13,7 @@ class _TrackByUsers extends Component {
     }
 
     getCurrTrack = (currUserId) => {
-        let trackAndUser = this.props.trackAndUsers.filter(traclANdUser => {
+        let trackAndUser = this.props.trackAndUsers?.filter(traclANdUser => {
             if (traclANdUser.user._id === currUserId)
                 return traclANdUser.track
         })
