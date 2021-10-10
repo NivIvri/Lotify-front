@@ -78,6 +78,7 @@ class _MainNav extends React.Component {
     }
     return (
       <>
+        {/* {isMenuOpen && <div className="screen" onClick={this.toggleMenu.bind(this, !isMenuOpen)}></div>} */}
         <div className="hamburger-wrapper">
           <div className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={this.toggleMenu.bind(this, !isMenuOpen)}>
             <div></div>
