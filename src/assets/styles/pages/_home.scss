@@ -1,4 +1,3 @@
-
 .home-page,
 .station-page {
   h1 {
@@ -8,6 +7,7 @@
     line-height   : 36px;
     text-transform: none;
     font-family   : "Quicksand-Bold";
+
     @media screen and (max-width:760px) {
       text-align: center;
     }
@@ -31,35 +31,45 @@
 
   .card-top {
     padding: 3rem 25.6px;
+
     @media screen and(max-width: 760px) {
-      padding: 5rem 1.6rem;
+      // padding: 5rem 1.6rem;
+      padding: 6.3rem 1.6rem;
     }
-    
-  
+
+
   }
 
   .card {
     margin-bottom: 16px;
     min-height   : 300px;
     min-width    : 100%;
-    
+
     @media screen and(max-width: 960px) {
       padding-left : 1.6rem;
       padding-right: 1.6rem;
     }
-    
-    @include for-mobile-layout{
+
+    @include for-mobile-layout {
       padding: 0rem 0rem;
     }
+
     .card-header {
       padding-bottom: 16px;
+
+      @media screen and (max-width:760px) {
+        padding-bottom: 24px;
+
+      }
     }
   }
-  .card-top{
+
+  .card-top {
     @media screen and (max-width: 550px) {
-      padding: 5rem 1rem;
+      // padding       : 5rem 1rem;
+      padding       : 6.3rem 1rem;
       padding-bottom: 3rem;
-  }
+    }
   }
 
   .main-container {
@@ -121,49 +131,52 @@
   grid-template-rows   : 1fr 1fr;
   margin-bottom        : 20px;
   gap                  : 10px;
+
   @media screen and (max-width: 1100px) {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   a {
     width           : 100%;
     display         : flex;
     align-items     : center;
-    gap                  : 10px;
+    gap             : 10px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius   : 4px;
     position        : relative;
     transition      : background-color 0.3s ease;
     height          : 80px;
-    overflow: hidden;
+    overflow        : hidden;
+
     @media screen and (max-width: 550px) {
-      height          : 60px;
-      h4{
+      height: 60px;
+
+      h4 {
         font-size: 0.9rem;
       }
     }
-    
-  
+
+
     &:hover {
       background: rgba(255, 255, 255, 0.2);
     }
   }
 
   img {
-    height    : 100%;
-    width: 100%;
-    max-width: 100px;
-    object-fit:cover;
+    height                         : 100%;
+    width                          : 100%;
+    max-width                      : 100px;
+    object-fit                     : cover;
     // @media screen and (max-width: 520px) {
     //   width     : 60px;
     // }
   }
 
   .img-container {
-    height: 100%;
+    height       : 100%;
     float        : left;
     overflow     : hidden;
-    width: 30%;
+    width        : 30%;
     border-radius: 2px;
     margin-bottom: 0;
   }
@@ -171,19 +184,21 @@
 
 .station-container {
   .genre {
-    overflow             : hidden;
-    gap                  : 5px;
-    margin-bottom        : 20px;
-    width                : 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax((200px), 1fr));
+    overflow               : hidden;
+    gap                    : 5px;
+    margin-bottom          : 20px;
+    width                  : 100%;
+    display                : grid;
+    grid-template-columns  : repeat(auto-fit, minmax((200px), 1fr));
     //justify-content      : space-between;
-    float        : left;
+    float                  : left;
+
     @media screen and (max-width: 760px) {
       justify-items: center;
-      float        :unset;
+      float        : unset;
     }
-    @include for-mobile-layout{
+
+    @include for-mobile-layout {
       grid-template-columns: repeat(auto-fit, minmax((150px), 1fr));
     }
 
@@ -196,10 +211,11 @@
     }
 
     .station-preview {
-      width: 200px;
+      width        : 200px;
       margin-bottom: 16px;
-      @include for-mobile-layout{
-        width: 150px;
+
+      @include for-mobile-layout {
+        width    : 150px;
         // height: 170px;
       }
 

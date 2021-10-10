@@ -1,68 +1,83 @@
-.hamburger {
-  width          : 40px;
-  height         : 40px;
-  display        : none;
-  justify-content: center;
-  align-items    : center;
-  padding        : 0.1rem;
-  position       : fixed;
-  top            : 20px;
-  left           : 1.6rem;
-  cursor         : pointer;
-  z-index        : 6;
+.hamburger-wrapper {
+  width           : 100%;
+  height          : 90px;
+  top             : 0;
+  left            : 0;
+  cursor          : pointer;
+  z-index         : 6;
+  position        : fixed;
+  display         : none;
+  background-color: #121212;
 
-  // order          : 0; // what is this prop
   @media screen and (max-width: 760px) {
     display: flex;
   }
 
-  >div {
-    background-color: #fff;
-    height          : 2px;
-    width           : 100%;
-    position        : relative;
-    display         : flex;
-    justify-content : center;
-    align-items     : center;
-    transition      : 0.4s ease;
+  .hamburger {
+    display    : none;
+    align-items: center;
+    padding    : 0.1rem;
+    position   : absolute;
+    top        : 24px;
+    left       : 30px;
+    width      : 60px;
+    height     : 60px;
 
-    &::before {
-      content         : '';
-      width           : 100%;
-      height          : 2px;
-      position        : absolute;
-      top             : -10px;
-      background-color: inherit;
+    @media screen and (max-width: 760px) {
+      display: flex;
     }
-
-    &::after {
-      content         : '';
-      width           : 100%;
-      height          : 2px;
-      position        : absolute;
-      top             : 10px;
-      background-color: inherit;
-    }
-  }
-
-  &.active {
 
     >div {
-      transform: rotate(135deg);
+      background-color   : #fff;
+      height             : 2px;
+      // width           : 100%;
+      width              : 40px;
+      position           : relative;
+      display            : flex;
+      justify-content    : center;
+      align-items        : center;
+      transition         : 0.4s ease;
 
       &::before {
-        top      : 0;
-        transform: rotate(90deg);
+        content         : '';
+        width           : 100%;
+        height          : 2px;
+        position        : absolute;
+        top             : -10px;
+        background-color: inherit;
       }
 
       &::after {
-        top      : 0;
-        transform: rotate(90deg);
+        content         : '';
+        width           : 100%;
+        height          : 2px;
+        position        : absolute;
+        top             : 10px;
+        background-color: inherit;
       }
+    }
 
+    &.active {
+
+      >div {
+        transform: rotate(135deg);
+
+        &::before {
+          top      : 0;
+          transform: rotate(90deg);
+        }
+
+        &::after {
+          top      : 0;
+          transform: rotate(90deg);
+        }
+
+      }
     }
   }
 }
+
+
 
 
 .banner {
@@ -118,7 +133,7 @@
   z-index         : 5;
 
   @media screen and (max-width:720px) {
-    padding-top: 5rem;
+    padding-top: 5.5rem;
   }
 
 

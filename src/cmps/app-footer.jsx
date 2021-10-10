@@ -36,7 +36,6 @@ class _AppFooter extends Component {
         socketService.setup()
         socketService.on('send notification', (obj) => {
             console.log(obj.username, obj.stationName, 'username, stationName');
-            debugger
             showNotificationMsg(obj.username + ' liked your playlist: ' + obj.stationName)
             eventBusService.emit(obj.username)
         })
