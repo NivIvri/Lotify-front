@@ -28,11 +28,16 @@
 }
 .user-msg.notification {
     background-color: #325fc0;
-    right: -70px;
-    font-family: 'Quicksand-Light';
+    right: -100px;
+    font-family: "Quicksand-Light";
     top: 16px;
-    width: 232px;
-    font-size: 20px;
+    min-width: 232px;
+    font-size: 17px;
     bottom: unset;
+    border-radius: 4px;
+    padding: 8px 28px;
     left: unset;
+    @media screen and (min-width: 1000px) {
+        right: -70px;
+    }
 }

@@ -81,7 +81,7 @@ export class LoginSignupForm extends Component {
             <input type="text" name="username" placeholder="Enter your username" value={username}
               onChange={this.handleChange} />
 
-            {!isLogin && <input type="text" name="fullname" placeholder="Enter your FullName"
+            {!isLogin && <input type="text" name="fullname" placeholder="Enter your fullName"
               value={fullname} onChange={this.handleChange} />}
 
             <input type="password" name="password" placeholder="Enter your password" value={password}
