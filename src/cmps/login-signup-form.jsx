@@ -88,7 +88,8 @@ export class LoginSignupForm extends Component {
               onChange={this.handleChange} />
             {/* <div className="submit-btns flex"> */}
             <button type="submit" className="login-signup-btn">{isLogin ? 'Login' : 'Signup'}</button>
-            {/* <button className="facebook-login-btn-wrapper" type="button">
+
+            <button className="facebook-login-btn-wrapper" type="button">
               {isLogin ? 'Login with Facebook' : 'Signup with Facebook'}
 
               <FacebookLogin
@@ -99,7 +100,7 @@ export class LoginSignupForm extends Component {
                 isSdkLoaded={false}
                 onClick={this.facebookComponentClicked}
                 callback={this.responseFacebook} />
-            </button> */}
+            </button>
             {isLogin && <div className="to-sign-in flex"><span>Dont have an acount?</span>
               <span onClick={this.handleSignIn}>Sign here</span>
             </div>}
