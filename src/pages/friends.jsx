@@ -5,7 +5,7 @@ import { eventBusService, showSuccessMsg } from '../services/event-bus.service'
 import { socketService } from '../services/socket.service'
 import { userService } from '../services/user.service';
 import { connect } from 'react-redux'
-import { loadUsers, updateUser } from '../store/user.actions';
+import { loadUsers,loadUser, updateUser } from '../store/user.actions';
 import Avatar from 'react-avatar';
 
 
@@ -18,6 +18,7 @@ class _Friends extends Component {
     }
     async componentDidMount() {
         await this.props.loadUsers()
+        await this.props.loadUser()
         socketService.setup()
         this.setState({ trackAndUsers: this.props.trackAndUsers })
         console.log(this.state.trackAndUsers, 'trackAndUsers');
@@ -78,7 +79,7 @@ class _Friends extends Component {
                                     users.map((currUser, idx) => {
                                         return <div className='friend-following-preview flex'>
                                             <div>
-                                                <Avatar size="100" facebook-id="invalidfacebookusername" src={this.state.usersImgs.find(imgObj => currUser._id === imgObj.id)?.url} size="60" round={true} />
+                                                <Avatar size="100"  src={this.state.usersImgs.find(imgObj => currUser._id === imgObj.id)?.url} size="60" round={true} />
                                                 <span>
                                                     {currUser.username}
                                                 </span>
@@ -118,7 +119,8 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
     updateUser,
-    loadUsers
+    loadUsers,
+    loadUser
 }
 
 

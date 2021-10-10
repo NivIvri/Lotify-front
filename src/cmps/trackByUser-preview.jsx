@@ -17,7 +17,7 @@ class _PrackByUserPreview extends Component {
         return (
             <div className={'user-preview flex'}>
                 <div>
-                    <Avatar size="100" facebook-id="invalidfacebookusername" src={this.props.usersImgs.find(imgObj => this.props.currUserId === imgObj.id)?.url} size="60" round={true} />
+                    <Avatar size="100"  src={this.props.usersImgs.find(imgObj => this.props.currUserId === imgObj.id)?.url} size="60" round={true} />
                     {this.props.users && <span >
                         {this.props.users.find((user => user._id === this.props.currUserId))?.username}</span>}
                 </div>
