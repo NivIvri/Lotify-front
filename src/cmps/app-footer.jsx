@@ -37,12 +37,12 @@ class _AppFooter extends Component {
         socketService.on('send notification', (obj) => {
             console.log(obj.username, obj.stationName, 'username, stationName');
             showNotificationMsg(obj.username + ' liked your playlist: ' + obj.stationName)
-            eventBusService.emit(obj.username)
+            //eventBusService.emit(obj.username)
         })
         socketService.on('send follow notification', (username) => {
 
             showNotificationMsg(username + ' followd you')
-            eventBusService.emit(username)
+            //eventBusService.emit(username)
         })
         socketService.on('user track', ({ track, user }) => {
             this.props.setFriendCurrTrack({ track, user, currLoginUser: this.props.user })
