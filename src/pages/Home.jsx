@@ -47,6 +47,7 @@ class _Home extends Component {
 
     }
     async componentDidMount() {
+        console.log("🚀 ~ file: Home.jsx ~ line 50 ~ _Home ~ componentDidMount ~ componentDidMount")
         await this.props.loadUser();
         await this.props.loadStations();
         await this.getLikedStation()
