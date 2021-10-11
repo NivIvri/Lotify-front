@@ -45,12 +45,12 @@
     }
 
     .liked-songs-link {
-      position   : relative;
-      display    : block;
-      grid-column: 1 / span 2;
-      max-width  : 100%;
-      background : linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
-
+      position                  : relative;
+      display                   : block;
+      grid-column               : 1 / span 2;
+      max-width                 : 100%;
+      background                : linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
+      min-height                : 200px;
       // @include for-mobile-layout {
       //   max-width: 180px;
       //   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
