@@ -59,6 +59,17 @@
   }
 }
 
+.actions-header,
+.duration-header,
+.track-duration {
+  text-align: center;
+}
+
+.track-title,
+.track-title-header {
+  padding-left: 1rem;
+}
+
 .duration-header,
 .track-duration,
 .likes,
@@ -98,13 +109,17 @@
 
   @include for-mobile-layout {
     margin-bottom: 15px;
-    .track-num,.track-duration{
+
+    .track-num,
+    .track-duration {
       display: none;
     }
   }
+
   @include for-normal-layout {
-    
-    .track-num,.track-duration{
+
+    .track-num,
+    .track-duration {
       display: block;
     }
   }
@@ -123,7 +138,9 @@
 
 .track-actions {
   &>* {
-    opacity: 1 !important;
+    opacity       : 1 !important;
+    // display    : flex;
+    // align-items: center;
   }
 }
 
