@@ -88,7 +88,7 @@ class _Friends extends Component {
                                         users.map((currUser, idx) => {
                                             return <div className='friend-following-preview flex'>
                                                 <div>
-                                                    <Avatar style={{}} size="100" src={this.state.usersImgs.find(imgObj => currUser._id === imgObj.id)?.url} size="60" round={true} />
+                                                    <Avatar style={{}}  src={this.state.usersImgs.find(imgObj => currUser._id === imgObj.id)?.url} size="70" round={true} />
                                                     <span>
                                                         {currUser.username}
                                                     </span>
