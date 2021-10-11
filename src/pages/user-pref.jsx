@@ -37,7 +37,6 @@ class _UserPref extends Component {
         const { stations, user } = this.props
         if (!stations || !user) return <h1>loading...</h1>
         if (user.userPref?.length >= 5) {
-            // console.log(user.userPref.length, 'user.userPref.length');
             return <Redirect to='/home' />
         }
         return (
@@ -133,7 +132,7 @@ class _UserPref extends Component {
                             <h3>Imagine Dragons</h3>
 
                         </div>
-                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'AC/DC')}>
+                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'AC-DC')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLR5p4C0mvYOySvgi0lcJEQ2b9GQ5RENU_js8bHV=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>AC/DC</h3>
                             <i class="fas fa-check"></i>
