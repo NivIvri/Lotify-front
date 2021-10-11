@@ -1,11 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
-import logoImg from '../assets/img/logo.jpg'
 import logo from '../assets/img/gramophone-svgrepo-com.svg'
-// '../icons/liked.svg'
 import { eventBusService } from '../services/event-bus.service'
-import { socketService } from '../services/socket.service'
+
 class _MainNav extends React.Component {
   constructor(props) {
     super(props)
@@ -128,7 +126,6 @@ class _MainNav extends React.Component {
                   <NavLink to={`/station/${station._id}`}
                     className={selectedStationId === station._id ? 'station-link selected-station' : 'station-link'}>
                     {station.name}
-                    {/* {station.name.length < 28 ? station.name : station.name.slice(0, 28) + '...'} */}
                   </NavLink></li>
               })
             }

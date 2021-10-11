@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { toggleIsPlaying } from '../store/station.actions.js';
 import { setCurrTrack, setQueue, setCurrStation, setPlay } from '../store/station.actions.js';
 import { loadUser } from '../store/user.actions';
@@ -91,17 +90,3 @@ const mapDispatchToProps = {
 
 const __LikedSongsPreview = connect(mapStateToProps, mapDispatchToProps)(_LikedSongsPreview)
 export const LikedSongsPreview = withRouter(__LikedSongsPreview);
-// export function LikedSongsPreview({ station }) {
-    // return (
-    //     <Link className="station-preview liked-songs-link" to={`/station/${station._id}`}>
-    //         <h3 className="station-name-header">{station.name}</h3>
-    //         <p className="station-desc">
-    //             {station.songs.reduce((songStr, song) => {
-    //                 songStr += ',' + song.title
-    //                 return songStr;
-    //             }, '').slice(0, 30) + '...'}
-    //         </p>
-    //     </Link>
-//         // </div>
-//     )
-// }
