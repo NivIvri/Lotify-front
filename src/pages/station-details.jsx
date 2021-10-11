@@ -196,11 +196,11 @@ class _StationDetails extends Component {
                 <Link className="fas back fa-chevron-left" to="/"></Link>
                 <div className='bar-action flex'>
                     <button className="play-rand" onClick={this.playRandTrack}>
-                        <i class={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
+                        <i className={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
 
                     {
-                        (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
+                        (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} className="fas fa-heart"></span>
                     }
                     {
                         (stationId !== 'likedTracks' && !this.state.isLike)
@@ -211,7 +211,7 @@ class _StationDetails extends Component {
 
                     <DraggableTrackList songs={station.songs} currStation={station}
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
-                        distance='20' />
+                        distance={20} />
                     <div className='show-btn flex'>
                         {<div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}

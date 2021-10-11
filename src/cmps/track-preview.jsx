@@ -1,12 +1,3 @@
-// import { connect } from 'react-redux'
-// import React, { Component } from 'react'
-// import { Menu, MenuItem, MenuButton, SubMenu } from '@szhsin/react-menu';
-// import '@szhsin/react-menu/dist/index.css';
-// import '@szhsin/react-menu/dist/transitions/slide.css';
-// import { eventBusService } from '../services/event-bus.service';
-// import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
-// import heartChecked from '../assets/img/heart-checked.png';
-// import heartNotChecked from '../assets/img/heart-notCheck.png';
 
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
@@ -27,7 +18,6 @@ class _TrackPreview extends Component {
 
     componentDidMount = async () => {
         //to get Stations from store to the AddToPlaylist render
-        await this.props.loadStations()
         let user = await this.props.user
         if (!user) {
             await this.props.loadUser();
@@ -46,7 +36,6 @@ class _TrackPreview extends Component {
 
     async componentDidUpdate(prevProps) {
         if ((prevProps.track.id !== this.props.track.id) || (this.props.user?.likedTracks?.length !== prevProps.user?.likedTracks?.length)) {
-            await this.props.loadStations()
             let user = await this.props.user
             if (!user) {
                 await this.props.loadUser();
@@ -229,7 +218,6 @@ function mapStateToProps(state) {
     }
 }
 const mapDispatchToProps = {
-    loadStations,
     addToNextQueue,
     setCurrTrack,
     setQueue,

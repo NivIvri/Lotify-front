@@ -224,7 +224,7 @@ class _AppFooter extends Component {
                             onProgress={this.handleProgress}
                             onDuration={this.handleDuration}
                             onReady={() => { this.setState({ isLoaded: true }) }}
-                            controls='false'
+                            controls={false}
                             onEnded={this.handleEnded}
                             muted={false}
                         />
