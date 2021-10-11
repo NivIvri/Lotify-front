@@ -57,7 +57,8 @@ class _MainNav extends React.Component {
   }
 
   handleClick = async (linkId) => {
-    await this.toggleMenu(!this.state.isMenuOpen)
+    if (this.state.isMenuOpen)
+      await this.toggleMenu(!this.state.isMenuOpen)
     this.setState({ activLink: linkId })
   }
 
@@ -105,8 +106,10 @@ class _MainNav extends React.Component {
             </div>
           </Link>
           <ul className="primary-nav">
+            {/* {links.map(link => {
+              return <li key={link.id} onClick={() => this.handleClick(link.id)} className={link.id === activLink ? 'active' : ''}> */}
             {links.map(link => {
-              return <li key={link.id} onClick={() => this.handleClick(link.id)} className={link.id === activLink ? 'active' : ''}>
+              return <li key={link.id} onClick={this.handleClick.bind(this, link.id)} className={link.id === activLink ? 'active' : ''}>
 
                 <NavLink to={link.to}>
                   <span className={`nav-icon fas ${link.fa}`}></span>
