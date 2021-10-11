@@ -5,7 +5,6 @@ import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 import { setCurrTrack, addToNextQueue, setQueue, loadStations, toggleIsPlaying } from '../store/station.actions.js';
 import { addLikeToTrack, loadUser, removeLikeFromTrack } from '../store/user.actions';
 import stationImg from '../assets/img/stationImg.jpg'
-import { arrayMove } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
 import { DraggableTrackList } from '../cmps/draggable-track-list.jsx';
 import heartNotChecked from '../assets/img/heart-regular.svg';
@@ -152,38 +151,10 @@ class _StationDetails extends Component {
             showErrorMsg('Removed from Your Library')
         }
         const { stationId } = this.state
-        //if (stationId === 'likedTracks') {
         this.loadStation()
-        //}
 
     }
 
-    // Niv Original Code
-    //========================
-    // this.setState({ isLike: !this.state.isLike }, async () => {
-    //     if (this.state.isLike) {
-    //         //if the station is from the search
-    //         if (!this.state.station._id) {
-    //             const stationToSave = await stationServiceNew.saveStation(this.state.station)
-    //             this.props.addLikeToTrack(stationToSave._id, stationOrTrack)
-    //             showSuccessMsg('Saved to Your Library')
-
-    //         }
-    //         else {
-    //             this.props.addLikeToTrack(this.state.station._id, stationOrTrack)
-    //             showSuccessMsg('Saved to Your Library')
-    //         }
-    //     }
-    //     else {
-    //         this.props.removeLikeFromTrack(this.state.station._id, stationOrTrack)
-    //         showErrorMsg('Removed from Your Library')
-    //     }
-    //     const { stationId } = this.state
-    //     if (stationId === 'likedTracks') {
-    //         this.loadStation()
-    //     }
-
-    // })
 
     handleFindMore = () => {
         this.setState({ isFindMore: !this.state.isFindMore }, () => {
@@ -204,7 +175,6 @@ class _StationDetails extends Component {
         const { user } = this.props
         const { stationId } = this.props.match.params;
         if (!station) return <Loading />
-        //const { loadStations, addToNextQueue, stations } = this.props;
         return (
             <section className='station-details'>
                 <div className="station-head flex">
@@ -220,18 +190,17 @@ class _StationDetails extends Component {
                         <ul className="clean-list flex">
                             <li>{station.createdBy?.fullname}</li>
                             <li>{station.songs.length} songs</li>
-                            {/*<li>{station?.likedByUsers.length}likes</li>*/}
                         </ul>
                     </div>
                 </div>
                 <Link className="fas back fa-chevron-left" to="/"></Link>
                 <div className='bar-action flex'>
                     <button className="play-rand" onClick={this.playRandTrack}>
-                        <i class={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
+                        <i className={this.props.isPlaying && this.props.playedStation === station._id ? "fas fa-pause" : "fas fa-play"}></i>
                     </button>
 
                     {
-                        (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} class="fas fa-heart"></span>
+                        (stationId !== 'likedTracks' && this.state.isLike) && <span className='isLike' style={{ fontSize: "32px" }} onClick={(ev) => { this.toggleLike(ev, 'station') }} className="fas fa-heart"></span>
                     }
                     {
                         (stationId !== 'likedTracks' && !this.state.isLike)
@@ -242,18 +211,8 @@ class _StationDetails extends Component {
 
                     <DraggableTrackList songs={station.songs} currStation={station}
                         axis='xy' loadStation={this.loadStation} onSortEnd={this.onSortEnd}
-                        distance='20' />
+                        distance={20} />
                     <div className='show-btn flex'>
-                        {/*{
-                            station.songs.length > 10 &&
-                            <div className={`find-more ${!isShowAll ? "green" : ""}`} onClick={() => { this.setState({ isShowAll: !this.state.isShowAll }) }}>
-                                {isShowAll ? 'Show less' : 'Show all playlist'}
-                            </div>
-                        }*/}
-
-                        {/* original handle */}
-                        {/* () => { this.setState({ isFindMore: !this.state.isFindMore */}
-
                         {<div className={`find-more ${!isFindMore ? "green" : ""}`} onClick={this.handleFindMore}>
                             {isFindMore ? 'Find less' : 'Find more tracks!'}
                         </div>}

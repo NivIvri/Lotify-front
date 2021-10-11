@@ -13,8 +13,8 @@ import {
 import { Duration } from '../services/util.service';
 import { withRouter } from "react-router";
 import heartNotChecked from '../assets/img/heart-regular.svg';
-import { addLikeToTrack, loadUser, loadUsers, removeLikeFromTrack } from '../store/user.actions';
-import { eventBusService, showErrorMsg, showNotificationMsg, showSuccessMsg } from '../services/event-bus.service.js';
+import { addLikeToTrack,  loadUsers, removeLikeFromTrack } from '../store/user.actions';
+import { showErrorMsg, showNotificationMsg, showSuccessMsg } from '../services/event-bus.service.js';
 import { socketService } from '../services/socket.service'
 
 
@@ -194,10 +194,6 @@ class _AppFooter extends Component {
         })
     }
 
-    //handleToggleMuted = () => {
-    //    let volume = this.state.volume > 5 ? 5 : 30
-    //    this.setState({ muted: !this.state.muted, volume })
-    //}
 
     onGoToplaylist = () => {
         if (!this.props.playedStation) return
@@ -208,7 +204,7 @@ class _AppFooter extends Component {
 
 
     render() {
-        const { played, duration, volume, isShuffle, isGetNotification, notificationMsg } = this.state
+        const { played, duration, volume, isShuffle} = this.state
         const { isPlaying } = this.props
         const track = this.props.currTrack
         return (
@@ -225,11 +221,10 @@ class _AppFooter extends Component {
                             width='0px'
                             heigth='0px'
                             volume={volume / 100}
-                            // onSeek={e => console.log('onSeek', e)}
                             onProgress={this.handleProgress}
                             onDuration={this.handleDuration}
                             onReady={() => { this.setState({ isLoaded: true }) }}
-                            controls='false'
+                            controls={false}
                             onEnded={this.handleEnded}
                             muted={false}
                         />
@@ -240,7 +235,7 @@ class _AppFooter extends Component {
                         <div className='img-container-player'>
                             {
                                 track &&
-                                <img onClick={this.onGoToplaylist} className='track-img' src={track.imgUrl} />
+                                <img onClick={this.onGoToplaylist} className='track-img' src={track.imgUrl} alt="track"/>
                             }
                         </div>
                         <div onClick={this.onGoToplaylist} className="song-name">
@@ -253,7 +248,7 @@ class _AppFooter extends Component {
                                 this.state.isLiked && <span className='isLike' onClick={(ev) => { this.toggleLike(ev) }} class="fas fa-heart"></span>
                             }
                             {
-                                !this.state.isLiked && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} />
+                                !this.state.isLiked && <img className='isnotLike' src={heartNotChecked} onClick={(ev) => { this.toggleLike(ev) }} alt="like"/>
                             }
                         </div>}
                     </div>
@@ -274,6 +269,7 @@ class _AppFooter extends Component {
                                 <span className="fas fa-play" onClick={this.togglePlay}></span>
                             }
                             <span className="fas fa-step-forward" onClick={this.goNext}></span>
+                            <span onClick={this.inQueue} className={this.state.inQueue ? "fas fa-outdent green" : "fas fa-outdent"}></span>
                         </div>
                         <div className='played-input flex'>
                             <Duration seconds={duration * played} />

@@ -28,7 +28,7 @@ async function searchTrack(keySerch) {
             return {
                 id: track.id.videoId,
                 title: track.snippet.title,
-                imgUrl: track.snippet.thumbnails.high.url,
+                imgUrl: track.snippet.thumbnails.high ? track.snippet.thumbnails.high.url : track.snippet.thumbnails.default.url,
                 duration: duration[idx]
             }
         })
@@ -63,12 +63,16 @@ async function getStationByTag(tagName) {
                     fullname: "app",
                     imgUrl: "http://some-photo"
                 },
-                songs: songs.data.items.map((track) => ({
-                    id: track.snippet.resourceId.videoId,
-                    title: track.snippet.title,
-                    imgUrl: track.snippet.thumbnails.high.url,
-                    duration: "PT4M26S"
-                }))
+                songs: songs.data.items.map((track) => {
+                    if(track.snippet.title==="Private video")return
+                    return {
+                        id: track.snippet.resourceId.videoId,
+                        title: track.snippet.title,
+                        imgUrl: track.snippet.thumbnails.high ? track.snippet.thumbnails.high.url : track.snippet.thumbnails.default.url,
+                        duration: "PT4M26S"
+                    }
+                    }).filter(track=>track)
+                    
             }
         })
         stations = await Promise.all(stations)
