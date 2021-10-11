@@ -88,11 +88,6 @@ class _MainNav extends React.Component {
         </div>
 
         <nav className={isMenuOpen ? 'main-nav active' : 'main-nav'}>
-          {/* <div className="humb" onClick={() => this.toggleMenu()}>
-            <div className="humb-strip"></div>
-            <div className="humb-strip"></div>
-            <div className="humb-strip"></div>
-          </div> */}
 
           <Link to='/Home'>
             <div className="banner">
@@ -122,24 +117,6 @@ class _MainNav extends React.Component {
                 Create Playlist
               </a>
             </li>
-            {/*<li>
-              <NavLink to={'/station/likedTracks'}>
-                {/* <span>
-                  <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
-                </span> */}
-            {/*<span className={`nav-icon fas fa-heart`}></span>
-                Liked Songs</NavLink>
-
-            </li>*/}
-            {/*<li>
-              <NavLink to={'/friends'}>
-                {/* <span>
-                  <img src={likedSongsSvg} alt="" className="liked-songs-svg" />
-                </span> */}
-            {/*<span className={`nav-icon fas fa-user-friends`}></span>
-                Friends</NavLink>
-
-            </li>*/}
           </ul>
           <ul className="stations">
             {
