@@ -130,6 +130,7 @@ async function addLikeToTrack(trackId, stationOrTrack) {
     else {
         user.likedTracks.unshift(trackId)
     }
+    
     if (user.username !== "guest") {
         user = await updateUser(user)
     }

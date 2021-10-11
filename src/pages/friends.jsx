@@ -5,7 +5,7 @@ import { eventBusService, showSuccessMsg } from '../services/event-bus.service'
 import { socketService } from '../services/socket.service'
 import { userService } from '../services/user.service';
 import { connect } from 'react-redux'
-import { loadUsers,loadUser, updateUser } from '../store/user.actions';
+import { loadUsers, loadUser, updateUser } from '../store/user.actions';
 import Avatar from 'react-avatar';
 
 
@@ -15,6 +15,7 @@ class _Friends extends Component {
         trackAndUsers: [],
         usersImgs: [],
         users: [],
+        onFollow: true
     }
     async componentDidMount() {
         await this.props.loadUsers()
@@ -38,6 +39,7 @@ class _Friends extends Component {
                 }
             })
             this.setState({ users: filterUsers })
+            return
             //this.setState({ users: this.props.users })
         }
         else {
@@ -65,47 +67,59 @@ class _Friends extends Component {
     render() {
         const trackAndUsers = this.props.trackAndUsers
         const { user } = this.props
-        const { users } = this.state
+        const { users, onFollow } = this.state
         if (!users || !this.state.usersImgs) return <div>loading</div>
         return (
             <MainLayout>
                 <section className='friends-container'>
-                    <h1> Follow your friends!</h1>
+                    <h1>Friends Activity</h1>
+                    <div className='friends-nav'>
+                        <a  className={onFollow? 'active':''} onClick={() => { this.setState({ onFollow: true }) }}>Follow</a>
+                        <a  className={!onFollow? 'active':''} onClick={() => { this.setState({ onFollow: false }) }}>Streaming now</a>
+                    </div>
+
+
                     <div className="friend-following flex">
-                        <div className='all-users-container'>
-                            <div><input type='text' onChange={this.handleChange} placeholder="Search you friends" /></div>
-                            <div className='users-table'>
-                                {users &&
-                                    users.map((currUser, idx) => {
-                                        return <div className='friend-following-preview flex'>
-                                            <div>
-                                                <Avatar size="100"  src={this.state.usersImgs.find(imgObj => currUser._id === imgObj.id)?.url} size="60" round={true} />
-                                                <span>
-                                                    {currUser.username}
-                                                </span>
-                                            </div>
+                        {onFollow &&
+                            <div className='all-users-container'>
+                                <div><input type='text' onChange={this.handleChange} placeholder="Find Friends" /></div>
+                                <div className='users-table'>
+                                    {users &&
+                                        users.map((currUser, idx) => {
+                                            return <div className='friend-following-preview flex'>
+                                                <div>
+                                                    <Avatar style={{}} size="100" src={this.state.usersImgs.find(imgObj => currUser._id === imgObj.id)?.url} size="60" round={true} />
+                                                    <span>
+                                                        {currUser.username}
+                                                    </span>
+                                                </div>
 
 
-                                            <div>
-                                                {user.following.includes(currUser._id) &&
-                                                    <button className='following' onClick={() => { this.onFollow(currUser._id, true) }}> Unfollow</button>
-                                                }
-                                                {!user.following.includes(currUser._id) &&
-                                                    <button className='follow' onClick={() => { this.onFollow(currUser._id, false) }} >Follow</button>
-                                                }
+                                                <div>
+                                                    {user.following.includes(currUser._id) &&
+                                                        <button className='following' onClick={() => { this.onFollow(currUser._id, true) }}> Unfollow</button>
+                                                    }
+                                                    {!user.following.includes(currUser._id) &&
+                                                        <button className='follow' onClick={() => { this.onFollow(currUser._id, false) }} >Follow</button>
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                    })
-                                }
+                                        })
+                                    }
+                                </div>
                             </div>
-                        </div>
-                        <section className='following-by-user-container flex column'>
-                            <TrackByUsers trackAndUsers={trackAndUsers} users={this.state.users} usersImgs={this.state.usersImgs} />
-                        </section>
+                        }
+
+                        {
+                            !onFollow &&
+                            <section className='following-by-user-container flex column'>
+                                <TrackByUsers trackAndUsers={trackAndUsers} users={this.state.users} usersImgs={this.state.usersImgs} />
+                            </section>
+                        }
 
                     </div>
-                </section>
-            </MainLayout>
+                </section >
+            </MainLayout >
         )
     }
 }
