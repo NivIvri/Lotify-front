@@ -274,6 +274,7 @@ class _AppFooter extends Component {
                                 <span className="fas fa-play" onClick={this.togglePlay}></span>
                             }
                             <span className="fas fa-step-forward" onClick={this.goNext}></span>
+                            <span onClick={this.inQueue} className={this.state.inQueue ? "fas fa-outdent green" : "fas fa-outdent"}></span>
                         </div>
                         <div className='played-input flex'>
                             <Duration seconds={duration * played} />

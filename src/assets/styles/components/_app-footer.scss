@@ -68,10 +68,9 @@
                     position: absolute;
                     animation: marquee 15s linear infinite;
                 }
-                .like-heart {
-                    display: flex;
-                    align-items: center;
-                }
+            }
+            .like-heart {
+                display: none; 
             }
             @keyframes marquee {
                 from {
@@ -112,14 +111,22 @@
         margin: 12px 0;
         width: 100%;
         align-items: center;
+        .fa-outdent{
+            display: none;
+        }
         @media screen and (max-width: 760px) {
             gap: 30px;
             margin: 8px 0;
+            .fa-outdent{
+                display: inline;
+                transform: rotateZ(180deg);
+            }
             span {
                 font-size: 2rem;
             }
         }
-
+  
+        
         img {
             height: 25px;
             padding: 0px 10px;
@@ -129,7 +136,7 @@
             transform: rotate(180deg);
         }
     }
-
+    
     .img-container-player {
         height: 100%;
         display: flex;
@@ -142,18 +149,12 @@
 .volume {
     gap: 14px;
     justify-content: end;
+    @media screen and (max-width: 760px) {
+        display: none;
+    }
 
     .css-1qx01vb-MuiStack-root {
         margin-bottom: 0px;
-        @include for-mobile-layout {
-            display: none;
-        }
-        @include for-narrow-layout {
-            display: none;
-        }
-        @include for-normal-layout {
-            display: flex;
-        }
     }
     @media screen and (max-width: 760px) {
         justify-content: start;
