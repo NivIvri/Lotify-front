@@ -48,12 +48,12 @@ class _UserPref extends Component {
                 </header>
                 <MainLayout>
                     <div className="artists">
-                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'kaleo')}>
+                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'Kaleo')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLRrZSbWTyBAENocILL6FsPxL0FcSRdA0XNnDExc8A=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Kaleo</h3>
                             
                         </div>
-                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'donald glover')}>
+                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'Donald G lover')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLR54qbXPUrgKCf0tmiquuqTiYDElO_Cekw-pSCs_g=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Donald Glover</h3>
                             
@@ -113,27 +113,27 @@ class _UserPref extends Component {
                             <h3>Taylor Swift</h3>
                             
                         </div>
-                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'blink 182')}>
+                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'Blink 182')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLS9wSSSch2T5RCOqeWes0CQPq6CuE7n6BH6SGqp9g=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Blink-182</h3>
                             <i class="fas fa-check"></i>
                         </div>
-                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'twenty one pilots')}>
+                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'Twenty one pilots')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLShoAv85PyHPQZXkdEYAirEFkVlHT7QL0SO4jnLPQ=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Twenty one pilots</h3>
                             <i class="fas fa-check"></i>
                         </div>
-                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'coldplay')}>
+                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'Coldplay')}>
                             <img src="https://yt3.ggpht.com/gDGaWA0ykI0RuD-x0tOtlZQp_pmfqXMastg2rAJhCoGXeG7a44LL0BlSOZ1nQpuaj5apqzjxa4Y=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Coldplay</h3>
                             
                         </div>
-                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'imagine dragons')}>
+                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'Imagine dragons')}>
                             <img src="https://yt3.ggpht.com/aXBmHKABw-J-0ZMxj39wkXpLDEHViOdL5UD71cDG2s5vbeQBWk9mdX3rRxT5U6Wfkvm6o8Uu-dU=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Imagine dragons</h3>
                             
                         </div>
-                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'ac/dc')}>
+                        <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'Ac/Dc')}>
                             <img src="https://yt3.ggpht.com/ytc/AKedOLR5p4C0mvYOySvgi0lcJEQ2b9GQ5RENU_js8bHV=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>AC/DC</h3>
                             <i class="fas fa-check"></i>
