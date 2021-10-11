@@ -52,8 +52,10 @@ class _MainNav extends React.Component {
     // this.toggleMenu = this.toggleMenu.bind(this)
 
   }
-  componentDidMount() {
-
+  componentDidUpdate(prevProps){
+    if(prevProps.stations?.length!==this.props.stations?.length){
+      this.setState(prevState=>({...prevState}))
+    }
   }
 
   handleClick = async (linkId) => {
@@ -118,6 +120,7 @@ class _MainNav extends React.Component {
           <ul className="stations">
             {
               stations.map(station => {
+                if(station.genre!=="likedTracks")
                 return <li key={station._id} onClick={() => this.setSelectedStationId(station._id)}>
                   <NavLink to={`/station/${station._id}`}
                     className={selectedStationId === station._id ? 'station-link selected-station' : 'station-link'}>
