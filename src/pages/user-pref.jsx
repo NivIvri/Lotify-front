@@ -130,7 +130,7 @@ class _UserPref extends Component {
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'Imagine Dragons')}>
                             <img src="https://yt3.ggpht.com/aXBmHKABw-J-0ZMxj39wkXpLDEHViOdL5UD71cDG2s5vbeQBWk9mdX3rRxT5U6Wfkvm6o8Uu-dU=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
-                            <h3>Imagine dragons</h3>
+                            <h3>Imagine Dragons</h3>
 
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'Ac/Dc')}>
