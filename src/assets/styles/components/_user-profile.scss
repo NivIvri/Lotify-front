@@ -1,8 +1,11 @@
 .profiler {
     position: fixed;
-    top     : 20px;
-    right   : 38px;
-    z-index : 10;
+    top: 20px;
+    right: 38px;
+    @media screen and (max-width: 760px) {
+        right: 15px;
+    }
+    z-index: 10;
 
     :hover {
         cursor: pointer;
@@ -14,21 +17,20 @@
 
     .szh-menu {
         li {
-            min-width     : 100px;
-            height        : auto;
-            padding       : 0;
-            display       : flex;
+            min-width: 100px;
+            height: auto;
+            padding: 0;
+            display: flex;
             flex-direction: column;
-            align-items   : center;
+            align-items: center;
         }
     }
 
-
     button {
-        display         : flex;
-        padding         : 0;
-        align-items     : center;
-        border          : none;
+        display: flex;
+        padding: 0;
+        align-items: center;
+        border: none;
         background-color: rgba(128, 128, 128, 0);
 
         //img {
@@ -51,12 +53,9 @@
     }
 
     h2::after {
-        font-size  : 1rem;
+        font-size: 1rem;
         margin-left: 10px;
     }
-
-
-
 }
 
 .create-playlist {
@@ -66,16 +65,16 @@
             padding: 0 !important;
 
             button {
-                position    : absolute;
-                top         : 0;
-                left        : 0;
+                position: absolute;
+                top: 0;
+                left: 0;
                 // font-size: 0.75rem;
                 // padding  : 0.7rem;
-                min-width   : 100% !important;
-                min-height  : 100% !important;
-                padding     : 0 !important;
-                opacity     : 0;
-                cursor      : pointer;
+                min-width: 100% !important;
+                min-height: 100% !important;
+                padding: 0 !important;
+                opacity: 0;
+                cursor: pointer;
             }
         }
     }

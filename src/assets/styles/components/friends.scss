@@ -2,10 +2,7 @@
     font-family: "Quicksand-Light";
 
     @media screen and (max-width: 760px) {
-        margin-top: calc(90px - 3rem);
-
-        padding-right: 30px;
-        padding-left: 30px;
+        margin-top: 100px;
     }
 
     .is-active {
@@ -120,7 +117,7 @@
             .friend-following-preview {
                 border-top: 0.2px solid rgba(167, 166, 166, 0.171);
                 align-items: center;
-                padding: 13px 15px;
+                padding: 13px 0px;
                 @media screen and (min-width: 1000px) {
                     padding: 5px 15px;
                 }

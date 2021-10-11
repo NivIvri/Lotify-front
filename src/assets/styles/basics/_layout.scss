@@ -1,27 +1,29 @@
 .main-container {
-    display              : grid;
-    column-gap           : 1.6rem;
-    padding-top          : 3rem;
+    display: grid;
+    column-gap: 1.6rem;
+    padding-top: 3rem;
     grid-template-columns: 0px 1fr 0px;
     // padding-bottom: 110px;
 
-    >* {
+    > * {
         grid-column: 2;
     }
 
-    >.full {
+    > .full {
         grid-column: 1 / -1;
     }
 
     @include for-mobile-layout {
         column-gap: 0;
+        padding: 0px 15px;
     }
 
     @include for-narrow-layout {
         grid-template-columns: 1fr;
-        padding-left         : 10px;
+        padding: 0px 15px;
 
-        >* {
+
+        > * {
             grid-column: 1;
         }
 
@@ -30,8 +32,9 @@
 
     @include for-normal-layout {
         grid-template-columns: 1fr;
+        padding: 3rem 0px 0px 0px ;
 
-        >* {
+        > * {
             grid-column: 1;
         }
 
@@ -41,7 +44,7 @@
     @include for-wide-layout {
         grid-template-columns: 1fr minmax(auto, $normal-breakpoint + 200) 1fr;
 
-        >* {
+        > * {
             grid-column: 2;
         }
 
@@ -51,7 +54,7 @@
     @include for-extra-wide-layout {
         grid-template-columns: 1fr minmax(auto, $normal-breakpoint + 600) 1fr;
 
-        >* {
+        > * {
             grid-column: 2;
         }
 
@@ -79,11 +82,11 @@
 // Main Header Layout
 
 .card-grid {
-    display                       : grid;
-    grid-template-columns         : repeat(auto-fill, minmax(190px, 1fr));
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     // grid-template-columns      : repeat(250px);
-    gap                           : 20px;
-    grid-auto-flow                : dense;
+    gap: 20px;
+    grid-auto-flow: dense;
 
     // >* {
     //     @include aspect-ratio(1, 1);

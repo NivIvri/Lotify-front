@@ -71,14 +71,12 @@
   .card-top {
     @media screen and (max-width: 550px) {
       // padding       : 6.3rem 1rem;
-      padding       : 6.3rem 10px;
+      padding       : 6.3rem 15px;
       padding-bottom: 3rem;
     }
   }
 
-  .main-container {
-    padding-top: unset;
-  }
+ 
 }
 
 .shadow {

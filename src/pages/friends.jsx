@@ -70,12 +70,12 @@ class _Friends extends Component {
         const { users, onFollow } = this.state
         if (!users || !this.state.usersImgs) return <div>loading</div>
         return (
-            <MainLayout>
-                <section className='friends-container'>
+            <section className='friends-container'>
+                <MainLayout>
                     <h1>Friends Activity</h1>
                     <div className='friends-nav'>
-                        <a  className={onFollow? 'active':''} onClick={() => { this.setState({ onFollow: true }) }}>Follow</a>
-                        <a  className={!onFollow? 'active':''} onClick={() => { this.setState({ onFollow: false }) }}>Streaming now</a>
+                        <a className={onFollow ? 'active' : ''} onClick={() => { this.setState({ onFollow: true }) }}>Follow</a>
+                        <a className={!onFollow ? 'active' : ''} onClick={() => { this.setState({ onFollow: false }) }}>Streaming now</a>
                     </div>
 
 
@@ -88,7 +88,7 @@ class _Friends extends Component {
                                         users.map((currUser, idx) => {
                                             return <div className='friend-following-preview flex'>
                                                 <div>
-                                                    <Avatar style={{}}  src={this.state.usersImgs.find(imgObj => currUser._id === imgObj.id)?.url} size="70" round={true} />
+                                                    <Avatar style={{}} src={this.state.usersImgs.find(imgObj => currUser._id === imgObj.id)?.url} size="70" round={true} />
                                                     <span>
                                                         {currUser.username}
                                                     </span>
@@ -118,8 +118,8 @@ class _Friends extends Component {
                         }
 
                     </div>
-                </section >
-            </MainLayout >
+                </MainLayout >
+            </section >
         )
     }
 }

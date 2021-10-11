@@ -1,16 +1,14 @@
 .stations-container-new {
-  padding-left : 1.6rem;
-  padding-right: 1.6rem;
+  //padding-left : 1.6rem;
+  //padding-right: 1.6rem;
 
-  @media screen and (max-width: 760px) {
-    padding-left : 10px;
-    padding-right: 10px;
-  }
-
-
+  //@media screen and (max-width: 760px) {
+  //  padding-left : unset;
+  //  padding-right: unset;
+  //}
 
   .stations-header {
-    padding-top  : 3rem;
+    padding-top: 3rem;
     margin-bottom: 1rem;
 
     @media screen and (max-width: 760px) {
@@ -19,20 +17,21 @@
   }
 
   .stations-cards {
-    display              : grid;
+    display: grid;
     grid-template-columns: repeat(auto-fill, 200px);
-    gap                  : 0.7rem;
+    gap: 1.7rem;
 
-    @media screen and (max-width:760px) {
-      margin-left    : auto;
-      margin-right   : auto;
+    @media screen and (max-width: 760px) {
+      margin-left: auto;
+      margin-right: auto;
       justify-content: center;
+      gap: 1rem;
+
     }
 
     @include for-mobile-layout {
       grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     }
-
 
     .station-preview {
       @include for-mobile-layout {
@@ -42,61 +41,40 @@
     }
 
     .liked-songs-link {
-      position   : relative;
-      display    : block;
+      position: relative;
+      display: block;
       grid-column: 1 / span 2;
-      max-width  : 100%;
-      background : linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
+      max-width: 100%;
+      background: linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
 
       // @include for-mobile-layout {
       //   max-width: 180px;
       //   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       // }
 
-      @media screen and (max-width:870px) {
+      @media screen and (max-width: 870px) {
         grid-column: unset;
-        min-height : 250px;
-
+        min-height: 250px;
       }
-
 
       &:hover {
         // background-color: #282828;
 
         .liked-songs-play-icon-container {
           visibility: visible;
-          opacity   : 1;
-          cursor    : pointer;
+          opacity: 1;
+          cursor: pointer;
         }
       }
     }
-
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .stations-container {
-  width        : 100%;
-  padding-top  : 3rem;
-  margin-top   : 6rem;
-  padding-left : 1.5rem;
+  width: 100%;
+  padding-top: 3rem;
+  margin-top: 6rem;
+  padding-left: 1.5rem;
   padding-right: 1.5rem;
 
   header {
@@ -105,22 +83,22 @@
 }
 
 .stations-wrapper {
-  width            : 100%;
+  width: 100%;
   // padding-left  : 2rem;
   // padding-right : 2rem;
-  padding-top      : 3rem;
-  padding-bottom   : 120px;
+  padding-top: 3rem;
+  padding-bottom: 120px;
 }
 
 .card.stations .genre {
-  overflow             : hidden;
-  grid-gap             : 5px;
-  gap                  : 5px;
-  margin-bottom        : 20px;
-  width                : 100%;
-  display              : grid;
+  overflow: hidden;
+  grid-gap: 5px;
+  gap: 5px;
+  margin-bottom: 20px;
+  width: 100%;
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  float                : left;
+  float: left;
 
   @include for-mobile-layout {
     grid-template-columns: repeat(auto-fit, minmax((150px), 1fr));
