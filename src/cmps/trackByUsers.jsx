@@ -4,12 +4,13 @@ import { connect } from 'react-redux'
 import { loadUsers, updateUser } from '../store/user.actions';
 import { loadUser } from '../store/user.actions';
 import { PrackByUserPreview } from './trackByUser-preview';
-
+//import streaming from '../assets/img/icon50.png'
 
 class _TrackByUsers extends Component {
     state = {
         users: [],
         userImg: [],
+        currTrack: null
     }
 
     getCurrTrack = (currUserId) => {
@@ -31,14 +32,10 @@ class _TrackByUsers extends Component {
         if (!this.state.users || !this.props.user) return <div>loading</div>
         return (
             <>
-                <div className='flex header'>
-                    <span>Username</span>
-                    <span className='is-active'>status</span>
-                    <span>Listening to</span>
-                </div>
+                <h3>Streaming Now
+                </h3>
+                {/*<img src={streaming} />*/}
                 <div className='user-track'>
-
-
                     {user && user.following.map((currUserId) => {
                         console.log(user.following, 'user.following');
                         return <PrackByUserPreview users={this.props.users}

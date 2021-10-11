@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Avatar from 'react-avatar';
 import { connect } from 'react-redux'
 import { loadStations, addToNextQueue, setCurrTrack, setQueue } from '../store/station.actions.js';
+import play from '../assets/img/play.svg'
+import musicLa from '../assets/img/musicLa.svg'
 class _PrackByUserPreview extends Component {
 
     playTrack = async (track, idx) => {
@@ -15,25 +17,35 @@ class _PrackByUserPreview extends Component {
 
     render() {
         return (
-            <div className={'user-preview flex'}>
-                <div>
-                    <Avatar size="100"  src={this.props.usersImgs.find(imgObj => this.props.currUserId === imgObj.id)?.url} size="60" round={true} />
-                    {this.props.users && <span >
-                        {this.props.users.find((user => user._id === this.props.currUserId))?.username}</span>}
+            <div className={this.props.track? 'user-preview order flex' :'user-preview  flex'}>
+                <div className='avatar'>
+                    <Avatar src={this.props.usersImgs.find(imgObj => this.props.currUserId === imgObj.id)?.url} size="70" round={true} />
                 </div>
-                {this.props.track &&
-                    <span className='is-active'>is active </span>
-                }
+                {this.props.users && <span >
+                    {this.props.users.find((user => user._id === this.props.currUserId))?.username}</span>}
+
+
                 {this.props.track &&
                     <div className={"track"} onClick={() => { this.playTrack(this.props.track.track, 0) }}>
-                        {<img src={this.props.track.track.imgUrl} />}
+                        <img src={musicLa} />
                         <div><p> {this.props.track.track.title}</p></div>
                     </div>
                 }
-                {!this.props.track && <div>
-                    <span className='is-active'> User is not active</span></div>}
-                {!this.props.track && <div>
-                    <span></span></div>}
+          
+                {!this.props.track &&
+                    <div className={"offline"}>
+                        <div>offline</div>
+                    </div>
+                }
+                {this.props.track &&
+                    <>
+                        <img className='play' onClick={() => { this.playTrack(this.props.track.track, 0) }} src={play} />
+                        <span className="fas fa-volume-up"></span>
+                    </>
+                }
+
+
+
             </div>
         )
     }

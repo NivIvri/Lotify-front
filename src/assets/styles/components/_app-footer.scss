@@ -142,9 +142,7 @@
 .volume {
     gap: 14px;
     justify-content: end;
-    .queue-btn {
-        margin-bottom: 8px;
-    }
+
     .css-1qx01vb-MuiStack-root {
         margin-bottom: 0px;
         @include for-mobile-layout {
@@ -214,4 +212,7 @@ input[type="range"]::-webkit-slider-runnable-track {
     height: 4px;
     width: 100%;
     padding: 13px 0;
+}
+.sb-avatar__image {
+    object-fit: cover;
 }

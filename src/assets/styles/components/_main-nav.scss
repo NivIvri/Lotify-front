@@ -274,9 +274,9 @@
     transition: 0.3s;
 
     &.active {
-      left   : 0px;
-      height : 90vh;
-      opacity: 0.85;
+      left     : 0px;
+      height   : 90vh;
+      //opacity: 0.85;
 
       ul {
         color: white;
