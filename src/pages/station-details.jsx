@@ -164,9 +164,7 @@ class _StationDetails extends Component {
     }
 
     moveSrollDown = () => {
-        console.log('moving scroll down');
         const homePage = document.querySelector('.station-details')
-        console.log('scrollHeight', homePage.scrollHeight);
         homePage.scrollTop = homePage.scrollHeight
     }
 

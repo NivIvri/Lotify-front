@@ -92,7 +92,6 @@ class _AppFooter extends Component {
             // await this.playRandTrack(this.props.stations)
         }
         if (this.state.isLoaded) {
-            console.log('player loaded');
             this.props.toggleIsPlaying();
         }
         // this.setState({ isPlayedTrack: !this.state.isPlayedTrack })
@@ -200,7 +199,6 @@ class _AppFooter extends Component {
 
 
     render() {
-        console.log('imgRef', this.imgRef);
         const { played, duration, volume, isShuffle } = this.state
         const { isPlaying } = this.props
         const track = this.props.currTrack

@@ -67,7 +67,6 @@ class _MainNav extends React.Component {
   }
 
   toggleMenu = async (newIsMenuOpen) => {
-    // console.log('newIsMenuOpen', newIsMenuOpen);
     this.setState({ isMenuOpen: newIsMenuOpen })
   }
 

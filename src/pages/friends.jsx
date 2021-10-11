@@ -18,17 +18,18 @@ class _Friends extends Component {
         onFollow: true
     }
     async componentDidMount() {
+
         await this.props.loadUsers()
         await this.props.loadUser()
         socketService.setup()
-        this.setState({ trackAndUsers: this.props.trackAndUsers })
-        console.log(this.state.trackAndUsers, 'trackAndUsers');
-        await this.loadUsers('')
-        let usersImgs = this.state.users.map(user => {
-            return user.img ? { url: user.img, id: user._id } :
-                { url: "https://cdn-icons-png.flaticon.com/512/149/149071.png", id: user._id }
+        this.setState({ trackAndUsers: this.props.trackAndUsers }, async () => {
+            await this.loadUsers('')
+            let usersImgs = this.state.users.map(user => {
+                return user.img ? { url: user.img, id: user._id } :
+                    { url: "https://cdn-icons-png.flaticon.com/512/149/149071.png", id: user._id }
+            })
+            this.setState({ usersImgs })
         })
-        this.setState({ usersImgs })
     }
 
     loadUsers = (keySearch = '') => {

@@ -18,7 +18,7 @@ class _TrackByUsers extends Component {
             if (traclANdUser.user._id === currUserId)
                 return traclANdUser.track
         })
-        if (!trackAndUser.length)
+        if (!trackAndUser?.length)
             trackAndUser = false
 
         else trackAndUser = trackAndUser[0]
@@ -39,7 +39,6 @@ class _TrackByUsers extends Component {
                 </div>
                 <div className='user-track'>
                     {user && user.following.map((currUserId) => {
-                        console.log(user.following, 'user.following');
                         return <PrackByUserPreview users={this.props.users}
                             currUserId={currUserId} usersImgs={this.props.usersImgs} user={users.find((user => user._id === currUserId))?.username} track={this.getCurrTrack(currUserId)} />
                     })}

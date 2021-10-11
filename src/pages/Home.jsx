@@ -145,7 +145,6 @@ class _Home extends Component {
                                     <h3>Hot right now</h3>
                                 </div>
                                 <div className="flex genre">
-
                                     {hotStations.map((station => <StationPreview key={station._id}
                                         station={station} />)).slice(0, Math.min(hotStations.length, numOfPreviews))}
                                 </div>

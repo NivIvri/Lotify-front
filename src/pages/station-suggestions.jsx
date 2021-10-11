@@ -19,7 +19,6 @@ class _StationSuggestion extends Component {
     loadStation = async () => {
         const { tagName } = this.props.match.params
         const station = await stationService.getStationByTag(tagName)
-        console.log(station);
         this.setState({ station:station[0] })
     }
 
@@ -40,7 +39,6 @@ class _StationSuggestion extends Component {
     render() {
         const { station } = this.state
         if (!station) return <h1>loading...</h1>
-        console.log(station);
         return (
             <MainLayout>
                 <section className='station-details'>

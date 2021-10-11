@@ -118,7 +118,6 @@ async function addLikeToTrack(trackId, stationOrTrack) {
                 stationToUpdate = await stationServiceNew.getStationByGenre(trackId)
                 console.log('got by genre', stationToUpdate);
             }
-            console.log("🚀 ~ file: user.service.js ~ line 120 ~ addLikeToTrack ~ stationToUpdate", stationToUpdate)
             socketService.emit('add like', { userIdliked: stationToUpdate.createdBy.id, currUser: user, stationName: stationToUpdate.name })
 
         if (!stationToUpdate.likedByUsers) stationToUpdate.likedByUsers = []

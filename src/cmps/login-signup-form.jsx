@@ -36,7 +36,6 @@ export class LoginSignupForm extends Component {
   }
 
   handleChange = ({ target }) => {
-    console.log('here');
     this.setState(ps => ({ ...ps, [target.name]: target.value }))
   }
 
@@ -56,7 +55,6 @@ export class LoginSignupForm extends Component {
   }
 
   handleSignIn = () => {
-    // console.log('signing');
     this.setState(ps => ({ ...ps, isLogin: false }))
   }
 

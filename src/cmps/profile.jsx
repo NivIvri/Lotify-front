@@ -71,12 +71,9 @@ class _UserPrifile extends Component {
     }
 
     facebookComponentClicked = () => {
-        console.log('face soosh component clicked');
     }
 
     responseFacebook = async response => {
-        console.log('responseFacebook', response);
-
         try {
 
             const newCredentials = {

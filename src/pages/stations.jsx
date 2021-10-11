@@ -17,7 +17,6 @@ class _Stations extends Component {
 
 
   getLikedSongsStation = (stations) => {
-    // console.log('stations from stations', stations);
     return stations.find(station => station.genre === 'likedTracks')
   }
 
