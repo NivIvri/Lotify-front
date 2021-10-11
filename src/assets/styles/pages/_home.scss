@@ -22,7 +22,8 @@
   }
 
   h4 {
-    font-size: 16px;
+    // font-size: 16px;
+    font-size: 1.2rem;
 
     &::first-letter {
       text-transform: uppercase;
@@ -57,17 +58,20 @@
     .card-header {
       padding-bottom: 16px;
 
+
       @media screen and (max-width:760px) {
         padding-bottom: 24px;
 
+        // optional::after
+        padding-left: 3px;
       }
     }
   }
 
   .card-top {
     @media screen and (max-width: 550px) {
-      // padding       : 5rem 1rem;
-      padding       : 6.3rem 1rem;
+      // padding       : 6.3rem 1rem;
+      padding       : 6.3rem 10px;
       padding-bottom: 3rem;
     }
   }
@@ -136,6 +140,12 @@
     grid-template-columns: 1fr 1fr;
   }
 
+  // .station-container {
+  //   h4 {
+  //     font-size: 1rem;
+  //   }
+  // }
+
   a {
     width           : 100%;
     display         : flex;
@@ -173,12 +183,13 @@
   }
 
   .img-container {
-    height       : 100%;
-    float        : left;
-    overflow     : hidden;
-    width        : 30%;
-    border-radius: 2px;
-    margin-bottom: 0;
+    height          : 100%;
+    float           : left;
+    overflow        : hidden;
+    // ori- 11-10-21
+    // width        : 30%;
+    border-radius   : 2px;
+    margin-bottom   : 0;
   }
 }
 
@@ -215,8 +226,8 @@
       margin-bottom: 16px;
 
       @include for-mobile-layout {
-        width    : 150px;
-        // height: 170px;
+        // width    : 150px;
+        width: 180px;
       }
 
       &.liked-songs-link {

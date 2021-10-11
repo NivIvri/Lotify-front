@@ -12,11 +12,14 @@
     >.full {
         grid-column: 1 / -1;
     }
-    @include for-mobile-layout{
+
+    @include for-mobile-layout {
         column-gap: 0;
     }
+
     @include for-narrow-layout {
         grid-template-columns: 1fr;
+        padding-left         : 10px;
 
         >* {
             grid-column: 1;

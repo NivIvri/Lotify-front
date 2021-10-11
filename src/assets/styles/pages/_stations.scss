@@ -2,6 +2,13 @@
   padding-left : 1.6rem;
   padding-right: 1.6rem;
 
+  @media screen and (max-width: 760px) {
+    padding-left : 10px;
+    padding-right: 10px;
+  }
+
+
+
   .stations-header {
     padding-top  : 3rem;
     margin-bottom: 1rem;
@@ -14,16 +21,23 @@
   .stations-cards {
     display              : grid;
     grid-template-columns: repeat(auto-fill, 200px);
-    gap                  : 1rem;
+    gap                  : 0.7rem;
+
+    @media screen and (max-width:760px) {
+      margin-left    : auto;
+      margin-right   : auto;
+      justify-content: center;
+    }
 
     @include for-mobile-layout {
-      grid-template-columns: repeat(auto-fill, 150px);
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     }
 
 
     .station-preview {
       @include for-mobile-layout {
-        width: 150px;
+        // width: 150px;
+        max-width: 180px !important;
       }
     }
 
@@ -33,6 +47,11 @@
       grid-column: 1 / span 2;
       max-width  : 100%;
       background : linear-gradient(149.46deg, #450af5, #8e8ee5 99.16%);
+
+      // @include for-mobile-layout {
+      //   max-width: 180px;
+      //   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      // }
 
       @media screen and (max-width:870px) {
         grid-column: unset;
