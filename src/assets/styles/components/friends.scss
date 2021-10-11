@@ -14,6 +14,20 @@
             flex: 1;
         }
     }
+    .friend-following-preview {
+        border-top: 0.2px solid rgba(167, 166, 166, 0.171);
+        align-items: center;
+        padding: 13px 0px;
+        @media screen and (min-width: 1000px) {
+            padding: 5px 15px;
+        }
+        justify-content: space-between;
+
+        & div span {
+            margin-left: 10px;
+        }
+    }
+
 
     .friends-nav {
         display: flex;
@@ -114,20 +128,7 @@
             flex-direction: column;
             flex: 1;
 
-            .friend-following-preview {
-                border-top: 0.2px solid rgba(167, 166, 166, 0.171);
-                align-items: center;
-                padding: 13px 0px;
-                @media screen and (min-width: 1000px) {
-                    padding: 5px 15px;
-                }
-                justify-content: space-between;
-
-                & div span {
-                    margin-left: 10px;
-                }
-            }
-
+        
             .following,
             .follow {
                 /* height: 25px; */
