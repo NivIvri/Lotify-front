@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { eventBusService } from '../services/event-bus.service.js'
-
+import ringing from '../assets/img/ringing.png'
 
 export class UserMsg extends React.Component {
 
@@ -16,8 +16,8 @@ export class UserMsg extends React.Component {
     this.removeEvent = eventBusService.on('show-user-msg', (msg) => {
       this.setState({ msg })
       setTimeout(() => {
-       this.setState({ msg: null })
-      }, 2500)
+        this.setState({ msg: null })
+      }, 5000)
     })
   }
 
@@ -29,12 +29,13 @@ export class UserMsg extends React.Component {
     if (!this.state.msg) return <></>
     const msgClass = this.state.msg.type || ''
     return (
-      <section className={'user-msg ' + msgClass}>
-        <button onClick={() => {
-          this.setState({ msg: null })
-        }}>x</button>
-        {this.state.msg.txt}
-      </section>
+      <div id={`toast`} className={`show  ${msgClass}`}><div id="img"><img style={{ height: '20px', width: "20px" }} src={ringing} /></div><div id="desc"> {this.state.msg.txt}</div></div>
+      //<section className={'user-msg ' + msgClass}>
+      //  <button onClick={() => {
+      //    this.setState({ msg: null })
+      //  }}>x</button>
+      //  {this.state.msg.txt}
+      //</section>
     )
   }
 }
