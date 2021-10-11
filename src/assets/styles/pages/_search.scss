@@ -1,9 +1,9 @@
 .grid-container-search {
-  display                : grid;
+  display: grid;
   //grid-template-columns: repeat(auto-fill,minmax (200px,1fr));
-  grid-gap               : 24px;
-  justify-content        : center;
-  align-items            : center;
+  grid-gap: 24px;
+  justify-content: center;
+  align-items: center;
 
   @include for-normal-layout {
     grid-template-columns: repeat(auto-fit, minmax((35%), 1fr));
@@ -11,7 +11,6 @@
 
   @include for-narrow-layout {
     grid-template-columns: repeat(auto-fit, minmax((204px), 1fr));
-
   }
 
   @include for-mobile-layout {
@@ -21,15 +20,14 @@
   place-items: stretch;
 
   & div {
-    border       : none;
+    border: none;
     border-radius: 8px;
-    position     : relative;
-    overflow     : hidden;
-    cursor       : pointer;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 
     @include for-narrow-layout {
       height: 204px;
-
     }
 
     @include for-mobile-layout {
@@ -40,18 +38,18 @@
 
     //     @include aspect-ratio(1, 1);
     img {
-      height   : 100px;
-      width    : 100px;
-      position : absolute;
-      bottom   : -8px;
-      right    : -14px;
+      height: 100px;
+      width: 100px;
+      position: absolute;
+      bottom: -8px;
+      right: -14px;
       transform: rotate(24deg);
     }
   }
 
   span {
-    position : absolute;
-    padding  : 16px;
+    position: absolute;
+    padding: 16px;
     font-size: 30px;
   }
 }
@@ -61,33 +59,36 @@ section.search,
   //width: 75vw;
   width: 100%;
 
-  @media screen and (max-width:760px) {
+  @media screen and (max-width: 760px) {
     padding-top: 90px;
   }
 
   .title {
-    color    : #fff;
+    color: #fff;
     font-size: 29px;
-    padding  : 15px 0px;
+    padding: 15px 0px;
   }
 
   form {
-    height       : 48px;
-    width        : 307px;
+    height: 48px;
+    width: 307px;
     margin-bottom: 15px;
+    @media screen and (max-width: 760px) {
+      margin-top: 8px;
+    }
   }
 
   input {
-    border       : 0;
+    border: 0;
     border-radius: 500px;
-    color        : #000;
-    height       : 40px;
-    padding      : 6px 48px;
+    color: #000;
+    height: 40px;
+    padding: 6px 48px;
     text-overflow: ellipsis;
-    width        : 100%;
-    height       : 100%;
-    font-size    : 14px;
-    outline      : none;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    outline: none;
   }
 }
 
@@ -96,27 +97,26 @@ section.search,
 
   //height: 300px;
   & .genre {
-    gap: 25px
+    gap: 25px;
   }
 
   .track-container {
     .likes {
-      width : 20px;
+      width: 20px;
       height: 100%;
     }
-
   }
 
   .grid-search-result-container {
-    display         : flex;
-    flex-direction  : column;
-    justify-content : start;
-    align-content   : center;
-    align-items     : center;
-    height          : 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-content: center;
+    align-items: center;
+    height: 100%;
     background-color: #121212;
-    border-radius   : 4px;
-    column-gap      : 30px;
+    border-radius: 4px;
+    column-gap: 30px;
 
     @include for-narrow-layout {
       padding: 10px;
@@ -127,9 +127,9 @@ section.search,
       }
 
       .track-title {
-        height     : 3em;
+        height: 3em;
         line-height: 1.5em;
-        overflow   : hidden
+        overflow: hidden;
       }
     }
 
@@ -142,9 +142,9 @@ section.search,
       }
 
       .track-title {
-        height     : 3em;
+        height: 3em;
         line-height: 1.5em;
-        overflow   : hidden
+        overflow: hidden;
       }
     }
 
@@ -157,62 +157,62 @@ section.search,
       }
     }
 
-    &>* {
+    & > * {
       background-color: #121212;
     }
 
     .img-container {
-      float        : left;
+      float: left;
       /* margin    : .5em 10px .5em 0; */
-      overflow     : hidden;
+      overflow: hidden;
       border-radius: 2px;
     }
 
     .img-top-result {
-      margin    : -50px -50px -50px -50px;
-      height    : 200px;
-      width     : 200px;
+      margin: -50px -50px -50px -50px;
+      height: 200px;
+      width: 200px;
       object-fit: cover;
     }
 
     img :not(.likes) {
-      height    : 56px;
-      width     : 56px;
+      height: 56px;
+      width: 56px;
       object-fit: cover;
     }
 
     .title {
-      font-size     : 24px;
-      font-weight   : 700;
+      font-size: 24px;
+      font-weight: 700;
       letter-spacing: -0.04em;
-      line-height   : 28px;
+      line-height: 28px;
       text-transform: none;
     }
 
     .isPlaying {
       height: 20px;
-      width : 20px;
+      width: 20px;
     }
   }
 
   .grid-element-1 {
-    border          : 1px solid black;
+    border: 1px solid black;
     background-color: #181818;
-    color           : #fff;
-    grid-column     : 1;
-    grid-row        : 2/6;
-    display         : flex;
-    flex-direction  : column;
-    padding         : 20px;
-    height          : 100%;
-    border-radius   : 4px;
-    transition      : background-color 0.3s ease;
-    gap             : 20px;
+    color: #fff;
+    grid-column: 1;
+    grid-row: 2/6;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: 100%;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    gap: 20px;
 
     tr {
-      display       : flex;
+      display: flex;
       flex-direction: column;
-      background    : none;
+      background: none;
 
       .song-num {
         display: none;
@@ -221,26 +221,26 @@ section.search,
 
     .song-container {
       & td:nth-child(3) {
-        font-size     : 18px;
-        font-weight   : 600;
+        font-size: 18px;
+        font-weight: 600;
         letter-spacing: -0.04em;
-        line-height   : 36px;
+        line-height: 36px;
         text-transform: none;
       }
 
       .button-cell {
         position: absolute;
-        top     : 0;
-        right   : 0;
+        top: 0;
+        right: 0;
       }
     }
   }
 
   span {
-    font-size     : 25px;
-    font-weight   : 700;
+    font-size: 25px;
+    font-weight: 700;
     letter-spacing: -0.04em;
-    line-height   : 36px;
+    line-height: 36px;
     text-transform: none;
   }
 }
@@ -250,14 +250,14 @@ span::first-letter {
 }
 
 .search-result-container {
-  display         : flex;
-  flex-direction  : column;
+  display: flex;
+  flex-direction: column;
   background-color: #121212;
 
   .title {
-    color    : #fff;
+    color: #fff;
     font-size: 29px;
-    padding  : 15px 0px;
+    padding: 15px 0px;
   }
 }
 
@@ -265,8 +265,8 @@ span::first-letter {
   .genre {
     gap: 10px;
   }
-  .station-preview{
-    .img-card{
+  .station-preview {
+    .img-card {
       height: 65%;
     }
 

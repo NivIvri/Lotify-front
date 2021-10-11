@@ -32,9 +32,11 @@ class _TrackByUsers extends Component {
         if (!this.state.users || !this.props.user) return <div>loading</div>
         return (
             <>
-                <h3>Streaming Now
-                </h3>
-                {/*<img src={streaming} />*/}
+                <div className='streaming flex'>
+                    <h3>Streaming Now
+                    </h3>
+                    <span className="fas fa-compact-disc"></span>
+                </div>
                 <div className='user-track'>
                     {user && user.following.map((currUserId) => {
                         console.log(user.following, 'user.following');
