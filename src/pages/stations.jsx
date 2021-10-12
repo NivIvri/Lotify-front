@@ -26,23 +26,23 @@ class _Stations extends Component {
     const likedSongsStation = this.getLikedSongsStation(stations)
     stations = stations.filter(station => station.genre !== 'likedTracks')
     return (
-      // <div className="station-page">
-      <MainLayout>
-        <div className="stations-container-new">
-          <header className="stations-header">
-            <h1>Playlists</h1>
-          </header>
-          <section className='stations-cards'>
-            {/* <div className="flex"> */}
-            <LikedSongsPreview station={likedSongsStation} />
-            {stations.map(station => <StationPreview key={station._id} station={station} />)}
+      <div className="stations-page">
+        <MainLayout>
+          <div className="stations-container-new">
+            <header className="stations-header">
+              <h1>Playlists</h1>
+            </header>
+            <section className='stations-cards'>
+              {/* <div className="flex"> */}
+              <LikedSongsPreview station={likedSongsStation} />
+              {stations.map(station => <StationPreview key={station._id} station={station} />)}
+              {/* </div> */}
+            </section>
             {/* </div> */}
-          </section>
-          {/* </div> */}
-        </div>
-      </MainLayout >
+          </div>
+        </MainLayout >
 
-      // </div>
+      </div>
     )
 
 
