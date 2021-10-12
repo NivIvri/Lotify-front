@@ -12,12 +12,22 @@ socket.on('add like', ({ userIdliked, currUser, stationName }) => {
 
 socketService.on('send notification', (obj) => {
     showNotificationMsg(obj.username + ' liked your playlist: ' + obj.stationName)
-    eventBusService.emit(obj.username)
 })
 
-export function showUserMsg(txt, type = '') {
-    eventBusService.emit('show-user-msg', { txt, type })
-}
-export function showSuccessMsg(txt) {
-    showUserMsg(txt, 'success')
+
+class UserMsg extends React.Component {
+    componentDidMount() {
+        eventBusService.on('show-user-msg', (msg) => {
+            this.setState({ msg })
+            setTimeout(() => {
+                this.setState({ msg: null })
+            }, 5000)
+        })
+    }
+
+    render() {
+        return (
+            <div id={`toast`} className={`show  ${msgClass}`}><div id="img"><img style={{ height: '20px', width: "20px" }} src={ringing} /></div><div id="desc"> {this.state.msg.txt}</div></div>
+        )
+    }
 }
