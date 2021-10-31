@@ -37,7 +37,7 @@ async function searchTrack(keySerch) {
         return trackResult
     }
     catch (err) {
-        console.log('Cannot reach server:', err);
+        console.log('Cannwot reach server:', err);
     }
 }
 

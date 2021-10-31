@@ -16,7 +16,7 @@ class _Home extends Component {
         hotStations: [],
         likedStations: '',
         recentlyPlayedStations: '',
-        numOfPreviews: 5
+        numOfPreviews: 5,
     }
 
     resizer
