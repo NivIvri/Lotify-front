@@ -5,6 +5,16 @@ import { MainLayout } from '../cmps/layout/MainLayout.jsx';
 import { setUserPref, loadUser } from '../store/user.actions'
 import { userService } from '../services/user.service.js';
 import logo from '../assets/img/gramophone.png'
+import kaleo from '../assets/img/kaleo.jpg'
+import coldplay from '../assets/img/coldplay.jpg'
+import donald from '../assets/img/donald.jpg'
+import kanyeWest from '../assets/img/kanyeWest.jpg'
+import MGMT from '../assets/img/MGMT.jpg'
+import aerosmith from '../assets/img/aerosmith.jpg'
+import milkyChance from '../assets/img/milkyChance.jpg'
+import sia from '../assets/img/sia.png'
+import metallica from '../assets/img/metallica.jpg'
+import theLumineers from '../assets/img/theLumineers.jpg'
 
 
 
@@ -48,7 +58,7 @@ class _UserPref extends Component {
                 <MainLayout>
                     <div className="artists">
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'kaleo')}>
-                            <img src="https://yt3.ggpht.com/ytc/AKedOLRrZSbWTyBAENocILL6FsPxL0FcSRdA0XNnDExc8A=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
+                            <img src={kaleo} alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Kaleo</h3>
 
                         </div>
@@ -58,7 +68,7 @@ class _UserPref extends Component {
 
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'sia')}>
-                            <img src="https://yt3.ggpht.com/0xb0rVHF2QHhnmQA5xKQiqPPPuq0gQbHkM8zCvR4vEpvWDNhSSJYUuGXmWZHAjNHJYebQim2=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
+                            <img src={sia} alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Sia</h3>
 
                         </div>
@@ -123,7 +133,7 @@ class _UserPref extends Component {
                             <i class="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'coldplay')}>
-                            <img src="https://yt3.ggpht.com/gDGaWA0ykI0RuD-x0tOtlZQp_pmfqXMastg2rAJhCoGXeG7a44LL0BlSOZ1nQpuaj5apqzjxa4Y=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
+                            <img src={coldplay} alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Coldplay</h3>
 
                         </div>
@@ -163,7 +173,7 @@ class _UserPref extends Component {
                             <i class="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'metallica')}>
-                            <img src="https://yt3.ggpht.com/cZ87jDcUyng8WCTC_FZIZhtjd0VQIoyla_GLOCqCJwiePKbnsgMFAoJlJXO3JUdIDiG0U-W-Q-U=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
+                            <img src={metallica} alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Metallica</h3>
                             <i class="fas fa-check"></i>
                         </div>
@@ -183,7 +193,7 @@ class _UserPref extends Component {
                             <i class="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'the lumineers')}>
-                            <img src="https://yt3.ggpht.com/JeSo37nuDNtXpYeRCXkdSd0BY1EBwOX3DjsoI7h5qS8qtURwdacx87aGyLsW-Zt_xHst5YN0j2A=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
+                            <img src={theLumineers} alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>The Lumineers</h3>
                             <i class="fas fa-check"></i>
                         </div>
@@ -193,7 +203,7 @@ class _UserPref extends Component {
                             <i class="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'aerosmith')}>
-                            <img src="https://yt3.ggpht.com/GVz2Q0BOmqNFKQvNXSoC5rVJWqvsajttYdF0VN6lYfwK2Misv-NJr_5akFEHxc8YkyGquGoZ=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
+                            <img src={aerosmith} alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Aerosmith</h3>
                             <i class="fas fa-check"></i>
                         </div>
@@ -203,7 +213,7 @@ class _UserPref extends Component {
                             <i class="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'MGMT')}>
-                            <img src="https://yt3.ggpht.com/uAFVZ2fFM7MshpUPfUxDWC_zZoXS9LYYKVu9WtmERQsei97F7oG0EJxLKZpmIxCBk-ZO6I2FiQ=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
+                            <img src={MGMT} alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>MGMT</h3>
                             <i class="fas fa-check"></i>
                         </div>
@@ -213,7 +223,7 @@ class _UserPref extends Component {
                             <i class="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'kanye west')}>
-                            <img src="https://yt3.ggpht.com/OZ6-K14IWCEu6rgIgmox9cID8hTUObJ9uPn_BRwr4O1CNyB_u6N3BqpaztggGYfKVv4rdR0zPYU=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
+                            <img src={kanyeWest} alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Kanye West</h3>
                             <i class="fas fa-check"></i>
                         </div>
@@ -223,7 +233,7 @@ class _UserPref extends Component {
                             <i class="fas fa-check"></i>
                         </div>
                         <div className="circle-container" onClick={(ev) => this.selectArtist(ev, 'milky chance')}>
-                            <img src="https://yt3.ggpht.com/rxuJTmm-nGWtgvPdVyePl4PdDIwhEopv78WM7jyj6UI3ChJYjCOMd7c_AbuYSdzYMs2AMCu1WQ=s800-c-k-c0xffffffff-no-rj-mo" alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
+                            <img src={milkyChance} alt="" onError={(e) => { e.target.onerror = null; e.target.src = logo }} />
                             <h3>Milky Chance</h3>
                             <i class="fas fa-check"></i>
                         </div>
